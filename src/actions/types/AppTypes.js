@@ -1,0 +1,3 @@
+export const APP_VERSION_GET = 'APP_VERSION_GET';
+export const APP_USER_SET = 'APP_USER_SET';
+export const APP_SYSTEM_ERROR = 'APP_SYSTEM_ERROR';

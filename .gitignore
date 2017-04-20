@@ -1,7 +1,8 @@
 # OSX
 #
 .DS_Store
-
+*.ttf
+*.otf
 # Xcode
 #
 build/
