@@ -66,6 +66,7 @@ class Password extends Component {
 const mapStateToProps = (state) => {
     return {
         AppInfo: state.AppReducer
+
     };
 };
 
