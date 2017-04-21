@@ -4,6 +4,7 @@ import { Provider ,connect} from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from '../../reducers';
+import welcomeAction from '../../actions/WelcomeAction'
 import {Scene, Router,Actions} from 'react-native-router-flux';
 import {Button,Container,Content,Header,Icon,Text,Left,Body,Right,Title,List,ListItem,Toast} from 'native-base';
 const store = compose(
@@ -18,16 +19,17 @@ class Welcome extends Component {
     }
 
 
-render(){
-
-
+    render(){
+        const {toLogin} = this.props;
         return (
             <Provider store={store}>
                 <Container>
                     <Body style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#4f0f04"}}>
                         <View style={{flex:1,flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
                             <Text>Welcome</Text>
-                            <Button block onPress={()=>{Actions.login()}}><Text>Enter</Text></Button>
+                            <Button block onPress={()=>{
+                                toLogin();
+                            }}><Text>Enter</Text></Button>
                         </View>
                     </Body>
                 </Container>
@@ -45,6 +47,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+    toLogin :()=>{
+        dispatch(welcomeAction.toLogin());
+    }
 });
 
 

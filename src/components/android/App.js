@@ -11,6 +11,7 @@ import localStorageKey from '../../util/LocalStorageKey';
 import Welcome from './Welcome';
 import Login from './Login';
 import MainRoot from './MainRoot';
+import Password from './Password';
 
 const store = compose(
     applyMiddleware(ReduxThunk)
@@ -29,9 +30,10 @@ class App extends Component {
 
                 <Router>
                     <Scene key="root">
-                        <Scene key="welcome" component={Welcome} initial={true}  hideNavBar={true}/>
-                        <Scene key="login"  component={Login}  hideNavBar={true}/>
+                        <Scene key="welcome" component={Welcome}  hideNavBar={true}/>
+                        <Scene key="login"  component={Login} initial={true}    hideNavBar={true}/>
                         <Scene key="main"  component={MainRoot}  hideNavBar={true}/>
+                        <Scene key="password"  component={Password} hideNavBar={true}/>
                     </Scene>
                 </Router>
 

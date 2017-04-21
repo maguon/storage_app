@@ -23,15 +23,14 @@ class Setting extends Component {
         super(props);
     }
     componentDidMount(){
-        const {getStorageList} = this.props;
-        getStorageList();
+
     }
 
     render() {
         const {AppInfo} = this.props;
         return (
             <Provider store={store}>
-                <Container>
+                <Container style={{flex:1}}>
                     <Header >
                         <Left></Left>
                         <Body style={{backgroundColor:"transparent"}}>
@@ -39,7 +38,7 @@ class Setting extends Component {
                         </Body>
                         <Right></Right>
                     </Header>
-                    <Content>
+                    <View style={{flex:1}}>
                         <List>
                             <ListItem onPress={()=>{Actions.password()}}>
                                 <Left>
@@ -84,7 +83,7 @@ class Setting extends Component {
                         <Button light full style={{marginTop:20}}>
                             <Text>Quit</Text>
                         </Button>
-                    </Content>
+                    </View>
                 </Container>
             </Provider>
         )

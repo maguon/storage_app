@@ -9,7 +9,7 @@ import ReduxThunk from 'redux-thunk';
 import reducers from '../../reducers';
 import * as appAction from '../../actions/AppAction';
 import localStorageKey  from '../../util/LocalStorageKey';
-import {Button,Container,Content,Footer,FooterTab,Icon,Text} from 'native-base';
+import {Button,Body,Container,Content,Footer,FooterTab,Icon,Text} from 'native-base';
 
 import Setting from './Setting';
 
@@ -29,14 +29,14 @@ class Main extends Component {
                 return (<View><Text>Record</Text></View>);
                 break;
             case 'setting':
-                return (<Setting/>);
+                return (<Setting></Setting>);
                 break;
         }
     }
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'setting',
+            selectedTab: 'home',
         }
 
     }
@@ -51,10 +51,10 @@ class Main extends Component {
         const {selectedTab} = this.state;
         return (
             <Provider store={store}>
-                <Container>
-                    <Content>
+                <Container >
+                    <View style={{flex:1}}>
                         {this.renderSelectedTab()}
-                    </Content>
+                    </View>
                     <Footer rasied>
                         <FooterTab>
                             <Button
