@@ -10,7 +10,7 @@ import reducers from '../../reducers';
 import * as storageAction from '../../actions/StorageAction';
 import localStorageKey  from '../../util/LocalStorageKey';
 import {Actions} from 'react-native-router-flux';
-import {Button,Container,Content,Header,Icon,Text,Left,Body,Right,Title,List,ListItem,Toast} from 'native-base';
+import {Button,Container,Content,Header,Icon,Text,Left,Body,Right,Title,List,ListItem,Thumbnail,Toast} from 'native-base';
 
 
 const store = compose(

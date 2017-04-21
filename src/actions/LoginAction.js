@@ -12,14 +12,12 @@ export const login = (username,password) => {
             username : username,
             password : password
         }
-        Actions.main();
-        /*httpRequest.post(base_host+'/admin/do/login',params,(err,res)=>{
+        httpRequest.post(base_host+'/admin/do/login',params,(err,res)=>{
             if(res){
                 if(res.success){
-                    localStorage.saveKey(localStorageKey.USER_TOKEN,res.result.accessToken);
-                    localStorage.saveKey(localStorageKey.USER_ID,res.result.userId);
                     dispatch({type:actionTypes.loginTypes.LOGIN_PASSWORD_CHANGE,payload:{data:''}})
-
+                    dispatch({type:actionTypes.userTypes.USER_INFO_SET,payload:{data:res.result}})
+                    Actions.main();
                 }else{
                     Alert.alert(res.msg,null,[
                         {text: 'OK', onPress: () => {
@@ -35,7 +33,7 @@ export const login = (username,password) => {
                     {text: 'OK', onPress: () => {}}
                 ]);
             }
-        })*/
+        })
     }
 }
 
