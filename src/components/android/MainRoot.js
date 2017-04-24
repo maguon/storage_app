@@ -11,7 +11,9 @@ import * as appAction from '../../actions/AppAction';
 import localStorageKey  from '../../util/LocalStorageKey';
 import {Button,Body,Container,Content,Footer,FooterTab,Icon,Text} from 'native-base';
 
+import Home from './home'
 import Setting from './Setting';
+import Record from './record'
 
 const store = compose(
     applyMiddleware(ReduxThunk)
@@ -23,10 +25,10 @@ class Main extends Component {
     renderSelectedTab () {
         switch (this.state.selectedTab) {
             case 'home':
-                return (<View><Text>Home</Text></View>);
+                return (<Home></Home>);
                 break;
             case 'record':
-                return (<View><Text>Record</Text></View>);
+                return (<Record></Record>);
                 break;
             case 'setting':
                 return (<Setting></Setting>);
@@ -36,7 +38,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'setting',
+            selectedTab: 'home',
         }
 
     }
