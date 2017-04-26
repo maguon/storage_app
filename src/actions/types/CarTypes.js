@@ -1,0 +1,3 @@
+export const CARSUCCESS='CARSUCCESS'
+export const CARFAILED='CARFAILED'
+export const CARMSGFAILED='CARMSGFAILED'

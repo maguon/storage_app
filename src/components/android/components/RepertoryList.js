@@ -2,14 +2,14 @@ import React,{Component } from 'react'
 import { Text,View} from 'react-native'
 import { connect} from 'react-redux'
 
-export default class Home extends Component {
+export default class Repertorylist extends Component {
     constructor(props){
         super(props)
     }
 
     render(){
         return (
-            <View><Text>new record</Text></View>
+            <View><Text>repertorylist</Text></View>
         )
 
     }

@@ -11,9 +11,9 @@ import * as appAction from '../../actions/AppAction';
 import localStorageKey  from '../../util/LocalStorageKey';
 import {Button,Body,Container,Content,Footer,FooterTab,Icon,Text} from 'native-base';
 
-import Home from './home'
-import Setting from './Setting';
-import Record from './record'
+import Home from './views/Home'
+import Setting from './Setting'
+import Record from './views/Record'
 
 const store = compose(
     applyMiddleware(ReduxThunk)
