@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import Storage from './Storage'
-import { Container,Text,List,ListItem } from 'native-base'
+import { Container, Text, List, ListItem } from 'native-base'
 
 export default class StoragesView extends Component {
     constructor(props) {
@@ -10,28 +10,15 @@ export default class StoragesView extends Component {
 
     render() {
         return (
-            <Container>
-                    <List>
-                        <ListItem >
-                            <Text>1</Text>
-                        </ListItem>
-                        <ListItem >
-                            <Text>1</Text>
-                        </ListItem>
-                        <ListItem >
-                            <Text>1</Text>
-                        </ListItem>
-                        <ListItem >
-                            <Text>1</Text>
-                        </ListItem>
-                        <ListItem >
-                            <Text>1</Text>
-                        </ListItem>
-
-                    </List>
-                {/*<Storage />*/}
-
-            </Container>
+            <View style={{backgroundColor:"red"}}>
+                <List>
+                    <Storage />
+                    <Storage />
+                    <Storage />
+                    <Storage />
+                    <Storage />
+                </List>
+            </View>
 
         )
 

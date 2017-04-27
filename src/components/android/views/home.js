@@ -62,11 +62,15 @@ class Home extends Component {
     render() {
         return (
 
-            <Container>
+            <View style={{flexDirection:"column",justifyContent:"flex-start"}}>
                 <TopBar />
-                <StoragesView />
+                
+                <StoragesView/>
+                {/*<StoragesView style={{alignSelf:"flex-start"}}/>
+                <StoragesView style={{alignSelf:"flex-start"}}/>*/}
+                {/*<Camera></Camera>*/}
                 {/*<RecordList />*/}
-            </Container>
+            </View>
 
         )
     }

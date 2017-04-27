@@ -9,7 +9,7 @@ export default class TopBar extends Component {
 
     render() {
         return (
-            <Container>
+            <View>
                 <Header searchBar>
 
                     <Left style={{ flex: 1 }}>
@@ -39,7 +39,7 @@ export default class TopBar extends Component {
                 </Header>
 
 
-            </Container>
+            </View>
         )
 
     }

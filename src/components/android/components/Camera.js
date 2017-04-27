@@ -19,6 +19,8 @@ var photoOptions = {
     quality: 0.75,
     allowsEditing: true,
     noData: false,
+    maxWidth:960,
+    maxHeight:960,
     storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -43,9 +45,9 @@ export default class Camera extends Component {
                     title="相机测试"
                     color="#841584"
                 />
-                <Image
+                {/*<Image
                     style={styles.cameraImage}
-                    source={{ uri: 'http://stg.myxxjs.com:9002/api/user/34/image/5900067ee187d33973181ec0' }} />
+                    source={{ uri: 'http://stg.myxxjs.com:9002/api/user/34/image/5900067ee187d33973181ec0' }} />*/}
             </View>
         );
     }
@@ -55,7 +57,7 @@ export default class Camera extends Component {
         ImagePicker.showImagePicker(photoOptions, (image) => {
             console.log('response' + image);
             console.log(image);
-            let sizeMax = 99  //960
+            let sizeMax = 960  //960
             if (image.width > sizeMax && image.height > sizeMax) {
                 if (image.width > image.height) {
                     
@@ -136,8 +138,8 @@ export default class Camera extends Component {
 
 const styles = StyleSheet.create({
     cameraImage: {
-        width: 480,
-        height: 480,
+        width: 960,
+        height: 960,
     },
     container: {
         // flex: 1,
