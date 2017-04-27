@@ -1,6 +1,7 @@
 import httpRequest from '../util/HttpRequest.js'
 import { base_host, file_host } from '../config/Host'
 import * as actionTypes from '../actions/types'
+import {Alert} from 'react-native'
 
 
 export const getCarAll = () => (dispatch) => {

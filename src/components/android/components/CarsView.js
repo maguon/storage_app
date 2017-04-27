@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import Car from './Car'
 
-export default class CarViews extends Component {
+export default class CarsView extends Component {
     constructor(props) {
         super(props)
     }
