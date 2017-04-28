@@ -2,7 +2,7 @@
  * Created by lingxue on 2017/4/17.
  */
 import React,{Component, PropTypes } from 'react'
-import { StatusBar,View ,Navigator} from 'react-native';
+import { StatusBar,View ,Navigator,KeyboardAwareScrollView} from 'react-native';
 import { Provider ,connect} from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
@@ -14,6 +14,7 @@ import {Button,Body,Container,Content,Footer,FooterTab,Icon,Text} from 'native-b
 import Home from './views/Home'
 import Setting from './Setting'
 import Record from './views/Record'
+import TopBar from './components/TopBar'
 
 const store = compose(
     applyMiddleware(ReduxThunk)
@@ -52,8 +53,9 @@ class Main extends Component {
         const {AppInfo} = this.props;
         const {selectedTab} = this.state;
         return (
-            <Provider store={store}>
-                <Container >
+             <Provider store={store}>
+                <Container  style={{flexDirection:"column",justifyContent:"flex-start"}}>
+                    <TopBar />
                     <View style={{flex:1}}>
                         {this.renderSelectedTab()}
                     </View>

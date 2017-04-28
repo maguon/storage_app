@@ -1,6 +1,7 @@
 import React,{Component } from 'react'
-import { Text,View} from 'react-native'
+import { View} from 'react-native'
 import Record from './Record'
+import { Text ,List} from 'native-base'
 
 export default class RecordList extends Component {
     constructor(props){
@@ -10,8 +11,13 @@ export default class RecordList extends Component {
     render(){
         return (
             <View>
-                <Record></Record>
-                <Text>recordlist</Text>
+                <Text>工作记录</Text>
+                <List>
+                    <Record />
+                </List>
+
+
+                
             </View>
         )
 

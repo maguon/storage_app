@@ -10,12 +10,8 @@ export default class StoragesView extends Component {
 
     render() {
         return (
-            <View style={{backgroundColor:"red"}}>
+            <View>
                 <List>
-                    <Storage />
-                    <Storage />
-                    <Storage />
-                    <Storage />
                     <Storage />
                 </List>
             </View>

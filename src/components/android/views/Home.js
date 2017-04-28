@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Alert, StyleSheet } from 'react-native'
+import { Text, View, Alert, StyleSheet,ScrollView } from 'react-native'
 import { Provider, connect } from 'react-redux'
 
 
@@ -61,35 +61,14 @@ class Home extends Component {
 
     render() {
         return (
-
-            <View style={{flexDirection:"column",justifyContent:"flex-start"}}>
-                <TopBar />
-                
+            <ScrollView >
                 <StoragesView/>
-                {/*<StoragesView style={{alignSelf:"flex-start"}}/>
-                <StoragesView style={{alignSelf:"flex-start"}}/>*/}
-                {/*<Camera></Camera>*/}
-                {/*<RecordList />*/}
-            </View>
-
+                <RecordList/>
+            </ScrollView>
         )
     }
 }
 const styles = StyleSheet.create({
-    Item: {
-        flex: 1,
-    },
-    View: {
-        flex: 5
-    },
-    Left: {
-        flex: 1
-    },
-    ccc: {
-        flex: 3,
-        backgroundColor: 'red'
-    }
-
 
 })
 
@@ -97,7 +76,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         cars: state.CarReducer,
-        carMakes: state.CarMakeReducer
+        carMakes: state.CarMakeReducer,
+        storages:state.StorageReducer
     }
 }
 

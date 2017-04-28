@@ -19,15 +19,13 @@ export default class TopBar extends Component {
                         </Button>
 
                     </Left>
-                    {/*<Body style={{flex:5}}>*/}
+                    
                     <View style={{flex:5}}>
                         <Item rounded>
                             <Input placeholder="Search" />
                             <Icon name="search" />
                         </Item>
                     </View>
-
-                    {/*</Body>*/}
 
                     <Right style={{ flex: 1 }}>
 

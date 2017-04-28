@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { Container, Text ,ListItem} from 'native-base'
+import { Text ,ListItem} from 'native-base'
 
 
 export default class Storage extends Component {
