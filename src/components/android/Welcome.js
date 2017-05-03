@@ -8,9 +8,7 @@ import * as welcomeAction from '../../actions/WelcomeAction';
 import * as appAction from '../../actions/AppAction';
 import {Scene, Router,Actions} from 'react-native-router-flux';
 import {Button,Container,Content,Header,Icon,Text,Left,Body,Right,Title,List,ListItem,Toast} from 'native-base';
-const store = compose(
-    applyMiddleware(ReduxThunk)
-)(createStore)(reducers);
+
 
 
 class Welcome extends Component {
@@ -24,7 +22,6 @@ class Welcome extends Component {
         const {getAppLastVersion} = this.props;
         getAppLastVersion();
         return (
-            <Provider store={store}>
                 <Container>
                     <Body style={{flex:1,flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#4f0f04"}}>
                         <View style={{flex:1,flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
@@ -35,8 +32,6 @@ class Welcome extends Component {
                         </View>
                     </Body>
                 </Container>
-
-            </Provider>
         )
     }
 

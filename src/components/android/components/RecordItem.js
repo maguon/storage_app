@@ -8,15 +8,15 @@ export default class Record extends Component {
     }
 
     render() {
+        let { created_on, op, comment } = this.props.recordItem
         return (
 
-                        <View style={{ flexDirection: "row" }}>
-                            <Text>图标</Text>
-                            <Text>时间</Text>
-                            <Text>操作</Text>
-                            <Text>图标</Text>
-                            <Text>移位</Text>
-                        </View>
+            <View style={{ flexDirection: "row" }}>
+
+                <Text style={{ color: 'red' }} > {created_on}</Text>
+                <Text>{op}</Text>
+                <Text style={{ color: 'red' }} > {comment}</Text>
+            </View>
 
         )
 

@@ -6,8 +6,10 @@ function get(url, callback) {
             'Content-Type': 'application/json',
             'charset': 'utf-8'
         }
-    }).then((response) =>
-        response.json()
+    }).then((response) => {
+        let json = response.json()
+        return json
+    }
         ).then((responseJson) => {
             callback(null, responseJson)
         })
@@ -73,12 +75,12 @@ function postFile(imgAry, url, item) {
     if (Array.isArray(imgAry)) {
         for (var i = 0; i < imgAry.length; i++) {
             let file = { uri: imgAry[i], type: item.type, name: item.imageName };   //这里的key(uri和type和name)不能改变,
-            formData.append(item.key, file);   
+            formData.append(item.key, file);
         }
-    }else{
+    } else {
         let file = { uri: item.imageUrl, type: item.type, name: item.imageName };   //这里的key(uri和type和name)不能改变,
         console.log(file);
-        formData.append(item.key,file);   
+        formData.append(item.key, file);
         console.log(formData);
     }
 
@@ -97,10 +99,37 @@ function postFile(imgAry, url, item) {
         .catch((error) => { console.error('error', error) });
 }
 
+function getAll(urls, callback) {
+    let proMises = urls.map(url => fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'charset': 'utf-8'
+        }
+    }))
+
+    Promise.all(proMises)
+        .then(response => response.map(item => item.json()))
+        .then(responseJson => {
+            Promise.all(responseJson)
+                .then(res => {
+                    callback(null, res)
+                })
+                .catch((error) => {
+                    callback(error, null)
+                })
+        })
+        .catch((error) => {
+            callback(error, null)
+        })
+
+}
+
 module.exports = {
     get: get,
     post: post,
     put: put,
     del: del,
-    postFile: postFile
+    postFile: postFile,
+    getAll: getAll
 }

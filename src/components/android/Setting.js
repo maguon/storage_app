@@ -12,12 +12,6 @@ import localStorageKey  from '../../util/LocalStorageKey';
 import {Actions} from 'react-native-router-flux';
 import {Button,Container,Content,Header,Icon,Text,Left,Body,Right,Title,List,ListItem,Thumbnail,Toast} from 'native-base';
 
-
-const store = compose(
-    applyMiddleware(ReduxThunk)
-)(createStore)(reducers);
-
-
 class Setting extends Component {
     constructor(props){
         super(props);
@@ -29,7 +23,6 @@ class Setting extends Component {
     render() {
         const {AppInfo} = this.props;
         return (
-            <Provider store={store}>
                 <Container style={{flex:1}}>
                     <Header >
                         <Left></Left>
@@ -85,7 +78,6 @@ class Setting extends Component {
                         </Button>
                     </View>
                 </Container>
-            </Provider>
         )
     }
 }

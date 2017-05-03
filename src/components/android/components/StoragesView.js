@@ -9,10 +9,14 @@ export default class StoragesView extends Component {
     }
 
     render() {
+        
+        let storages =this.props.storages.map((item)=>{
+            return <Storage  storage={item} key={item.id}/>
+        })
         return (
             <View>
                 <List>
-                    <Storage />
+                    {storages}
                 </List>
             </View>
 

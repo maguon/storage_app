@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
-import { Text, View, Alert, StyleSheet,ScrollView } from 'react-native'
+import { Text, View, Alert, StyleSheet, Button, ScrollView } from 'react-native'
 import { Provider, connect } from 'react-redux'
 
 
 import * as CarAction from '../../../actions/CarAction'
 import * as CarMakeAction from '../../../actions/CarMakeAction'
+import * as StorageAction from '../../../actions/StorageAction'
+import * as RecordAction from '../../../actions/RecordAction'
 
 
 import { createStore, applyMiddleware, compose } from 'redux'
 import reducers from '../../../reducers'
 import ReduxThunk from 'redux-thunk'
 
-import { Container, ListItem, InputGroup, Radio, Item, Header, Input, Segment, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon } from 'native-base'
+import { Container, ListItem, InputGroup, Radio, Item, Header, Input, Segment, Title, Content, Footer, FooterTab, Left, Right, Body, Icon } from 'native-base'
 
-import CarsView from '../components/CarsView'
+import CarList from './CarList'
 import RecordList from '../components/RecordList'
 import Camera from '../components/Camera'
 import CarMake from '../components/CarMake'
@@ -28,42 +30,28 @@ const store = compose(
 class Home extends Component {
     constructor(props) {
         super(props)
-        this.testing = this.testing.bind(this)
-        // this.getTestCarList = this.getTestCarList.bind(this)
     }
-    // getTestCarList() {
-    //     return [{ id: 1, wake_name: '1' }, { id: 2, wake_name: '2' }]
-    // }
 
-    testing() {
-        //  this.props.getCarAll()
-        this.props.getCarMakesAll()
-        /*<View> 
-
-                       <TopBar></TopBar>
- 
- <Camera></Camera>
-
- <FileUpload></FileUpload>
- <VinScanner></VinScanner>
- <CarsView carlist={this.props.cars}></CarsView>
- <RecordList></RecordList>
- <CarMake carMakes={this.props.carMakes}></CarMake>
- <Text>new home</Text>
- <Button
-     onPress={this.testing}
-     title="testing"
-     color="#841584"
- />
-
-</View>*/
+    componentDidMount() {
+        this.props.getStorageList()
+        this.props.getRecordsAllByUser({ id: 3 })
     }
 
     render() {
         return (
             <ScrollView >
-                <StoragesView/>
-                <RecordList/>
+                <StoragesView storages={this.props.storages} />
+                <RecordList records={this.props.records} />
+                {/*<Button
+                    onPress={this.testing}
+                    title="testing"
+                    color="#841584"
+                />
+                <Button
+                    onPress={this.showing}
+                    title="showing"
+                    color="#841584"
+                />*/}
             </ScrollView>
         )
     }
@@ -74,19 +62,23 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
+    console.log('mapStateToProps',state)
     return {
-        cars: state.CarReducer,
         carMakes: state.CarMakeReducer,
-        storages:state.StorageReducer
+        storages: state.StorageReducer,
+        records: state.RecordReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getCarAll: () => {
-        dispatch(CarAction.getCarAll())
-    },
     getCarMakesAll: () => {
         dispatch(CarMakeAction.getCarMakesAll())
+    },
+    getStorageList: () => {
+        dispatch(StorageAction.getStorageList())
+    },
+    getRecordsAllByUser: (user) => {
+        dispatch(RecordAction.getRecordsAllByUser(user))
     }
 })
 

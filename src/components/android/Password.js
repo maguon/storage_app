@@ -12,18 +12,11 @@ import localStorageKey  from '../../util/LocalStorageKey';
 import {Actions} from 'react-native-router-flux';
 import {Button,Container,Content,Header,Icon,Form,Item,Text,Label,Input,Left,Body,Right,Title,List,ListItem,Toast} from 'native-base';
 
-const store = compose(
-    applyMiddleware(ReduxThunk)
-)(createStore)(reducers);
-
-
 class Password extends Component {
 
     constructor(props) {
         super(props);
     }
-
-
 
     render() {
         const {AppInfo} = this.props;

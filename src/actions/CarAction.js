@@ -1,38 +1,36 @@
 import httpRequest from '../util/HttpRequest.js'
 import { base_host, file_host } from '../config/Host'
 import * as actionTypes from '../actions/types'
-import {Alert} from 'react-native'
 
 
-export const getCarAll = () => (dispatch) => {
-        console.log('ttt')
-        httpRequest
-        .get(base_host + '/user/3/car', (err, res) => {
+export const getCarAll = (user) => (dispatch) => {
+    console.log('=======START======')
+    let url = `${base_host}/user/${user.id}/car`
+    console.log(url)
+    httpRequest
+        .get(url, (err, res) => {
             console.log('ttt')
             if (err) {
-                console.log('CARFAILED')
-                Alert.alert('CARFAILED', null, [
-                    { text: 'OK', onPress: () => { } }
-                ]);
+                console.log('FAILED', err)
             } else {
                 if (res.success) {
-                    console.log(11)
-                    dispatch({ type: actionTypes.carTypes.CARSUCCESS, payload: { data: res.result } });
-                } else {
-                    console.log(22)
-                    Alert.alert(res.msg, null, [
-                        {
-                            text: 'OK', onPress: () => {
 
-                            }
-                        }
-                    ])
+                    console.log('SECCUSS', res.result)
+                    dispatch({ type: actionTypes.carTypes.GET_CARS_SUCCESS, payload: { data: res.result } });
+                } else {
+                    console.log('RES_FAITLED', res.msg)
                 }
             }
         })
-        console.log('ttt')
+    console.log('=======END======')
 
-    }
+}
+
+export const getCarById = (carId) => (dispatch) => {
+    dispatch({ type: actionTypes.carTypes.GET_CARS_SUCCESS, payload: { data: rcarId} });
+
+}
+
 
 
 
