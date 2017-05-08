@@ -8,7 +8,7 @@ import localStorageKey  from '../util/LocalStorageKey';
 import  * as actionTypes from '../actions/types';
 
 const initialState = {
-    userId : 0,
+    userId : 3,
     username : '',
     userType : 0 ,
     userToken: ''

@@ -3,9 +3,9 @@ import { StatusBar,View } from 'react-native';
 import { Provider ,connect} from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import reducers from '../../reducers';
-import * as welcomeAction from '../../actions/WelcomeAction';
-import * as appAction from '../../actions/AppAction';
+import reducers from '../../../reducers/index';
+import * as welcomeAction from '../../../actions/WelcomeAction';
+import * as appAction from '../../../actions/AppAction';
 import {Scene, Router,Actions} from 'react-native-router-flux';
 import {Button,Container,Content,Header,Icon,Text,Left,Body,Right,Title,List,ListItem,Toast} from 'native-base';
 

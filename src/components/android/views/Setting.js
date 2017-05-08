@@ -6,9 +6,9 @@ import { View } from 'react-native';
 import { Provider ,connect} from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import reducers from '../../reducers';
-import * as storageAction from '../../actions/StorageAction';
-import localStorageKey  from '../../util/LocalStorageKey';
+import reducers from '../../../reducers/index';
+import * as storageAction from '../../../actions/StorageAction';
+import localStorageKey  from '../../../util/LocalStorageKey';
 import {Actions} from 'react-native-router-flux';
 import {Button,Container,Content,Header,Icon,Text,Left,Body,Right,Title,List,ListItem,Thumbnail,Toast} from 'native-base';
 

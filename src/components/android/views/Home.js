@@ -1,31 +1,21 @@
 import React, { Component } from 'react'
-import { Text, View, Alert, StyleSheet, Button, ScrollView } from 'react-native'
-import { Provider, connect } from 'react-redux'
-
-
-import * as CarAction from '../../../actions/CarAction'
-import * as CarMakeAction from '../../../actions/CarMakeAction'
+import {
+    Text,
+    View,
+    StyleSheet,
+    ScrollView,
+    Image,
+    Dimensions
+} from 'react-native'
+import { Button, Icon,Item,Input } from 'native-base';
+import { connect } from 'react-redux'
 import * as StorageAction from '../../../actions/StorageAction'
 import * as RecordAction from '../../../actions/RecordAction'
-
-
-import { createStore, applyMiddleware, compose } from 'redux'
-import reducers from '../../../reducers'
-import ReduxThunk from 'redux-thunk'
-
-import { Container, ListItem, InputGroup, Radio, Item, Header, Input, Segment, Title, Content, Footer, FooterTab, Left, Right, Body, Icon } from 'native-base'
-
-import CarList from './CarList'
 import RecordList from '../components/RecordList'
-import Camera from '../components/Camera'
-import CarMake from '../components/CarMake'
-import VinScanner from '../components/VinScanner'
-import TopBar from '../components/TopBar'
-import StoragesView from '../components/StoragesView'
+import StoragesPannelList from '../components/StoragesPannelList'
+import SearchBar from '../components/SearchBar'
 
-const store = compose(
-    applyMiddleware(ReduxThunk)
-)(createStore)(reducers)
+const window = Dimensions.get('window')
 
 class Home extends Component {
     constructor(props) {
@@ -39,41 +29,42 @@ class Home extends Component {
 
     render() {
         return (
-            <ScrollView >
-                <StoragesView storages={this.props.storages} />
+            <View>
+                <View style={styles.image}>
+                    <Image source={{ uri: 'banner_back' }} style={styles.image} />
+                    <View style={styles.search}>
+                        <SearchBar />
+                    </View>
+                </View>
+                <StoragesPannelList storages={this.props.storages} />
                 <RecordList records={this.props.records} />
-                {/*<Button
-                    onPress={this.testing}
-                    title="testing"
-                    color="#841584"
-                />
-                <Button
-                    onPress={this.showing}
-                    title="showing"
-                    color="#841584"
-                />*/}
-            </ScrollView>
+            </View>
         )
     }
 }
-const styles = StyleSheet.create({
 
+const styles = StyleSheet.create({
+    image: {
+        width: window.width,
+        height: window.width / 32 * 15,
+    },
+    search: {
+        width: window.width,
+        position: 'absolute',
+        top: 0,
+        height: 20
+    }
 })
 
-
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps',state)
     return {
-        carMakes: state.CarMakeReducer,
         storages: state.StorageReducer,
-        records: state.RecordReducer
+        records: state.RecordReducer,
+        user: state.UserReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getCarMakesAll: () => {
-        dispatch(CarMakeAction.getCarMakesAll())
-    },
     getStorageList: () => {
         dispatch(StorageAction.getStorageList())
     },

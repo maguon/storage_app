@@ -3,8 +3,8 @@ import { View } from 'react-native';
 import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import reducers from '../../reducers';
-import * as LoginAction from '../../actions/LoginAction';
+import reducers from '../../../reducers/index';
+import * as LoginAction from '../../../actions/LoginAction';
 import { Actions } from 'react-native-router-flux';
 import { Button, Container, Content, Header, Icon, Form, Item, Text, Label, Input, Left, Body, Right, Title, List, ListItem } from 'native-base';
 

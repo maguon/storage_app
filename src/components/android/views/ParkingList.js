@@ -22,9 +22,7 @@ class ParkingList extends Component {
                 nextPage={Actions.ParkingView}/>)
         return (
             <View>
-
                 {storages}
-
             </View>
         )
     }

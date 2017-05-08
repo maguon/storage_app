@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Button } from 'react-native'
 import { connect } from 'react-redux'
-import Footer from '../components/Footer'
 import Parking from '../components/Parking'
 import { Container } from 'native-base'
 import { Scene, Actions } from 'react-native-router-flux';
