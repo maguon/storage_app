@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { Text, ListItem } from 'native-base'
+import { View,Text } from 'react-native'
 import RecordItem from './RecordItem'
 
 export default class Record extends Component {
@@ -15,12 +14,8 @@ export default class Record extends Component {
         })
         return (
             <View>
-                <ListItem >
-                    <View>
-                        <View><Text>{created_on}</Text></View>
-                        {recordItem}
-                    </View>
-                </ListItem >
+                <View><Text>{created_on}</Text></View>
+                {recordItem}
             </View>
         )
     }

@@ -7,13 +7,13 @@ import {
     Image,
     Dimensions
 } from 'react-native'
-import { Button, Icon,Item,Input } from 'native-base';
 import { connect } from 'react-redux'
 import * as StorageAction from '../../../actions/StorageAction'
 import * as RecordAction from '../../../actions/RecordAction'
 import RecordList from '../components/RecordList'
 import StoragesPannelList from '../components/StoragesPannelList'
 import SearchBar from '../components/SearchBar'
+
 
 const window = Dimensions.get('window')
 
@@ -36,7 +36,7 @@ class Home extends Component {
                         <SearchBar />
                     </View>
                 </View>
-                <StoragesPannelList storages={this.props.storages} />
+                {/*<StoragesPannelList storages={this.props.storages} />*/}
                 <RecordList records={this.props.records} />
             </View>
         )

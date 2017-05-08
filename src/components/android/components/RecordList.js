@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView ,View,Text,Image} from 'react-native'
 import Record from './Record'
-import { Text, List } from 'native-base'
 
 export default class RecordList extends Component {
     constructor(props) {
@@ -28,10 +27,13 @@ export default class RecordList extends Component {
 
         return (
             <ScrollView>
-                <Text>工作记录</Text>
-                <List>
+                <View style={{marginLeft:10,marginRight:10,marginTop:10,paddingBottom:10, flexDirection:'row',borderBottomWidth:1,borderColor:'#00bfd8'}}>
+                    <Image source={{uri:'icon_notes'}} style={{width:20,height:20}}/>
+                    <Text style={{marginLeft:10}}>工作记录</Text>
+                </View>
+                <View style={{marginLeft:10,marginRight:10,marginTop:10}}>
                     {records}
-                </List>
+                </View>
             </ScrollView>
         )
     }
