@@ -15,6 +15,7 @@ import Password from './Password';
 import CarList from './views/CarList';
 import CarInfo from './views/CarInfo';
 import ParkingView from './views/ParkingView'
+import ErrView from './views/ErrView'
 
 
 
@@ -32,10 +33,11 @@ class App extends Component {
                 <Scene key="root">
                     <Scene key="welcome" component={Welcome} hideNavBar={true} />
                     <Scene key="login" component={Login} hideNavBar={true} />
-                    <Scene key="main" initial={true} component={MainRoot} hideNavBar={true} />
+                    <Scene key="main"  initial={true} component={MainRoot} hideNavBar={true} />
                     <Scene key="password" component={Password} hideNavBar={true} />
                     <Scene key="carInfo" component={CarInfo} hideNavBar={true} />
                     <Scene key="ParkingView" component={ParkingView} hideNavBar={true} />
+                    <Scene key="ErrView" component={ErrView} hideNavBar={true} />
                 </Scene>
             </Router>
         )

@@ -20,7 +20,6 @@ class ParkingList extends Component {
                 storage={item}
                 key={item.id}
                 nextPage={Actions.ParkingView}/>)
-        console.log('storages', this.props.storages)
         return (
             <View>
 
@@ -33,7 +32,7 @@ class ParkingList extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps',state)
+    
     return {
         storages: state.StorageReducer
     }

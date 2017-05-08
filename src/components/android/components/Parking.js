@@ -6,8 +6,8 @@ export default class Parking extends Component {
         super(props)
     }
     showParkingView() {
-        this.props.nextPage({ storage: this.props.storage,getParkingById:this.props.getParkingById })
-        //
+        this.props.nextPage({ storage: this.props.storage })
+        //,getParkingById:this.props.getParkingById
     }
 
     render() {

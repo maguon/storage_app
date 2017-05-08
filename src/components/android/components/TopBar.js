@@ -20,7 +20,7 @@ export default class TopBar extends Component {
 
                     </Left>
                     
-                    <View style={{flex:5}}>
+                    <View style={{flex:5,marginTop:10,marginBottom:10}}>
                         <Item rounded>
                             <Input placeholder="Search" />
                             <Icon name="search" />

@@ -11,20 +11,16 @@ export default handleActions({
         const { payload: { data } } = action
         return data.map(item => {
             item.pCount = item.col * item.row - item.balance
-            item.parkings=[]
+            item.parkings = []
             return item
         })
     },
     [actionTypes.storageTypes.GET_PARKING_BY_ID]: (state, action) => {
         const { payload: { data, id } } = action
-        console.log('state',state)
-        let s=state.map(item => {
+        return state.map(item => {
             if (item.id == id)
                 item.parkings = data
             return item
         })
-        console.log('s',s)
-        
-        return s
     }
 }, initialState)
