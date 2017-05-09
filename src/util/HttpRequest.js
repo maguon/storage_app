@@ -107,7 +107,6 @@ function getAll(urls, callback) {
             'charset': 'utf-8'
         }
     }))
-
     Promise.all(proMises)
         .then(response => response.map(item => item.json()))
         .then(responseJson => {
@@ -122,7 +121,6 @@ function getAll(urls, callback) {
         .catch((error) => {
             callback(error, null)
         })
-
 }
 
 module.exports = {

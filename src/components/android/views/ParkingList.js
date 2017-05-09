@@ -21,7 +21,7 @@ class ParkingList extends Component {
                 key={item.id}
                 nextPage={Actions.ParkingView}/>)
         return (
-            <View>
+            <View style={{flex:1}}>
                 {storages}
             </View>
         )

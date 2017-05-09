@@ -26,7 +26,7 @@ export default class RecordList extends Component {
             })
 
         return (
-            <ScrollView>
+            <View>
                 <View style={{marginLeft:10,marginRight:10,marginTop:10,paddingBottom:10, flexDirection:'row',borderBottomWidth:1,borderColor:'#00bfd8'}}>
                     <Image source={{uri:'icon_notes'}} style={{width:20,height:20}}/>
                     <Text style={{marginLeft:10}}>工作记录</Text>
@@ -34,7 +34,7 @@ export default class RecordList extends Component {
                 <View style={{marginLeft:10,marginRight:10,marginTop:10}}>
                     {records}
                 </View>
-            </ScrollView>
+            </View>
         )
     }
 }

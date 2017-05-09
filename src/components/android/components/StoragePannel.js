@@ -11,7 +11,7 @@ export default class StoragePannel extends Component {
     render() {
         let { storage } = this.props
         let count = storage.row * storage.col
-        let percent = 75 //(count-storage.pCount)/count
+        let percent = Math.round((count - storage.pCount) / count)
         return (
             <View style={styles.container}>
                 <View style={styles.infoView}>

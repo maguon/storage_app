@@ -17,6 +17,7 @@ import SearchBar from '../components/SearchBar'
 
 const window = Dimensions.get('window')
 
+
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -28,16 +29,19 @@ class Home extends Component {
     }
 
     render() {
+        let viewStyle={ backgroundColor: 'rgba(0,0,0,0.16)' }
         return (
-            <View>
-                <View style={styles.image}>
+            <View style={{flex:1}}>
+                <View>
                     <Image source={{ uri: 'banner_back' }} style={styles.image} />
                     <View style={styles.search}>
-                        <SearchBar />
+                        <SearchBar viewStyle={viewStyle}/>
                     </View>
                 </View>
-                {/*<StoragesPannelList storages={this.props.storages} />*/}
-                <RecordList records={this.props.records} />
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <StoragesPannelList storages={this.props.storages} />
+                    <RecordList records={this.props.records} />
+                </ScrollView>
             </View>
         )
     }
