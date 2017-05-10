@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, Button, ScrollView } from 'react-native'
+import { Text, View, ScrollView, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import Car from '../components/Car'
 import * as CarAction from '../../../actions/CarAction'
 import { Actions } from 'react-native-router-flux'
 import SearchBar from '../components/SearchBar'
+
+
+const window = Dimensions.get('window')
 
 class CarList extends Component {
     constructor(props) {
@@ -23,14 +26,16 @@ class CarList extends Component {
 
         let viewStyle = { backgroundColor: '#00cade' }
         return (
-            <View style={{flex:1}}>
+            <View style={{ flex: 1, width: window.width }}>
                 <SearchBar viewStyle={viewStyle} />
-                <ScrollView>
-                    <View style={{ flexDirection: "row" }}>
-                        <Text style={{ flex: 2 }}>入库时间</Text>
-                        <Text style={{ flex: 1 }}>品牌</Text>
-                        <Text style={{ flex: 1 }}>型号</Text>
-                    </View>
+                <View style={{ paddingHorizontal: 10, flexDirection: "row", height: 50, backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                    <View style={{ flex: 1 }}></View>
+                    <View style={{ flex: 12 }}><Text style={{ textAlign: 'center' }}>入库时间</Text></View>
+                    <View style={{ flex: 16 }}><Text style={{ textAlign: 'center' }}>VIN码</Text></View>
+                    <View style={{ flex: 10 }}><Text style={{ textAlign: 'center' }}>品牌</Text></View>
+                    <View style={{ flex: 1 }}></View>
+                </View>
+                <ScrollView >
                     {cars}
                 </ScrollView>
             </View>

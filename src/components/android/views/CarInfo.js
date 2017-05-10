@@ -1,22 +1,26 @@
 import React, { Component } from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View, Dimensions, ScrollView, Image } from 'react-native'
 import { connect } from 'react-redux'
 import Parking from '../components/Parking'
-import { Container } from 'native-base'
-import { Scene, Actions } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux'
+import NavBar from '../components/NavBar'
+import { Button, Icon } from 'native-base'
+
+
+const window = Dimensions.get('window')
 
 export default class CarInfo extends Component {
     constructor(props) {
         super(props)
     }
 
-    upload(){
+    upload() {
 
     }
-    move(){
+    move() {
 
     }
-    output(){
+    output() {
 
     }
 
@@ -24,27 +28,104 @@ export default class CarInfo extends Component {
         let { car } = this.props
 
         return (
-            <View>
-                <Text>VIN码：{car.vin}</Text>
-                <Text>品牌：{car.make_name}</Text>
-                <Text>型号：{car.model_name}</Text>
-                <Text>发动机型号：{car.engine_num}</Text>
-                <Text>颜色：{car.colour}</Text>
-                <Text>生产日期：{car.pro_date}</Text>
-                <Text>当前位置：{car.storage_name}-{car.row}-{car.col}</Text>
-                <Button 
-                onPress={this.upload.bind(this)}
-                title='上传照片'/>
-                <Text>存储记录：</Text>
-
-                <Button 
-                onPress={this.move.bind(this)}
-                title='移位'/>
-                <Button 
-                onPress={this.output.bind(this)}
-                title='出库'/>
+            <View style={{ flex: 1 }}>
+                <NavBar />
+                <ScrollView>
+                    <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
+                        <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ color: '#00cade', marginLeft: 10,fontSize:18 }}>VIN码：{car.vin}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <View style={{ flex: 1, paddingVertical: 10, borderRightWidth: 1, borderColor: '#dddddd', marginLeft: 10 }}>
+                                <Text style={{ fontSize:12 }}>品牌：{car.make_name}</Text>
+                            </View>
+                            <View style={{ flex: 1, paddingVertical: 10, marginLeft: 10 }}>
+                                <Text  style={{ fontSize:12 }}>型号：{car.model_name}</Text>
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ marginLeft: 10, fontSize:12  }}>颜色：{car.colour}</Text>
+                            <View style={{ width: 20, height: 20, borderColor: '#dddddd', borderWidth: 1, alignSelf: 'center', backgroundColor: `#${car.colour}`, right: 0, position: 'absolute' }}></View>
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ marginLeft: 10 , fontSize:12}}>发动机型号：{car.engine_num}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ marginLeft: 10 , fontSize:12}}>生产日期：{car.pro_date}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ marginLeft: 10, fontSize:12 }}>当前位置：{car.storage_name}-{car.row}-{car.col}</Text>
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >
+                        <View style={{ flex: 1, marginRight: 10 }}>
+                            <Button
+                                full
+                                style={{ backgroundColor: '#00cade', borderRadius: 5 }}
+                                onPress={this.move.bind(this)}>
+                                <Text style={{ color: '#ffffff' }}>移位</Text>
+                            </Button>
+                        </View >
+                        <View style={{ flex: 1, marginLeft: 10 }}>
+                            <Button
+                                full
+                                style={{ backgroundColor: '#00cade', borderRadius: 5 }}
+                                onPress={this.output.bind(this)}>
+                                <Text style={{ color: '#ffffff' }}>出库</Text>
+                            </Button>
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 20, marginHorizontal: 20 }}>
+                        <View style={{ width: (window.width - 50) / 2, height: 100, backgroundColor: '#999999', marginRight: 10, marginBottom: 10, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text>图片</Text>
+                        </View>
+                        <View style={{ width: (window.width - 50) / 2, height: 100, backgroundColor: '#999999', marginBottom: 10, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text>图片</Text>
+                        </View>
+                        <View style={{ width: (window.width - 50) / 2, height: 100, backgroundColor: '#999999', marginRight: 10, marginBottom: 10, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text>图片</Text>
+                        </View>
+                        <View style={{ width: (window.width - 50) / 2, height: 100, backgroundColor: '#999999', marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            <Button
+                                style={{ borderRadius: 35, width: 70, height: 70, justifyContent: 'center', alignItems: 'center', backgroundColor: '#00cade', alignSelf: 'center' }}
+                                onPress={this.upload.bind(this)}
+                                title='上传照片' >
+                                <Icon name='camera' />
+                            </Button>
+                        </View>
+                    </View>
+                    <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
+                        <View style={{ flexDirection: 'row', paddingBottom: 10, borderColor: '#dddddd', borderBottomWidth: 1 }}>
+                            <View>
+                                <Image source={{ uri: 'icon_notes' }} style={{ width: 20, height: 20 }} />
+                            </View>
+                            <View style={{ marginLeft: 10 }}>
+                                <Text>操作记录</Text>
+                            </View>
+                        </View>
+                        <View>
+                            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+                                <Text style={{ flex: 5, fontSize: 12 }}>2017-03-16 11:30</Text>
+                                <Text style={{ flex: 2, fontSize: 12,color:'#00cade' }}>入库</Text>
+                                <Text style={{ flex: 5, fontSize: 12 }}>至一号仓库B-12</Text>
+                                <Text style={{ flex: 3, fontSize: 12 }}>王大大</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+                                <Text style={{ flex: 5, fontSize: 12 }}>2017-03-16 11:30</Text>
+                                <Text style={{ flex: 2, fontSize: 12 ,color:'#ffa700'}}>移位</Text>
+                                <Text style={{ flex: 5, fontSize: 12 }}>至一号仓库B-12</Text>
+                                <Text style={{ flex: 3, fontSize: 12 }}>王大大</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+                                <Text style={{ flex: 5, fontSize: 12 }}>2017-03-16 11:30</Text>
+                                <Text style={{ flex: 2, fontSize: 12 ,color:'#f7656a'}}>出库</Text>
+                                <Text style={{ flex: 5, fontSize: 12 }}>至一号仓库B-12</Text>
+                                <Text style={{ flex: 3, fontSize: 12 }}>王大大</Text>
+                            </View>
+                        </View>
+                    </View>
+                </ScrollView>
             </View>
         )
     }
-
 }
