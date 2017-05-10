@@ -29,14 +29,16 @@ export default class CarInfo extends Component {
 
         return (
             <View style={{ flex: 1 }}>
-                <NavBar />
+                <NavBar title={'车辆详情'} />
                 <ScrollView>
                     <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
                         <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                             <Text style={{ color: '#00cade', marginLeft: 10,fontSize:18 }}>VIN码：{car.vin}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                            <View style={{ flex: 1, paddingVertical: 10, borderRightWidth: 1, borderColor: '#dddddd', marginLeft: 10 }}>
+                            <View style={{ flex: 1, paddingVertical: 10, 
+                            //borderRightWidth: 1, borderColor: '#dddddd', 
+                            marginLeft: 10 }}>
                                 <Text style={{ fontSize:12 }}>品牌：{car.make_name}</Text>
                             </View>
                             <View style={{ flex: 1, paddingVertical: 10, marginLeft: 10 }}>
@@ -75,25 +77,7 @@ export default class CarInfo extends Component {
                             </Button>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 20, marginHorizontal: 20 }}>
-                        <View style={{ width: (window.width - 50) / 2, height: 100, backgroundColor: '#999999', marginRight: 10, marginBottom: 10, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text>图片</Text>
-                        </View>
-                        <View style={{ width: (window.width - 50) / 2, height: 100, backgroundColor: '#999999', marginBottom: 10, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text>图片</Text>
-                        </View>
-                        <View style={{ width: (window.width - 50) / 2, height: 100, backgroundColor: '#999999', marginRight: 10, marginBottom: 10, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text>图片</Text>
-                        </View>
-                        <View style={{ width: (window.width - 50) / 2, height: 100, backgroundColor: '#999999', marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                            <Button
-                                style={{ borderRadius: 35, width: 70, height: 70, justifyContent: 'center', alignItems: 'center', backgroundColor: '#00cade', alignSelf: 'center' }}
-                                onPress={this.upload.bind(this)}
-                                title='上传照片' >
-                                <Icon name='camera' />
-                            </Button>
-                        </View>
-                    </View>
+
                     <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
                         <View style={{ flexDirection: 'row', paddingBottom: 10, borderColor: '#dddddd', borderBottomWidth: 1 }}>
                             <View>

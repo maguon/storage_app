@@ -18,7 +18,8 @@ import ParkingView from './views/ParkingView'
 import ErrView from './views/ErrView'
 import Home from './views/Home'
 import Setting from './views/Setting'
-import SearchBar from './components/SearchBar'
+import AddCar from './views/AddCar'
+
 
 class App extends Component {
     constructor(props) {
@@ -33,13 +34,14 @@ class App extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="welcome" component={Welcome} hideNavBar={true} />
+                    <Scene key="welcome"  component={Welcome} hideNavBar={true} />
                     <Scene key="login" component={Login} hideNavBar={true} />
-                    <Scene key="main" initial={true} component={MainRoot} hideNavBar={true} />
+                    <Scene key="main" component={MainRoot} hideNavBar={true} />
                     <Scene key="password" component={Password} hideNavBar={true} />
                     <Scene key="carInfo" component={CarInfo} hideNavBar={true} />
                     <Scene key="ParkingView" component={ParkingView} />
                     <Scene key="ErrView" component={ErrView}/>
+                    <Scene key="addCar"  initial={true}  component={AddCar}  hideNavBar/>
                 </Scene>
             </Router>
         )

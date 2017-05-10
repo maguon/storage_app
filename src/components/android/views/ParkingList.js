@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import * as StorageAction from '../../../actions/StorageAction'
 import Parking from '../components/Parking'
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
+import SearchBar from '../components/SearchBar'
 
 class ParkingList extends Component {
     constructor(props) {
@@ -19,18 +20,23 @@ class ParkingList extends Component {
             <Parking getParkingById={this.props.getParkingById}
                 storage={item}
                 key={item.id}
-                nextPage={Actions.ParkingView}/>)
+                nextPage={Actions.ParkingView} />)
+
+        let viewStyle = { backgroundColor: '#00cade' }
         return (
-            <View style={{flex:1}}>
-                {storages}
+            <View style={{ flex: 1 }}>
+                <SearchBar viewStyle={viewStyle} />
+                <ScrollView >
+                    {storages}
+                </ScrollView>
+
             </View>
         )
     }
-
 }
 
 const mapStateToProps = (state) => {
-    
+
     return {
         storages: state.StorageReducer
     }
