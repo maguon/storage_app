@@ -10,12 +10,12 @@ class CarList extends Component {
     }
 
     componentDidMount() {
-        this.props.getCarAll({ id: 3 })
+        this.props.getCarList({ requiredobj: { userid: 3 }, optionalobj: { start: 0, size: 20 } })
     }
 
     render() {
         return (
-            <CarListLayout {...this.props}/>
+            <CarListLayout {...this.props} />
         )
     }
 }
@@ -27,8 +27,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getCarAll: (user) => {
-        dispatch(CarAction.getCarAll(user))
+    getCarList: (user) => {
+        dispatch(CarAction.getCarList(user))
     }
 })
 
