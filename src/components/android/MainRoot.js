@@ -8,8 +8,8 @@ import localStorageKey from '../../util/LocalStorageKey'
 import { Button, Container, Footer, FooterTab, Icon } from 'native-base'
 import Home from './views/Home'
 import Setting from './views/Setting'
-import CarList from './views/CarList'
-import ParkingList from './views/ParkingList'
+import CarList from './components/CarList/CarList'
+import ParkingList from './components/ParkingList/ParkingList'
 import SearchBar from './components/Bar/SearchBar'
 
 

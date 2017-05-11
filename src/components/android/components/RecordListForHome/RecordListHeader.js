@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Dimensions } from 'react-native'
-import RecordItem from './RecordItem'
+import RecordItem from './RecordListItem'
 
 
 const window = Dimensions.get('window')

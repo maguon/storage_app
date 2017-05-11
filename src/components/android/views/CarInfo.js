@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, Dimensions, ScrollView, Image } from 'react-native'
 import { connect } from 'react-redux'
-import Parking from '../components/Parking'
+import Parking from '../components/ParkingList/ParkingListItem'
 import { Actions } from 'react-native-router-flux'
 import NavBar from '../components/Bar/NavBar'
 import { Button, Icon } from 'native-base'

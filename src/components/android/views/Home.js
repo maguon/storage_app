@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux'
 import * as StorageAction from '../../../actions/StorageAction'
 import * as RecordAction from '../../../actions/RecordAction'
-import RecordList from '../components/RecordList'
+import RecordList from '../components/RecordListForHome/RecordList'
 import StoragesPannelList from '../components/StoragesPannelList'
 import SearchBar from '../components/Bar/SearchBar'
 

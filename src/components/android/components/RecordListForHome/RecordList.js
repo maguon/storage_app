@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ScrollView ,View,Text,Image} from 'react-native'
-import Record from './Record'
+import Record from './RecordListHeader'
 
 export default class RecordList extends Component {
     constructor(props) {

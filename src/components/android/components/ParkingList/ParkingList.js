@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Text, View, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import * as StorageAction from '../../../actions/StorageAction'
-import Parking from '../components/Parking'
+import * as StorageAction from '../../../../actions/StorageAction'
+import Parking from './ParkingListItem'
 import { Actions } from 'react-native-router-flux'
-import SearchBar from '../components/Bar/SearchBar'
+import SearchBar from '../Bar/SearchBar'
 
 class ParkingList extends Component {
     constructor(props) {
