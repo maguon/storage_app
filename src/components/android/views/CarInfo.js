@@ -39,24 +39,24 @@ export default class CarInfo extends Component {
                             <View style={{ flex: 1, paddingVertical: 10, 
                             //borderRightWidth: 1, borderColor: '#dddddd', 
                             marginLeft: 10 }}>
-                                <Text style={{ fontSize:12 }}>品牌：{car.make_name}</Text>
+                                <Text style={{ fontSize:14 }}>品牌：{car.make_name}</Text>
                             </View>
                             <View style={{ flex: 1, paddingVertical: 10, marginLeft: 10 }}>
-                                <Text  style={{ fontSize:12 }}>型号：{car.model_name}</Text>
+                                <Text  style={{ fontSize:14 }}>型号：{car.model_name}</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                            <Text style={{ marginLeft: 10, fontSize:12  }}>颜色：{car.colour}</Text>
+                            <Text style={{ marginLeft: 10, fontSize:14  }}>颜色：{car.colour}</Text>
                             <View style={{ width: 20, height: 20, borderColor: '#dddddd', borderWidth: 1, alignSelf: 'center', backgroundColor: `#${car.colour}`, right: 0, position: 'absolute' }}></View>
                         </View>
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                            <Text style={{ marginLeft: 10 , fontSize:12}}>发动机型号：{car.engine_num}</Text>
+                            <Text style={{ marginLeft: 10 , fontSize:14}}>发动机型号：{car.engine_num}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                            <Text style={{ marginLeft: 10 , fontSize:12}}>生产日期：{car.pro_date}</Text>
+                            <Text style={{ marginLeft: 10 , fontSize:14}}>生产日期：{car.pro_date}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                            <Text style={{ marginLeft: 10, fontSize:12 }}>当前位置：{car.storage_name}-{car.row}-{car.col}</Text>
+                            <Text style={{ marginLeft: 10, fontSize:14 }}>当前位置：{car.storage_name}-{car.row}-{car.col}</Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >
