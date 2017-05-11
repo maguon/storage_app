@@ -12,21 +12,15 @@ import Welcome from './views/Welcome'
 import Login from './views/Login'
 import MainRoot from './MainRoot'
 import Password from './views/Password'
-import CarList from './views/CarList'
 import CarInfo from './views/CarInfo'
 import ParkingView from './views/ParkingView'
 import ErrView from './views/ErrView'
-import Home from './views/Home'
-import Setting from './views/Setting'
 import AddCar from './views/AddCar'
 
 
 class App extends Component {
     constructor(props) {
         super(props);
-    }
-    componentDidMount() {
-
     }
     render() {
         
@@ -36,12 +30,12 @@ class App extends Component {
                 <Scene key="root">
                     <Scene key="welcome"  component={Welcome} hideNavBar={true} />
                     <Scene key="login" component={Login} hideNavBar={true} />
-                    <Scene key="main" component={MainRoot} hideNavBar={true} />
+                    <Scene key="main"   initial={true}  component={MainRoot} hideNavBar={true} />
                     <Scene key="password" component={Password} hideNavBar={true} />
                     <Scene key="carInfo" component={CarInfo} hideNavBar={true} />
                     <Scene key="ParkingView" component={ParkingView} />
                     <Scene key="ErrView" component={ErrView}/>
-                    <Scene key="addCar"  initial={true}  component={AddCar}  hideNavBar/>
+                    <Scene key="addCar" component={AddCar}  hideNavBar/>
                 </Scene>
             </Router>
         )
@@ -59,6 +53,5 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(appAction.getAppLastVersion());
     }
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

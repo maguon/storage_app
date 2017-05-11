@@ -3,7 +3,7 @@ import { Text, View, Dimensions, ScrollView, Image } from 'react-native'
 import { connect } from 'react-redux'
 import Parking from '../components/Parking'
 import { Actions } from 'react-native-router-flux'
-import NavBar from '../components/NavBar'
+import NavBar from '../components/Bar/NavBar'
 import { Button, Icon } from 'native-base'
 
 

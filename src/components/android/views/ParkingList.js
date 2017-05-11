@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as StorageAction from '../../../actions/StorageAction'
 import Parking from '../components/Parking'
 import { Actions } from 'react-native-router-flux'
-import SearchBar from '../components/SearchBar'
+import SearchBar from '../components/Bar/SearchBar'
 
 class ParkingList extends Component {
     constructor(props) {

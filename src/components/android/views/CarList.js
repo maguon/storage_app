@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Car from '../components/Car'
 import * as CarAction from '../../../actions/CarAction'
 import { Actions } from 'react-native-router-flux'
-import SearchBar from '../components/SearchBar'
+import SearchBar from '../components/Bar/SearchBar'
 
 
 const window = Dimensions.get('window')

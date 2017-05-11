@@ -12,7 +12,7 @@ import * as StorageAction from '../../../actions/StorageAction'
 import * as RecordAction from '../../../actions/RecordAction'
 import RecordList from '../components/RecordList'
 import StoragesPannelList from '../components/StoragesPannelList'
-import SearchBar from '../components/SearchBar'
+import SearchBar from '../components/Bar/SearchBar'
 
 
 const window = Dimensions.get('window')

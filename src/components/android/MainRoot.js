@@ -10,7 +10,7 @@ import Home from './views/Home'
 import Setting from './views/Setting'
 import CarList from './views/CarList'
 import ParkingList from './views/ParkingList'
-import SearchBar from './components/SearchBar'
+import SearchBar from './components/Bar/SearchBar'
 
 
 class Main extends Component {
