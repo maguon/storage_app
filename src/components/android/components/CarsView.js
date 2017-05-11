@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, Button, Alert } from 'react-native'
 import { connect } from 'react-redux'
 
-import Car from './Car'
+import Car from './CarList/CarListItem'
 
 export default class CarsView extends Component {
     constructor(props) {

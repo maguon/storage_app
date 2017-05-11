@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, ScrollView, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-import Car from '../components/Car'
+import Car from '../components/CarList/CarListItem'
 import * as CarAction from '../../../actions/CarAction'
 import { Actions } from 'react-native-router-flux'
 import SearchBar from '../components/Bar/SearchBar'
