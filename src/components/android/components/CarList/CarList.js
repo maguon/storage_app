@@ -16,7 +16,7 @@ const CarList = ({ cars }) => {
     })
     let viewStyle = { backgroundColor: '#00cade' }
     return (
-        <View>
+        <View style={{flex:1}}>
             <View style={styles.container}>
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 12 }}><Text style={styles.title}>计划出库时间</Text></View>

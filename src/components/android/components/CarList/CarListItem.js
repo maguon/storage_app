@@ -12,8 +12,9 @@ import { Actions } from 'react-native-router-flux'
 const CarListItem = ({ car }) => {
     let { plan_out_time, make_name, model_name, vin } = car
     plan_out_time = new Date(plan_out_time)
-    let today = (new Date()).getDate()
-    let tag = (today >= (plan_out_time.getDate() - 5)) ? (<View style={styles.contentTag}></View>) : (<Text></Text>)
+    let today = Date.now()
+    let UTC = Date.parse(plan_out_time)
+    let tag = ((UTC - today) <= 24 * 60 * 60 * 1000 * 5) ? (<View style={styles.contentTag}></View>) : (<Text></Text>)
     plan_out_time = plan_out_time.toLocaleDateString()
     // let plan_out_time_month = plan_out_time.getMonth() >= 9 ? `${(plan_out_time.getMonth() + 1)}` : `0${(plan_out_time.getMonth() + 1)}`
     // let plan_out_time_date = plan_out_time.getDate() >= 9 ? `${(plan_out_time.getDate() + 1)}` : `0${(plan_out_time.getDate() + 1)}`
