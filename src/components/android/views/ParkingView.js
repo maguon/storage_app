@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView, ListView, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import * as StorageAction from '../../../actions/StorageAction'
-import ParkingViewColumnHeader from '../components/ParkingView/ParkingViewColumnHeader'
-import ParkingViewItem from '../components/ParkingView/ParkingViewItem'
-import ParkingViewRight from '../components/ParkingView/ParkingViewRight'
-import ParkingViewLeft from '../components/ParkingView/ParkingViewLeft'
-import ParkingViewRowHeader from '../components/ParkingView/ParkingViewRowHeader'
+import ParkingViewColumnHeader from '../components/Demo/ParkingView/ParkingViewColumnHeader'
+import ParkingViewItem from '../components/Demo/ParkingView/ParkingViewItem'
+import ParkingViewRight from '../components/Demo/ParkingView/ParkingViewRight'
+import ParkingViewLeft from '../components/Demo/ParkingView/ParkingViewLeft'
+import ParkingViewRowHeader from '../components/Demo/ParkingView/ParkingViewRowHeader'
 
 var array = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
 

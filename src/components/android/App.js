@@ -15,7 +15,7 @@ import Password from './views/Password'
 import CarInfo from './views/CarInfo'
 import ParkingView from './views/ParkingView'
 import ErrView from './views/ErrView'
-import AddCar from './views/AddCar'
+import AddCar from './views/ImportCar'
 
 
 class App extends Component {

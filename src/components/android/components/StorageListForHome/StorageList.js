@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { 
     View,
     StyleSheet } from 'react-native'
-import StoragePannel from './StoragePannel'
+import StoragePannel from './StorageListItem'
 import { Container, Text, List, ListItem } from 'native-base'
 
 export default class StoragesPannelList extends Component {

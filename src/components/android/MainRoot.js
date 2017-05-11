@@ -9,7 +9,7 @@ import { Button, Container, Footer, FooterTab, Icon } from 'native-base'
 import Home from './views/Home'
 import Setting from './views/Setting'
 import CarList from './components/CarList/CarList'
-import ParkingList from './components/ParkingList/ParkingList'
+import ParkingList from './components/StorageList/StorageList'
 import SearchBar from './components/Bar/SearchBar'
 
 
