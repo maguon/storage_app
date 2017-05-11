@@ -12,7 +12,7 @@ import Welcome from './views/Welcome'
 import Login from './views/Login'
 import MainRoot from './MainRoot'
 import Password from './views/Password'
-import CarInfo from './views/CarInfo'
+import CarInfo from './layout/CarInfo'
 import ParkingView from './views/ParkingView'
 import ErrView from './views/ErrView'
 import AddCar from './views/ImportCar'
@@ -22,8 +22,8 @@ class App extends Component {
     constructor(props) {
         super(props);
     }
+    
     render() {
-        
         const { getAppVersion } = this.props;
         return (
             <Router>
