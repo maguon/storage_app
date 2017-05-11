@@ -6,33 +6,33 @@ import { KeyboardAwareScrollView, View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import localStorageKey from '../../util/LocalStorageKey'
 import { Button, Container, Footer, FooterTab, Icon } from 'native-base'
-import Home from './layout/Home'
+import Home from './views/Home'
 import Setting from './views/Setting'
-import CarList from './components/CarList/CarList'
+import CarList from './views/CarList'
 import ParkingList from './components/StorageList/StorageList'
-import SearchBar from './components/Bar/SearchBar'
+
 
 
 class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'parkingList',
+            selectedTab: 'carList',
         }
     }
     renderSelectedTab() {
         switch (this.state.selectedTab) {
             case 'home':
-                return (<Home></Home>)
+                return (<Home />)
                 break
             case 'carList':
-                return (<CarList></CarList>)
+                return (<CarList />)
                 break
             case 'parkingList':
-                return (<ParkingList></ParkingList>)
+                return (<ParkingList />)
                 break
             case 'setting':
-                return (<Setting></Setting>)
+                return (<Setting />)
                 break
         }
     }

@@ -1,55 +1,77 @@
 import React, { Component } from 'react'
-import { Text, View, Button } from 'react-native'
+import {
+    Text,
+    View,
+    Button,
+    TouchableHighlight,
+    StyleSheet
+} from 'react-native'
 
+import { Actions } from 'react-native-router-flux'
 
-export default class Car extends Component {
-    constructor(props) {
-        super(props)
-    }
+const CarListItem = ({ car }) => {
+    let { plan_out_time, make_name, model_name, vin } = car
+    plan_out_time = new Date(plan_out_time)
+    let today = (new Date()).getDate()
+    let tag = (today >= (plan_out_time.getDate() - 5)) ? (<View style={styles.contentTag}></View>) : (<Text></Text>)
+    plan_out_time = plan_out_time.toLocaleDateString()
+    // let plan_out_time_month = plan_out_time.getMonth() >= 9 ? `${(plan_out_time.getMonth() + 1)}` : `0${(plan_out_time.getMonth() + 1)}`
+    // let plan_out_time_date = plan_out_time.getDate() >= 9 ? `${(plan_out_time.getDate() + 1)}` : `0${(plan_out_time.getDate() + 1)}`
+    // let plan_out_time_hour = plan_out_time.getHours() >= 10 ? `${plan_out_time.getHours()}` : `0${plan_out_time.getHours()}`
+    // let plan_out_time_minute = plan_out_time.getMinutes() >= 10 ? `${plan_out_time.getMinutes()}` : `0${plan_out_time.getMinutes()}`
+    // plan_out_time = `${plan_out_time_month}-${plan_out_time_date}  ${plan_out_time_hour}:${plan_out_time_minute}`
 
-    showCarInfo() {
-        console.log('showCarInfo', this.props.nextPage)
-        console.log('car', this.props.car)
-        this.props.nextPage({ car: this.props.car })
-    }
-
-    render() {
-        let { enter_time, make_name, model_name,vin } = this.props.car
-        enter_time = new Date(enter_time)
-        console.log(enter_time)
-        let enter_time_month = enter_time.getMonth() >= 9 ? `${(enter_time.getMonth() + 1)}` : `0${(enter_time.getMonth() + 1)}`
-        let enter_time_date = enter_time.getDate() >= 9 ? `${(enter_time.getDate() + 1)}` : `0${(enter_time.getDate() + 1)}`
-        let enter_time_hour = enter_time.getHours() >= 10 ? `${enter_time.getHours()}` : `0${enter_time.getHours()}`
-        let enter_time_minute = enter_time.getMinutes() >= 10 ? `${enter_time.getMinutes()}` : `0${enter_time.getMinutes()}`
-        enter_time = `${enter_time_month}-${enter_time_date}  ${enter_time_hour}:${enter_time_minute}`
-        let { nextPage } = this.props
-
-        return (
-            <View style={{ flexDirection: "row", paddingHorizontal: 10, justifyContent: 'center', borderBottomWidth: 1, height: 40, alignItems: 'center', borderColor: '#dddddd' }}>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <View style={{ width: 5, height: 5, backgroundColor: '#f7656a', borderRadius: 5 }}></View>
+    return (
+        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ car: car }) }}>
+            <View style={styles.container}>
+                <View style={[{ flex: 1 }, styles.content]}>
+                    {tag}
                 </View>
-                <View style={{ flex: 12, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center', color: '#999999', fontSize: 13 }}>{enter_time}</Text>
+                <View style={[{ flex: 12 }, styles.content]}>
+                    <Text style={styles.contentText}>{plan_out_time}</Text>
                 </View>
-                <View style={{ flex: 16, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center', color: '#999999', fontSize: 13 }}>{vin}</Text>
+                <View style={[{ flex: 16 }, styles.content]}>
+                    <Text style={styles.contentText}>{vin}</Text>
                 </View>
-                <View style={{ flex: 10, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center', color: '#999999', fontSize: 13 }}>{model_name}</Text>
+                <View style={[{ flex: 10 }, styles.content]}>
+                    <Text style={styles.contentText}>{model_name}</Text>
                 </View>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ color: '#cbd0d3' }} onPress={this.showCarInfo.bind(this)}>></Text>
+                <View style={[{ flex: 1 }, styles.content]}>
+                    <Text style={styles.contentAction}>></Text>
                 </View>
-
-
-                {/*<View style={{ flex: 1 , }}>*/}
-
-                {/*<Button style={{ flex: 1 }}
-                        onPress={this.showCarInfo.bind(this)}
-                        title="showCarInfo" />*/}
-                {/*</View>*/}
             </View>
-        )
-    }
+        </TouchableHighlight>
+    )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        borderBottomWidth: 1,
+        height: 40,
+        alignItems: 'center',
+        borderColor: '#dddddd'
+    },
+    content: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    contentText: {
+        textAlign: 'center',
+        color: '#999999',
+        fontSize: 13
+    },
+    contentTag: {
+        width: 5,
+        height: 5,
+        backgroundColor: '#f7656a',
+        borderRadius: 3
+    },
+    contentAction: {
+        color: '#cbd0d3'
+    }
+})
+
+export default CarListItem

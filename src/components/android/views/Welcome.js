@@ -18,14 +18,9 @@ class Welcome extends Component {
         const { getAppLastVersion } = this.props;
         getAppLastVersion();
         return (
-            <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center" ,
-            /*width: window.width,
-            height: window.height,
-            backgroundColor:'#000000'*/
-
-            }}>
-                <Image source={{ uri: 'welcom_back' }} 
-                 style={{ width: window.width, height: window.width / 9 * 16 }} 
+            <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                <Image source={{ uri: 'welcom_back' }}
+                    style={{ width: window.width, height: window.width / 9 * 16 }}
                 />
                 <Button block
                     onPress={() => { Actions.login() }}

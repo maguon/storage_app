@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import {
     Text,
@@ -7,44 +8,28 @@ import {
     Image,
     Dimensions
 } from 'react-native'
-import { connect } from 'react-redux'
-import * as StorageAction from '../../../actions/StorageAction'
-import * as RecordAction from '../../../actions/RecordAction'
 import RecordList from '../components/RecordListForHome/RecordList'
 import StoragesPannelList from '../components/StorageListForHome/StorageList'
 import SearchBar from '../components/Bar/SearchBar'
 
-
 const window = Dimensions.get('window')
 
-
-class Home extends Component {
-    constructor(props) {
-        super(props)
-    }
-
-    componentDidMount() {
-        this.props.getStorageList()
-        this.props.getRecordsAllByUser({ id: 3 })
-    }
-
-    render() {
-        let viewStyle={ backgroundColor: 'rgba(0,0,0,0.16)' }
-        return (
-            <View style={{flex:1}}>
-                <View>
-                    <Image source={{ uri: 'banner_back' }} style={styles.image} />
-                    <View style={styles.search}>
-                        <SearchBar viewStyle={viewStyle}/>
-                    </View>
+const Home = ({storages,records}) => {
+    let viewStyle = { backgroundColor: 'rgba(0,0,0,0.16)' }
+    return (
+        <View style={{ flex: 1 }}>
+            <View>
+                <Image source={{ uri: 'banner_back' }} style={styles.image} />
+                <View style={styles.search}>
+                    <SearchBar viewStyle={viewStyle} />
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <StoragesPannelList storages={this.props.storages} />
-                    <RecordList records={this.props.records} />
-                </ScrollView>
             </View>
-        )
-    }
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <StoragesPannelList storages={storages} />
+                <RecordList records={records} />
+            </ScrollView>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -60,21 +45,5 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = (state) => {
-    return {
-        storages: state.StorageReducer,
-        records: state.RecordReducer,
-        user: state.UserReducer
-    }
-}
+export default Home
 
-const mapDispatchToProps = (dispatch) => ({
-    getStorageList: () => {
-        dispatch(StorageAction.getStorageList())
-    },
-    getRecordsAllByUser: (user) => {
-        dispatch(RecordAction.getRecordsAllByUser(user))
-    }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
