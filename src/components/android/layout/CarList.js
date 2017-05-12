@@ -10,12 +10,12 @@ import CarListComponent from '../components/CarList/CarList'
 
 const window = Dimensions.get('window')
 
-const CarList = ({cars,loadMore}) => {
+const CarList = (props) => {
     let viewStyle = { backgroundColor: '#00cade' }
     return (
         <View style={{ flex: 1, width: window.width }}>
             <SearchBar viewStyle={viewStyle} />
-            <CarListComponent cars={cars} loadMore={loadMore}/>
+            <CarListComponent {...props}/>
         </View>
     )
 }

@@ -49,6 +49,6 @@ export const exportCar = (param) => (dispatch) => {
     console.log('=======END======')
 }
 
-export const getCarById = (carId) => (dispatch) => {
-    dispatch({ type: actionTypes.carTypes.GET_CAR_LIST_SUCCESS, payload: { data: carId } })
-}
+// export const getCarById = (carId) => (dispatch) => {
+//     dispatch({ type: actionTypes.carTypes.GET_CAR_LIST_SUCCESS, payload: { data: carId } })
+// }
