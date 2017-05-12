@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Dimensions, ScrollView, Image } from 'react-native'
-import { connect } from 'react-redux'
-import Parking from '../components/StorageList/StorageListItem'
-import { Actions } from 'react-native-router-flux'
 import NavBar from '../components/Bar/NavBar'
-import { Button, Icon } from 'native-base'
 import CarInfoComponent from '../components/CarInfo'
 import CarCamera from '../components/CarCamera'
 import RecordList from '../components/RecordListForCarInfo/RecordList'
@@ -16,12 +12,18 @@ const CarInfo = (props) => {
         <View style={{ flex: 1 }}>
             <NavBar title={'车辆详情'} />
             <ScrollView>
-                <CarInfoComponent {...props} />
+                <CarInfoComponent
+                    car={props.car}
+                    exportCar={props.exportCar}
+                    moveCar={props.moveCar} />
                 <CarCamera />
-                <RecordList />
+                <RecordList
+                    records={props.records}
+                    getRecordLisMore={props.getRecordLisMore} />
             </ScrollView>
         </View>
     )
 }
 
 export default CarInfo
+

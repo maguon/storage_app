@@ -15,12 +15,18 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.getStorageList()
-        this.props.getRecordsAllByUser({ id: 3 })
+        this.props.getRecordList({
+            optionalParam: {
+                start: 0,
+                size: 10,
+                userId: 3
+            }
+        })
     }
 
     render() {
         return (
-            <LayoutHome {...this.props}/>
+            <LayoutHome {...this.props} />
         )
     }
 }
@@ -37,8 +43,8 @@ const mapDispatchToProps = (dispatch) => ({
     getStorageList: () => {
         dispatch(StorageAction.getStorageList())
     },
-    getRecordsAllByUser: (user) => {
-        dispatch(RecordAction.getRecordsAllByUser(user))
+    getRecordList: (param) => {
+        dispatch(RecordAction.getRecordList(param))
     }
 })
 

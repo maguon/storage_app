@@ -10,8 +10,14 @@ import RecordListItem from './RecordListItem'
 const window = Dimensions.get('window')
 
 
-const CarCamera = () => {
+const CarCamera = ({ records, getRecordLisMore }) => {
+
+    let recordList = records.map(item => {
+        return <RecordListItem record={item} key={item._id} />
+    }
+    )
     return (
+
         <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
             <View style={{ flexDirection: 'row', paddingBottom: 10, borderColor: '#dddddd', borderBottomWidth: 1 }}>
                 <View>
@@ -20,8 +26,12 @@ const CarCamera = () => {
                 <View style={{ marginLeft: 10 }}>
                     <Text>操作记录</Text>
                 </View>
+
             </View>
-            <RecordListItem />
+            {recordList}
+            <Text style={{ alignSelf: 'center', marginVertical: 10 }}
+            onPress={getRecordLisMore}
+            >加载更多</Text>
         </View>)
 }
 

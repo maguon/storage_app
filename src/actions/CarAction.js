@@ -33,7 +33,7 @@ export const exportCar = (param) => (dispatch) => {
     let url = `${base_host}/user/${param.requiredParam.userid}/carStorageRel/${param.requiredParam.relId}/relStatus/${param.requiredParam.relStatus}`
     console.log(url)
     httpRequest
-        .put(url,param.putParam, (err, res) => {
+        .put(url, param.putParam, (err, res) => {
             console.log('ttt')
             if (err) {
                 console.log('FAILED', err)
@@ -49,6 +49,3 @@ export const exportCar = (param) => (dispatch) => {
     console.log('=======END======')
 }
 
-// export const getCarById = (carId) => (dispatch) => {
-//     dispatch({ type: actionTypes.carTypes.GET_CAR_LIST_SUCCESS, payload: { data: carId } })
-// }

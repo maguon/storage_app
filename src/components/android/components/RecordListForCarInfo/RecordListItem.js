@@ -5,28 +5,16 @@ import React, { Component } from 'react'
 import { Text, View, Dimensions } from 'react-native'
 import { Button, Icon } from 'native-base'
 
-const CarCamera = () => {
+const CarCamera = ({record}) => {
     return (
-        <View>
-            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-                <Text style={{ flex: 5, fontSize: 12 }}>2017-03-16 11:30</Text>
-                <Text style={{ flex: 2, fontSize: 12, color: '#00cade' }}>入库</Text>
-                <Text style={{ flex: 5, fontSize: 12 }}>至一号仓库B-12</Text>
-                <Text style={{ flex: 3, fontSize: 12 }}>王大大</Text>
-            </View>
-            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-                <Text style={{ flex: 5, fontSize: 12 }}>2017-03-16 11:30</Text>
-                <Text style={{ flex: 2, fontSize: 12, color: '#ffa700' }}>移位</Text>
-                <Text style={{ flex: 5, fontSize: 12 }}>至一号仓库B-12</Text>
-                <Text style={{ flex: 3, fontSize: 12 }}>王大大</Text>
-            </View>
-            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-                <Text style={{ flex: 5, fontSize: 12 }}>2017-03-16 11:30</Text>
-                <Text style={{ flex: 2, fontSize: 12, color: '#f7656a' }}>出库</Text>
-                <Text style={{ flex: 5, fontSize: 12 }}>至一号仓库B-12</Text>
-                <Text style={{ flex: 3, fontSize: 12 }}>王大大</Text>
-            </View>
-        </View>)
+
+        <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+            <Text style={{ flex: 5, fontSize: 12 }}>2017-03-16 11:30</Text>
+            <Text style={{ flex: 2, fontSize: 12, color: '#00cade' }}>入库</Text>
+            <Text style={{ flex: 5, fontSize: 12 }}>至一号仓库B-12</Text>
+            <Text style={{ flex: 3, fontSize: 12 }}>王大大</Text>
+        </View>
+    )
 }
 
 export default CarCamera
