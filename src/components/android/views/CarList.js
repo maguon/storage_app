@@ -10,12 +10,36 @@ class CarList extends Component {
     }
 
     componentDidMount() {
-        this.props.getCarList({ requiredobj: { userid: 3 }, optionalobj: { start: 0, size: 20 } })
+        this.props.getCarList({
+            requiredParam: {
+                userid: 3
+            },
+            optionalParam: {
+                start: 0,
+                size: 20,
+                active: 1,
+                relStatus: 1
+            }
+        })
+    }
+
+    loadMore() {
+        this.props.getCarList({
+            requiredParam: {
+                userid: 3
+            },
+            optionalParam: {
+                start: this.props.cars.length,
+                size: 20,
+                active: 1,
+                relStatus: 1
+            }
+        }, false)
     }
 
     render() {
         return (
-            <CarListLayout {...this.props} />
+            <CarListLayout {...this.props} loadMore={this.loadMore.bind(this)} />
         )
     }
 }
@@ -27,8 +51,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getCarList: (user) => {
-        dispatch(CarAction.getCarList(user))
+    getCarList: (param, isFirst) => {
+        dispatch(CarAction.getCarList(param, isFirst))
+    },
+    exportCar: (param) => {
+        dispatch(CarAction.getCarList(param))
     }
 })
 
