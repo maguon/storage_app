@@ -4,12 +4,12 @@
 import React, { Component, PropTypes } from 'react'
 import { KeyboardAwareScrollView, View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import localStorageKey from '../../util/LocalStorageKey'
+import localStorageKey from '../../../util/LocalStorageKey'
 import { Button, Container, Footer, FooterTab, Icon } from 'native-base'
-import Home from './views/Home'
-import Setting from './views/Setting'
-import CarList from './views/CarList'
-import ParkingList from './components/StorageList/StorageList'
+import Home from './Home'
+import Setting from './Setting'
+import CarList from './CarList'
+import ParkingList from '../components/StorageList/StorageList'
 
 
 
