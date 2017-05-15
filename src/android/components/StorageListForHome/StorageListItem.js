@@ -4,7 +4,7 @@ import PercentageCircle from 'react-native-percentage-circle'
 import { Alert } from 'react-native'
 
 
-export default class StoragePannel extends Component {
+export default class StorageListItem extends Component {
     constructor(props) {
         super(props)
     }

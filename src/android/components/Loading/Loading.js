@@ -3,6 +3,7 @@ import { Text, View, Modal, ProgressBarAndroid, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 const Loading = ({ isLoading = false }) => {
+    
     return (
         <Modal
             animationType={"none"}
@@ -13,6 +14,7 @@ const Loading = ({ isLoading = false }) => {
             <View style={styles.container}>
                 <View>
                     <ProgressBarAndroid
+                        indeterminate={true}
                         styleAttr='LargeInverse' />
                 </View>
             </View>

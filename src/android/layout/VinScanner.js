@@ -52,8 +52,6 @@ export default class VinScanner extends Component {
 const styles = StyleSheet.create({
   container: {
      flex: 1
-    // height:400,
-    // width:400
   },
   statusBar: {
     height: 100,

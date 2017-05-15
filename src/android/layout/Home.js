@@ -19,7 +19,7 @@ const Home = ({ storages, records }) => {
     let viewStyle = { backgroundColor: 'rgba(0,0,0,0.16)' }
     return (
         <View style={{ flex: 1 }}>
-            <Loading isLoading={records.isLoading } />
+            <Loading isLoading={storages.isLoading || records.isLoading} />
             <View>
                 <Image source={{ uri: 'banner_back' }} style={styles.image} />
                 <View style={styles.search}>

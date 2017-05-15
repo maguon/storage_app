@@ -5,7 +5,7 @@ import RecordItem from './RecordListItem'
 
 const window = Dimensions.get('window')
 
-export default class Record extends Component {
+export default class RecordListHeader extends Component {
     constructor(props) {
         super(props)
     }

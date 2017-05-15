@@ -10,7 +10,7 @@ import RecordListItem from './RecordListItem'
 const window = Dimensions.get('window')
 
 
-const CarCamera = ({ records, getRecordLisMore }) => {
+const RecordList = ({ records, getRecordLisMore }) => {
 
     let recordList = records.map(item => {
         return <RecordListItem record={item} key={item._id} />
@@ -34,4 +34,4 @@ const CarCamera = ({ records, getRecordLisMore }) => {
         </View>)
 }
 
-export default CarCamera
+export default RecordList

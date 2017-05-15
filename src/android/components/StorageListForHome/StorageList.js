@@ -6,7 +6,7 @@ import StoragePannel from './StorageListItem'
 import { Container, Text, List, ListItem } from 'native-base'
 
 
-export default class StoragesPannelList extends Component {
+export default class StorageList extends Component {
     constructor(props) {
         super(props)
     }

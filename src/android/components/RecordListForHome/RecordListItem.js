@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { View, Image, Text, StyleSheet } from 'react-native'
 
-export default class Record extends Component {
+export default class RecordListItem extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
-        let { created_on, op, comment,vin} = this.props.recordItem
+        let { created_on, op, comment, vin } = this.props.recordItem
         created_on = new Date(created_on)
         let halfDay = created_on.getHours() >= 12 ? 'PM' : 'AM'
         let hour = created_on.getHours() >= 10 ? created_on.getHours() : `0${created_on.getHours()}`
@@ -32,14 +32,16 @@ export default class Record extends Component {
 
         }
 
-        let regxStorageName = /storage (.*) parking/
-        storageName = comment.match(regxStorageName)[1]
+        let storageName = ''
+        let row = ''
+        let col = ''
 
-        let regxRow = /row (.*) column/
-        row = comment.match(regxRow)[1]
-
-        let regxCol = /column (.*)/
-        col = comment.match(regxCol)[1]
+        let regxStorageName = /storage (.*) parking at row (.*) column (.*)/
+        if (regxStorageName.test(comment)) {
+            storageName = RegExp.$1
+            row = RegExp.$2
+            col = RegExp.$3
+        }
 
         return (
             <View style={{ flexDirection: "row" }}>
@@ -63,14 +65,11 @@ export default class Record extends Component {
                     <View style={{ flexDirection: "row" }}>
                         <Text style={{ fontSize: 10 }}>VIN码：</Text>
                         <Text style={{ fontSize: 10, marginLeft: 10 }}>{vin}</Text>
-
                     </View>
                 </View>
             </View>
         )
-
     }
-
 }
 
 const styles = StyleSheet.create({

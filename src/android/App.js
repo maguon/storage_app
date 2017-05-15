@@ -27,6 +27,7 @@ class App extends Component {
     
     render() {
         const { getAppVersion } = this.props;
+        console.disableYellowBox = true;
         return (
             <Router>
                 <Scene key="root">
