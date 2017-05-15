@@ -9,7 +9,7 @@ import {
     Dimensions
 } from 'react-native'
 import RecordList from '../components/RecordListForHome/RecordList'
-import StoragesPannelList from '../components/StorageListForHome/StorageList'
+import StorageList from '../components/StorageListForHome/StorageList'
 import SearchBar from '../components/Bar/SearchBar'
 
 const window = Dimensions.get('window')
@@ -25,7 +25,7 @@ const Home = ({storages,records}) => {
                 </View>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <StoragesPannelList storages={storages} />
+                <StorageList storages={storages} />
                 <RecordList records={records} />
             </ScrollView>
         </View>

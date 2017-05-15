@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Item, Header, Input, Button, Left, Right, Icon } from 'native-base'
+import { Actions } from 'react-native-router-flux'
 
-const SearchBar = ({viewStyle}) => {
+const SearchBar = ({ viewStyle }) => {
     return (
         <Header searchBar style={viewStyle}>
             <Left style={{ flex: 1 }}>
-                <Button transparent>
+                <Button transparent onPress={() => { Actions.VinScanner() }}>
                     <Icon name="md-qr-scanner" type="ionicons" />
                 </Button>
             </Left>
@@ -17,7 +18,7 @@ const SearchBar = ({viewStyle}) => {
                 </Item>
             </View>
             <Right style={{ flex: 1 }}>
-                <Button transparent>
+                <Button transparent onPress={() => { Actions.ImportCar() }}>
                     <Icon Icon name="md-add" type="ionicons" />
                 </Button>
             </Right>

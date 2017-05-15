@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 
-export default class ErrorView extends Component {
+export default class Error extends Component {
     constructor(props) {
         super(props)
     }
@@ -10,7 +10,7 @@ export default class ErrorView extends Component {
     render() {
         return (
             <View>
-                <Text>ErrorView</Text>
+                <Text>Error</Text>
             </View>
         )
     }

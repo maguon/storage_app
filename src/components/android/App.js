@@ -15,7 +15,9 @@ import Password from './views/Password'
 import CarInfo from './views/CarInfo'
 import ParkingView from './views/ParkingView'
 import ErrView from './views/ErrView'
-import AddCar from './views/ImportCar'
+import ImportCar from './views/ImportCar'
+import VinScanner from './views/VinScanner'
+import ErrorView from './views/ErrorView'
 
 
 class App extends Component {
@@ -28,14 +30,16 @@ class App extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="welcome"  component={Welcome} hideNavBar={true} />
-                    <Scene key="login" component={Login} hideNavBar={true} />
-                    <Scene key="main"  initial={true}   component={MainRoot} hideNavBar={true} />
-                    <Scene key="password" component={Password} hideNavBar={true} />
-                    <Scene key="carInfo" component={CarInfo} hideNavBar={true} />
+                    <Scene key="welcome"  component={Welcome} hideNavBar />
+                    <Scene key="login" component={Login} hideNavBar />
+                    <Scene key="main"  initial={true}   component={MainRoot} hideNavBar />
+                    <Scene key="password" component={Password} hideNavBar />
+                    <Scene key="carInfo" component={CarInfo} hideNavBar />
                     <Scene key="ParkingView" component={ParkingView} />
                     <Scene key="ErrView" component={ErrView}/>
-                    <Scene key="addCar" component={AddCar}  hideNavBar/>
+                    <Scene key="ImportCar" component={ImportCar}  hideNavBar/>
+                    <Scene key="VinScanner" component={VinScanner}  hideNavBar/>
+                    <Scene key="ErrorView" component={ErrorView}  hideNavBar/>                    
                 </Scene>
             </Router>
         )

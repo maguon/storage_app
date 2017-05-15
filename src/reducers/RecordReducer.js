@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 import * as actionTypes from '../actions/types'
-import {Alert} from 'react-native'
+
 
 const initialState = []
 

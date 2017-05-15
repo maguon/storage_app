@@ -4,8 +4,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LayoutHome from '../layout/Home'
+import Camera from '../components/Camera'
 import * as StorageAction from '../../../actions/StorageAction'
 import * as RecordAction from '../../../actions/RecordAction'
+import Loading from '../components/Loading'
+
 
 
 class Home extends Component {
@@ -26,7 +29,8 @@ class Home extends Component {
 
     render() {
         return (
-            <LayoutHome {...this.props} />
+              //<LayoutHome {...this.props} />
+              <Loading />
         )
     }
 }

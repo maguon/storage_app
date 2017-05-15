@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Image, Text } from 'react-native'
 import PercentageCircle from 'react-native-percentage-circle'
+import { Alert } from 'react-native'
 
 
 export default class StoragePannel extends Component {
@@ -11,7 +12,7 @@ export default class StoragePannel extends Component {
     render() {
         let { storage } = this.props
         let count = storage.row * storage.col
-        let percent = Math.round((count - storage.pCount) / count)
+        let percent = Math.round((count - storage.pCount) / count * 100)
         return (
             <View style={styles.container}>
                 <View style={styles.infoView}>

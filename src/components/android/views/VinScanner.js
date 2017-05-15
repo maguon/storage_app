@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
+import VinScannerLayout from '../layout/VinScanner'
 
-export default class ErrorView extends Component {
+export default class VinScanner extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <View>
-                <Text>ErrorView</Text>
-            </View>
+            <VinScannerLayout/>
         )
     }
 

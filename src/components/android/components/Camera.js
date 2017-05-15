@@ -19,8 +19,8 @@ var photoOptions = {
     quality: 0.75,
     allowsEditing: true,
     noData: false,
-    maxWidth:960,
-    maxHeight:960,
+    maxWidth: 960,
+    maxHeight: 960,
     storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -45,6 +45,11 @@ export default class Camera extends Component {
                     title="相机测试"
                     color="#841584"
                 />
+                <Button
+                    onPress={this.cameratest}
+                    title="拍照测试"
+                    color="#841584"
+                />
                 {/*<Image
                     style={styles.cameraImage}
                     source={{ uri: 'http://stg.myxxjs.com:9002/api/user/34/image/5900067ee187d33973181ec0' }} />*/}
@@ -60,7 +65,7 @@ export default class Camera extends Component {
             let sizeMax = 960  //960
             if (image.width > sizeMax && image.height > sizeMax) {
                 if (image.width > image.height) {
-                    
+
                     image.width = image.width / (image.height / sizeMax)
                     console.log(image.height / sizeMax)
                     image.height = sizeMax
@@ -68,7 +73,7 @@ export default class Camera extends Component {
 
                 }
                 else {
-                    
+
                     image.height = Math.round(image.height / (image.width / sizeMax))
                     console.log(image.width / sizeMax)
                     image.width = sizeMax
@@ -76,28 +81,28 @@ export default class Camera extends Component {
                 }
             }
             ImageResizer.createResizedImage(image.uri, image.width, image.height, 'JPEG', 80)
-            .then((resizedImageUri) => {
-                console.log(resizedImageUri)
-                // this.setState({
-                //     resizedImageUri,
-                // });
-                let item = {
-                    userId: 34,
-                    imageType: 1,
-                    type: "image/jpeg",
-                    imageName: "image-f65db5f8-d000-4c0e-9894-c7b78b4fb6f8.jpg",
-                    imageUrl: resizedImageUri,
-                    key: "image"
-                }
-                let url = `${file_host}user/${item.userId}/image?imageType=${item.imageType}`
-                console.log(url)
-                postFile(item.imageUrl, url, item)
-                console.log('testUpload')
-            }).catch((err) => {
-                return console.log(err);
-                // Alert.alert('Unable to resize the photo',
-                // 'Check the console for full the error message');
-            });
+                .then((resizedImageUri) => {
+                    console.log(resizedImageUri)
+                    // this.setState({
+                    //     resizedImageUri,
+                    // });
+                    let item = {
+                        userId: 34,
+                        imageType: 1,
+                        type: "image/jpeg",
+                        imageName: "image-f65db5f8-d000-4c0e-9894-c7b78b4fb6f8.jpg",
+                        imageUrl: resizedImageUri,
+                        key: "image"
+                    }
+                    let url = `${file_host}user/${item.userId}/image?imageType=${item.imageType}`
+                    console.log(url)
+                    postFile(item.imageUrl, url, item)
+                    console.log('testUpload')
+                }).catch((err) => {
+                    return console.log(err);
+                    // Alert.alert('Unable to resize the photo',
+                    // 'Check the console for full the error message');
+                });
             console.log(image)
 
             if (image.didCancel) {
@@ -133,6 +138,28 @@ export default class Camera extends Component {
                 // 'Check the console for full the error message');
             });
 
+    }
+
+
+    cameratest = () => {
+        var options = {
+            storageOptions: {
+                skipBackup: true
+            }
+        };
+        ImagePicker.launchCamera(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled video picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+        })
     }
 }
 
