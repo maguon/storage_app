@@ -31,7 +31,7 @@ export default handleActions({
             isLoading: data.isLoading
         }
     },
-    [actionTypes.carTypes.LOADING]: (state, action) => {
+    [actionTypes.carTypes.GET_CAR_LIST_LOADING]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,

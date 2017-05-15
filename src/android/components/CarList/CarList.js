@@ -8,23 +8,23 @@ import {
     RefreshControl
 } from 'react-native'
 import CarListItem from './CarListItem'
-import Loading from '../Loading/Loading'
+
 
 const window = Dimensions.get('window')
 
-const CarList = ({ cars, getCarList, loadMore,isLoading }) => {
+const CarList = ({ cars, getCarList, loadMore }) => {
     let CarListItems = cars.map((item) => {
         return <CarListItem car={item} key={item.r_id} />
     })
     let viewStyle = { backgroundColor: '#00cade' }
     return (
         <View style={{ flex: 1 }}>
-            <Loading isLoading={isLoading}/>
+            
             <View style={styles.container}>
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 12 }}><Text style={styles.title}>计划出库时间</Text></View>
                 <View style={{ flex: 16 }}><Text style={styles.title}>VIN码</Text></View>
-                <View style={{ flex: 10 }}><Text style={styles.title} onPress={() => { console.log(1111) }}>品牌</Text></View>
+                <View style={{ flex: 10 }}><Text style={styles.title}>品牌</Text></View>
                 <View style={{ flex: 1 }}></View>
             </View>
             <ScrollView

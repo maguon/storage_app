@@ -17,10 +17,9 @@ const window = Dimensions.get('window')
 
 const Home = ({ storages, records }) => {
     let viewStyle = { backgroundColor: 'rgba(0,0,0,0.16)' }
-    console.log('records', records)
     return (
         <View style={{ flex: 1 }}>
-            <Loading isLoading={records.isLoading || storages.isLoading} />
+            <Loading isLoading={records.isLoading } />
             <View>
                 <Image source={{ uri: 'banner_back' }} style={styles.image} />
                 <View style={styles.search}>

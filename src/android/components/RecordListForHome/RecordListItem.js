@@ -32,6 +32,15 @@ export default class Record extends Component {
 
         }
 
+        let regxStorageName = /storage (.*) parking/
+        storageName = comment.match(regxStorageName)[1]
+
+        let regxRow = /row (.*) column/
+        row = comment.match(regxRow)[1]
+
+        let regxCol = /column (.*)/
+        col = comment.match(regxCol)[1]
+
         return (
             <View style={{ flexDirection: "row" }}>
                 <View style={{ flex: 2, marginRight: 5, justifyContent: 'center' }}>
@@ -48,8 +57,8 @@ export default class Record extends Component {
                 </View>
                 <View style={{ flex: 6, justifyContent: 'center' }}>
                     <View style={{ flexDirection: "row" }}>
-                        <Text style={{ fontWeight: 'bold' }}>一号仓库</Text>
-                        <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>A-12</Text>
+                        <Text style={{ fontWeight: 'bold' }}>{storageName}</Text>
+                        <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>{col}-{row}</Text>
                     </View>
                     <View style={{ flexDirection: "row" }}>
                         <Text style={{ fontSize: 10 }}>VIN码：</Text>

@@ -6,16 +6,16 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 import { Alert } from 'react-native'
 
 export const getRecordList = (param, isFirst = true) => (dispatch) => {
-    dispatch({ type: actionTypes.recordTypes.LOADING, payload: { data: { isLoading: true } } })
+    dispatch({ type: actionTypes.recordTypes.GET_RECORD_LIST_LOADING, payload: { data: { isLoading: true } } })
     let url = `${record_host}/opRecord?${ObjectToUrl(param.optionalParam)}`
-    console.log(url)
+    
     httpRequest
         .get(url, (err, res) => {
             if (err) {
                 console.log('FAILED', err)
             } else {
                 if (res.success) {
-                    console.log('SECCUSS', res.result)
+                   
                     if (isFirst)
                         dispatch({
                             type: actionTypes.recordTypes.FIRST_GET_RECORD_LIST_SUCCESS, payload: {
@@ -39,5 +39,5 @@ export const getRecordList = (param, isFirst = true) => (dispatch) => {
                 }
             }
         })
-    console.log('=======END======')
+    
 }

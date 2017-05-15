@@ -4,8 +4,9 @@ import * as actionTypes from '../actions/types'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getCarList = (param, isFirst = true) => (dispatch) => {
-    dispatch({ type: actionTypes.carTypes.LOADING, payload: { data: { isLoading: true } } })
+    dispatch({ type: actionTypes.carTypes.GET_CAR_LIST_LOADING, payload: { data: { isLoading: true } } })
     let url = `${base_host}/user/${param.requiredParam.userid}/car?${ObjectToUrl(param.optionalParam)}`
+    
     httpRequest
         .get(url, (err, res) => {
             if (err) {

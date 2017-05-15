@@ -11,7 +11,6 @@ const initialState = {
 export default handleActions({
     [actionTypes.recordTypes.FIRST_GET_RECORD_LIST_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-        console.log(data)
         return {
             ...state,
             isLoading: data.isLoading,
@@ -26,7 +25,7 @@ export default handleActions({
             records: [...state.records, ...data.records]
         }
     },
-    [actionTypes.recordTypes.LOADING]: (state, action) => {
+    [actionTypes.recordTypes.GET_RECORD_LIST_LOADING]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,

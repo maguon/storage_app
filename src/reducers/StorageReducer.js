@@ -32,7 +32,7 @@ export default handleActions({
             return item
         })
     },
-    [actionTypes.storageTypes.LOADING]: (state, action) => {
+    [actionTypes.storageTypes.GET_STORAGE_LIST_LOADING]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,

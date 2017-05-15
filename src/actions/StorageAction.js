@@ -17,18 +17,18 @@ export const getStorageList = () => {
     now=`${year}${month}${day}`
 
     return (dispatch) => {
-        console.log('=======START======')
+        
         let url = `${base_host}/storageDate?dateStart=${now}&dateEnd=${now}`
-        console.log(url)
-        dispatch({ type: actionTypes.storageTypes.LOADING, payload: { data: { isLoading: true } } })
+        
+        dispatch({ type: actionTypes.storageTypes.GET_STORAGE_LIST_LOADING, payload: { data: { isLoading: true } } })
         httpRequest
             .get(url, (err, res) => {
-                console.log('ttt')
+                
                 if (err) {
                     console.log('FAILED', err)
                 } else {
                     if (res.success) {
-                        console.log('SECCUSS', res)
+                       
                         dispatch({
                             type: actionTypes.storageTypes.GET_STORAGE_LIST_SUCCESS, payload: {
                                 data: {
@@ -42,7 +42,7 @@ export const getStorageList = () => {
                     }
                 }
             })
-        console.log('=======END======')
+        
     }
 }
 
