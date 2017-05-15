@@ -1,10 +1,10 @@
 import React,{Component} from 'react'
-import { StatusBar,Text,TextInput,View } from 'react-native';
-import { Provider,connect } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import ReduxThunk from 'redux-thunk';
-import reducers from './reducers';
-import App from './components/android/App';
+import { StatusBar,Text,TextInput,View } from 'react-native'
+import { Provider,connect } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import ReduxThunk from 'redux-thunk'
+import reducers from './reducers'
+import App from './android/App'
 
 const store = compose(
     applyMiddleware(ReduxThunk)

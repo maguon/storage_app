@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as CarAction from '../../../actions/CarAction'
+import * as CarAction from '../../actions/CarAction'
 import { Actions } from 'react-native-router-flux'
 import CarListLayout from '../layout/CarList'
 
@@ -46,7 +46,7 @@ class CarList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        cars: state.CarReducer
+        ... state.CarReducer
     }
 }
 

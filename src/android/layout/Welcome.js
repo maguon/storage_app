@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { StatusBar, View, Text, Image, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-import * as welcomeAction from '../../../actions/WelcomeAction'
-import * as appAction from '../../../actions/AppAction'
+import * as welcomeAction from '../../actions/WelcomeAction'
+import * as appAction from '../../actions/AppAction'
 import { Actions } from 'react-native-router-flux'
 import { Button } from 'native-base'
 

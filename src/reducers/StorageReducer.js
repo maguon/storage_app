@@ -4,16 +4,25 @@
 import { handleActions } from 'redux-actions';
 import * as actionTypes from '../actions/types';
 
-const initialState = []
+const initialState = {
+    isLoading: false,
+    storages: [],
+    isError: false,
+    ErrorMessage: {}
+}
 
 export default handleActions({
     [actionTypes.storageTypes.STORAGE_LIST_GET]: (state, action) => {
         const { payload: { data } } = action
-        return data.map(item => {
-            item.pCount = item.col * item.row - item.balance
-            item.parkings = []
-            return item
-        })
+        return {
+            ...state,
+            isLoading: data.isLoading,
+            storages: data.map(item => {
+                item.pCount = item.col * item.row - item.balance
+                item.parkings = []
+                return item
+            })
+        }
     },
     [actionTypes.storageTypes.GET_PARKING_BY_ID]: (state, action) => {
         const { payload: { data, id } } = action

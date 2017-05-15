@@ -5,9 +5,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LayoutHome from '../layout/Home'
 import Camera from '../components/Camera'
-import * as StorageAction from '../../../actions/StorageAction'
-import * as RecordAction from '../../../actions/RecordAction'
-import Loading from '../components/Loading'
+import * as StorageAction from '../../actions/StorageAction'
+import * as RecordAction from '../../actions/RecordAction'
+import Loading from '../components/Loading/Loading'
 
 
 
@@ -29,8 +29,8 @@ class Home extends Component {
 
     render() {
         return (
-              //<LayoutHome {...this.props} />
-              <Loading />
+              <LayoutHome {...this.props} />
+            //   <Loading />
         )
     }
 }

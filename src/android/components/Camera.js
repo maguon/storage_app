@@ -27,8 +27,8 @@ var photoOptions = {
     }
 }
 
-import { postFile } from '../../../util/HttpRequest'
-import { base_host, file_host } from '../../../config/Host'
+import { postFile } from '../../util/HttpRequest'
+import { base_host, file_host } from '../../config/Host'
 import ImageResizer from 'react-native-image-resizer'
 
 export default class Camera extends Component {

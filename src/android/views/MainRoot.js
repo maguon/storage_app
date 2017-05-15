@@ -4,12 +4,12 @@
 import React, { Component, PropTypes } from 'react'
 import { KeyboardAwareScrollView, View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import localStorageKey from '../../../util/LocalStorageKey'
+import localStorageKey from '../../util/LocalStorageKey'
 import { Button, Container, Footer, FooterTab, Icon } from 'native-base'
 import Home from './Home'
 import Setting from './Setting'
 import CarList from './CarList'
-import ParkingList from '../components/StorageList/StorageList'
+import StorageList from './StorageList'
 
 
 
@@ -17,7 +17,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'home',
+            selectedTab: 'storageList',
         }
     }
     renderSelectedTab() {
@@ -28,8 +28,8 @@ class Main extends Component {
             case 'carList':
                 return (<CarList />)
                 break
-            case 'parkingList':
-                return (<ParkingList />)
+            case 'storageList':
+                return (<StorageList />)
                 break
             case 'setting':
                 return (<Setting />)
@@ -82,11 +82,11 @@ class Main extends Component {
                                 </Button>
                             </View>
                             <View style={{ flex: 1, borderColor: '#dedede', borderRightWidth: 1 }}>
-                                <Button full style={this.changeBtnStyle('parkingList')}
-                                    onPress={() => this.changeTab('parkingList')}>
-                                    <Icon name={selectedTab === 'parkingList' ? "ios-pin" : "ios-pin-outline"}
+                                <Button full style={this.changeBtnStyle('storageList')}
+                                    onPress={() => this.changeTab('storageList')}>
+                                    <Icon name={selectedTab === 'storageList' ? "ios-pin" : "ios-pin-outline"}
                                         type="ionicons"
-                                        style={this.changeIconStyle('parkingList')} />
+                                        style={this.changeIconStyle('storageList')} />
                                 </Button>
                             </View>
 
@@ -105,10 +105,6 @@ class Main extends Component {
         )
     }
 }
-
-// const styles = StyleSheet.create({
-// })
-
 
 const mapStateToProps = (state) => {
     return {
