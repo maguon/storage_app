@@ -30,7 +30,7 @@ class Home extends Component {
     render() {
         return (
               <LayoutHome {...this.props} />
-            //   <Loading />
+            
         )
     }
 }

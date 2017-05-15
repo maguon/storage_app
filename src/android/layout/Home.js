@@ -11,13 +11,16 @@ import {
 import RecordList from '../components/RecordListForHome/RecordList'
 import StorageList from '../components/StorageListForHome/StorageList'
 import SearchBar from '../components/Bar/SearchBar'
+import Loading from '../components/Loading/Loading'
 
 const window = Dimensions.get('window')
 
-const Home = ({storages,records}) => {
+const Home = ({ storages, records }) => {
     let viewStyle = { backgroundColor: 'rgba(0,0,0,0.16)' }
+    console.log('records', records)
     return (
         <View style={{ flex: 1 }}>
+            <Loading isLoading={records.isLoading || storages.isLoading} />
             <View>
                 <Image source={{ uri: 'banner_back' }} style={styles.image} />
                 <View style={styles.search}>
@@ -25,8 +28,8 @@ const Home = ({storages,records}) => {
                 </View>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <StorageList storages={storages} />
-                <RecordList records={records} />
+                <StorageList {...storages} />
+                <RecordList {...records} />
             </ScrollView>
         </View>
     )

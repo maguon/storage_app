@@ -14,8 +14,7 @@ const CarCamera = ({ records, getRecordLisMore }) => {
 
     let recordList = records.map(item => {
         return <RecordListItem record={item} key={item._id} />
-    }
-    )
+    })
     return (
 
         <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
@@ -30,7 +29,7 @@ const CarCamera = ({ records, getRecordLisMore }) => {
             </View>
             {recordList}
             <Text style={{ alignSelf: 'center', marginVertical: 10 }}
-            onPress={getRecordLisMore}
+                onPress={getRecordLisMore}
             >加载更多</Text>
         </View>)
 }

@@ -18,7 +18,7 @@ const CarInfo = (props) => {
                     moveCar={props.moveCar} />
                 <CarCamera />
                 <RecordList
-                    records={props.records}
+                    {...props.records}
                     getRecordLisMore={props.getRecordLisMore} />
             </ScrollView>
         </View>

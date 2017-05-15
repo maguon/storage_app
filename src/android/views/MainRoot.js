@@ -17,7 +17,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'storageList',
+            selectedTab: 'home',
         }
     }
     renderSelectedTab() {

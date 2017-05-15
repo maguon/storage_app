@@ -20,6 +20,7 @@ export const getStorageList = () => {
         console.log('=======START======')
         let url = `${base_host}/storageDate?dateStart=${now}&dateEnd=${now}`
         console.log(url)
+        dispatch({ type: actionTypes.storageTypes.LOADING, payload: { data: { isLoading: true } } })
         httpRequest
             .get(url, (err, res) => {
                 console.log('ttt')
@@ -28,7 +29,14 @@ export const getStorageList = () => {
                 } else {
                     if (res.success) {
                         console.log('SECCUSS', res)
-                        dispatch({ type: actionTypes.storageTypes.STORAGE_LIST_GET, payload: { data: res.result } });
+                        dispatch({
+                            type: actionTypes.storageTypes.GET_STORAGE_LIST_SUCCESS, payload: {
+                                data: {
+                                    isLoading: false,
+                                    storages: res.result
+                                }
+                            }
+                        })
                     } else {
                         console.log('RES_FAITLED', res.msg)
                     }

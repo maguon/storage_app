@@ -12,6 +12,7 @@ export default class StoragesPannelList extends Component {
     }
 
     render() {
+        console.log(this.props.storages)
         let storages = this.props.storages.map((item) => {
             return <StoragePannel storage={item} key={item.id} />
         })

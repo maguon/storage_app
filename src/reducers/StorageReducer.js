@@ -12,12 +12,12 @@ const initialState = {
 }
 
 export default handleActions({
-    [actionTypes.storageTypes.STORAGE_LIST_GET]: (state, action) => {
-        const { payload: { data } } = action
+    [actionTypes.storageTypes.GET_STORAGE_LIST_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action      
         return {
             ...state,
             isLoading: data.isLoading,
-            storages: data.map(item => {
+            storages: data.storages.map(item => {
                 item.pCount = item.col * item.row - item.balance
                 item.parkings = []
                 return item
@@ -31,5 +31,12 @@ export default handleActions({
                 item.parkings = data
             return item
         })
+    },
+    [actionTypes.storageTypes.LOADING]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            isLoading: data.isLoading
+        }
     }
 }, initialState)

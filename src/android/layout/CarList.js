@@ -15,7 +15,6 @@ class CarList extends Component {
         super(props)
     }
 
-
     render() {
         console.log(this.props)
         let viewStyle = { backgroundColor: '#00cade' }
