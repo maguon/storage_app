@@ -4,10 +4,10 @@ import { base_host, file_host } from '../config/Host'
 import * as actionTypes from '../actions/types'
 import { Alert } from 'react-native'
 
-
-export const getCarMakesAll = () => (dispatch) => {
+export const getCarModelsByMakeId = (param) => (dispatch) => {
     console.log('=======START======')
-    let url = `${base_host}/carMake`
+    let url = `${base_host}/carMake/${param.requiredParam.carMakeId}/carModel`
+
     console.log(url)
     httpRequest
         .get(url, (err, res) => {
@@ -18,18 +18,18 @@ export const getCarMakesAll = () => (dispatch) => {
                 if (res.success) {
                     console.log('SECCUSS', res.result)
                     dispatch({
-                        type: actionTypes.carMakeTypes.GET_CARMAKES_SUCCESS, payload: {
+                        type: actionTypes.carModelTypes.GET_CARMODELS_SUCCESS, payload: {
                             data: {
                                 isLoading: false,
-                                carMakes: res.result
+                                carModels: res.result
                             }
                         }
-                    })
+                    });
                 } else {
                     console.log('RES_FAITLED', res.msg)
                 }
             }
         })
     console.log('=======END======')
-}
 
+}

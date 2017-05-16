@@ -14,36 +14,21 @@ export default class VinScanner extends Component {
     super(props);
 
     this.state = {
-      barcode: '',
       cameraType: 'back',
-      text: 'Scan Barcode',
-      torchMode: 'off',
-      type: '',
-    };
-  }
-
-     barcodeReceived(e) {
-     if (e.data !== this.state.barcode || e.type !== this.state.type) Vibration.vibrate();
-
-    this.setState({
-      barcode: e.data,
-      text: `${e.data} (${e.type})`,
-      type: e.type,
-    });
+      torchMode: 'off'
+    }
   }
 
   render() {
     return (
       <View style={styles.container}>
         <BarcodeScanner
-          onBarCodeRead={this.barcodeReceived.bind(this)}
+          onBarCodeRead={this.props.barcodeReceived}
           style={{ flex: 1 }}
           torchMode={this.state.torchMode}
           cameraType={this.state.cameraType}
         />
-        <View style={styles.statusBar}>
-          <Text style={styles.statusBarText}>{this.state.text}</Text>
-        </View>
+
       </View>
     );
   }
@@ -51,9 +36,7 @@ export default class VinScanner extends Component {
 
 const styles = StyleSheet.create({
   container: {
-     flex: 1
-    // height:400,
-    // width:400
+    flex: 1
   },
   statusBar: {
     height: 100,

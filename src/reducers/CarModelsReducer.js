@@ -3,18 +3,18 @@ import * as actionTypes from '../actions/types'
 
 const initialState = {
     isLoading: false,
-    carMakes: [],
+    carModels: [],
     isError: false,
     ErrorMessage: {}
 }
 
 export default handleActions({
-    [actionTypes.carMakeTypes.GET_CARMAKES_SUCCESS]: (state, action) => {
+    [actionTypes.carModelTypes.GET_CARMODELS_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
             isLoading: data.isLoading,
-            carMakes: data.carMakes
+            carModels: data.carModels
         }
     }
 }, initialState)

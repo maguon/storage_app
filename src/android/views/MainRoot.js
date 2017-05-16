@@ -15,12 +15,14 @@ import StorageList from './StorageList'
 
 class Main extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            selectedTab: 'carList',
+            selectedTab: 'home'
         }
+        this.changeTab = this.changeTab.bind(this)
     }
     renderSelectedTab() {
+
         switch (this.state.selectedTab) {
             case 'home':
                 return (<Home />)
@@ -48,7 +50,7 @@ class Main extends Component {
             return { backgroundColor: '#efefef' }
     }
 
-    changeIconStyle(iconTag){
+    changeIconStyle(iconTag) {
         if (this.state.selectedTab == iconTag)
             return { color: '#00bfd8' }
         else

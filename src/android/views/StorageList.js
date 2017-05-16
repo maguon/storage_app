@@ -27,9 +27,6 @@ const mapDispatchToProps = (dispatch) => ({
     getStorageList: () => {
         dispatch(StorageAction.getStorageList())
     }
-    // getParkingById: (id) => {
-    //     dispatch(StorageAction.getParkingById(id))
-    // }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StorageList)

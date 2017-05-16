@@ -6,15 +6,15 @@ import { Actions } from 'react-native-router-flux'
 import SearchBar from '../components/Bar/SearchBar'
 import CarListComponent from '../components/CarList/CarList'
 import Loading from '../components/Loading/Loading'
+import NavBar from '../components/Bar/NavBar'
 
 const window = Dimensions.get('window')
 
 const CarList = ({ isLoading, cars, getCarList, loadMore, changeTab }) => {
-    let viewStyle = { backgroundColor: '#00cade' }
     return (
         <View style={{ flex: 1, width: window.width }}>
             <Loading isLoading={isLoading} />
-            <SearchBar viewStyle={viewStyle}  />
+            <NavBar title={'查询结果'} />
             <CarListComponent
                 cars={cars}
                 getCarList={getCarList}

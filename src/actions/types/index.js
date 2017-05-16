@@ -5,7 +5,9 @@ import * as userTypes from './UserTypes'
 import * as carTypes from './CarTypes'
 import * as carMakeTypes from './CarMakeTypes'
 import * as recordTypes from './RecordTypes'
+import * as carModelTypes from './CarModelTypes'
+
 
 export  {
-    loginTypes,appTypes,storageTypes,userTypes,carTypes,carMakeTypes,recordTypes
+    loginTypes,appTypes,storageTypes,userTypes,carTypes,carMakeTypes,recordTypes,carModelTypes
 }

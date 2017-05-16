@@ -16,13 +16,14 @@ import CarInfo from './views/CarInfo'
 import ParkingView from './views/ParkingView'
 import ErrView from './views/ErrView'
 import ImportCar from './views/ImportCar'
-import VinScanner from './views/VinScanner'
+import VinScanner from './components/VinScanner'
 import ErrorView from './views/ErrorView'
+import SearchCarList from './views/SearchCarList'
 
 
 class App extends Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
     
     render() {
@@ -33,14 +34,15 @@ class App extends Component {
                 <Scene key="root">
                     <Scene key="welcome"  component={Welcome} hideNavBar />
                     <Scene key="login" component={Login} hideNavBar />
-                    <Scene key="main"  initial={true}   component={MainRoot} hideNavBar />
+                    <Scene key="main"   component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
                     <Scene key="carInfo" component={CarInfo} hideNavBar />
                     <Scene key="ParkingView" component={ParkingView} />
                     <Scene key="ErrView" component={ErrView}/>
-                    <Scene key="ImportCar" component={ImportCar}  hideNavBar/>
+                    <Scene key="ImportCar"  initial={true} component={ImportCar}  hideNavBar/>
                     <Scene key="VinScanner" component={VinScanner}  hideNavBar/>
-                    <Scene key="ErrorView" component={ErrorView}  hideNavBar/>                    
+                    <Scene key="ErrorView" component={ErrorView}  hideNavBar/>     
+                    <Scene key="SearchCarList" component={SearchCarList}  hideNavBar/>                 
                 </Scene>
             </Router>
         )

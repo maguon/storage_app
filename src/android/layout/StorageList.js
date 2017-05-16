@@ -5,7 +5,7 @@ import SearchBar from '../components/Bar/SearchBar'
 import StorageListComponent from '../components/StorageList/StorageList'
 import Loading from '../components/Loading/Loading'
 
-const StorageList = ({storages,isLoading}) => {
+const StorageList = ({storages,isLoading,changeTab}) => {
     let viewStyle = { backgroundColor: '#00cade' }
     return (
         <View style={{ flex: 1 }}>

@@ -1,60 +1,116 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, DrawerLayoutAndroid, Dimensions, DatePickerAndroid } from 'react-native'
+import { Text, View, TextInput, DrawerLayoutAndroid, Dimensions, DatePickerAndroid, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import NavBar from '../components/Bar/NavBar'
 import { Button } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import * as CarMakeAction from '../../actions/CarMakeAction'
+import * as CarModelAction from '../../actions/CarModelAction'
 
 
 const window = Dimensions.get('window')
 
-export default class AddCar extends Component {
+class ImportCar extends Component {
     constructor(props) {
         super(props)
         this.state = {
             presetDate: new Date(2016, 3, 5),
             allDate: new Date(2020, 4, 5),
-            simpleText: '选择日期,默认今天',
+            simpleText: '',
             minText: '选择日期,不能比今日再早',
             maxText: '选择日期,不能比今日再晚',
             presetText: '选择日期,指定2016/3/5',
+            carMakeName: '',
+            carMakeId: -1,
+            carModelName: '',
+            carModelId: -1
         }
     }
+    componentDidMount() {
+
+    }
+
 
     openDraw(tag) {
+        if (tag == 'makeCarDraw') {
+            this.props.getCarMakesAll()
+        }
+        else if (tag == 'modelCarDraw') {
+            this.props.getCarModelsByMakeId({
+                requiredParam: {
+                    carMakeId: this.state.carMakeId
+                }
+            })
+        }
         this.refs[tag].openDrawer()
     }
 
     navigationView(tag) {
-        return (
-            <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                <Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}>{tag}</Text>
-            </View>
-        )
+        if (tag == 'makeCarDraw') {
+
+            let carMakes = this.props.carMakes.carMakes.map(item => {
+                return (<Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}
+                    key={item.id}
+                    onPress={() => {
+                        this.refs[tag].closeDrawer()
+                        this.setState({ carMakeName: item.make_name, carMakeId: item.id })
+                    }}>
+                    {item.make_name}
+                </Text>)
+            })
+            return (
+                <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                    {carMakes}
+                </View>
+            )
+        }
+        else if (tag == 'modelCarDraw') {
+            console.log('modelCarDraw', this.props.carModels)
+            let carModels = this.props.carModels.carModels.map(item => {
+                return (<Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}
+                    key={item.id}
+                    onPress={() => {
+                        this.refs[tag].closeDrawer()
+                        this.setState({ carModelName: item.model_name, carModelId: item.id })
+                    }}>
+                    {item.model_name}
+                </Text>)
+            })
+            return (
+                <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                    {carModels}
+                </View>
+            )
+
+        }
+        else
+            return (
+                <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                    <Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}>{tag}</Text>
+                </View>
+            )
     }
 
     async showPicker(stateKey, options) {
         try {
-            var newState = {};
-            const { action, year, month, day } = await DatePickerAndroid.open(options);
+            var newState = {}
+            const { action, year, month, day } = await DatePickerAndroid.open(options)
             if (action === DatePickerAndroid.dismissedAction) {
-                newState[stateKey + 'Text'] = 'dismissed';
+                newState[stateKey + 'Text'] = 'dismissed'
             } else {
                 var date = new Date(year, month, day);
-                newState[stateKey + 'Text'] = date.toLocaleDateString();
-                newState[stateKey + 'Date'] = date;
+                newState[stateKey + 'Text'] = date.toLocaleDateString()
+                newState[stateKey + 'Date'] = date
             }
-            this.setState(newState);
+            this.setState(newState)
+
         } catch ({ code, message }) {
-            console.warn(`Error in example '${stateKey}': `, message);
+            console.warn(`Error in example '${stateKey}': `, message)
         }
     }
 
     render() {
-
-
         return (
-
             <DrawerLayoutAndroid
                 ref='makeCarDraw'
                 drawerWidth={window.width / 2}
@@ -89,10 +145,13 @@ export default class AddCar extends Component {
                                         <NavBar title={'车辆入库'} />
                                         <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
                                             <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', flexDirection: 'row' }}>
+
                                                 <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18, flex: 1 }}>VIN码：</Text>
                                                 <TextInput underlineColorAndroid="transparent" style={{ flex: 3, padding: 0, color: '#00cade', fontSize: 18 }} />
+
                                             </View>
                                             <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd' }}>
+
                                                 <View style={{
                                                     flexDirection: 'row',
                                                     flex: 1, paddingVertical: 10,
@@ -100,20 +159,21 @@ export default class AddCar extends Component {
                                                     marginLeft: 10, alignItems: 'center'
                                                 }}>
                                                     <Text style={{ fontSize: 14, flex: 2 }}>品牌：</Text>
-                                                    <Text style={{ fontSize: 14, flex: 2 }}>大众</Text>
+                                                    <Text style={{ fontSize: 14, flex: 2 }}>{this.state.carMakeName}</Text>
                                                     <Icon name='caret-down' style={{ flex: 1 }} onPress={() => { this.openDraw('makeCarDraw') }} />
                                                 </View>
+
                                                 <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 10, marginLeft: 10, alignItems: 'center' }}>
                                                     <Text style={{ fontSize: 14, flex: 2 }}>型号：</Text>
-                                                    <Text style={{ fontSize: 14, flex: 2 }}>帕萨特</Text>
+                                                    <Text style={{ fontSize: 14, flex: 2 }}>{this.state.carModelName}</Text>
                                                     <Icon name='caret-down' style={{ flex: 1 }} onPress={() => { this.openDraw('modelCarDraw') }} />
                                                 </View>
                                             </View>
                                             <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                                                 <Text style={{ flex: 1, marginLeft: 10, fontSize: 14 }}>颜色：</Text>
-                                                <View style={{flex:3,flexDirection:'row'}}>
+                                                <View style={{ flex: 3, flexDirection: 'row' }}>
                                                     <View style={{ width: 20, height: 20, borderColor: '#dddddd', borderWidth: 1, alignSelf: 'center', backgroundColor: `#fff` }}></View>
-                                                </View>                    
+                                                </View>
                                             </View>
                                             <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
                                                 <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>发动机号：</Text>
@@ -121,7 +181,7 @@ export default class AddCar extends Component {
                                             </View>
                                             <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                                                 <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
-                                                <Text style={{ fontSize: 14, flex: 5 }}>2017-10-16</Text>
+                                                <Text style={{ fontSize: 14, flex: 5 }}>{this.state.simpleText}</Text>
                                                 <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'simple', { date: this.state.simpleDate })} />
                                             </View>
                                         </View>
@@ -170,3 +230,23 @@ export default class AddCar extends Component {
     }
 
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        carMakes: state.CarMakeReducer,
+        carModels: state.CarModelsReducer,
+        user: state.UserReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getCarMakesAll: () => {
+        dispatch(CarMakeAction.getCarMakesAll())
+    },
+    getCarModelsByMakeId: (param) => {
+        dispatch(CarModelAction.getCarModelsByMakeId(param))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImportCar)

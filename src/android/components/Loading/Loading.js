@@ -9,7 +9,7 @@ const Loading = ({ isLoading = false }) => {
             animationType={"none"}
             transparent
             visible={isLoading}
-            onRequestClose={() => { alert("Modal has been closed.") }}
+            onRequestClose={() => { alert("closed") }}
         >
             <View style={styles.container}>
                 <View>

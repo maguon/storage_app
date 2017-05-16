@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as CarAction from '../../actions/CarAction'
 import { Actions } from 'react-native-router-flux'
-import CarListLayout from '../layout/CarList'
+import SearchCarListLayout from '../layout/SearchCarList'
 
 class CarList extends Component {
     constructor(props) {
@@ -10,20 +10,22 @@ class CarList extends Component {
     }
 
     componentDidMount() {
-            this.props.getCarList({
-                requiredParam: {
-                    userid: 3
-                },
-                optionalParam: {
-                    start: 0,
-                    size: 20,
-                    active: 1,
-                    relStatus: 1
-                }
-            })
+        this.props.getCarList({
+            requiredParam: {
+                userid: 3
+            },
+            optionalParam: {
+                start: 0,
+                size: 20,
+                active: 1,
+                relStatus: 1,
+                vin: this.props.vin
+            }
+        })
     }
 
     loadMore() {
+        // console.log(this.props.vin)
         this.props.getCarList({
             requiredParam: {
                 userid: 3
@@ -32,14 +34,15 @@ class CarList extends Component {
                 start: this.props.cars.length,
                 size: 20,
                 active: 1,
-                relStatus: 1
+                relStatus: 1,
+                vin: this.props.vin
             }
         }, false)
     }
 
     render() {
         return (
-            <CarListLayout {...this.props} loadMore={this.loadMore.bind(this)} /> // isSearch={isSearch} Vin={vin}
+            <SearchCarListLayout {...this.props} loadMore={this.loadMore.bind(this)} />
         )
     }
 }
