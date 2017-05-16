@@ -5,11 +5,11 @@ import { Actions } from 'react-native-router-flux'
 
 const SearchBar = ({ viewStyle }) => {
     return (
-        <DrawerLayoutAndroid
+        /*<DrawerLayoutAndroid
             ref='VIN'
             drawerWidth={window.width / 2}
             drawerPosition={DrawerLayoutAndroid.positions.Right}
-            renderNavigationView={() => { return (<View><Text>11111</Text></View>) }}>
+            renderNavigationView={() => { return (<View><Text>11111</Text></View>) }}>*/
             <Header searchBar style={viewStyle}>
                 <Left style={{ flex: 1 }}>
                     <Button transparent onPress={() => { Actions.VinScanner() }}>
@@ -28,7 +28,7 @@ const SearchBar = ({ viewStyle }) => {
                     </Button>
                 </Right>
             </Header>
-        </DrawerLayoutAndroid>
+        // </DrawerLayoutAndroid>
     )
 }
 
