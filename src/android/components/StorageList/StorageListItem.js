@@ -13,7 +13,7 @@ const StorageListItem = ({ storage }) => {
                     </View>
                 </View>
                 <View style={[{ flex: 8 }, styles.content]}>
-                    <Text style={{}}>{storage.storage_name}</Text>
+                    <Text style={styles.storageName}>{storage.storage_name}</Text>
                 </View>
                 <View style={[{ flex: 8 }, styles.content]}>
                     <View>

@@ -10,7 +10,7 @@ let ImageHeight = ImageWidth / 16 * 9
 
 
 
-export default class extends Component {
+export default class CarCamera extends Component {
     constructor(props) {
         super(props)
     }
@@ -43,7 +43,7 @@ export default class extends Component {
                 <View style={styles.item}>
                     <Text>图片</Text>
                 </View>
-                <View style={[{ flexDirection: 'row' }, styles.item]}>
+                <View style={[ styles.item,{ flexDirection: 'row' ,backgroundColor:'#ffffff'}]}>
                     <Button
                         style={{
                             borderRadius: 35,
