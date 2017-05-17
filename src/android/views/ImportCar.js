@@ -29,68 +29,27 @@ class ImportCar extends Component {
             selectedColor: 'FFFFFF'
         }
     }
-    componentDidMount() {
-
+    componentWillReceiveProps(nextProps) {
+        let { makeId, modelId, makeName, modelName } = nextProps
+        this.setState({
+            carMakeId: makeId,
+            carModelId: modelId,
+            carMakeName: makeName,
+            carModelName: `(${modelName})`
+        })
     }
 
 
     openDraw(tag) {
-        if (tag == 'makeCarDraw') {
-            this.props.getCarMakesAll()
-        }
-        else if (tag == 'modelCarDraw') {
-            this.props.getCarModelsByMakeId({
-                requiredParam: {
-                    carMakeId: this.state.carMakeId
-                }
-            })
-        }
         this.refs[tag].openDrawer()
     }
 
     navigationView(tag) {
-        if (tag == 'makeCarDraw') {
-
-            let carMakes = this.props.carMakes.carMakes.map(item => {
-                return (<Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}
-                    key={item.id}
-                    onPress={() => {
-                        this.refs[tag].closeDrawer()
-                        this.setState({ carMakeName: item.make_name, carMakeId: item.id })
-                    }}>
-                    {item.make_name}
-                </Text>)
-            })
-            return (
-                <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                    {carMakes}
-                </View>
-            )
-        }
-        else if (tag == 'modelCarDraw') {
-            let carModels = this.props.carModels.carModels.map(item => {
-                return (<Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}
-                    key={item.id}
-                    onPress={() => {
-                        this.refs[tag].closeDrawer()
-                        this.setState({ carModelName: item.model_name, carModelId: item.id })
-                    }}>
-                    {item.model_name}
-                </Text>)
-            })
-            return (
-                <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                    {carModels}
-                </View>
-            )
-
-        }
-        else
-            return (
-                <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                    <Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}>{tag}</Text>
-                </View>
-            )
+        return (
+            <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                <Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}>{tag}</Text>
+            </View>
+        )
     }
 
     colorPanelRender() {
@@ -128,115 +87,71 @@ class ImportCar extends Component {
     render() {
         return (
             <DrawerLayoutAndroid
-                ref='makeCarDraw'
+                ref='parkingView'
                 drawerWidth={window.width}
-                drawerPosition={DrawerLayoutAndroid.positions.Right}
-                renderNavigationView={() => this.navigationView('makeCarDraw')}>
-                <DrawerLayoutAndroid
-                    ref='modelCarDraw'
-                    drawerWidth={window.width / 2}
-                    drawerPosition={DrawerLayoutAndroid.positions.Left}
-                    renderNavigationView={() => this.navigationView('modelCarDraw')}>
-                    <DrawerLayoutAndroid
-                        ref='storage'
-                        drawerWidth={window.width / 2}
-                        drawerPosition={DrawerLayoutAndroid.positions.Left}
-                        renderNavigationView={() => this.navigationView('storage')}>
-                        <DrawerLayoutAndroid
-                            ref='row'
-                            drawerWidth={window.width / 2}
-                            drawerPosition={DrawerLayoutAndroid.positions.Right}
-                            renderNavigationView={() => this.navigationView('row')}>
-                            <DrawerLayoutAndroid
-                                ref='col'
-                                drawerWidth={window.width / 2}
-                                drawerPosition={DrawerLayoutAndroid.positions.Left}
-                                renderNavigationView={() => this.navigationView('col')}>
-                                <DrawerLayoutAndroid
-                                    ref='parkingView'
-                                    drawerWidth={window.width}
-                                    drawerPosition={DrawerLayoutAndroid.positions.Left}
-                                    renderNavigationView={() => this.navigationView('parkingView')}>
-                                    <View style={{ flex: 1 }}>
-                                        <NavBar title={'车辆入库'} />
-                                        <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
-                                            <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', flexDirection: 'row' }}>
-                                                <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18, flex: 1 }}>VIN码：</Text>
-                                                <TextInput underlineColorAndroid="transparent" style={{ flex: 3, padding: 0, color: '#00cade', fontSize: 18 }} />
-                                            </View>
-                                            <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                                                <View style={{
-                                                    flexDirection: 'row',
-                                                    flex: 1, paddingVertical: 10,
-                                                    borderRightWidth: 1, borderColor: '#dddddd',
-                                                    marginLeft: 10, alignItems: 'center'
-                                                }}>
-                                                    <Text style={{ fontSize: 14, flex: 2 }}>品牌：</Text>
-                                                    <Text style={{ fontSize: 14, flex: 2 }}>{this.state.carMakeName}</Text>
-                                                    <Icon name='caret-down' style={{ flex: 1 }} onPress={() => { this.openDraw('makeCarDraw') }} />
-                                                </View>
-                                                <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 10, marginLeft: 10, alignItems: 'center' }}>
-                                                    <Text style={{ fontSize: 14, flex: 2 }}>型号：</Text>
-                                                    <Text style={{ fontSize: 14, flex: 2 }}>{this.state.carModelName}</Text>
-                                                    <Icon name='caret-down' style={{ flex: 1 }} onPress={() => { this.openDraw('modelCarDraw') }} />
-                                                </View>
-                                            </View>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                                                <Text style={{ flex: 1, marginLeft: 10, fontSize: 14 }}>颜色：</Text>
-
-                                                {this.colorPanelRender()}
-
-                                            </View>
-                                            <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
-                                                <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>发动机号：</Text>
-                                                <TextInput underlineColorAndroid="transparent" style={{ flex: 3, padding: 0, fontSize: 14 }} />
-                                            </View>
-                                            <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                                                <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
-                                                <Text style={{ fontSize: 14, flex: 5 }}>{this.state.simpleText}</Text>
-                                                <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'simple', { date: this.state.simpleDate })} />
-                                            </View>
-                                        </View>
-                                        <View style={{ marginHorizontal: 20, marginTop: 20 }}>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, borderColor: '#00cade', borderBottomWidth: 2 }}>
-                                                <Text style={{ color: '#00cade', fontSize: 16, flex: 10 }}>选择仓库</Text>
-                                                <Text style={{ color: '#00cade', fontSize: 16, flex: 5 }}>一号仓库</Text>
-                                                <Icon name='caret-down' style={{ flex: 1 }} onPress={() => { this.openDraw('storage') }} />
-                                            </View>
-                                            <View style={{ flexDirection: 'row' }}>
-                                                <View style={{
-                                                    flexDirection: 'row',
-                                                    flex: 1, paddingVertical: 10,
-                                                    marginLeft: 10, alignItems: 'center'
-                                                }}>
-                                                    <Text style={{ fontSize: 16, flex: 4 }}>01</Text>
-                                                    <Icon name='caret-down' style={{ flex: 1 }} onPress={() => { this.openDraw('row') }} />
-                                                    <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>排</Text>
-                                                </View>
-                                                <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 10, marginLeft: 10, alignItems: 'center' }}>
-                                                    <Text style={{ fontSize: 16, flex: 2 }}>B2</Text>
-                                                    <Icon name='caret-down' style={{ flex: 1 }} onPress={() => { this.openDraw('col') }} />
-                                                    <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>道位</Text>
-                                                </View>
-                                            </View>
-                                            <View>
-                                                <Button full style={{ backgroundColor: '#00cade' }} onPress={() => { this.openDraw('parkingView') }}>
-                                                    <Text style={{ color: '#ffffff', fontSize: 16, position: 'absolute', left: 20 }}>通过分布图选择车位</Text>
-                                                    <Icon name='angle-right' color='#fff' size={16} style={{ position: 'absolute', right: 20 }} />
-                                                </Button>
-                                            </View>
-                                        </View>
-                                        <View style={{ marginHorizontal: 20, marginTop: 40 }}>
-                                            <Button full style={{ backgroundColor: '#00cade' }} onPress={() => Actions.SelectCarMake()}>
-                                                <Text style={{ color: '#ffffff' }}>确定</Text>
-                                            </Button>
-                                        </View>
-                                    </View>
-                                </DrawerLayoutAndroid>
-                            </DrawerLayoutAndroid>
-                        </DrawerLayoutAndroid>
-                    </DrawerLayoutAndroid>
-                </DrawerLayoutAndroid>
+                drawerPosition={DrawerLayoutAndroid.positions.Left}
+                renderNavigationView={() => this.navigationView('parkingView')}>
+                <View style={{ flex: 1 }}>
+                    <NavBar title={'车辆入库'} />
+                    <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
+                        <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', flexDirection: 'row' }}>
+                            <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18, flex: 1 }}>VIN码：</Text>
+                            <TextInput underlineColorAndroid="transparent" style={{ flex: 3, padding: 0, color: '#00cade', fontSize: 18 }} />
+                        </View>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={Actions.SelectCarMake}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd', paddingVertical: 10, marginLeft: 10 }}>
+                                <Text style={{ fontSize: 14, flex: 4 }}>品牌(型号)：</Text>
+                                <Text style={{ fontSize: 14, flex: 10 }}>{this.state.carMakeName}{this.state.carModelName}</Text>
+                                <Text style={{ fontSize: 14, flex: 1 }}>></Text>
+                            </View>
+                        </TouchableHighlight>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ flex: 1, marginLeft: 10, fontSize: 14 }}>颜色：</Text>
+                            {this.colorPanelRender()}
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
+                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>发动机号：</Text>
+                            <TextInput underlineColorAndroid="transparent" style={{ flex: 3, padding: 0, fontSize: 14 }} />
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
+                            <Text style={{ fontSize: 14, flex: 5 }}>{this.state.simpleText}</Text>
+                            <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'simple', { date: this.state.simpleDate })} />
+                        </View>
+                    </View>
+                    <View style={{ marginHorizontal: 20, marginTop: 20 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, borderColor: '#00cade', borderBottomWidth: 2 }}>
+                            <Text style={{ color: '#00cade', fontSize: 16, flex: 10 }}>选择仓库</Text>
+                            <Text style={{ color: '#00cade', fontSize: 16, flex: 5 }}>一号仓库</Text>
+                            <Text style={{ fontSize: 14, flex: 1 }}>></Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                flex: 1, paddingVertical: 10,
+                                marginLeft: 10, alignItems: 'center'
+                            }}>
+                                <Text style={{ fontSize: 16, flex: 4 }}></Text>
+                                <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>排</Text>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 10, marginLeft: 10, alignItems: 'center' }}>
+                                <Text style={{ fontSize: 16, flex: 2 }}></Text>
+                                <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>道位</Text>
+                            </View>
+                        </View>
+                        <View>
+                            <Button full style={{ backgroundColor: '#00cade' }} onPress={() => { this.openDraw('parkingView') }}>
+                                <Text style={{ color: '#ffffff', fontSize: 16, position: 'absolute', left: 20 }}>通过分布图选择车位</Text>
+                                <Icon name='angle-right' color='#fff' size={16} style={{ position: 'absolute', right: 20 }} />
+                            </Button>
+                        </View>
+                    </View>
+                    <View style={{ marginHorizontal: 20, marginTop: 40 }}>
+                        <Button full style={{ backgroundColor: '#00cade' }} onPress={() => Actions.SelectStorage()}>
+                            <Text style={{ color: '#ffffff' }}>确定</Text>
+                        </Button>
+                    </View>
+                </View>
             </DrawerLayoutAndroid>
         )
     }
@@ -246,19 +161,12 @@ class ImportCar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        carMakes: state.CarMakeReducer,
-        carModels: state.CarModelsReducer,
         user: state.UserReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getCarMakesAll: () => {
-        dispatch(CarMakeAction.getCarMakesAll())
-    },
-    getCarModelsByMakeId: (param) => {
-        dispatch(CarModelAction.getCarModelsByMakeId(param))
-    }
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImportCar)

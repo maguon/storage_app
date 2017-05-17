@@ -21,6 +21,9 @@ import ErrorView from './views/ErrorView'
 import SearchCarList from './views/SearchCarList'
 import SelectCarMake from './views/SelectCarMake'
 import SelectCarModel from './views/SelectCarModel'
+import SelectStorage from './views/SelectStorage'
+import SelectRow from './views/SelectRow'
+import SelectColumn from './views/SelectColumn'
 
 
 class App extends Component {
@@ -37,8 +40,6 @@ class App extends Component {
                     <Scene key="welcome" component={Welcome} hideNavBar />
                     <Scene key="login" component={Login} hideNavBar />
                     <Scene key="main" initial={true} component={MainRoot} hideNavBar />
-                    <Scene key="SelectCarMake" component={SelectCarMake} hideNavBar />
-                    <Scene key="SelectCarModel" component={SelectCarModel} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
                     <Scene key="carInfo" component={CarInfo} hideNavBar />
                     <Scene key="ParkingView" component={ParkingView} />
@@ -47,6 +48,11 @@ class App extends Component {
                     <Scene key="VinScanner" component={VinScanner} hideNavBar />
                     <Scene key="ErrorView" component={ErrorView} hideNavBar />
                     <Scene key="SearchCarList" component={SearchCarList} hideNavBar />
+                    <Scene key="SelectCarMake" component={SelectCarMake} hideNavBar />
+                    <Scene key="SelectCarModel" component={SelectCarModel} hideNavBar />
+                    <Scene key="SelectStorage" component={SelectStorage} hideNavBar />
+                    <Scene key="SelectRow" component={SelectRow} hideNavBar />
+                    <Scene key="SelectColumn" component={SelectColumn} hideNavBar />
                 </Scene>
             </Router>
         )

@@ -25,7 +25,6 @@ class CarList extends Component {
     }
 
     loadMore() {
-        // console.log(this.props.vin)
         this.props.getCarList({
             requiredParam: {
                 userid: 3
