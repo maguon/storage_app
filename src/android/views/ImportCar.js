@@ -26,17 +26,33 @@ class ImportCar extends Component {
             carMakeId: -1,
             carModelName: '',
             carModelId: -1,
-            selectedColor: 'FFFFFF'
+            selectedColor: 'FFFFFF',
+            row: '',
+            column: '',
+            storageName: '',
+            storageId: 0
         }
     }
     componentWillReceiveProps(nextProps) {
-        let { makeId, modelId, makeName, modelName } = nextProps
-        this.setState({
-            carMakeId: makeId,
-            carModelId: modelId,
-            carMakeName: makeName,
-            carModelName: `(${modelName})`
-        })
+        // console.log(nextProps)
+        if (nextProps.selectType == 0) {
+            let { makeId, modelId, makeName, modelName } = nextProps
+            this.setState({
+                carMakeId: makeId,
+                carModelId: modelId,
+                carMakeName: makeName,
+                carModelName: `(${modelName})`
+            })
+        } else if (nextProps.selectType == 1) {
+            let { row, column, storageName, storageId } = nextProps
+            this.setState({
+                row,
+                column,
+                storageName,
+                storageId
+            })
+        }
+
     }
 
 
@@ -122,7 +138,7 @@ class ImportCar extends Component {
                     <View style={{ marginHorizontal: 20, marginTop: 20 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, borderColor: '#00cade', borderBottomWidth: 2 }}>
                             <Text style={{ color: '#00cade', fontSize: 16, flex: 10 }}>选择仓库</Text>
-                            <Text style={{ color: '#00cade', fontSize: 16, flex: 5 }}>一号仓库</Text>
+                            <Text style={{ color: '#00cade', fontSize: 16, flex: 5 }}>{this.state.storageName}</Text>
                             <Text style={{ fontSize: 14, flex: 1 }}>></Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
@@ -131,11 +147,11 @@ class ImportCar extends Component {
                                 flex: 1, paddingVertical: 10,
                                 marginLeft: 10, alignItems: 'center'
                             }}>
-                                <Text style={{ fontSize: 16, flex: 4 }}></Text>
+                                <Text style={{ fontSize: 16, flex: 4 }}>{this.state.row}</Text>
                                 <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>排</Text>
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 10, marginLeft: 10, alignItems: 'center' }}>
-                                <Text style={{ fontSize: 16, flex: 2 }}></Text>
+                                <Text style={{ fontSize: 16, flex: 2 }}>{this.state.column}</Text>
                                 <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>道位</Text>
                             </View>
                         </View>

@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     count: {
-        color: '#000000',
         backgroundColor: '#00bfd8',
         color: '#ffffff',
         borderRadius: 15,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, ScrollView, ListView, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import * as StorageAction from '../../actions/StorageAction'
+import * as StorageAction from '../../actions/StorageDateAction'
 import ParkingViewColumnHeader from '../components/Demo/ParkingView/ParkingViewColumnHeader'
 import ParkingViewItem from '../components/Demo/ParkingView/ParkingViewItem'
 import ParkingViewRight from '../components/Demo/ParkingView/ParkingViewRight'

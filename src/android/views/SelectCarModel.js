@@ -21,14 +21,15 @@ class SelectCarModel extends Component {
 
     render() {
         let carModels = this.props.carModels.carModels.map(item => {
-            return (<Text onPress={() =>
+            return (<Text key={item.id} onPress={() =>
                 Actions.pop({
                     popNum: 2,
                     refresh: {
                         makeId: this.props.makeId,
                         modelId: item.id,
                         makeName: this.props.makeName,
-                        modelName: item.model_name
+                        modelName: item.model_name,
+                        selectType: 0
                     }
                 })}>{item.model_name}</Text>)
         })

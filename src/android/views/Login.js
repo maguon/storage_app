@@ -6,7 +6,7 @@ import ReduxThunk from 'redux-thunk';
 import reducers from '../../reducers/index';
 import * as LoginAction from '../../actions/LoginAction';
 import { Actions } from 'react-native-router-flux';
-import { Button, Icon, Form, Item, Text, Label, Input, Left, Body, Right, Title, List, ListItem } from 'native-base';
+import { Button, Icon, Form, Item, Text, Label, Input, Left, Body, Right, Title, List, ListItem } from 'native-base'
 
 const window = Dimensions.get('window')
 
