@@ -20,7 +20,7 @@ const StorageListItem = ({ storage }) => {
                         <Text style={styles.pCountTag}>剩余车位：</Text>
                     </View>
                     <View>
-                        <Text style={styles.pCount}>{storage.pCount}</Text>
+                        <Text style={styles.pCount}>{storage.pCount.toString()}</Text>
                     </View>
                 </View>
                 <View style={[{ flex: 1 }, styles.content]}>

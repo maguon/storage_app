@@ -35,7 +35,7 @@ const CarInfo = ({ car, exportCar }) => {
                     <Text style={{ marginLeft: 10, fontSize: 14 }}>生产日期：{car.pro_date}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                    <Text style={{ marginLeft: 10, fontSize: 14 }}>当前位置：{car.storage_name}-{car.row}-{car.col}</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 14 }}>当前位置：{car.storage_name}-{car.row.toString()}-{car.col.toString()}</Text>
                 </View>
             </View>
             <View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >

@@ -8,6 +8,8 @@ import StorageDateReducer from './StorageDateReducer'
 import StorageReducer from './StorageReducer'
 import StorageParkingReducer from './StorageParkingReducer'
 import RecordReducer from './RecordReducer'
+import ImporCarReducer from './ImporCarReducer'
+import ImportCarCameraReducer from './ImportCarCameraReducer'
 
 
 export default combineReducers({
@@ -19,5 +21,7 @@ export default combineReducers({
     StorageDateReducer,
     StorageParkingReducer,
     RecordReducer,
-    CarModelsReducer
+    CarModelsReducer,
+    ImporCarReducer,
+    ImportCarCameraReducer
 })

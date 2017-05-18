@@ -26,9 +26,9 @@ const Home = ({ storages, records, changeTab }) => {
                     <SearchBar viewStyle={viewStyle}  />
                 </View>
             </View>
-             <StorageList {...storages} />
+             
             <ScrollView showsVerticalScrollIndicator={false}>
-               
+               <StorageList {...storages} />
                 <RecordList {...records} />
             </ScrollView>
         </View>

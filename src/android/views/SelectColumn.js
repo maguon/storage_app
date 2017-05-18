@@ -13,20 +13,21 @@ export default class SelectColumn extends Component {
         console.log(this.props.columns)
         let columns = this.props.columns.map(item => {
             return (
-                <TouchableHighlight key={item} underlayColor='rgba(0,0,0,0.1)' onPress={() => {
+                <TouchableHighlight key={item.col} underlayColor='rgba(0,0,0,0.1)' onPress={() => {
                     Actions.pop({
                         popNum: 3,
                         refresh: {
                             row: this.props.row,
-                            column: item,
+                            column: item.col,
                             storageName: this.props.storageName,
                             storageId: this.props.storageId,
+                            parkingId: item.parkingId,
                             selectType: 1
                         }
                     })
 
                 }}>
-                    <Text>{item}</Text>
+                    <Text>{item.col.toString()}</Text>
                 </TouchableHighlight>)
         })
         return (

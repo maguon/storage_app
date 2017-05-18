@@ -1,34 +1,31 @@
 import httpRequest from '../util/HttpRequest.js'
 import { base_host, file_host } from '../config/Host'
 import * as actionTypes from '../actions/types'
-import { Alert } from 'react-native'
+import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getCarModelsByMakeId = (param) => (dispatch) => {
-    console.log('=======START======')
-    let url = `${base_host}/carMake/${param.requiredParam.carMakeId}/carModel`
 
-    console.log(url)
+export const ImportCar = (param) => (dispatch) => {
+    let url = `${base_host}/user/${param.requiredParam.userid}/carStorageRel`
+    console.log('param.postParam', JSON.stringify(param.postParam))
     httpRequest
-        .get(url, (err, res) => {
-            console.log('ttt')
+        .post(url, param.postParam, (err, res) => {
             if (err) {
                 console.log('FAILED', err)
             } else {
                 if (res.success) {
-                    console.log('SECCUSS', res.result)
+                    console.log('SUCCESS', res)
                     dispatch({
-                        type: actionTypes.carModelTypes.GET_CARMODELS_SUCCESS, payload: {
+                        type: actionTypes.imporCarTypes.IMPORT_CAR_SUCCESS, payload: {
                             data: {
                                 isLoading: false,
-                                carModels: res.result
+                                carId: res.id
                             }
                         }
-                    });
+                    })
                 } else {
                     console.log('RES_FAITLED', res.msg)
                 }
             }
         })
-    console.log('=======END======')
-
 }
+

@@ -8,6 +8,8 @@ import * as carMakeTypes from './CarMakeTypes'
 import * as recordTypes from './RecordTypes'
 import * as carModelTypes from './CarModelTypes'
 import * as storageParkingTypes from './StorageParkingTypes'
+import * as imporCarTypes from './ImporCarTypes'
+import * as importCarCameraTypes from './ImportCarCameraTypes'
 
 
 export {
@@ -20,5 +22,7 @@ export {
     carTypes,
     carMakeTypes,
     recordTypes,
-    carModelTypes
+    carModelTypes,
+    imporCarTypes,
+    importCarCameraTypes
 }

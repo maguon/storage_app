@@ -28,7 +28,7 @@ class SelectRow extends Component {
                     row.columns = []
                     acc.push(row)
                 }
-                row.columns.push(val.col)
+                row.columns.push({ col: val.col, parkingId: val.id })
             }
             return acc
         }, []).sort((a, b) => {
@@ -40,9 +40,9 @@ class SelectRow extends Component {
 
         storageParkings = storageParkings.map(item => {
             return (
-            <TouchableHighlight key={item.row} underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectColumn({ columns: item.columns, row: item.row, storageId: this.props.storageId, storageName: this.props.storageName })} >
-                <Text>{item.row}</Text>
-            </TouchableHighlight>)
+                <TouchableHighlight key={item.row} underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectColumn({ columns: item.columns, row: item.row, storageId: this.props.storageId, storageName: this.props.storageName })} >
+                    <Text>{item.row.toString()}</Text>
+                </TouchableHighlight>)
         })
 
         return (

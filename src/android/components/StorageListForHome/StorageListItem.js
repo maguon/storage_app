@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Image, Text } from 'react-native'
 import PercentageCircle from 'react-native-percentage-circle'
-import { Alert } from 'react-native'
-
 
 export default class StorageListItem extends Component {
     constructor(props) {
@@ -19,15 +17,15 @@ export default class StorageListItem extends Component {
                     <View style={styles.infoViewRow}>
                         <Image source={{ uri: 'icon_house_1' }} style={styles.infoViewRow_image} />
                         <Text style={styles.storageName}>{storage.storage_name}</Text>
-                        <Text style={styles.count}>总:{count}</Text>
+                        <Text style={styles.count}>总:{count.toString()}</Text>
                     </View>
                     <View style={styles.infoViewRow}>
                         <View style={styles.infoViewCol}>
-                            <Text style={styles.exportCount}>{storage.exports}</Text>
+                            <Text style={styles.exportCount}>{storage.exports.toString()}</Text>
                             <Text style={styles.smallLabel}>临近出库</Text>
                         </View>
                         <View style={styles.infoViewCol}>
-                            <Text style={styles.emptyCount}>{storage.pCount}</Text>
+                            <Text style={styles.emptyCount}>{storage.pCount.toString()}</Text>
                             <Text style={styles.smallLabel}>剩余车位</Text>
                         </View>
                     </View>
@@ -38,7 +36,7 @@ export default class StorageListItem extends Component {
                             <Text style={styles.percentLabel}>使用率</Text>
                         </View>
                         <View style={styles.percentCenterView}>
-                            <Text style={styles.percentText}>{percent}</Text>
+                            <Text style={styles.percentText}>{percent.toString()}</Text>
                             <Text style={styles.percentSign}>%</Text>
                         </View>
                     </PercentageCircle>

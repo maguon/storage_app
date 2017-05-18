@@ -50,9 +50,12 @@ export const exportCar = (param) => (dispatch) => {
                 if (res.success) {
                     dispatch({ type: actionTypes.carTypes.EXPORT_CAR_SUCCESS, payload: { data: {} } })
                 } else {
-
+                    console.log('RES_FAITLED', res.msg)
                 }
             }
         })
 }
+
+
+
 

@@ -37,5 +37,12 @@ export default handleActions({
             ...state,
             isLoading: data.isLoading
         }
+    },
+    [actionTypes.carTypes.IMPORT_CAR_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            isLoading: data.isLoading
+        }
     }
 }, initialState)
