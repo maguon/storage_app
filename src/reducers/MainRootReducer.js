@@ -1,5 +1,5 @@
-import { handleActions } from 'redux-actions';
-import  * as actionTypes from '../actions/actionTypes';
+import { handleActions } from 'redux-actions'
+import  * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     modalFlag : false,
@@ -8,18 +8,19 @@ const initialState = {
 }
 
 export default handleActions({
-    [actionTypes.loginTypes.LOGIN_USERNAME_CHANGE]: (state, action) => {
-        const { payload: { data } } = action;
+    [actionTypes.loginTypes.LOGIN_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
             username:data
         }
     },
-    [actionTypes.loginTypes.LOGIN_PASSWORD_CHANGE]: (state, action) => {
-        const { payload: { data } } = action;
+    [actionTypes.loginTypes.LOGIN_FAILED]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
             password:data
         }
     }
 }, initialState)
+

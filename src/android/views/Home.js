@@ -39,6 +39,7 @@ class Home extends Component {
     }
 
     render() {
+        console.log('user',this.props.user)
         return (
             <LayoutHome {...this.props} />
         )
@@ -49,7 +50,7 @@ const mapStateToProps = (state) => {
     return {
         storages: state.StorageDateReducer,
         records: state.RecordReducer,
-        user: state.UserReducer
+        user: state.LoginReducer.user
     }
 }
 

@@ -60,29 +60,22 @@ class Welcome extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(nextProps)
         let { isJump, nextStep } = nextProps.welcome
         if (isJump) {
-            console.log('isJump')
             if (nextStep == 'login') {
                 Actions.login()
-                console.log('login')
             }
             else if (nextStep == 'main') {
                 Actions.main()
-                console.log('main')
             }
-
             return false
         }
         return true
-
     }
 
 
     render() {
         const { version, lastVersion, force_update, url, isJump } = this.props.welcome
-        console.log(`isJump:${isJump}`)
         return (
             <WelcomeLayout
                 version={version}

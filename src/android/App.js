@@ -32,8 +32,8 @@ export default class App extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="welcome" initial={true} component={Welcome} hideNavBar />
-                    <Scene key="login" component={Login} hideNavBar />
+                    <Scene key="welcome"component={Welcome} hideNavBar />
+                    <Scene key="login" initial={true}  component={Login} hideNavBar />
                     <Scene key="main" component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
                     <Scene key="carInfo" component={CarInfo} hideNavBar />

@@ -13,7 +13,7 @@ const initialState = {
 
 export default handleActions({
     [actionTypes.storageDateTypes.GET_STORAGE_DATE_LIST_SUCCESS]: (state, action) => {
-        const { payload: { data } } = action      
+        const { payload: { data } } = action
         return {
             ...state,
             isLoading: data.isLoading,
@@ -24,14 +24,6 @@ export default handleActions({
             })
         }
     },
-    // [actionTypes.storageTypes.GET_PARKING_BY_ID]: (state, action) => {
-    //     const { payload: { data, id } } = action
-    //     return state.map(item => {
-    //         if (item.id == id)
-    //             item.parkings = data
-    //         return item
-    //     })
-    // },
     [actionTypes.storageDateTypes.GET_STORAGE_DATE_LIST_LOADING]: (state, action) => {
         const { payload: { data } } = action
         return {

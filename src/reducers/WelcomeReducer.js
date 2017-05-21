@@ -38,7 +38,7 @@ export default handleActions({
             isVersionValidating: false
         }
     },
-    [actionTypes.welcomeActionTypes.GET_VERSION_LOADING]: (state, action) => {
+    [actionTypes.welcomeActionTypes.GET_VERSION_WAITING]: (state, action) => {
 
         return {
             ...state,
@@ -68,7 +68,7 @@ export default handleActions({
             isJump: true
         }
     },
-    [actionTypes.welcomeActionTypes.VALIDATE_TOKEN_LOADING]: (state, action) => {
+    [actionTypes.welcomeActionTypes.VALIDATE_TOKEN_WAITING]: (state, action) => {
         return {
             ...state,
             isTokenValidating: true

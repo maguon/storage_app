@@ -10,10 +10,12 @@ import { base_host } from '../config/Host'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import requestHeaders from '../util/RequestHeaders'
 
+
+//获取最新version信息
 export const getAppLastVersion = (param) => {
     return (dispatch) => {
         httpRequest.get(`${base_host}/app?${ObjectToUrl(param.optionalParam)}`, (err, res) => {
-            dispatch({ type: actionTypes.welcomeActionTypes.GET_VERSION_LOADING, payload: {} })
+            dispatch({ type: actionTypes.welcomeActionTypes.GET_VERSION_WAITING, payload: {} })
             if (err) {
                 dispatch({ type: actionTypes.welcomeActionTypes.GET_VERSION_FAILED, payload: { data: err } })
             } else {
@@ -27,6 +29,7 @@ export const getAppLastVersion = (param) => {
     }
 }
 
+//验证localStorage中的token，请求更换token,请求更新userInformation
 export const validateToken = () => {
     return (dispatch) => {
         localStorage.loadKey(localStorageKey.USER, (localStorageErr, localStorageRes) => {
@@ -97,36 +100,7 @@ export const validateToken = () => {
                     //判断userId与token是否为空，如果有一个为空，跳转到登录页面
                     dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_FAILED, payload: {} })
                 }
-                //dispatch({ type: actionTypes.appTypes.APP_USER_SET, payload: { data: res } })
             }
         })
     }
 }
-
-
-
-// export const getUserId = () => {
-//     return (dispatch) => {
-//         localStorage.loadKey(localStorageKey.USER_ID, (err, res) => {
-//             const data = {
-//                 userId: res
-//             };
-//             dispatch({ type: actionTypes.appTypes.APP_USER_SET, payload: { data: data } })
-//         })
-//     }
-// }
-// export const getUserToken = () => {
-//     return (dispatch) => {
-//         localStorage.loadKey(localStorageKey.USER_TOKEN, (err, res) => {
-//             const data = {
-//                 userToken: res
-//             };
-//             dispatch({ type: actionTypes.appTypes.APP_USER_SET, payload: { data: data } })
-//         })
-//     }
-// }
-// export const toLogin = () => {
-//     return (dispatch) => {
-//         Actions.login();
-//     }
-// }
