@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, DrawerLayoutAndroid, Dimensions, DatePickerAndroid, TouchableHighlight } from 'react-native'
+import { Text, View, ScrollView, TextInput, DrawerLayoutAndroid, Dimensions, DatePickerAndroid, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import NavBar from '../components/Bar/NavBar'
 import { Button } from 'native-base'
@@ -28,14 +28,12 @@ class ImportCar extends Component {
             storageId: 0,
             storageName: '',
             planOutTime: '',
-
             row: '',
             column: '',
         }
     }
 
     requestImportCar() {
-
         this.props.ImportCar({
             requiredParam: {
                 userid: 3
@@ -77,7 +75,6 @@ class ImportCar extends Component {
             if (this.state.colour != item.colorId)
                 return (<TouchableHighlight key={item.colorName} underlayColor='rgba(0,0,0,0.1)' onPress={() => this.setState({ colour: item.colorId })}>
                     <View key={item.colorName} style={{ width: 20, height: 20, borderColor: `#dddddd`, borderWidth: 1, alignSelf: 'center', backgroundColor: `#${item.colorId}`, marginVertical: 2, marginHorizontal: 2 }}></View></TouchableHighlight>
-
                 )
             else
                 return (
@@ -106,91 +103,92 @@ class ImportCar extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <NavBar title={'车辆入库'} />
-                <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
-                    <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', flexDirection: 'row' }}>
-                        <Text style={{ color: 'red' }}>*</Text>
-                        <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18, flex: 1 }}>VIN码：</Text>
+                <ScrollView>
+                    <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
+                        <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', flexDirection: 'row' }}>
+                            <Text style={{ color: 'red' }}>*</Text>
+                            <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18, flex: 1 }}>VIN码：</Text>
 
-                        <TextInput underlineColorAndroid="transparent"
-                            onChangeText={(text) => { this.setState({ vin: text }) }}
-                            value={this.state.vin}
-                            style={{ flex: 3, padding: 0, color: '#00cade', fontSize: 18 }} />
-                    </View>
-                    <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={Actions.SelectCarMake}>
-                        <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd', paddingVertical: 10, marginLeft: 10 }}>
-                            <Text style={{ fontSize: 14, flex: 4 }}>品牌(型号)：</Text>
-                            <Text style={{ fontSize: 14, flex: 10 }}>{this.state.makeName}{this.state.modelName}</Text>
-                            <Text style={{ fontSize: 14, flex: 1 }}>></Text>
+                            <TextInput underlineColorAndroid="transparent"
+                                onChangeText={(text) => { this.setState({ vin: text }) }}
+                                value={this.state.vin}
+                                style={{ flex: 3, padding: 0, color: '#00cade', fontSize: 18 }} />
                         </View>
-                    </TouchableHighlight>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                        <Text style={{ flex: 1, marginLeft: 10, fontSize: 14 }}>颜色：</Text>
-                        {this.colorPanelRender()}
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={Actions.SelectCarMake}>
+                            <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd', paddingVertical: 10, marginLeft: 10 }}>
+                                <Text style={{ fontSize: 14, flex: 4 }}>品牌(型号)：</Text>
+                                <Text style={{ fontSize: 14, flex: 10 }}>{this.state.makeName}{this.state.modelName}</Text>
+                                <Text style={{ fontSize: 14, flex: 1 }}>></Text>
+                            </View>
+                        </TouchableHighlight>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ flex: 1, marginLeft: 10, fontSize: 14 }}>颜色：</Text>
+                            {this.colorPanelRender()}
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
+                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>发动机号：</Text>
+                            <TextInput underlineColorAndroid="transparent"
+                                onChangeText={(text) => { this.setState({ engineNum: text }) }}
+                                value={this.state.engineNum}
+                                style={{ flex: 3, padding: 0, fontSize: 14 }} />
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
+                            <Text style={{ fontSize: 14, flex: 5 }}>{this.state.proDate}</Text>
+                            <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'proDate', { date: new Date(), mode: 'spinner' })} />
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>出库日期：</Text>
+                            <Text style={{ fontSize: 14, flex: 5 }}>{this.state.planOutTime}</Text>
+                            <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'planOutTime', { date: new Date(), mode: 'spinner' })} />
+                        </View>
                     </View>
                     <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
-                        <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>发动机号：</Text>
+                        <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>备注：</Text>
                         <TextInput underlineColorAndroid="transparent"
-                            onChangeText={(text) => { this.setState({ engineNum: text }) }}
-                            value={this.state.engineNum}
+                            onChangeText={(text) => { this.setState({ remark: text }) }}
+                            value={this.state.remark}
                             style={{ flex: 3, padding: 0, fontSize: 14 }} />
                     </View>
-                    <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                        <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
-                        <Text style={{ fontSize: 14, flex: 5 }}>{this.state.proDate}</Text>
-                        <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'proDate', { date: new Date(), mode: 'spinner' })} />
-                    </View>
-                    <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                        <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>出库日期：</Text>
-                        <Text style={{ fontSize: 14, flex: 5 }}>{this.state.planOutTime}</Text>
-                        <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'planOutTime', { date: new Date(), mode: 'spinner' })} />
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
-                    <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>备注：</Text>
-                    <TextInput underlineColorAndroid="transparent"
-                        onChangeText={(text) => { this.setState({ remark: text }) }}
-                        value={this.state.remark}
-                        style={{ flex: 3, padding: 0, fontSize: 14 }} />
-                </View>
-                <View style={{ marginHorizontal: 20, marginTop: 20 }}>
-                    <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={Actions.SelectStorage}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, borderColor: '#00cade', borderBottomWidth: 2 }}>
-                            <Text style={{ color: 'red', flex: 1 }}>*</Text>
-                            <Text style={{ color: '#00cade', fontSize: 16, flex: 4 }}>选择仓库</Text>
-                            <Text style={{ color: '#00cade', fontSize: 16, flex: 10 }}>{this.state.storageName}</Text>
-                            <Text style={{ fontSize: 14, flex: 1 }}>></Text>
+                    <View style={{ marginHorizontal: 20, marginTop: 20 }}>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={Actions.SelectStorage}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, borderColor: '#00cade', borderBottomWidth: 2 }}>
+                                <Text style={{ color: 'red', flex: 1 }}>*</Text>
+                                <Text style={{ color: '#00cade', fontSize: 16, flex: 4 }}>选择仓库</Text>
+                                <Text style={{ color: '#00cade', fontSize: 16, flex: 10 }}>{this.state.storageName}</Text>
+                                <Text style={{ fontSize: 14, flex: 1 }}>></Text>
+                            </View>
+                        </TouchableHighlight>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                flex: 1, paddingVertical: 10,
+                                marginLeft: 10, alignItems: 'center'
+                            }}>
+                                <Text style={{ fontSize: 16, flex: 4 }}>{this.state.row}</Text>
+                                <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>排</Text>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 10, marginLeft: 10, alignItems: 'center' }}>
+                                <Text style={{ fontSize: 16, flex: 2 }}>{this.state.column}</Text>
+                                <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>道位</Text>
+                            </View>
                         </View>
-                    </TouchableHighlight>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{
-                            flexDirection: 'row',
-                            flex: 1, paddingVertical: 10,
-                            marginLeft: 10, alignItems: 'center'
-                        }}>
-                            <Text style={{ fontSize: 16, flex: 4 }}>{this.state.row}</Text>
-                            <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>排</Text>
-                        </View>
-                        <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 10, marginLeft: 10, alignItems: 'center' }}>
-                            <Text style={{ fontSize: 16, flex: 2 }}>{this.state.column}</Text>
-                            <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>道位</Text>
+                        <View>
+                            <Button full style={{ backgroundColor: '#00cade' }} onPress={() => { }}>
+                                <Text style={{ color: '#ffffff', fontSize: 16, position: 'absolute', left: 20 }}>通过分布图选择车位</Text>
+                                <Icon name='angle-right' color='#fff' size={16} style={{ position: 'absolute', right: 20 }} />
+                            </Button>
                         </View>
                     </View>
-                    <View>
-                        <Button full style={{ backgroundColor: '#00cade' }} onPress={() => { }}>
-                            <Text style={{ color: '#ffffff', fontSize: 16, position: 'absolute', left: 20 }}>通过分布图选择车位</Text>
-                            <Icon name='angle-right' color='#fff' size={16} style={{ position: 'absolute', right: 20 }} />
+                    <View style={{ marginHorizontal: 20, marginTop: 40 }}>
+                        <Button full style={{ backgroundColor: '#00cade' }} onPress={this.requestImportCar.bind(this)}>
+                            <Text style={{ color: '#ffffff' }}>确定</Text>
                         </Button>
                     </View>
-                </View>
-                <View style={{ marginHorizontal: 20, marginTop: 40 }}>
-                    <Button full style={{ backgroundColor: '#00cade' }} onPress={this.requestImportCar.bind(this)}>
-                        <Text style={{ color: '#ffffff' }}>确定</Text>
-                    </Button>
-                </View>
+                </ScrollView>
             </View>
         )
     }
-
 }
 
 

@@ -10,6 +10,7 @@ import reducers from '../../reducers/index'
 import * as welcomeAction from '../../actions/WelcomeAction'
 import localStorageKey from '../../util/LocalStorageKey'
 import { Actions } from 'react-native-router-flux'
+import NavBar from '../components/Bar/NavBar'
 import { Button, Container, Content, Header, Icon, Form, Item, Text, Label, Input, Left, Body, Right, Title, List, ListItem, Toast } from 'native-base'
 
 class Password extends Component {
@@ -19,38 +20,28 @@ class Password extends Component {
     }
 
     render() {
-        const { AppInfo } = this.props;
+        // const { AppInfo } = this.props
         return (
-            <Provider store={store}>
-                <Container>
-                    <Header >
-                        <Left>
-                            <Button transparent onPress={() => { Actions.pop() }}>
-                                <Icon name='arrow-back' />
-                            </Button>
-                        </Left>
-                        <Body style={{ backgroundColor: "transparent" }}>
-                            <Title style={{}}>Password</Title>
-                        </Body>
-                        <Right></Right>
-                    </Header>
-                    <Body style={{ flex: 1, flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start" }}>
-                        <Form style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", height: 190 }}>
-                            <Item floatingLabel style={{ flex: 1 }} >
-                                <Label>Origin Password</Label>
-                                <Input secureTextEntry={true} />
-                            </Item>
-                            <Item floatingLabel style={{ flex: 1 }} >
-                                <Label>New Password</Label>
-                                <Input secureTextEntry={true} />
-                            </Item>
-                            <Button block style={{ marginTop: 20 }}>
-                                <Text>OK</Text>
-                            </Button>
-                        </Form>
-                    </Body>
-                </Container>
-            </Provider>
+
+            <Container>
+                <NavBar title='修改密码'/>
+                <Body style={{ flex: 1, flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start" }}>
+                    <Form style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", height: 190 }}>
+                        <Item floatingLabel style={{ flex: 1 }} >
+                            <Label>Origin Password</Label>
+                            <Input secureTextEntry={true} />
+                        </Item>
+                        <Item floatingLabel style={{ flex: 1 }} >
+                            <Label>New Password</Label>
+                            <Input secureTextEntry={true} />
+                        </Item>
+                        <Button block style={{ marginTop: 20 }}>
+                            <Text>OK</Text>
+                        </Button>
+                    </Form>
+                </Body>
+            </Container>
+
         )
     }
 }
@@ -58,7 +49,7 @@ class Password extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        AppInfo: state.WelcomeReducer
+        // AppInfo: state.WelcomeReducer
 
     }
 }

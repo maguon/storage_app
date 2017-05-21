@@ -5,8 +5,8 @@ import Login from './views/Login'
 import MainRoot from './views/MainRoot'
 import Password from './views/Password'
 import CarInfo from './views/CarInfo'
-import ParkingView from './views/ParkingView'
-import ErrView from './views/ErrView'
+// import ParkingView from './views/ParkingView'
+// import ErrView from './views/ErrView'
 import ImportCar from './views/ImportCar'
 import VinScanner from './components/VinScanner'
 import ErrorView from './views/ErrorView'
@@ -17,7 +17,7 @@ import SelectStorage from './views/SelectStorage'
 import SelectRow from './views/SelectRow'
 import SelectColumn from './views/SelectColumn'
 import ImportCarCamera from './views/ImportCarCamera'
-import { Text, View } from 'react-native'
+import recordList from './views/RecordList'
 
 
 export default class App extends Component {
@@ -25,20 +25,18 @@ export default class App extends Component {
         super(props)
     }
 
-
     render() {
-
         console.disableYellowBox = true
         return (
             <Router>
                 <Scene key="root">
                     <Scene key="welcome"component={Welcome} hideNavBar />
-                    <Scene key="login" initial={true}  component={Login} hideNavBar />
-                    <Scene key="main" component={MainRoot} hideNavBar />
+                    <Scene key="login" component={Login} hideNavBar />
+                    <Scene key="main"  initial={true}  component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
                     <Scene key="carInfo" component={CarInfo} hideNavBar />
-                    <Scene key="ParkingView" component={ParkingView} />
-                    <Scene key="ErrView" component={ErrView} />
+                    {/*<Scene key="ParkingView" component={ParkingView} />
+                    <Scene key="ErrView" component={ErrView} />*/}
                     <Scene key="ImportCar" component={ImportCar} hideNavBar />
                     <Scene key="VinScanner" component={VinScanner} hideNavBar />
                     <Scene key="ErrorView" component={ErrorView} hideNavBar />
@@ -49,6 +47,7 @@ export default class App extends Component {
                     <Scene key="SelectRow" component={SelectRow} hideNavBar />
                     <Scene key="SelectColumn" component={SelectColumn} hideNavBar />
                     <Scene key="ImportCarCamera" component={ImportCarCamera} hideNavBar />
+                    <Scene key="recordList" component={recordList} hideNavBar />
                 </Scene>
             </Router>
 

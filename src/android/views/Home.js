@@ -33,13 +33,13 @@ class Home extends Component {
             optionalParam: {
                 start: 0,
                 size: 10,
-                userId: 3
+                userId: this.props.user.userId
             }
         })
     }
 
     render() {
-        console.log('user',this.props.user)
+        // console.log('user',this.props.user)
         return (
             <LayoutHome {...this.props} />
         )
