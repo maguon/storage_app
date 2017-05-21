@@ -1,6 +1,6 @@
 import httpRequest from '../util/HttpRequest.js'
 import { record_host, file_host } from '../config/Host'
-import * as actionTypes from '../actions/types'
+import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 

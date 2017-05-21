@@ -15,8 +15,8 @@ class ImportCarCamera extends Component {
     postImage(param) {
         param.requiredParam = {
             userId: 3,
-            carId: 265,
-            vin: 'test1'
+            carId: this.props.carId,
+            vin: this.props.vin
         }
         param.optionalParam = {
             imageType: 1
@@ -38,7 +38,7 @@ class ImportCarCamera extends Component {
                 <TopBar title='上传图片' />
                 <ScrollView>
                     <CarCamera images={this.props.images.images} postImage={(param) => this.postImage(param)} />
-                    <Button title='确定' onPress={Actions.main} />
+                    <Button title='返回' onPress={Actions.main} />
                 </ScrollView>
             </View>
         )

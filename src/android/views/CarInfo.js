@@ -48,6 +48,27 @@ class CarInfo extends Component {
         )
     }
 
+    postImage(param) {
+        param.requiredParam = {
+            userId: 3,
+            carId: this.props.carId,
+            vin: this.props.vin
+        }
+        param.optionalParam = {
+            imageType: 1
+        }
+        param.postFileParam.key = "image"
+
+        param.postParam = {
+            username: "honya",
+            userId: 3,
+            userType: 1
+        }
+        console.log('postImage', param)
+        this.props.pushCarImage(param)
+    }
+
+
     getRecordLisMore() {
         this.props.getRecordList({
             optionalParam: {
@@ -58,8 +79,6 @@ class CarInfo extends Component {
             }
         }, false)
     }
-
-
 
     render() {
         return (

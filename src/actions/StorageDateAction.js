@@ -1,7 +1,7 @@
 /**
  * Created by lingxue on 2017/4/17.
  */
-import * as actionTypes from './types'
+import * as actionTypes from './actionTypes'
 import httpRequest from '../util/HttpRequest.js'
 import localStorageKey from '../util/LocalStorageKey'
 import localStorage from '../util/LocalStorage'

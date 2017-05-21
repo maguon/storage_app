@@ -1,5 +1,4 @@
-import React,{Component} from 'react'
-import { StatusBar,Text,TextInput,View } from 'react-native'
+import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
@@ -11,11 +10,15 @@ const store = compose(
 )(createStore)(reducers)
 
 class Android_main extends Component {
-    render(){
+    constructor(props) {
+        super(props)
+    }  
+
+    render() {
         return (
-            <Provider store={store}>
-                <App/>
-            </Provider>
+           <Provider store={store}>
+                <App />
+          </Provider>
         )
     }
 }

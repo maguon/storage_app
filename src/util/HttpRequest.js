@@ -1,11 +1,13 @@
-import * as appJson from '../android_app.json';
+import * as appJson from '../android_app.json'
+import requestHeaders from './RequestHeaders'
+
+
 function get(url, callback) {
+    // console.log('formHeaders',requestHeaders.formHeaders)
+    // console.log('headers',requestHeaders.headers)
     fetch(url, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'charset': 'utf-8'
-        }
+        headers: requestHeaders.headers
     }).then((response) => {
         let json = response.json()
         return json
@@ -15,16 +17,13 @@ function get(url, callback) {
         })
         .catch((error) => {
             callback(error, null);
-        });
+        })
 }
 
 function post(url, params, callback) {
     fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'charset': 'utf-8'
-        },
+        headers: requestHeaders.headers,
         body: JSON.stringify(params)
     }).then((response) => response.json())
         .then((responseJson) => {
@@ -38,10 +37,7 @@ function post(url, params, callback) {
 function put(url, params, callback) {
     fetch(url, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'charset': 'utf-8'
-        },
+        headers: requestHeaders.headers,
         body: JSON.stringify(params)
     }).then((response) => response.json())
         .then((responseJson) => {
@@ -55,10 +51,7 @@ function put(url, params, callback) {
 function del() {
     fetch(url, {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'charset': 'utf-8'
-        },
+        headers: requestHeaders.headers,
         body: JSON.stringify(params)
     }).then((response) => response.json())
         .then((responseJson) => {
@@ -67,6 +60,38 @@ function del() {
         .catch((error) => {
             callback(error, null);
         });
+}
+
+
+function postFile(url, params, callback) {
+    let formData = new FormData()
+    // console.log('params', params)
+    let file = { uri: params.imageUrl, type: params.imageType, name: params.imageName }
+    formData.append(params.key, file)
+    //console.log('formData', formData)
+    fetch(url, {
+        method: 'POST',
+        headers: requestHeaders.formHeaders,
+        body: formData,
+    }).then((response) => response.json())
+        .then((responseJson) => {
+            //console.log('responseJson', responseJson)
+            callback(null, responseJson)
+
+        })
+        .catch((error) => {
+            //console.log('error', error)
+            callback(error, null)
+        })
+}
+
+module.exports = {
+    get: get,
+    post: post,
+    put: put,
+    del: del,
+    postFile: postFile
+    //getAll: getAll
 }
 
 // function postFile(imgAry, url, item, callback) {
@@ -100,59 +125,27 @@ function del() {
 //         })
 // }
 
-function postFile(url, params, callback) {
-    let formData = new FormData()
-   // console.log('params', params)
-    let file = { uri: params.imageUrl, type: params.imageType, name: params.imageName }
-    formData.append(params.key, file)
-    //console.log('formData', formData)
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-        body: formData,
-    }).then((response) => response.json())
-        .then((responseJson) => {
-            //console.log('responseJson', responseJson)
-            callback(null, responseJson)
+// function getAll(urls, callback) {
+//     let proMises = urls.map(url => fetch(url, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'charset': 'utf-8'
+//         }
+//     }))
+//     Promise.all(proMises)
+//         .then(response => response.map(item => item.json()))
+//         .then(responseJson => {
+//             Promise.all(responseJson)
+//                 .then(res => {
+//                     callback(null, res)
+//                 })
+//                 .catch((error) => {
+//                     callback(error, null)
+//                 })
+//         })
+//         .catch((error) => {
+//             callback(error, null)
+//         })
+// }
 
-        })
-        .catch((error) => {
-            //console.log('error', error)
-            callback(error, null)
-        })
-}
-
-function getAll(urls, callback) {
-    let proMises = urls.map(url => fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'charset': 'utf-8'
-        }
-    }))
-    Promise.all(proMises)
-        .then(response => response.map(item => item.json()))
-        .then(responseJson => {
-            Promise.all(responseJson)
-                .then(res => {
-                    callback(null, res)
-                })
-                .catch((error) => {
-                    callback(error, null)
-                })
-        })
-        .catch((error) => {
-            callback(error, null)
-        })
-}
-
-module.exports = {
-    get: get,
-    post: post,
-    put: put,
-    del: del,
-    postFile: postFile,
-    getAll: getAll
-}

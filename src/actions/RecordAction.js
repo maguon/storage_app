@@ -1,7 +1,7 @@
 
 import httpRequest from '../util/HttpRequest'
 import { record_host } from '../config/Host'
-import * as actionTypes from '../actions/types'
+import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import { Alert } from 'react-native'
 

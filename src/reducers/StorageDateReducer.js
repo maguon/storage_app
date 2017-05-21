@@ -2,7 +2,7 @@
  * Created by lingxue on 2017/4/17.
  */
 import { handleActions } from 'redux-actions';
-import * as actionTypes from '../actions/types';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     isLoading: false,

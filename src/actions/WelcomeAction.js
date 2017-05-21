@@ -1,13 +1,132 @@
 /**
  * Created by lingxue on 2017/4/21.
  */
+import { Actions } from 'react-native-router-flux'
+import * as actionTypes from './actionTypes'
+import localStorageKey from '../util/LocalStorageKey'
+import localStorage from '../util/LocalStorage'
+import httpRequest from '../util/HttpRequest'
+import { base_host } from '../config/Host'
+import { ObjectToUrl } from '../util/ObjectToUrl'
+import requestHeaders from '../util/RequestHeaders'
 
-
-import {Actions} from 'react-native-router-flux';
-
-
-export const toLogin = () => {
+export const getAppLastVersion = (param) => {
     return (dispatch) => {
-        Actions.login();
+        httpRequest.get(`${base_host}/app?${ObjectToUrl(param.optionalParam)}`, (err, res) => {
+            dispatch({ type: actionTypes.welcomeActionTypes.GET_VERSION_LOADING, payload: {} })
+            if (err) {
+                dispatch({ type: actionTypes.welcomeActionTypes.GET_VERSION_FAILED, payload: { data: err } })
+            } else {
+                if (res.success) {
+                    dispatch({ type: actionTypes.welcomeActionTypes.GET_VERSION_SUCCESS, payload: { data: res.result } })
+                } else {
+                    dispatch({ type: actionTypes.welcomeActionTypes.GET_VERSION_FAILED, payload: { data: err } })
+                }
+            }
+        })
     }
 }
+
+export const validateToken = () => {
+    return (dispatch) => {
+        localStorage.loadKey(localStorageKey.USER, (localStorageErr, localStorageRes) => {
+            if (localStorageErr) {
+                if (localStorageErr.name == 'NotFoundError') {
+                    console.log('NotFoundError')
+                    //跳转到登录页面
+                    dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_FAILED, payload: {} })
+                }
+                else {
+                    //未知错误处理
+                    console.log('localStorageErr', localStorageErr)
+                }
+            }
+            else {
+                if (localStorageRes.token && localStorageRes.userId) {
+                    //判断userId与token是否为空，如果都不为空,请求更换token 
+                    httpRequest
+                        .get(`${base_host}/user/${localStorageRes.userId}/token/${localStorageRes.token}`, (changeTokenErr, changeTokenRes) => {
+                            if (changeTokenErr) {
+                                //判断网络连接层是否有问题，如果有问题提醒用户
+                                console.log('changeTokenErr', changeTokenErr)
+                            }
+                            else {
+                                if (changeTokenRes.success) {
+                                    //判断请求是否成功，如果成功，更新token
+                                    localStorage.saveKey(localStorageKey.USER, {
+                                        userId: changeTokenRes.result.userId,
+                                        token: changeTokenRes.result.accessToken,
+                                        userType: changeTokenRes.result.type,
+                                        userStatus: changeTokenRes.result.userStatus
+                                    })
+                                    requestHeaders.set('auth-token', changeTokenRes.result.accessToken)
+                                    requestHeaders.set('user-type', changeTokenRes.result.type)
+                                    httpRequest
+                                        .get(`${base_host}/user/${localStorageRes.userId}`, (getUserInfoErr, getUserInfoRes) => {
+                                            if (getUserInfoErr) {
+                                                console.log('getUserInfoErr', getUserInfoErr)
+                                            }
+                                            else {
+                                                if (getUserInfoRes.success) {
+                                                    localStorage.saveKey(localStorageKey.USER, {
+                                                        userId: changeTokenRes.result.userId,
+                                                        token: changeTokenRes.result.accessToken,
+                                                        userType: changeTokenRes.result.type,
+                                                        userStatus: changeTokenRes.result.userStatus,
+                                                        mobile: getUserInfoRes.result[0].mobile
+                                                    })
+                                                    requestHeaders.set('user-name', getUserInfoRes.result[0].mobile)
+                                                    dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_SUCCESS, payload: {} })
+                                                }
+                                                else {
+                                                    //取用户名失败，错误处理
+                                                    console.log('getUserInfoResfailed', getUserInfoRes)
+                                                }
+                                            }
+                                        })
+                                }
+                                else {
+                                    //判断请求是否成功，如果失败，跳转到登录页
+                                    console.log('changeTokenResfailed', changeTokenRes)
+                                    dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_FAILED, payload: {} })
+                                }
+                            }
+                        })
+                }
+                else {
+                    //判断userId与token是否为空，如果有一个为空，跳转到登录页面
+                    dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_FAILED, payload: {} })
+                }
+                //dispatch({ type: actionTypes.appTypes.APP_USER_SET, payload: { data: res } })
+            }
+        })
+    }
+}
+
+
+
+// export const getUserId = () => {
+//     return (dispatch) => {
+//         localStorage.loadKey(localStorageKey.USER_ID, (err, res) => {
+//             const data = {
+//                 userId: res
+//             };
+//             dispatch({ type: actionTypes.appTypes.APP_USER_SET, payload: { data: data } })
+//         })
+//     }
+// }
+// export const getUserToken = () => {
+//     return (dispatch) => {
+//         localStorage.loadKey(localStorageKey.USER_TOKEN, (err, res) => {
+//             const data = {
+//                 userToken: res
+//             };
+//             dispatch({ type: actionTypes.appTypes.APP_USER_SET, payload: { data: data } })
+//         })
+//     }
+// }
+// export const toLogin = () => {
+//     return (dispatch) => {
+//         Actions.login();
+//     }
+// }

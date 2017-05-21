@@ -1,5 +1,5 @@
 import * as loginTypes from './LoginTypes'
-import * as appTypes from './AppTypes'
+import * as welcomeActionTypes from './WelcomeActionTypes'
 import * as storageDateTypes from './StorageDateTypes'
 import * as storageTypes from './StorageTypes'
 import * as userTypes from './UserTypes'
@@ -14,7 +14,7 @@ import * as importCarCameraTypes from './ImportCarCameraTypes'
 
 export {
     loginTypes,
-    appTypes,
+    welcomeActionTypes,
     storageDateTypes,
     storageTypes,
     storageParkingTypes,

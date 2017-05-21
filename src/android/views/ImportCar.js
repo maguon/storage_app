@@ -68,7 +68,7 @@ class ImportCar extends Component {
         }
         if (nextProps.car.carId != -1) {
             console.log(nextProps.car.carId)
-            Actions.ImportCarCamera()
+            Actions.ImportCarCamera({ carId: nextProps.car.carId, vin: this.state.vin })
         }
     }
 

@@ -5,7 +5,7 @@ import { handleActions } from 'redux-actions';
 import * as app from '../android_app.json';
 import localStorage  from '../util/LocalStorage';
 import localStorageKey  from '../util/LocalStorageKey';
-import  * as actionTypes from '../actions/types';
+import  * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     userId : 3,

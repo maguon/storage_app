@@ -1,51 +1,118 @@
-import React, { Component, PropTypes } from 'react'
-import { StatusBar, View, Text, Image, Dimensions } from 'react-native'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as welcomeAction from '../../actions/WelcomeAction'
-import * as appAction from '../../actions/AppAction'
 import { Actions } from 'react-native-router-flux'
-import { Button } from 'native-base'
-
-const window = Dimensions.get('window')
+import WelcomeLayout from '../layout/Welcome'
+import localStorageKey from '../../util/LocalStorageKey'
+import localStorage from '../../util/LocalStorage'
 
 class Welcome extends Component {
     constructor(props) {
         super(props)
-        this.state = { enterText: 3 }
+        this.linkDownload = this.linkDownload.bind(this)
+        this.validateToken = this.validateToken.bind(this)
+
+
+        //test
+
+        // localStorage.saveKey(localStorageKey.USER, {
+        //     userId: 38,
+        //     token: '5hWW3WukLUjXf76za5WYmT8GEho=T3h88KJse50d872096784c5f040dd013826d4ba61dfac68bc54fb4f2aa7a48f01173c16692912c1bf6083951f08f85bd0faa9355',
+
+        // })
+        //localStorage.removeKey(localStorageKey.USER)
+
+        localStorage.loadKey(localStorageKey.USER, (err, res) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log('localStorage', res)
+            }
+        })
+
+        // console.log(localStorage)
+        //test
     }
 
+
+    componentDidMount() {
+        this.props.getAppLastVersion({
+            optionalParam: {
+                app: 1,
+                type: 1
+            }
+        })
+    }
+
+    validateToken() {
+        this.props.validateToken()
+    }
+
+    linkDownload(url) {
+        Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+                console.log('Can\'t handle url: ' + url)
+            } else {
+                return Linking.openURL(url)
+            }
+        }).catch(err => console.error('An error occurred', err))
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log(nextProps)
+        let { isJump, nextStep } = nextProps.welcome
+        if (isJump) {
+            console.log('isJump')
+            if (nextStep == 'login') {
+                Actions.login()
+                console.log('login')
+            }
+            else if (nextStep == 'main') {
+                Actions.main()
+                console.log('main')
+            }
+
+            return false
+        }
+        return true
+
+    }
+
+
     render() {
-        const { getAppLastVersion } = this.props;
-        getAppLastVersion();
+        const { version, lastVersion, force_update, url, isJump } = this.props.welcome
+        console.log(`isJump:${isJump}`)
         return (
-            <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                <Image source={{ uri: 'welcom_back' }}
-                    style={{ width: window.width, height: window.width / 9 * 16 }}
-                />
-                <Button block
-                    onPress={() => { Actions.login() }}
-                    style={{ position: 'absolute', bottom: 50, width: window.width / 4 * 3, backgroundColor: 'rgba(255,255,255,0.73)', borderRadius: 25 }}>
-                    <Text style={{ fontSize: 18, color: '#0078a7' }}>立即体验</Text>
-                </Button>
-            </View>
+            <WelcomeLayout
+                version={version}
+                lastVersion={lastVersion}
+                force_update={force_update}
+                linkDownload={this.linkDownload}
+                url={url}
+                validateToken={this.validateToken}
+            />
         )
     }
 }
 
+
 const mapStateToProps = (state) => {
     return {
-
+        welcome: state.WelcomeReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    toLogin: () => {
-        dispatch(welcomeAction.toLogin());
+    getAppLastVersion: (param) => {
+        dispatch(welcomeAction.getAppLastVersion(param))
     },
-    getAppLastVersion: () => {
-        dispatch(appAction.getAppLastVersion());
+    validateToken: () => {
+        dispatch(welcomeAction.validateToken())
     }
 })
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Welcome)
+
+
+
