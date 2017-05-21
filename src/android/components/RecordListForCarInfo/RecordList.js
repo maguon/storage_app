@@ -10,10 +10,10 @@ import RecordListItem from './RecordListItem'
 const window = Dimensions.get('window')
 
 
-const RecordList = ({ records, getRecordLisMore }) => {
+const RecordList = ({ records }) => {
 
     let recordList = records.map(item => {
-        return <RecordListItem record={item} key={item._id} />
+        return <RecordListItem record={item} key={item.id} />
     })
     return (
 
@@ -28,9 +28,7 @@ const RecordList = ({ records, getRecordLisMore }) => {
 
             </View>
             {recordList}
-            <Text style={{ alignSelf: 'center', marginVertical: 10 }}
-                onPress={getRecordLisMore}
-            >加载更多</Text>
+
         </View>)
 }
 

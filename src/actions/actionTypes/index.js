@@ -10,11 +10,16 @@ import * as storageParkingTypes from './StorageParkingTypes'
 import * as imporCarTypes from './ImporCarTypes'
 import * as passwordTypes from './PasswordTypes'
 import * as importCarCameraTypes from './ImportCarCameraTypes'
+import * as carInfoTypes from './CarInfoTypes'
+import * as homeTypes from './HomeTypes'
+
 
 
 export {
     loginTypes,
+    carInfoTypes,
     welcomeActionTypes,
+    homeTypes,
     storageDateTypes,
     storageTypes,
     storageParkingTypes,

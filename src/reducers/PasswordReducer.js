@@ -30,5 +30,12 @@ export default handleActions({
             isResult: true,
             isSuccess: false
         }
+    }, [actionTypes.passwordTypes.RESET_CHANGE_PASSWORD]: (state, action) => {
+        return {
+            isWaiting: false,
+            isResult: false,
+            isSuccess: false,
+            ErrorMessage: ''
+        }
     }
 }, initialState)

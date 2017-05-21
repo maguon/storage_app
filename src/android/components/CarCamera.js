@@ -48,35 +48,71 @@ export default class CarCamera extends Component {
     }
     render() {
         console.log('carcamera', this.props.images)
+        let i = 1
         let images = this.props.images.map(item => {
-            return (<View key={item} style={[{ marginRight: 10, }, styles.item]}>
-                <Image source={{ uri: item }}
-                    style={{ width: ImageWidth, height: ImageHeight }} />
+            // i++
+            let image
+            if (i % 2 == 1) {
+                image = (<View key={i} style={[{ marginRight: 10, }, styles.item]}>
+                    <Image source={{ uri: item }}
+                        style={{ width: ImageWidth, height: ImageHeight }} />
+                </View>)
+            }
+            else {
+                image = (<View key={i} style={styles.item}>
+                    <Image source={{ uri: item }}
+                        style={{ width: ImageWidth, height: ImageHeight }} />
+                </View>)
+            }
+            i = i + 1
+            return image
+        }
+
+        )
+
+        let btn
+        if (i % 2 == 1) {
+            btn = (<View style={[styles.item, { marginRight: 10, flexDirection: 'row', backgroundColor: '#ffffff' }]}>
+                <Button
+                    style={{
+                        borderRadius: 35,
+                        width: 70,
+                        height: 70,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: '#00cade',
+                        alignSelf: 'center'
+                    }}
+                    onPress={this.launchCamera}
+                    title='上传照片' >
+                    <Icon name='camera' />
+                </Button>
+            </View>)
+        } else {
+            btn = (<View style={[styles.item, { flexDirection: 'row', backgroundColor: '#ffffff' }]}>
+                <Button
+                    style={{
+                        borderRadius: 35,
+                        width: 70,
+                        height: 70,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: '#00cade',
+                        alignSelf: 'center'
+                    }}
+                    onPress={this.launchCamera}
+                    title='上传照片' >
+                    <Icon name='camera' />
+                </Button>
             </View>)
         }
-        )
         return (
             <View style={styles.container}>
-{images}
+                {images}
                 {/*<View style={styles.item}>
                     <Text>图片</Text>
                 </View>*/}
-                <View style={[styles.item, { flexDirection: 'row', backgroundColor: '#ffffff' }]}>
-                    <Button
-                        style={{
-                            borderRadius: 35,
-                            width: 70,
-                            height: 70,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            backgroundColor: '#00cade',
-                            alignSelf: 'center'
-                        }}
-                        onPress={this.launchCamera}
-                        title='上传照片' >
-                        <Icon name='camera' />
-                    </Button>
-                </View>
+                {btn}
             </View>
         )
     }

@@ -11,12 +11,16 @@ import RecordReducer from './RecordReducer'
 import ImporCarReducer from './ImporCarReducer'
 import ImportCarCameraReducer from './ImportCarCameraReducer'
 import PasswordReducer from './PasswordReducer'
+import HomeReducer from './HomeReducer'
+import CarInfoReducer from './CarInfoReducer'
 
 
 export default combineReducers({
     WelcomeReducer,
     LoginReducer,
     CarReducer,
+    HomeReducer,
+    CarInfoReducer,
     PasswordReducer,
     CarMakeReducer,
     StorageReducer,

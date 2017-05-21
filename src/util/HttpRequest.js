@@ -90,8 +90,8 @@ module.exports = {
     post: post,
     put: put,
     del: del,
-    postFile: postFile
-    //getAll: getAll
+    postFile: postFile,
+    getAll: getAll
 }
 
 // function postFile(imgAry, url, item, callback) {
@@ -125,27 +125,27 @@ module.exports = {
 //         })
 // }
 
-// function getAll(urls, callback) {
-//     let proMises = urls.map(url => fetch(url, {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'charset': 'utf-8'
-//         }
-//     }))
-//     Promise.all(proMises)
-//         .then(response => response.map(item => item.json()))
-//         .then(responseJson => {
-//             Promise.all(responseJson)
-//                 .then(res => {
-//                     callback(null, res)
-//                 })
-//                 .catch((error) => {
-//                     callback(error, null)
-//                 })
-//         })
-//         .catch((error) => {
-//             callback(error, null)
-//         })
-// }
+function getAll(urls, callback) {
+    let proMises = urls.map(url => fetch(url, {
+        method: 'GET',
+        headers: requestHeaders.headers
+    }))
+    Promise.all(proMises)
+        .then(response => response.map(item => item.json()))
+        .then(responseJson => {
+
+            
+            Promise.all(responseJson)
+                .then(res => {
+                    console.log(res)
+                    callback(null, res)
+                })
+                .catch((error) => {
+                    callback(error, null)
+                })
+        })
+        .catch((error) => {
+            callback(error, null)
+        })
+}
 

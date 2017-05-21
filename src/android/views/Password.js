@@ -27,13 +27,33 @@ class Password extends Component {
     changePassword() {
         this.props.changePassword({
             requiredParam: {
-                userid: this.props.user.userId
+                userId: this.props.user.userId
             },
-            postParam: {
+            putParam: {
                 originPassword: this.state.originPassword,
                 newPassword: this.state.newPassword
             }
         })
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        let { isResult, isSuccess } = nextProps.password
+        console.log('nextProps.password', nextProps.password)
+        console.log('nextState', nextState)
+        if (isResult) {
+            if (isSuccess) {
+                console.log('修改成功')
+                this.props.resetPassword()
+            }
+            else {
+                console.log('修改失败')
+                this.props.resetPassword()
+            }
+            return false
+        }
+
+        return true
+
     }
 
     render() {
@@ -47,11 +67,11 @@ class Password extends Component {
                     <Form style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", height: 190 }}>
                         <Item floatingLabel style={{ flex: 1 }} >
                             <Label>Origin Password</Label>
-                            <Input secureTextEntry={true} value={this.state.originPassword} onChangeText={(text) => this.setState({ originPassword: text })} />
+                            <Input value={this.state.originPassword} onChangeText={(text) => this.setState({ originPassword: text })} />
                         </Item>
                         <Item floatingLabel style={{ flex: 1 }} >
                             <Label>New Password</Label>
-                            <Input secureTextEntry={true} value={this.state.newPassword} onChangeText={(text) => this.setState({ newPassword: text })} />
+                            <Input value={this.state.newPassword} onChangeText={(text) => this.setState({ newPassword: text })} />
                         </Item>
                         <Button block style={{ marginTop: 20 }} onPress={this.changePassword}>
                             <Text>OK</Text>
@@ -59,7 +79,6 @@ class Password extends Component {
                     </Form>
                 </Body>
             </Container>
-
         )
     }
 }
@@ -76,7 +95,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     changePassword: (param) => {
         dispatch(passwordAction.changePassword(param))
-    }
+    },
+    resetPassword: () => {
+        dispatch(passwordAction.resetPassword())
+    },
 })
 
 

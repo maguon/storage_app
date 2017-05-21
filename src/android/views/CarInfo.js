@@ -4,8 +4,9 @@
 import React, { Component } from 'react'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
-import * as RecordAction from '../../actions/RecordAction'
+import * as CarInfoAction from '../../actions/CarInfoAction'
 import CarInfoLayout from '../layout/CarInfo'
+
 
 
 class CarInfo extends Component {
@@ -14,28 +15,40 @@ class CarInfo extends Component {
 
         this.exportCar = this.exportCar.bind(this)
         this.moveCar = this.moveCar.bind(this)
-        this.getRecordLisMore = this.getRecordLisMore.bind(this)
     }
 
     componentDidMount() {
-        this.props.getRecordList({
-            optionalParam: {
-                start: 0,
-                size: 10,
-                userId: 3,
-                carId: this.props.car.id
+        this.props.getCarInformation({
+            requiredParam: {
+                carId: this.props.car.id,
+                userId: this.props.user.userId
             }
         })
+
+
+        // this.props.getRecordList({
+        //     optionalParam: {
+        //         start: 0,
+        //         size: 10,
+        //         userId: 3,
+        //         carId: this.props.car.id
+        //     }
+        // })
     }
 
     moveCar() {
-
+        this.props.moveCar()
     }
+
+    appendImage() {
+        this.props.moveCar()
+    }
+
     exportCar() {
         this.props.exportCar(
             {
                 requiredParam: {
-                    userId: 3,
+                    userId: this.props.user.userId,
                     relId: this.props.car.r_id,
                     relStatus: 2
                 },
@@ -69,25 +82,18 @@ class CarInfo extends Component {
     }
 
 
-    getRecordLisMore() {
-        this.props.getRecordList({
-            optionalParam: {
-                start: this.props.records.length,
-                size: 10,
-                userId: 3,
-                carId: this.props.car.id
-            }
-        }, false)
-    }
 
     render() {
+        console.log(this.props)
+
         return (
+
             <CarInfoLayout
                 car={this.props.car}
                 exportCar={this.exportCar}
                 moveCar={this.moveCar}
-                records={this.props.records}
-                getRecordLisMore={this.getRecordLisMore}
+                records={this.props.carInformation.recordList}
+                images={this.props.carInformation.imageList}
             />
         )
     }
@@ -97,16 +103,23 @@ class CarInfo extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        records: state.RecordReducer
+        user: state.LoginReducer.user,
+        carInformation: state.CarInfoReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    exportCar: (param) => {
-        dispatch(CarAction.exportCar(param))
+    getCarInformation: (param) => {
+        dispatch(CarInfoAction.getCarInformation(param))
     },
-    getRecordList: (param, isFirst) => {
-        dispatch(RecordAction.getRecordList(param, isFirst))
+    exportCar: (param) => {
+        dispatch(CarInfoAction.exportCar(param))
+    },
+    moveCar: (param) => {
+        dispatch(CarInfoAction.moveCar(param))
+    },
+    appendImage: (param) => {
+        dispatch(CarInfoAction.appendImage(param))
     }
 })
 

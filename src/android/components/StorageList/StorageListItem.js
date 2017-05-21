@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux'
 
 const StorageListItem = ({ storage }) => {
     return (
-        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.ParkingView({ storage: storage })}>
+        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { }}>
             <View style={styles.container}>
                 <View style={[{ flex: 3 }, styles.content]}>
                     <View style={styles.contentIcon}>

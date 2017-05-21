@@ -4,7 +4,9 @@ import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const changePassword = (param) => (dispatch) => {
-    httpRequest.post(`${base_host}/user/${param.requiredParam.userId}/password`, param.postParam, (err, res) => {
+
+    httpRequest.put(`${base_host}/user/${param.requiredParam.userId}/password`, param.putParam, (err, res) => {
+        console.log(param.putParam)
         if (err) {
             console.log('err', err)
         }
@@ -14,9 +16,15 @@ export const changePassword = (param) => (dispatch) => {
 
                 dispatch({ type: actionTypes.passwordTypes.CHANGE_PASSWORD_SUCCESS, payload: {} })
             } else {
-                console.log('failed', res.msg)
+                dispatch({ type: actionTypes.passwordTypes.CHANGE_PASSWORD_FAILED, payload: {} })
+                console.log('failed', res)
             }
         }
 
     })
+}
+
+
+export const resetPassword = () => (dispatch) => {
+    dispatch({ type: actionTypes.passwordTypes.RESET_CHANGE_PASSWORD, payload: {} })
 }

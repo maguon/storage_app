@@ -6,7 +6,9 @@ import { Text, View, Dimensions, StyleSheet } from 'react-native'
 import { Button, Icon } from 'native-base'
 
 const RecordListItem = ({ record }) => {
-    let created_on = (new Date(record.created_on)).toLocaleString()
+
+    console.log('record', record)
+    let created_on = (new Date(record.timez)).toLocaleString()
 
     let textStyle
     if (record.op == '11') {
@@ -30,7 +32,7 @@ const RecordListItem = ({ record }) => {
     let col = ''
 
     let regxStorageName = /storage (.*) parking at row (.*) column (.*)/
-    if (regxStorageName.test(record.comment)) {
+    if (regxStorageName.test(record.content)) {
         storageName = RegExp.$1
         row = RegExp.$2
         col = RegExp.$3

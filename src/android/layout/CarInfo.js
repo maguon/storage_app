@@ -8,20 +8,20 @@ import Loading from '../components/Loading/Loading'
 
 const window = Dimensions.get('window')
 
-const CarInfo = ({ car, exportCar, moveCar, records, getRecordLisMore }) => {
+const CarInfo = ({ car, exportCar, moveCar, records, images }) => {
     return (
         <View style={{ flex: 1 }}>
-            <Loading isLoading={records.isLoading}/>
+            {/*<Loading isLoading={records.isLoading}/>*/}
             <NavBar title={'车辆详情'} />
             <ScrollView>
                 <CarInfoComponent
                     car={car}
                     exportCar={exportCar}
                     moveCar={moveCar} />
-                <CarCamera />
+                <CarCamera images={images} />
                 <RecordList
-                    {...records}
-                    getRecordLisMore={getRecordLisMore} />
+                    records={records}
+                />
             </ScrollView>
         </View>
     )

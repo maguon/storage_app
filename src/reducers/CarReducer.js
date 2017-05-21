@@ -25,12 +25,6 @@ export default handleActions({
             cars: [...state.cars, ...data.cars]
         }
     },
-    [actionTypes.carTypes.EXPORT_CAR_SUCCESS]: (state, action) => {
-        return {
-            ...state,
-            isLoading: data.isLoading
-        }
-    },
     [actionTypes.carTypes.GET_CAR_LIST_LOADING]: (state, action) => {
         const { payload: { data } } = action
         return {
