@@ -11,6 +11,7 @@ export const login = (params) => {
             if (err) {
                 //登录失败重新登录
                 console.log('err')
+                dispatch({ type: actionTypes.loginTypes.LOGIN_FAILED, payload: {} })
             } else {
 
                 if (res.success) {
@@ -51,6 +52,7 @@ export const login = (params) => {
                 } else {
                     //登录失败重新登录
                     console.log('failed')
+                    dispatch({ type: actionTypes.loginTypes.LOGIN_FAILED, payload: {} })
                 }
             }
         })

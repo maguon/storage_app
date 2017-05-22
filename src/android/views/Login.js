@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Image, Dimensions } from 'react-native'
+import { View, Image, Dimensions, Alert } from 'react-native'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
@@ -28,12 +28,14 @@ class Login extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         let { isJump, isLoginSuccess } = nextProps.loginInfo
+        console.log('isJump', isJump)
+        console.log('isLoginSuccess', isLoginSuccess)
         if (isJump) {
             if (isLoginSuccess) {
                 Actions.main()
             }
             else {
-                console.log('账号密码错误')
+                Alert.alert('账号密码错误请重新登录')
             }
             return false
         }
