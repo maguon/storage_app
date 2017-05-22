@@ -9,6 +9,7 @@ import ReduxThunk from 'redux-thunk'
 import reducers from '../../reducers/index'
 import * as passwordAction from '../../actions/PasswordAction'
 import localStorageKey from '../../util/LocalStorageKey'
+
 import { Actions } from 'react-native-router-flux'
 import NavBar from '../components/Bar/NavBar'
 import { Button, Container, Content, Header, Icon, Form, Item, Text, Label, Input, Left, Body, Right, Title, List, ListItem, Toast } from 'native-base'
@@ -35,6 +36,8 @@ class Password extends Component {
             }
         })
     }
+
+
 
     shouldComponentUpdate(nextProps, nextState) {
         let { isResult, isSuccess } = nextProps.password

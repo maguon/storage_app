@@ -33,16 +33,22 @@ export default class CarCamera extends Component {
 
             } else {
                 console.log('Response = ', response)
-                let param = {
-                    postFileParam: {
-                        imageUrl: response.uri,
-                        imageType: response.type,
-                        imageName: response.fileName
-                    }
-                }
-                this.props.postImage(param)
-                console.log('launchCamera', param)
+                ImageResizer.createResizedImage(response.uri, 960, 960, 'JPEG', 100)
+                    .then((resizedImageUri) => {
+                        let param = {
+                            postFileParam: {
+                                imageUrl: resizedImageUri,
+                                imageType: response.type,
+                                imageName: response.fileName
+                            }
+                        }
+                        this.props.postImage(param)
+                        console.log('launchCamera', param)
+                        console.log(resizedImageUri)
+                    }).catch((err) => {
+                        return console.log(err)
 
+                    })
             }
         })
     }

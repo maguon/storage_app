@@ -10,6 +10,7 @@ import reducers from '../../reducers/index'
 import * as storageAction from '../../actions/StorageDateAction'
 import localStorageKey from '../../util/LocalStorageKey'
 import { Actions } from 'react-native-router-flux'
+import localStorage from '../../util/LocalStorage'
 import { Button, Container, Content, Header, Icon, Text, Left, Body, Right, Title, List, ListItem, Thumbnail, Toast } from 'native-base'
 import SearchBar from '../components/Bar/SearchBar'
 
@@ -19,6 +20,11 @@ class Setting extends Component {
     }
     componentDidMount() {
 
+    }
+
+    exitApp() {
+        localStorage.removeKey(localStorageKey.USER)
+        Actions.login()
     }
 
     render() {
@@ -54,7 +60,7 @@ class Setting extends Component {
 
                         </ListItem>
                     </List>
-                    <Button light full style={{ marginTop: 20 }}>
+                    <Button light full style={{ marginTop: 20 }} onPress={this.exitApp}>
                         <Text>退出登录</Text>
                     </Button>
                 </View>

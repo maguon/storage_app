@@ -22,15 +22,11 @@ const Home = ({ storages, records }) => {
     return (
         <View style={{ flex: 1 }}>
             {/*<Loading isLoading={storages.isLoading || records.isLoading} />*/}
-
-
-            <View style={styles.search}>
-                <SearchBar viewStyle={viewStyle} />
-            </View>
-
             <View>
                 <Image source={{ uri: 'banner_back' }} style={styles.image} />
-
+                <View style={styles.search}>
+                    <SearchBar viewStyle={viewStyle} />
+                </View>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
 
@@ -44,7 +40,7 @@ const Home = ({ storages, records }) => {
 const styles = StyleSheet.create({
     image: {
         width: window.width,
-        height: 60,
+        height: window.width / 16 * 9,
     },
     search: {
         width: window.width,

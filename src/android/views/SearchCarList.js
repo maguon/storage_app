@@ -12,7 +12,7 @@ class CarList extends Component {
     componentDidMount() {
         this.props.getCarList({
             requiredParam: {
-                userid: 3
+                userid: this.props.user.userId
             },
             optionalParam: {
                 start: 0,
@@ -27,7 +27,7 @@ class CarList extends Component {
     loadMore() {
         this.props.getCarList({
             requiredParam: {
-                userid: 3
+                userid: this.props.user.userId
             },
             optionalParam: {
                 start: this.props.cars.length,
@@ -48,7 +48,8 @@ class CarList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ...state.CarReducer
+        ...state.CarReducer,
+        user: state.LoginReducer.user
     }
 }
 
