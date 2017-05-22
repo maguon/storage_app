@@ -15,6 +15,7 @@ class CarInfo extends Component {
 
         this.exportCar = this.exportCar.bind(this)
         this.moveCar = this.moveCar.bind(this)
+        this.appendImage = this.appendImage.bind(this)
     }
 
     componentDidMount() {
@@ -24,24 +25,31 @@ class CarInfo extends Component {
                 userId: this.props.user.userId
             }
         })
-
-
-        // this.props.getRecordList({
-        //     optionalParam: {
-        //         start: 0,
-        //         size: 10,
-        //         userId: 3,
-        //         carId: this.props.car.id
-        //     }
-        // })
     }
 
     moveCar() {
         this.props.moveCar()
     }
 
-    appendImage() {
-        this.props.moveCar()
+    appendImage(param) {
+        console.log(this.props.car)
+        param.requiredParam = {
+            userId: this.props.user.userId,
+            carId: this.props.car.id,
+            vin: this.props.car.vin
+        }
+        param.optionalParam = {
+            imageType: 1
+        }
+        param.postFileParam.key = "image"
+
+        param.postParam = {
+            username: this.props.user.mobile,
+            userId: this.props.user.userId,
+            userType: this.props.user.userType
+        }
+        console.log('postImage', param)
+        this.props.appendImage(param)
     }
 
     exportCar() {
@@ -61,25 +69,25 @@ class CarInfo extends Component {
         )
     }
 
-    postImage(param) {
-        param.requiredParam = {
-            userId: 3,
-            carId: this.props.carId,
-            vin: this.props.vin
-        }
-        param.optionalParam = {
-            imageType: 1
-        }
-        param.postFileParam.key = "image"
+    // postImage(param) {
+    //     param.requiredParam = {
+    //         userId: 3,
+    //         carId: this.props.carId,
+    //         vin: this.props.vin
+    //     }
+    //     param.optionalParam = {
+    //         imageType: 1
+    //     }
+    //     param.postFileParam.key = "image"
 
-        param.postParam = {
-            username: "honya",
-            userId: 3,
-            userType: 1
-        }
-        console.log('postImage', param)
-        this.props.pushCarImage(param)
-    }
+    //     param.postParam = {
+    //         username: "honya",
+    //         userId: 3,
+    //         userType: 1
+    //     }
+    //     console.log('postImage', param)
+    //     this.props.pushCarImage(param)
+    // }
 
 
 
@@ -94,6 +102,7 @@ class CarInfo extends Component {
                 moveCar={this.moveCar}
                 records={this.props.carInformation.recordList}
                 images={this.props.carInformation.imageList}
+                postImage={this.appendImage}
             />
         )
     }

@@ -49,5 +49,17 @@ export default handleActions({
             isResult: true,
             isSuccess: true
         }
-    }
+    },
+    [actionTypes.carInfoTypes.APPEND_CAR_IMAGE_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
+        let tt = {
+            ...state,
+            imageList: [...state.imageList, data.imageUrl],
+            isWaiting: false,
+            isResult: true,
+            isSuccess: true
+        }
+        console.log(tt)
+        return tt
+    },
 }, initialState)

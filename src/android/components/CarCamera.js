@@ -109,9 +109,7 @@ export default class CarCamera extends Component {
         return (
             <View style={styles.container}>
                 {images}
-                {/*<View style={styles.item}>
-                    <Text>图片</Text>
-                </View>*/}
+
                 {btn}
             </View>
         )

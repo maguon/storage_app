@@ -8,7 +8,7 @@ import Loading from '../components/Loading/Loading'
 
 const window = Dimensions.get('window')
 
-const CarInfo = ({ car, exportCar, moveCar, records, images }) => {
+const CarInfo = ({ car, exportCar, moveCar, records, images, postImage }) => {
     return (
         <View style={{ flex: 1 }}>
             {/*<Loading isLoading={records.isLoading}/>*/}
@@ -18,7 +18,7 @@ const CarInfo = ({ car, exportCar, moveCar, records, images }) => {
                     car={car}
                     exportCar={exportCar}
                     moveCar={moveCar} />
-                <CarCamera images={images} />
+                <CarCamera images={images} postImage={postImage} />
                 <RecordList
                     records={records}
                 />
