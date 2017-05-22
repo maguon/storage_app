@@ -12,7 +12,7 @@ class CarList extends Component {
     componentDidMount() {
         this.props.getCarList({
             requiredParam: {
-                userid: 38
+                userid: this.props.user.userId
             },
             optionalParam: {
                 start: 0,
@@ -26,10 +26,10 @@ class CarList extends Component {
     loadMore() {
         this.props.getCarList({
             requiredParam: {
-                userid: 38
+                userid: this.props.user.userId
             },
             optionalParam: {
-                start: this.props.cars.length,
+                start: this.props.cars.cars.length,
                 size: 20,
                 active: 1,
                 relStatus: 1
@@ -38,15 +38,21 @@ class CarList extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
-            <CarListLayout {...this.props} loadMore={this.loadMore.bind(this)} /> // isSearch={isSearch} Vin={vin}
+            <CarListLayout
+                cars={this.props.cars.cars}
+                isLoading={this.props.cars.isLoading}
+                getCarList={this.props.getCarList}
+                loadMore={this.loadMore.bind(this)} />
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        ...state.CarReducer
+        cars: state.CarReducer,
+        user: state.LoginReducer
     }
 }
 

@@ -173,12 +173,12 @@ class ImportCar extends Component {
                                 <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>道位</Text>
                             </View>
                         </View>
-                        <View>
+                        {/*<View>
                             <Button full style={{ backgroundColor: '#00cade' }} onPress={() => { }}>
                                 <Text style={{ color: '#ffffff', fontSize: 16, position: 'absolute', left: 20 }}>通过分布图选择车位</Text>
                                 <Icon name='angle-right' color='#fff' size={16} style={{ position: 'absolute', right: 20 }} />
                             </Button>
-                        </View>
+                        </View>*/}
                     </View>
                     <View style={{ marginHorizontal: 20, marginTop: 40 }}>
                         <Button full style={{ backgroundColor: '#00cade' }} onPress={this.requestImportCar.bind(this)}>

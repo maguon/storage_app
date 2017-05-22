@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux'
 
 const window = Dimensions.get('window')
 
-const CarInfo = ({ car, exportCar }) => {
+const CarInfo = ({ car, exportCar, moveCar }) => {
     return (
         <View>
             <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
@@ -42,7 +42,7 @@ const CarInfo = ({ car, exportCar }) => {
                     <Button
                         full
                         style={{ backgroundColor: '#00cade', borderRadius: 5 }}
-                        onPress={() => Actions.SelectRow({ storageId: car.storage_id, storageName: car.storage_name, _popNum: 2 })}>
+                        onPress={moveCar}>
                         <Text style={{ color: '#ffffff' }}>移位</Text>
                     </Button>
                 </View >

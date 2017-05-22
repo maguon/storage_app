@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions'
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    isWaiting: false,
+
     recordList: [],
     imageList: [],
     car: {
@@ -17,6 +17,7 @@ const initialState = {
         storage_id: '',
         pro_date: ''
     },
+    isWaiting: false,
     isResult: false,
     isSuccess: true,
     ErrorMessage: ''

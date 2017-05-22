@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
 import * as CarInfoAction from '../../actions/CarInfoAction'
-
+import { Actions } from 'react-native-router-flux'
 import CarInfoLayout from '../layout/CarInfo'
 
 
@@ -13,10 +13,13 @@ import CarInfoLayout from '../layout/CarInfo'
 class CarInfo extends Component {
     constructor(props) {
         super(props)
-
+        this.state = {
+            moveFlag: false
+        }
         this.exportCar = this.exportCar.bind(this)
         this.getCarInfo = this.getCarInfo.bind(this)
         this.appendImage = this.appendImage.bind(this)
+        this.moveCar = this.moveCar.bind(this)
     }
 
     componentDidMount() {
@@ -29,8 +32,7 @@ class CarInfo extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
-        if (nextProps.selectType == 1) {
+        if (nextProps.selectType == 1 && this.state.moveFlag) {
             let { row, column, storageName, storageId, parkingId } = nextProps
             console.log('nextProps', nextProps)
             this.props.moveCar({
@@ -42,9 +44,9 @@ class CarInfo extends Component {
                     carId: this.props.car.id
                 }
             }, this.getCarInfo)
+            this.setState({ moveFlag: false })
         }
     }
-
 
     getCarInfo() {
         this.props.getCarInformation({
@@ -53,6 +55,11 @@ class CarInfo extends Component {
                 userId: this.props.user.userId
             }
         })
+    }
+
+    moveCar() {
+        this.setState({ moveFlag: true })
+        Actions.SelectRow({ storageId: this.props.carInformation.car.storage_id, storageName: this.props.carInformation.car.storage_name, _popNum: 2 })
     }
 
     appendImage(param) {

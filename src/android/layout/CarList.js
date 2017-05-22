@@ -9,7 +9,7 @@ import Loading from '../components/Loading/Loading'
 
 const window = Dimensions.get('window')
 
-const CarList = ({ isLoading, cars, getCarList, loadMore, changeTab }) => {
+const CarList = ({ isLoading, cars, getCarList, loadMore }) => {
     let viewStyle = { backgroundColor: '#00cade' }
     return (
         <View style={{ flex: 1, width: window.width }}>
