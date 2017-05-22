@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     contentText: {
         textAlign: 'center',
         color: '#999999',
-        fontSize: 13
+        fontSize: 12
     },
     contentTag: {
         width: 5,
