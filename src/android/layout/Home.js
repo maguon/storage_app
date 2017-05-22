@@ -22,14 +22,18 @@ const Home = ({ storages, records }) => {
     return (
         <View style={{ flex: 1 }}>
             {/*<Loading isLoading={storages.isLoading || records.isLoading} />*/}
-            <View>
-                <Image source={{ uri: 'banner_back' }} style={styles.image} />
-                <View style={styles.search}>
-                    <SearchBar viewStyle={viewStyle} />
-                </View>
+
+
+            <View style={styles.search}>
+                <SearchBar viewStyle={viewStyle} />
             </View>
 
+            <View>
+                <Image source={{ uri: 'banner_back' }} style={styles.image} />
+
+            </View>
             <ScrollView showsVerticalScrollIndicator={false}>
+
                 <StorageList storages={storages} />
                 <RecordList records={records} />
             </ScrollView>
@@ -40,7 +44,7 @@ const Home = ({ storages, records }) => {
 const styles = StyleSheet.create({
     image: {
         width: window.width,
-        height: window.width / 32 * 15,
+        height: 60,
     },
     search: {
         width: window.width,

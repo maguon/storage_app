@@ -4,26 +4,30 @@ import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getCarInformation = (param) => (dispatch) => {
-    let url = `${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`
+    let urls = [`${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`,
+    `${base_host}/user/${param.requiredParam.userId}/car?carId=${param.requiredParam.carId}`]
+    // console.log(urls)
     httpRequest
-        .get(url, (err, res) => {
+        .getAll(urls, (err, res) => {
             if (err) {
                 console.log('FAILED', err)
             } else {
-                if (res.success) {
-                    console.log('res.success', res.result[0])
+                if (res[0].success && res[1].success) {
+                    // console.log('res.success', res[1].result[0])
                     dispatch({
                         type: actionTypes.carInfoTypes.GET_CARINFO_SUCCESS, payload: {
                             data: {
-                                recordList: res.result[0].comment,
-                                imageList: res.result[0].storage_image.map(item => {
+                                recordList: res[0].result[0].comment,
+                                imageList: res[0].result[0].storage_image.map(item => {
                                     return `${file_host}image/${item.url}`
-                                })
+                                }),
+                                car: res[1].result[0]
                             }
                         }
                     })
+                     console.log('res.success', res[1].result[0])
                 } else {
-                    console.log('RES_FAITLED', res.msg)
+                    console.log('RES_FAITLED111', `${res[0].msg}&&${res[1].msg}`)
                 }
             }
         })
@@ -61,7 +65,7 @@ export const appendImage = (param) => (dispatch) => {
                     url = `${record_host}/car/${param.requiredParam.carId}/vin/${param.requiredParam.vin}/storageImage`
                     console.log('url', url)
                     param.postParam.url = res.imageId
-                    
+
                     console.log('param', param)
                     httpRequest.post(url, param.postParam, (carErr, carRes) => {
                         if (carErr) {
@@ -91,8 +95,22 @@ export const appendImage = (param) => (dispatch) => {
 
 }
 
-export const moveCar = (param) => (dispatch) => {
-
+export const moveCar = (param, getCarInfo) => (dispatch) => {
+    let url = `${base_host}/user/${param.requiredParam.userId}/storageParking/${param.requiredParam.parkingId}?${ObjectToUrl(param.optionalParam)}`
+    httpRequest
+        .put(url, {}, (err, res) => {
+            if (err) {
+                console.log('FAILED11111', err)
+            } else {
+                if (res.success) {
+                    console.log('res.success', res)
+                    dispatch({ type: actionTypes.carInfoTypes.MOVE_CAR_SUCCESS, payload: {} })
+                    getCarInfo()
+                } else {
+                    console.log('RES_FAITLED33333 ', res.msg)
+                }
+            }
+        })
 }
 
 

@@ -47,7 +47,7 @@ export default class CarCamera extends Component {
         })
     }
     render() {
-        console.log('carcamera', this.props.images)
+        //console.log('carcamera', this.props.images)
         let i = 1
         let images = this.props.images.map(item => {
             // i++

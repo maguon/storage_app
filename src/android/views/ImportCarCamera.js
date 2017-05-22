@@ -14,7 +14,7 @@ class ImportCarCamera extends Component {
 
     postImage(param) {
         param.requiredParam = {
-            userId: 3,
+            userId: this.props.user.userId,
             carId: this.props.carId,
             vin: this.props.vin
         }
@@ -24,9 +24,9 @@ class ImportCarCamera extends Component {
         param.postFileParam.key = "image"
 
         param.postParam = {
-            username: "honya",
-            userId: 3,
-            userType: 1
+            username: this.props.user.mobile,
+            userId: this.props.user.userId,
+            userType: this.props.user.userType,
         }
         console.log('postImage', param)
         this.props.pushCarImage(param)
@@ -51,7 +51,7 @@ class ImportCarCamera extends Component {
 const mapStateToProps = (state) => {
     return {
         images: state.ImportCarCameraReducer,
-        user: state.UserReducer
+        user: state.LoginReducer.user
     }
 }
 

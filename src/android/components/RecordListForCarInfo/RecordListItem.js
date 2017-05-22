@@ -7,7 +7,7 @@ import { Button, Icon } from 'native-base'
 
 const RecordListItem = ({ record }) => {
 
-    console.log('record', record)
+    //console.log('record', record)
     let created_on = (new Date(record.timez)).toLocaleString()
 
     let textStyle

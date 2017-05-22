@@ -15,7 +15,7 @@ export default class SelectColumn extends Component {
             return (
                 <TouchableHighlight key={item.col} underlayColor='rgba(0,0,0,0.1)' onPress={() => {
                     Actions.pop({
-                        popNum: 3,
+                        popNum: this.props._popNum,
                         refresh: {
                             row: this.props.row,
                             column: item.col,

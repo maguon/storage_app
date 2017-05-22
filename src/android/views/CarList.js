@@ -10,23 +10,23 @@ class CarList extends Component {
     }
 
     componentDidMount() {
-            this.props.getCarList({
-                requiredParam: {
-                    userid: 3
-                },
-                optionalParam: {
-                    start: 0,
-                    size: 20,
-                    active: 1,
-                    relStatus: 1
-                }
-            })
+        this.props.getCarList({
+            requiredParam: {
+                userid: 38
+            },
+            optionalParam: {
+                start: 0,
+                size: 20,
+                active: 1,
+                relStatus: 1
+            }
+        })
     }
 
     loadMore() {
         this.props.getCarList({
             requiredParam: {
-                userid: 3
+                userid: 38
             },
             optionalParam: {
                 start: this.props.cars.length,

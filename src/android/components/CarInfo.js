@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, Dimensions, ScrollView, Image } from 'react-native'
 import { Button, Icon } from 'native-base'
-
+import { Actions } from 'react-native-router-flux'
 
 const window = Dimensions.get('window')
 
 const CarInfo = ({ car, exportCar }) => {
     return (
-
         <View>
             <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
                 <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
@@ -43,7 +42,7 @@ const CarInfo = ({ car, exportCar }) => {
                     <Button
                         full
                         style={{ backgroundColor: '#00cade', borderRadius: 5 }}
-                        onPress={exportCar}>
+                        onPress={() => Actions.SelectRow({ storageId: car.storage_id, storageName: car.storage_name, _popNum: 2 })}>
                         <Text style={{ color: '#ffffff' }}>移位</Text>
                     </Button>
                 </View >
@@ -56,11 +55,7 @@ const CarInfo = ({ car, exportCar }) => {
                     </Button>
                 </View>
             </View>
-
         </View>
-
-
-
     )
 }
 

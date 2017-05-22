@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
 import * as CarInfoAction from '../../actions/CarInfoAction'
+
 import CarInfoLayout from '../layout/CarInfo'
 
 
@@ -14,7 +15,7 @@ class CarInfo extends Component {
         super(props)
 
         this.exportCar = this.exportCar.bind(this)
-        this.moveCar = this.moveCar.bind(this)
+        this.getCarInfo = this.getCarInfo.bind(this)
         this.appendImage = this.appendImage.bind(this)
     }
 
@@ -27,8 +28,31 @@ class CarInfo extends Component {
         })
     }
 
-    moveCar() {
-        this.props.moveCar()
+    componentWillReceiveProps(nextProps) {
+
+        if (nextProps.selectType == 1) {
+            let { row, column, storageName, storageId, parkingId } = nextProps
+            console.log('nextProps', nextProps)
+            this.props.moveCar({
+                requiredParam: {
+                    userId: this.props.user.userId,
+                    parkingId: parkingId
+                },
+                optionalParam: {
+                    carId: this.props.car.id
+                }
+            }, this.getCarInfo)
+        }
+    }
+
+
+    getCarInfo() {
+        this.props.getCarInformation({
+            requiredParam: {
+                carId: this.props.car.id,
+                userId: this.props.user.userId
+            }
+        })
     }
 
     appendImage(param) {
@@ -69,35 +93,11 @@ class CarInfo extends Component {
         )
     }
 
-    // postImage(param) {
-    //     param.requiredParam = {
-    //         userId: 3,
-    //         carId: this.props.carId,
-    //         vin: this.props.vin
-    //     }
-    //     param.optionalParam = {
-    //         imageType: 1
-    //     }
-    //     param.postFileParam.key = "image"
-
-    //     param.postParam = {
-    //         username: "honya",
-    //         userId: 3,
-    //         userType: 1
-    //     }
-    //     console.log('postImage', param)
-    //     this.props.pushCarImage(param)
-    // }
-
-
-
     render() {
-        console.log(this.props)
-
+        console.log('props', this.props)
         return (
-
             <CarInfoLayout
-                car={this.props.car}
+                car={this.props.carInformation.car}
                 exportCar={this.exportCar}
                 moveCar={this.moveCar}
                 records={this.props.carInformation.recordList}
@@ -124,8 +124,8 @@ const mapDispatchToProps = (dispatch) => ({
     exportCar: (param) => {
         dispatch(CarInfoAction.exportCar(param))
     },
-    moveCar: (param) => {
-        dispatch(CarInfoAction.moveCar(param))
+    moveCar: (param, getCarList) => {
+        dispatch(CarInfoAction.moveCar(param, getCarList))
     },
     appendImage: (param) => {
         dispatch(CarInfoAction.appendImage(param))

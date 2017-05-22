@@ -5,6 +5,18 @@ const initialState = {
     isWaiting: false,
     recordList: [],
     imageList: [],
+    car: {
+        make_name: '',
+        model_name: '',
+        colour: 'ffffff',
+        vin: '',
+        engine_num: '',
+        row: 0,
+        col: 0,
+        storage_name: '',
+        storage_id: '',
+        pro_date: ''
+    },
     isResult: false,
     isSuccess: true,
     ErrorMessage: ''
@@ -18,6 +30,7 @@ export default handleActions({
             isWaiting: false,
             recordList: data.recordList,
             imageList: data.imageList,
+            car: data.car,
             isResult: true,
             isSuccess: true,
         }
@@ -37,8 +50,6 @@ export default handleActions({
         return {
             ...state,
             isWaiting: true,
-            recordList: data.recordList,
-            imageList: data.imageList,
             isResult: false,
         }
     },
@@ -50,16 +61,22 @@ export default handleActions({
             isSuccess: true
         }
     },
+    [actionTypes.carInfoTypes.MOVE_CAR_SUCCESS]: (state, action) => {
+        return {
+            ...state,
+            isWaiting: false,
+            isResult: true,
+            isSuccess: true
+        }
+    },
     [actionTypes.carInfoTypes.APPEND_CAR_IMAGE_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-        let tt = {
+        return {
             ...state,
             imageList: [...state.imageList, data.imageUrl],
             isWaiting: false,
             isResult: true,
             isSuccess: true
         }
-        console.log(tt)
-        return tt
     },
 }, initialState)

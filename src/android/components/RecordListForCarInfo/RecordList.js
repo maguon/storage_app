@@ -11,9 +11,10 @@ const window = Dimensions.get('window')
 
 
 const RecordList = ({ records }) => {
-
+    let i = 0
     let recordList = records.map(item => {
-        return <RecordListItem record={item} key={item.id} />
+        i++
+        return <RecordListItem record={item} key={i} />
     })
     return (
 
@@ -28,7 +29,6 @@ const RecordList = ({ records }) => {
 
             </View>
             {recordList}
-
         </View>)
 }
 

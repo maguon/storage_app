@@ -36,7 +36,7 @@ class ImportCar extends Component {
     requestImportCar() {
         this.props.ImportCar({
             requiredParam: {
-                userid: 3
+                userid: this.props.user.userId
             },
             postParam: {
                 ...this.state
@@ -151,7 +151,7 @@ class ImportCar extends Component {
                             style={{ flex: 3, padding: 0, fontSize: 14 }} />
                     </View>
                     <View style={{ marginHorizontal: 20, marginTop: 20 }}>
-                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={Actions.SelectStorage}>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectStorage({ _popNum: 3 })}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, borderColor: '#00cade', borderBottomWidth: 2 }}>
                                 <Text style={{ color: 'red', flex: 1 }}>*</Text>
                                 <Text style={{ color: '#00cade', fontSize: 16, flex: 4 }}>选择仓库</Text>
@@ -195,7 +195,7 @@ class ImportCar extends Component {
 const mapStateToProps = (state) => {
     return {
         car: state.ImporCarReducer,
-        user: state.UserReducer
+        user: state.LoginReducer.user
     }
 }
 
