@@ -52,7 +52,7 @@ class CarList extends Component {
 const mapStateToProps = (state) => {
     return {
         cars: state.CarReducer,
-        user: state.LoginReducer
+        user: state.LoginReducer.user
     }
 }
 

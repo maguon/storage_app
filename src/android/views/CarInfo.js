@@ -8,8 +8,6 @@ import * as CarInfoAction from '../../actions/CarInfoAction'
 import { Actions } from 'react-native-router-flux'
 import CarInfoLayout from '../layout/CarInfo'
 
-
-
 class CarInfo extends Component {
     constructor(props) {
         super(props)
@@ -25,7 +23,7 @@ class CarInfo extends Component {
     componentDidMount() {
         this.props.getCarInformation({
             requiredParam: {
-                carId: this.props.car.id,
+                carId: this.props.carId,
                 userId: this.props.user.userId
             }
         })
@@ -41,7 +39,7 @@ class CarInfo extends Component {
                     parkingId: parkingId
                 },
                 optionalParam: {
-                    carId: this.props.car.id
+                    carId: this.props.carId
                 }
             }, this.getCarInfo)
             this.setState({ moveFlag: false })
@@ -51,7 +49,7 @@ class CarInfo extends Component {
     getCarInfo() {
         this.props.getCarInformation({
             requiredParam: {
-                carId: this.props.car.id,
+                carId: this.props.carId,
                 userId: this.props.user.userId
             }
         })
@@ -66,8 +64,8 @@ class CarInfo extends Component {
         console.log(this.props.car)
         param.requiredParam = {
             userId: this.props.user.userId,
-            carId: this.props.car.id,
-            vin: this.props.car.vin
+            carId: this.props.carId,
+            vin: this.props.carInformation.car.vin
         }
         param.optionalParam = {
             imageType: 1
@@ -94,7 +92,7 @@ class CarInfo extends Component {
                 putParam: {
                     parkingId: this.props.car.p_id,
                     storageId: this.props.car.storage_id,
-                    carId: this.props.car.id
+                    carId: this.props.carId
                 }
             }
         )

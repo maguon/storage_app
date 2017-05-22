@@ -21,9 +21,9 @@ const CarListItem = ({ car }) => {
     // let plan_out_time_hour = plan_out_time.getHours() >= 10 ? `${plan_out_time.getHours()}` : `0${plan_out_time.getHours()}`
     // let plan_out_time_minute = plan_out_time.getMinutes() >= 10 ? `${plan_out_time.getMinutes()}` : `0${plan_out_time.getMinutes()}`
     // plan_out_time = `${plan_out_time_month}-${plan_out_time_date}  ${plan_out_time_hour}:${plan_out_time_minute}`
-
+console.log('car',car)
     return (
-        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ car: car }) }}>
+        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ carId: car.id }) }}>
             <View style={styles.container}>
                 <View style={[{ flex: 1 }, styles.content]}>
                     {tag}
