@@ -25,7 +25,7 @@ export const getCarInformation = (param) => (dispatch) => {
                             }
                         }
                     })
-                     console.log('res.success', res[1].result[0])
+                    console.log('res.success', res[1].result[0])
                 } else {
                     console.log('RES_FAITLED111', `${res[0].msg}&&${res[1].msg}`)
                 }
@@ -35,11 +35,13 @@ export const getCarInformation = (param) => (dispatch) => {
 
 
 export const exportCar = (param) => (dispatch) => {
-    let url = `${base_host}/user/${param.requiredParam.userid}/carStorageRel/${param.requiredParam.relId}/relStatus/${param.requiredParam.relStatus}`
+    let url = `${base_host}/user/${param.requiredParam.userId}/carStorageRel/${param.requiredParam.relId}/relStatus/${param.requiredParam.relStatus}`
+    console.log('url', url)
+    console.log('param', param)
     httpRequest
         .put(url, param.putParam, (err, res) => {
             if (err) {
-                console.log('FAILED11111', err)
+                console.log('FAILED', err)
             } else {
                 if (res.success) {
                     console.log('res.success', res)

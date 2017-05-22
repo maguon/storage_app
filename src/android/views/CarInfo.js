@@ -86,12 +86,12 @@ class CarInfo extends Component {
             {
                 requiredParam: {
                     userId: this.props.user.userId,
-                    relId: this.props.car.r_id,
+                    relId: this.props.carInformation.car.r_id,
                     relStatus: 2
                 },
                 putParam: {
-                    parkingId: this.props.car.p_id,
-                    storageId: this.props.car.storage_id,
+                    parkingId: this.props.carInformation.car.p_id,
+                    storageId: this.props.carInformation.car.storage_id,
                     carId: this.props.carId
                 }
             }

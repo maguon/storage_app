@@ -79,7 +79,20 @@ export const validateToken = () => {
                                                         mobile: getUserInfoRes.result[0].mobile
                                                     })
                                                     requestHeaders.set('user-name', getUserInfoRes.result[0].mobile)
+                                                    dispatch({
+                                                        type: actionTypes.loginTypes.LOGIN_SUCCESS, payload: {
+                                                            data: {
+                                                                userId: changeTokenRes.result.userId,
+                                                                token: changeTokenRes.result.accessToken,
+                                                                userType: changeTokenRes.result.type,
+                                                                userStatus: changeTokenRes.result.userStatus,
+                                                                mobile: getUserInfoRes.result[0].mobile
+                                                            }
+                                                        }
+                                                    })
                                                     dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_SUCCESS, payload: {} })
+
+
                                                 }
                                                 else {
                                                     //取用户名失败，错误处理

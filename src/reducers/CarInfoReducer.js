@@ -14,7 +14,8 @@ const initialState = {
         col: 0,
         storage_name: '',
         storage_id: '',
-        pro_date: ''
+        pro_date: '',
+        rel_status: 1
     },
     isWaiting: false,
     isResult: false,
@@ -56,6 +57,7 @@ export default handleActions({
     [actionTypes.carInfoTypes.EXPORT_CAR_SUCCESS]: (state, action) => {
         return {
             ...state,
+            car: { ...state.car, rel_status: 2 },
             isWaiting: false,
             isResult: true,
             isSuccess: true
