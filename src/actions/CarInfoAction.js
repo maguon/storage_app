@@ -5,7 +5,7 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getCarInformation = (param) => (dispatch) => {
     let urls = [`${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`,
-    `${base_host}/user/${param.requiredParam.userId}/car?carId=${param.requiredParam.carId}`]
+    `${base_host}/user/${param.requiredParam.userId}/car?carId=${param.requiredParam.carId}&active=1`]
     // console.log(urls)
     httpRequest
         .getAll(urls, (err, res) => {
