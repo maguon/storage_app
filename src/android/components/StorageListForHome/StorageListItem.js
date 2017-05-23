@@ -12,7 +12,7 @@ export default class StorageListItem extends Component {
         // console.log('storage',storage)
         let count = storage.row * storage.col
         // console.log('count',count)
-        let percent = Math.round((count - storage.balance) / count * 100)
+        let percent = Math.round(storage.balance / count * 100)
         return (
             <View style={styles.container}>
                 <View style={styles.infoView}>
@@ -27,7 +27,7 @@ export default class StorageListItem extends Component {
                             <Text style={styles.smallLabel}>临近出库</Text>
                         </View>
                         <View style={styles.infoViewCol}>
-                            <Text style={styles.emptyCount}>{storage.balance.toString()}</Text>
+                            <Text style={styles.emptyCount}>{(count - storage.balance).toString()}</Text>
                             <Text style={styles.smallLabel}>剩余车位</Text>
                         </View>
                     </View>

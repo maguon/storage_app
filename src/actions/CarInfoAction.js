@@ -13,7 +13,8 @@ export const getCarInformation = (param) => (dispatch) => {
                 console.log('FAILED', err)
             } else {
                 if (res[0].success && res[1].success) {
-                    // console.log('res.success', res[1].result[0])
+                    console.log('res.success', res[1].result[0])
+                    console.log('res.success', res[0].result)
                     dispatch({
                         type: actionTypes.carInfoTypes.GET_CARINFO_SUCCESS, payload: {
                             data: {

@@ -7,6 +7,7 @@ export const getHomeData = (param) => (dispatch) => {
     // console.log('=======START======')
     let urls = [`${record_host}/opRecord?${ObjectToUrl(param.getRecordListParam.OptionalParam)}`,
     `${base_host}/storageDate?${ObjectToUrl(param.getStorageListParam.OptionalParam)}`]
+    console.log(urls)
     httpRequest
         .getAll(urls, (err, res) => {
             if (err) {

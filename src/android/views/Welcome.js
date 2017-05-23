@@ -20,7 +20,7 @@ class Welcome extends Component {
         //     token: '5hWW3WukLUjXf76za5WYmT8GEho=T3h88KJse50d872096784c5f040dd013826d4ba61dfac68bc54fb4f2aa7a48f01173c16692912c1bf6083951f08f85bd0faa9355',
 
         // })
-        localStorage.removeKey(localStorageKey.USER)
+        // localStorage.removeKey(localStorageKey.USER)
 
         // localStorage.loadKey(localStorageKey.USER, (err, res) => {
         //     if (err) {
