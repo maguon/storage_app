@@ -9,9 +9,9 @@ export default class StorageListItem extends Component {
 
     render() {
         let { storage } = this.props
-        console.log('storage',storage)
+        // console.log('storage',storage)
         let count = storage.row * storage.col
-        console.log('count',count)
+        // console.log('count',count)
         let percent = Math.round((count - storage.balance) / count * 100)
         return (
             <View style={styles.container}>

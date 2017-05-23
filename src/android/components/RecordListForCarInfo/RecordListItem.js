@@ -11,20 +11,18 @@ const RecordListItem = ({ record }) => {
     let created_on = (new Date(record.timez)).toLocaleString()
 
     let textStyle
+    let op
     if (record.op == '11') {
-        record.op = '入库'
+        op = '入库'
         textStyle = styles.inText
     }
     else if (record.op == '12') {
-        record.op = '移位'
-
+        op = '移位'
         textStyle = styles.moveText
     }
     else if (record.op == '13') {
-        record.op = '出库'
-
+        op = '出库'
         textStyle = styles.outText
-
     }
 
     let storageName = ''
@@ -41,7 +39,7 @@ const RecordListItem = ({ record }) => {
 
         <View style={{ flexDirection: 'row', paddingTop: 5 }}>
             <Text style={{ flex: 7, fontSize: 12 }}>{created_on}</Text>
-            <Text style={[{ flex: 2, fontSize: 12 }, textStyle]}>{record.op}</Text>
+            <Text style={[{ flex: 2, fontSize: 12 }, textStyle]}>{op}</Text>
             <Text style={{ flex: 5, fontSize: 12 }}>至{storageName}{row}-{col}</Text>
             <Text style={{ flex: 2, fontSize: 12 }}>{record.username}</Text>
         </View>

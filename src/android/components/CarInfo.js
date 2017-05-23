@@ -6,8 +6,8 @@ import { Actions } from 'react-native-router-flux'
 const window = Dimensions.get('window')
 
 const CarInfo = ({ car, exportCar, moveCar }) => {
-    let btn
-    console.log('car.rel_status',car.rel_status)
+    let btn, carPosition
+    console.log('car.rel_status', car.rel_status)
     if (car.rel_status == 1) {
         btn = (<View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >
             <View style={{ flex: 1, marginRight: 10 }}>
@@ -27,15 +27,20 @@ const CarInfo = ({ car, exportCar, moveCar }) => {
                 </Button>
             </View>
         </View>)
+        carPosition = (<View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+            <Text style={{ marginLeft: 10, fontSize: 14 }}>当前位置：{car.storage_name}-{car.row.toString()}-{car.col.toString()}</Text>
+        </View>)
+
     }
     else {
         btn = (<View></View>)
+        carPosition = (<View></View>)
     }
     return (
         <View>
             <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
                 <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                    <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18 }}>VIN码：{car.vin}</Text>
+                    <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18 }}>VIN：{car.vin}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd' }}>
                     <View style={{
@@ -56,11 +61,9 @@ const CarInfo = ({ car, exportCar, moveCar }) => {
                     <Text style={{ marginLeft: 10, fontSize: 14 }}>发动机型号：{car.engine_num}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                    <Text style={{ marginLeft: 10, fontSize: 14 }}>生产日期：{car.pro_date}</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 14 }}>生产日期：{new Date(car.pro_date).toLocaleDateString()}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                    <Text style={{ marginLeft: 10, fontSize: 14 }}>当前位置：{car.storage_name}-{car.row.toString()}-{car.col.toString()}</Text>
-                </View>
+                {carPosition}
             </View>
             {btn}
 

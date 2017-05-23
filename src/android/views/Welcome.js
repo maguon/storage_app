@@ -22,14 +22,14 @@ class Welcome extends Component {
         // })
     //    localStorage.removeKey(localStorageKey.USER)
 
-        localStorage.loadKey(localStorageKey.USER, (err, res) => {
-            if (err) {
-                console.log(err)
-            }
-            else {
-                console.log('localStorage', res)
-            }
-        })
+        // localStorage.loadKey(localStorageKey.USER, (err, res) => {
+        //     if (err) {
+        //         console.log(err)
+        //     }
+        //     else {
+        //         console.log('localStorage', res)
+        //     }
+        // })
 
         // console.log(localStorage)
         //test

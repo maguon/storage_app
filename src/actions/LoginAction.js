@@ -15,7 +15,7 @@ export const login = (params) => {
             } else {
 
                 if (res.success) {
-                    console.log('success', res)
+                    // console.log('success', res)
                     //判断请求是否成功，如果成功，更新token
                     localStorage.saveKey(localStorageKey.USER, {
                         userId: res.result.userId,

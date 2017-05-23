@@ -38,7 +38,7 @@ class CarList extends Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <CarListLayout
                 cars={this.props.cars.cars}

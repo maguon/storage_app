@@ -133,11 +133,9 @@ function getAll(urls, callback) {
     Promise.all(proMises)
         .then(response => response.map(item => item.json()))
         .then(responseJson => {
-
-            
             Promise.all(responseJson)
                 .then(res => {
-                    console.log(res)
+                    // console.log(res)
                     callback(null, res)
                 })
                 .catch((error) => {

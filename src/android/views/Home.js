@@ -39,8 +39,8 @@ class Home extends Component {
     }
 
     render() {
-        console.log('home', this.props.home)
-        console.log('user', this.props.user)
+        // console.log('home', this.props.home)
+        // console.log('user', this.props.user)
         return (
             <LayoutHome
                 storages={this.props.home.storageList}

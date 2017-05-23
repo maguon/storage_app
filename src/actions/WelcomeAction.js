@@ -31,7 +31,9 @@ export const getAppLastVersion = (param) => {
 
 //验证localStorage中的token，请求更换token,请求更新userInformation
 export const validateToken = () => {
+
     return (dispatch) => {
+        // console.log(localStorage)
         localStorage.loadKey(localStorageKey.USER, (localStorageErr, localStorageRes) => {
             if (localStorageErr) {
                 if (localStorageErr.name == 'NotFoundError') {
@@ -39,9 +41,10 @@ export const validateToken = () => {
                     //跳转到登录页面
                     dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_FAILED, payload: {} })
                 }
-                else {
-                    //未知错误处理
-                    console.log('localStorageErr', localStorageErr)
+                else if (localStorageErr.name == 'ExpiredError') {
+                    //未知错误处理,删除本地缓存
+                    localStorage.removeKey(localStorageKey.USER)
+                    dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_FAILED, payload: {} })
                 }
             }
             else {

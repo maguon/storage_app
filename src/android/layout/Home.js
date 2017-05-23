@@ -17,8 +17,8 @@ const window = Dimensions.get('window')
 
 const Home = ({ storages, records }) => {
     let viewStyle = { backgroundColor: 'rgba(0,0,0,0.16)' }
-    console.log(storages)
-    console.log(records)
+    // console.log(storages)
+    // console.log(records)
     return (
         <View style={{ flex: 1 }}>
             {/*<Loading isLoading={storages.isLoading || records.isLoading} />*/}

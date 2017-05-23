@@ -28,8 +28,8 @@ class Login extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         let { isJump, isLoginSuccess } = nextProps.loginInfo
-        console.log('isJump', isJump)
-        console.log('isLoginSuccess', isLoginSuccess)
+        // console.log('isJump', isJump)
+        // console.log('isLoginSuccess', isLoginSuccess)
         if (isJump) {
             if (isLoginSuccess) {
                 Actions.main()

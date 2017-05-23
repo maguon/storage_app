@@ -45,7 +45,7 @@ class ImportCar extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps', nextProps)
+        // console.log('nextProps', nextProps)
         if (nextProps.selectType == 0) {
             let { makeId, modelId, makeName, modelName } = nextProps
             this.setState({

@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
 import * as CarInfoAction from '../../actions/CarInfoAction'
+import * as CarAction from '../../actions/CarAction'
 import { Actions } from 'react-native-router-flux'
 import CarInfoLayout from '../layout/CarInfo'
 
@@ -23,8 +24,13 @@ class CarInfo extends Component {
     componentDidMount() {
         this.props.getCarInformation({
             requiredParam: {
-                carId: this.props.carId,
-                userId: this.props.user.userId
+                userId: this.props.user.userId,
+                carId: this.props.carId
+            },
+            optionalParam: {
+                active: 1,
+                relStatus: 1,
+                carId: this.props.carId
             }
         })
     }
@@ -51,6 +57,11 @@ class CarInfo extends Component {
             requiredParam: {
                 carId: this.props.carId,
                 userId: this.props.user.userId
+            },
+            optionalParam: {
+                active: 1,
+                relStatus: 1,
+                carId: this.props.carId
             }
         })
     }
@@ -61,7 +72,8 @@ class CarInfo extends Component {
     }
 
     appendImage(param) {
-        console.log(this.props.car)
+        console.log('car', this.props.carInformation.car)
+        console.log('props', this.props)
         param.requiredParam = {
             userId: this.props.user.userId,
             carId: this.props.carId,
@@ -94,12 +106,12 @@ class CarInfo extends Component {
                     storageId: this.props.carInformation.car.storage_id,
                     carId: this.props.carId
                 }
-            }
+            }, () => this.props.removeCar(this.props.carId)
         )
     }
 
     render() {
-        console.log('props', this.props)
+        // console.log('props', this.props)
         return (
             <CarInfoLayout
                 car={this.props.carInformation.car}
@@ -126,14 +138,17 @@ const mapDispatchToProps = (dispatch) => ({
     getCarInformation: (param) => {
         dispatch(CarInfoAction.getCarInformation(param))
     },
-    exportCar: (param) => {
-        dispatch(CarInfoAction.exportCar(param))
+    exportCar: (param, removeCar) => {
+        dispatch(CarInfoAction.exportCar(param, removeCar))
     },
-    moveCar: (param, getCarList) => {
-        dispatch(CarInfoAction.moveCar(param, getCarList))
+    moveCar: (param, getCarInfo) => {
+        dispatch(CarInfoAction.moveCar(param, getCarInfo))
     },
     appendImage: (param) => {
         dispatch(CarInfoAction.appendImage(param))
+    },
+    removeCar: (carId) => {
+        dispatch(CarAction.removeCar(carId))
     }
 })
 
