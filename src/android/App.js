@@ -32,10 +32,10 @@ export default class App extends Component {
                 <Scene key="root">
                     <Scene key="welcome"  component={Welcome} hideNavBar />
                     <Scene key="login" component={Login} hideNavBar />
-                    <Scene key="main"  initial={true}   component={MainRoot} hideNavBar />
+                    <Scene key="main"    component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
                     <Scene key="carInfo" component={CarInfo} hideNavBar />
-                    <Scene key="ImportCar" component={ImportCar} hideNavBar />
+                    <Scene key="ImportCar"  initial={true} component={ImportCar} hideNavBar />
                     <Scene key="VinScanner" component={VinScanner} hideNavBar />
                     <Scene key="ErrorView" component={ErrorView} hideNavBar />
                     <Scene key="SearchCarList" component={SearchCarList} hideNavBar />

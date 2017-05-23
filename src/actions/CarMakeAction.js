@@ -6,12 +6,9 @@ import { Alert } from 'react-native'
 
 
 export const getCarMakesAll = () => (dispatch) => {
-    console.log('=======START======')
     let url = `${base_host}/carMake`
-    console.log(url)
     httpRequest
         .get(url, (err, res) => {
-            console.log('ttt')
             if (err) {
                 console.log('FAILED', err)
             } else {
@@ -30,6 +27,5 @@ export const getCarMakesAll = () => (dispatch) => {
                 }
             }
         })
-    console.log('=======END======')
 }
 

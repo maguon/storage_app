@@ -4,13 +4,9 @@ import * as actionTypes from './actionTypes'
 import { Alert } from 'react-native'
 
 export const getCarModelsByMakeId = (param) => (dispatch) => {
-    console.log('=======START======')
     let url = `${base_host}/carMake/${param.requiredParam.carMakeId}/carModel`
-
-    console.log(url)
     httpRequest
         .get(url, (err, res) => {
-            console.log('ttt')
             if (err) {
                 console.log('FAILED', err)
             } else {
@@ -29,6 +25,4 @@ export const getCarModelsByMakeId = (param) => (dispatch) => {
                 }
             }
         })
-    console.log('=======END======')
-
 }

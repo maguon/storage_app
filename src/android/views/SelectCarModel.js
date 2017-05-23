@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import NavBar from '../components/Bar/NavBar'
 import * as CarModelAction from '../../actions/CarModelAction'
+import * as ImporCarAction from '../../actions/ImporCarAction'
 
 
 class SelectCarModel extends Component {
@@ -19,19 +20,22 @@ class SelectCarModel extends Component {
         })
     }
 
+    changeModel(param) {
+        this.props.changeModel(param)
+        Actions.pop({ popNum: 2 })
+    }
+
+
     render() {
         let carModels = this.props.carModels.carModels.map(item => {
-            return (<Text key={item.id} onPress={() =>
-                Actions.pop({
-                    popNum: 2,
-                    refresh: {
-                        makeId: this.props.makeId,
-                        modelId: item.id,
-                        makeName: this.props.makeName,
-                        modelName: item.model_name,
-                        selectType: 0
-                    }
-                })}>{item.model_name}</Text>)
+            return (<Text key={item.id} onPress={() => this.changeModel({
+                makeId: this.props.makeId,
+                modelId: item.id,
+                makeName: this.props.makeName,
+                modelName: item.model_name,
+            })}>
+                {item.model_name}
+            </Text>)
         })
         return (
             <View style={{ flex: 1 }}>
@@ -58,6 +62,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     getCarModelsByMakeId: (param) => {
         dispatch(CarModelAction.getCarModelsByMakeId(param))
+    },
+    changeModel: (param) => {
+        dispatch(ImporCarAction.changeModel(param))
     }
 })
 

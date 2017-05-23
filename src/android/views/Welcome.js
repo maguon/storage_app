@@ -60,34 +60,34 @@ class Welcome extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        let { welcome } = nextProps
-        if (welcome.getVersion.isExecStatus == 1) {
+        let { welcomeReducer } = nextProps
+        if (welcomeReducer.getVersion.isExecStatus == 1) {
             console.log('welcome.getVersion', '开始执行')
-        } else if (welcome.getVersion.isExecStatus == 2) {
-            if (welcome.getVersion.isResultStatus == 0) {
-                console.log('welcome.getVersion执行成功', welcome.getVersion.data)
-            } else if (welcome.getVersion.isResultStatus == 1) {
-                console.log('welcome.getVersion执行错误', welcome.getVersion.errorMsg)
+        } else if (welcomeReducer.getVersion.isExecStatus == 2) {
+            if (welcomeReducer.getVersion.isResultStatus == 0) {
+                console.log('welcome.getVersion执行成功', welcomeReducer.getVersion.data)
+            } else if (welcomeReducer.getVersion.isResultStatus == 1) {
+                console.log('welcome.getVersion执行错误', welcomeReducer.getVersion.errorMsg)
             }
-            else if (welcome.getVersion.isResultStatus == 2) {
-                console.log('welcome.getVersion执行失败', welcome.getVersion.failedMsg)
+            else if (welcomeReducer.getVersion.isResultStatus == 2) {
+                console.log('welcome.getVersion执行失败', welcomeReducer.getVersion.failedMsg)
             }
         }
 
 
-        if (welcome.valdateToken.isExecStatus == 1) {
+        if (welcomeReducer.valdateToken.isExecStatus == 1) {
             console.log('welcome.valdateToken', '开始执行')
-        } else if (welcome.valdateToken.isExecStatus == 2) {
-            if (welcome.valdateToken.isResultStatus == 0) {
+        } else if (welcomeReducer.valdateToken.isExecStatus == 2) {
+            if (welcomeReducer.valdateToken.isResultStatus == 0) {
                 Actions.main()
-                console.log('welcome.valdateToken 执行成功', welcome.getVersion.data)
-            } else if (welcome.valdateToken.isResultStatus == 1) {
+                console.log('welcome.valdateToken 执行成功', welcomeReducer.getVersion.data)
+            } else if (welcomeReducer.valdateToken.isResultStatus == 1) {
 
-                console.log('welcome.valdateToken 执行错误', welcome.getVersion.errorMsg)
+                console.log('welcome.valdateToken 执行错误', welcomeReducer.getVersion.errorMsg)
             }
-            else if (welcome.valdateToken.isResultStatus == 2) {
+            else if (welcomeReducer.valdateToken.isResultStatus == 2) {
                 Actions.login()
-                console.log('welcome.valdateToken 执行失败', welcome.getVersion.failedMsg)
+                console.log('welcome.valdateToken 执行失败', welcomeReducer.getVersion.failedMsg)
             }
         }
         return true
@@ -97,7 +97,7 @@ class Welcome extends Component {
 
 
     render() {
-        const { version, lastVersion, force_update, url, isJump } = this.props.welcome.getVersion.data
+        const { version, lastVersion, force_update, url, isJump } = this.props.welcomeReducer.getVersion.data
         return (
             <WelcomeLayout
                 version={version}
@@ -114,7 +114,7 @@ class Welcome extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        welcome: state.WelcomeReducer
+        welcomeReducer: state.WelcomeReducer
     }
 }
 

@@ -9,24 +9,21 @@ export default class SelectColumn extends Component {
         super(props)
     }
 
+    chageParkingId(param) {
+        this.props.chageParkingId(param)
+        Actions.pop({ popNum: this.props._popNum })
+    }
     render() {
         console.log(this.props.columns)
         let columns = this.props.columns.map(item => {
             return (
-                <TouchableHighlight key={item.col} underlayColor='rgba(0,0,0,0.1)' onPress={() => {
-                    Actions.pop({
-                        popNum: this.props._popNum,
-                        refresh: {
-                            row: this.props.row,
-                            column: item.col,
-                            storageName: this.props.storageName,
-                            storageId: this.props.storageId,
-                            parkingId: item.parkingId,
-                            selectType: 1
-                        }
-                    })
-
-                }}>
+                <TouchableHighlight key={item.col} underlayColor='rgba(0,0,0,0.1)' onPress={() => this.chageParkingId({
+                    row: this.props.row,
+                    column: item.col,
+                    storageName: this.props.storageName,
+                    storageId: this.props.storageId,
+                    parkingId: item.parkingId,
+                })}>
                     <Text>{item.col.toString()}</Text>
                 </TouchableHighlight>)
         })
