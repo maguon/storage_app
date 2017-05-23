@@ -20,7 +20,7 @@ class Welcome extends Component {
         //     token: '5hWW3WukLUjXf76za5WYmT8GEho=T3h88KJse50d872096784c5f040dd013826d4ba61dfac68bc54fb4f2aa7a48f01173c16692912c1bf6083951f08f85bd0faa9355',
 
         // })
-    //    localStorage.removeKey(localStorageKey.USER)
+        localStorage.removeKey(localStorageKey.USER)
 
         // localStorage.loadKey(localStorageKey.USER, (err, res) => {
         //     if (err) {
@@ -31,7 +31,7 @@ class Welcome extends Component {
         //     }
         // })
 
-        // console.log(localStorage)
+        console.log(localStorage)
         //test
     }
 
@@ -60,29 +60,51 @@ class Welcome extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        let { isJump, nextStep } = nextProps.welcome
-        if (isJump) {
-            if (nextStep == 'login') {
-                Actions.login()
+        let { welcome } = nextProps
+        if (welcome.getVersion.isExecStatus == 1) {
+            console.log('welcome.getVersion', '开始执行')
+        } else if (welcome.getVersion.isExecStatus == 2) {
+            if (welcome.getVersion.isResultStatus == 0) {
+                console.log('welcome.getVersion执行成功', welcome.getVersion.data)
+            } else if (welcome.getVersion.isResultStatus == 1) {
+                console.log('welcome.getVersion执行错误', welcome.getVersion.errorMsg)
             }
-            else if (nextStep == 'main') {
+            else if (welcome.getVersion.isResultStatus == 2) {
+                console.log('welcome.getVersion执行失败', welcome.getVersion.failedMsg)
+            }
+        }
+
+
+        if (welcome.valdateToken.isExecStatus == 1) {
+            console.log('welcome.valdateToken', '开始执行')
+        } else if (welcome.valdateToken.isExecStatus == 2) {
+            if (welcome.valdateToken.isResultStatus == 0) {
                 Actions.main()
+                console.log('welcome.valdateToken 执行成功', welcome.getVersion.data)
+            } else if (welcome.valdateToken.isResultStatus == 1) {
+
+                console.log('welcome.valdateToken 执行错误', welcome.getVersion.errorMsg)
             }
-            return false
+            else if (welcome.valdateToken.isResultStatus == 2) {
+                Actions.login()
+                console.log('welcome.valdateToken 执行失败', welcome.getVersion.failedMsg)
+            }
         }
         return true
+
+
     }
 
 
     render() {
-        const { version, lastVersion, force_update, url, isJump } = this.props.welcome
+        const { version, lastVersion, force_update, url, isJump } = this.props.welcome.getVersion.data
         return (
             <WelcomeLayout
                 version={version}
                 lastVersion={lastVersion}
                 force_update={force_update}
-                linkDownload={this.linkDownload}
                 url={url}
+                linkDownload={this.linkDownload}
                 validateToken={this.validateToken}
             />
         )
