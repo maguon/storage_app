@@ -123,8 +123,6 @@ class CarInfo extends Component {
     }
 
     render() {
-        // console.log('props', this.props)
-        // console.log(this.moveCar)
         return (
             <CarInfoLayout
                 car={this.props.carInformation.car}
@@ -133,7 +131,6 @@ class CarInfo extends Component {
                 records={this.props.carInformation.recordList}
                 images={this.props.carInformation.imageList}
                 postImage={this.appendImage}
-
             />
         )
     }
