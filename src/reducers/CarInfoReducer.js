@@ -176,7 +176,7 @@ export default handleActions({
             ...state,
             moveCar: {
                 ...state.moveCar,
-                isExecStatus: 11
+                isExecStatus: 1
             }
         }
     },

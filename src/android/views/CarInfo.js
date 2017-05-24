@@ -69,9 +69,10 @@ class CarInfo extends Component {
         let { removeCar, resetExportCar, resetMoveCar, resetAppendCarImage, resetGetCarInfo } = nextProps
         let { carId } = this.props
         /*getCarInfo 执行状态*/
-        if (CarInfoReducer.getCarInfo.isExecStatus == 0) {
-            console.log('CarInfoReducer.getCarInfo', '未执行')
-        } else if (CarInfoReducer.getCarInfo.isExecStatus == 1) {
+        // if (CarInfoReducer.getCarInfo.isExecStatus == 0) {
+        //     console.log('CarInfoReducer.getCarInfo', '未执行')
+        // } else 
+        if (CarInfoReducer.getCarInfo.isExecStatus == 1) {
             console.log('CarInfoReducer.getCarInfo', '开始执行')
         } else if (CarInfoReducer.getCarInfo.isExecStatus == 2) {
             console.log('CarInfoReducer.getCarInfo', '执行完毕')
@@ -89,9 +90,10 @@ class CarInfo extends Component {
         /************************************************************************************************/
 
         /*exportCar 执行状态*/
-        if (CarInfoReducer.exportCar.isExecStatus == 0) {
-            console.log('CarInfoReducer.exportCar', '未执行')
-        } else if (CarInfoReducer.exportCar.isExecStatus == 1) {
+        // if (CarInfoReducer.exportCar.isExecStatus == 0) {
+        //     console.log('CarInfoReducer.exportCar', '未执行')
+        // } else 
+        if (CarInfoReducer.exportCar.isExecStatus == 1) {
             console.log('CarInfoReducer.exportCar', '开始执行')
         } else if (CarInfoReducer.exportCar.isExecStatus == 2) {
             console.log('CarInfoReducer.exportCar', '执行完毕')
@@ -112,9 +114,10 @@ class CarInfo extends Component {
         /************************************************************************************************/
 
         /*appendCarImage执行状态*/
-        if (CarInfoReducer.appendCarImage.isExecStatus == 0) {
-            console.log('CarInfoReducer.appendCarImage', '未执行')
-        } else if (CarInfoReducer.appendCarImage.isExecStatus == 1) {
+        // if (CarInfoReducer.appendCarImage.isExecStatus == 0) {
+        //     console.log('CarInfoReducer.appendCarImage', '未执行')
+        // } else 
+        if (CarInfoReducer.appendCarImage.isExecStatus == 1) {
             console.log('CarInfoReducer.appendCarImage', '开始执行')
         } else if (CarInfoReducer.appendCarImage.isExecStatus == 2) {
             console.log('CarInfoReducer.appendCarImage', '执行完毕')
@@ -132,9 +135,10 @@ class CarInfo extends Component {
         /************************************************************************************************/
 
         /*moveCar执行状态*/
-        if (CarInfoReducer.moveCar.isExecStatus == 0) {
-            console.log('CarInfoReducer.moveCar', '未执行')
-        } else if (CarInfoReducer.moveCar.isExecStatus == 1) {
+        // if (CarInfoReducer.moveCar.isExecStatus == 0) {
+        //     console.log('CarInfoReducer.moveCar', '未执行')
+        // } else 
+        if (CarInfoReducer.moveCar.isExecStatus == 1) {
             console.log('CarInfoReducer.moveCar', '开始执行')
         } else if (CarInfoReducer.moveCar.isExecStatus == 2) {
             console.log('CarInfoReducer.moveCar', '执行完毕')
