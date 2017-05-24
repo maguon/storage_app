@@ -15,7 +15,7 @@ export const importCar = (param) => (dispatch) => {
                 if (res.success) {
                     dispatch({ type: actionTypes.imporCarTypes.IMPORT_CAR_SUCCESS, payload: { data: res.id } })
                 } else {
-                    dispatch({ type: actionTypes.imporCarTypes.IMPORT_CAR_ERROR, payload: { data: res.msg } })
+                    dispatch({ type: actionTypes.imporCarTypes.IMPORT_CAR_FAILED, payload: { data: res.msg } })
                 }
             }
         })

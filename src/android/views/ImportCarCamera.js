@@ -28,7 +28,7 @@ class ImportCarCamera extends Component {
             userId: this.props.user.userId,
             userType: this.props.user.userType,
         }
-        console.log('postImage', param)
+        // console.log('postImage', param)
         this.props.pushCarImage(param)
     }
 

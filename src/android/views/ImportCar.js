@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, TextInput, DrawerLayoutAndroid, Dimensions, DatePickerAndroid, TouchableHighlight } from 'react-native'
+import { Text, View, ScrollView, TextInput, DrawerLayoutAndroid, Dimensions, DatePickerAndroid, TouchableHighlight, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import NavBar from '../components/Bar/NavBar'
 import { Button } from 'native-base'
@@ -14,53 +14,39 @@ const window = Dimensions.get('window')
 class ImportCar extends Component {
     constructor(props) {
         super(props)
-        // this.state = {
-        //     vin: '',
-        //     makeId: -1,
-        //     makeName: '',
-        //     modelId: -1,
-        //     modelName: '',
-        //     proDate: '',
-        //     colour: 'FFFFFF',
-        //     engineNum: '',
-        //     remark: '',
-        //     parkingId: '',
-        //     storageId: 0,
-        //     storageName: '',
-        //     planOutTime: '',
-        //     row: '',
-        //     column: '',
-        // }
     }
 
     importCar() {
-        this.props.importCar({
+        let param = {
             requiredParam: {
                 userid: this.props.user.userId
             },
             postParam: {
-                ...this.props.imporCarReducer.importCar.data
+                ...this.props.imporCarReducer.importCar.data,
+                colour: this.props.imporCarReducer.importCar.data.color
             }
-        })
+        }
+        this.props.importCar(param)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         let { imporCarReducer } = nextProps
         let { carId, vin } = imporCarReducer.importCar.data
-        console.log(imporCarReducer.importCar)
         if (imporCarReducer.importCar.isExecStatus == 1) {
             console.log('imporCarReducer.importCar', '开始执行')
         } else if (imporCarReducer.importCar.isExecStatus == 2) {
             if (imporCarReducer.importCar.isResultStatus == 0) {
                 console.log('imporCarReducer.importCar执行成功', imporCarReducer.importCar.data)
                 Actions.ImportCarCamera({ carId, vin })
-                return false
             } else if (imporCarReducer.importCar.isResultStatus == 1) {
                 console.log('imporCarReducer.importCar执行错误', imporCarReducer.importCar.errorMsg)
                 this.props.resetImportCar()
+                Alert.alert('入库失败', imporCarReducer.importCar.errorMsg)
             }
             else if (imporCarReducer.importCar.isResultStatus == 2) {
                 console.log('imporCarReducer.importCar执行失败', imporCarReducer.importCar.failedMsg)
+                this.props.resetImportCar()
+                Alert.alert('入库失败', imporCarReducer.importCar.failedMsg)
             }
         }
         return true
@@ -84,11 +70,12 @@ class ImportCar extends Component {
         try {
             const { action, year, month, day } = await DatePickerAndroid.open(options)
             if (action !== DatePickerAndroid.dismissedAction) {
-                let date = new Date(year, month, day)
+                // let date = new Date(year, month, day)
                 if (stateKey == 'planOutTime') {
-                    this.props.changePlanOutTime(date.toLocaleDateString())
+                    // console.log(date.toDateString())
+                    this.props.changePlanOutTime(`${year}-${month + 1}-${day}`)
                 } else if (stateKey == 'proDate') {
-                    this.props.changeProDate(date.toLocaleDateString())
+                    this.props.changeProDate(`${year}-${month + 1}-${day}`)
                 }
             }
         } catch ({ code, message }) {
@@ -98,7 +85,6 @@ class ImportCar extends Component {
 
     render() {
         let { vin, engineNum, proDate, planOutTime, remark, makeName, modelName, storageName, row, column } = this.props.imporCarReducer.importCar.data
-        console.log(this.props.imporCarReducer.importCar.data)
         return (
             <View style={{ flex: 1 }}>
                 <NavBar title={'车辆入库'} />
@@ -131,16 +117,20 @@ class ImportCar extends Component {
                                 value={engineNum}
                                 style={{ flex: 3, padding: 0, fontSize: 14 }} />
                         </View>
-                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
-                            <Text style={{ fontSize: 14, flex: 5 }}>{proDate}</Text>
-                            <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'proDate', { date: new Date(), mode: 'spinner' })} />
-                        </View>
-                        <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>出库日期：</Text>
-                            <Text style={{ fontSize: 14, flex: 5 }}>{planOutTime}</Text>
-                            <Icon name='caret-down' style={{ flex: 1 }} onPress={this.showPicker.bind(this, 'planOutTime', { date: new Date(), mode: 'spinner' })} />
-                        </View>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={this.showPicker.bind(this, 'proDate', { date: new Date(), mode: 'spinner' })}>
+                            <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                                <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
+                                <Text style={{ fontSize: 14, flex: 5 }}>{proDate}</Text>
+                                <Icon name='caret-down' style={{ flex: 1 }} />
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={this.showPicker.bind(this, 'planOutTime', { date: new Date(), mode: 'spinner' })}>
+                            <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                                <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>出库日期：</Text>
+                                <Text style={{ fontSize: 14, flex: 5 }}>{planOutTime}</Text>
+                                <Icon name='caret-down' style={{ flex: 1 }} />
+                            </View>
+                        </TouchableHighlight>
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
                             <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>备注：</Text>
                             <TextInput underlineColorAndroid="transparent"

@@ -14,7 +14,7 @@ export default class SelectColumn extends Component {
         Actions.pop({ popNum: this.props._popNum })
     }
     render() {
-        console.log(this.props.columns)
+        //console.log(this.props.columns)
         let columns = this.props.columns.map(item => {
             return (
                 <TouchableHighlight key={item.col} underlayColor='rgba(0,0,0,0.1)' onPress={() => this.chageParkingId({

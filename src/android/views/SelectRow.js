@@ -18,7 +18,7 @@ class SelectRow extends Component {
     }
 
     render() {
-        console.log(this.props.storageParkings.storageParkings)
+       // console.log(this.props.storageParkings.storageParkings)
         let storageParkings = this.props.storageParkings.storageParkings.reduce((acc, val) => {
             if (val.car_id == 0) {
                 let row = acc.find(item => { return item.row == val.row })
@@ -36,11 +36,19 @@ class SelectRow extends Component {
         })
 
 
-        console.log(storageParkings)
+       // console.log(storageParkings)
 
         storageParkings = storageParkings.map(item => {
             return (
-                <TouchableHighlight key={item.row} underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectColumn({ columns: item.columns, row: item.row, storageId: this.props.storageId, storageName: this.props.storageName,_popNum:this.props._popNum , chageParkingId: this.props.chageParkingId})} >
+                <TouchableHighlight key={item.row} underlayColor='rgba(0,0,0,0.1)' onPress={() =>
+                    Actions.SelectColumn({
+                        columns: item.columns,
+                        row: item.row,
+                        storageId: this.props.storageId,
+                        storageName: this.props.storageName,
+                        _popNum: this.props._popNum,
+                        chageParkingId: this.props.chageParkingId
+                    })} >
                     <Text>{item.row.toString()}</Text>
                 </TouchableHighlight>)
         })

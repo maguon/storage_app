@@ -7,7 +7,7 @@ const window = Dimensions.get('window')
 
 const CarInfo = ({ car, exportCar, moveCar }) => {
     let btn, carPosition
-    console.log('car.rel_status', car.rel_status)
+    // console.log('car.rel_status', car.rel_status)
     if (car.rel_status == 1) {
         btn = (<View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >
             <View style={{ flex: 1, marginRight: 10 }}>

@@ -6,15 +6,15 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const getCarInformation = (param) => (dispatch) => {
     let urls = [`${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`,
     `${base_host}/user/${param.requiredParam.userId}/car?${ObjectToUrl(param.optionalParam)}`]
-     console.log(urls)
+    //  console.log(urls)
     httpRequest
         .getAll(urls, (err, res) => {
             if (err) {
                 console.log('FAILED', err)
             } else {
                 if (res[0].success && res[1].success) {
-                    console.log('res.success', res[1].result[0])
-                    console.log('res.success', res[0].result)
+                    // console.log('res.success', res[1].result[0])
+                    // console.log('res.success', res[0].result)
                     dispatch({
                         type: actionTypes.carInfoTypes.GET_CARINFO_SUCCESS, payload: {
                             data: {

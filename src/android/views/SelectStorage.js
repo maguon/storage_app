@@ -19,7 +19,7 @@ class SelectStorage extends Component {
     }
 
     render() {
-        console.log(this.props.storages.storages)
+        //console.log('this.props.chageParkingId',this.props.chageParkingId)
         let storages = this.props.storages.storages.map(item => {
             return (
                 <TouchableHighlight key={item.id} underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectRow({ storageId: item.id, storageName: item.storage_name, _popNum: this.props._popNum, chageParkingId: this.props.chageParkingId })}>

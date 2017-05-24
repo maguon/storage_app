@@ -68,7 +68,19 @@ class CarInfo extends Component {
 
     moveCar() {
         this.setState({ moveFlag: true })
-        Actions.SelectRow({ storageId: this.props.carInformation.car.storage_id, storageName: this.props.carInformation.car.storage_name, _popNum: 2 })
+        Actions.SelectRow({
+            storageId: this.props.carInformation.car.storage_id,
+            storageName: this.props.carInformation.car.storage_name,
+            _popNum: 2,
+            chageParkingId: (param) => this.props.moveCar({
+                requiredParam: {
+                    parkingId: param.parkingId,
+                    userId: this.props.user.userId
+                }, optionalParam: {
+                    carId: this.props.carId
+                }
+            }, this.getCarInfo)
+        })
     }
 
     appendImage(param) {
@@ -112,6 +124,7 @@ class CarInfo extends Component {
 
     render() {
         // console.log('props', this.props)
+        // console.log(this.moveCar)
         return (
             <CarInfoLayout
                 car={this.props.carInformation.car}
@@ -120,6 +133,7 @@ class CarInfo extends Component {
                 records={this.props.carInformation.recordList}
                 images={this.props.carInformation.imageList}
                 postImage={this.appendImage}
+
             />
         )
     }
