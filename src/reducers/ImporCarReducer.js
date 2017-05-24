@@ -81,12 +81,22 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.imporCarTypes.IMPORT_CAR_RESET]: (state, action) => {
+    [actionTypes.imporCarTypes.IMPORT_CAR_RESET_EXECUTE_STATUS]: (state, action) => {
         return {
             ...state,
             importCar: {
                 ...state.importCar,
                 isExecStatus: 0
+            }
+        }
+    },
+    [actionTypes.imporCarTypes.IMPORT_CAR_RESET]: (state, action) => {
+        return {
+            ...state,
+            importCar: {
+                ...state.importCar,
+                isExecStatus: 0,
+                data: initialState.importCar.data
             }
         }
     },

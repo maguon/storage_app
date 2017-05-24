@@ -37,15 +37,16 @@ class ImportCar extends Component {
         } else if (imporCarReducer.importCar.isExecStatus == 2) {
             if (imporCarReducer.importCar.isResultStatus == 0) {
                 console.log('imporCarReducer.importCar执行成功', imporCarReducer.importCar.data)
+                this.props.resetImportCar()
                 Actions.ImportCarCamera({ carId, vin })
             } else if (imporCarReducer.importCar.isResultStatus == 1) {
                 console.log('imporCarReducer.importCar执行错误', imporCarReducer.importCar.errorMsg)
-                this.props.resetImportCar()
+                this.props.resetImportCarExecuteStatus()
                 Alert.alert('入库失败', imporCarReducer.importCar.errorMsg)
             }
             else if (imporCarReducer.importCar.isResultStatus == 2) {
                 console.log('imporCarReducer.importCar执行失败', imporCarReducer.importCar.failedMsg)
-                this.props.resetImportCar()
+                this.props.resetImportCarExecuteStatus()
                 Alert.alert('入库失败', imporCarReducer.importCar.failedMsg)
             }
         }
@@ -192,6 +193,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     importCar: (param) => {
         dispatch(ImporCarAction.importCar(param))
+    },
+    resetImportCarExecuteStatus: () => {
+        dispatch(ImporCarAction.resetImportCarExecuteStatus())
     },
     resetImportCar: () => {
         dispatch(ImporCarAction.resetImportCar())

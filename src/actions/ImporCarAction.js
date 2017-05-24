@@ -21,6 +21,10 @@ export const importCar = (param) => (dispatch) => {
         })
 }
 
+export const resetImportCarExecuteStatus = () => (dispatch) => {
+    dispatch({ type: actionTypes.imporCarTypes.IMPORT_CAR_RESET_EXECUTE_STATUS, payload: {} })
+}
+
 export const resetImportCar = () => (dispatch) => {
     dispatch({ type: actionTypes.imporCarTypes.IMPORT_CAR_RESET, payload: {} })
 }
