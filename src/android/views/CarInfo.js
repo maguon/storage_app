@@ -23,40 +23,32 @@ class CarInfo extends Component {
     }
 
     getCarInfo() {
+        let { carId } = this.props
+        let { userId } = this.props.user
+
+
         this.props.getCarInfo({
             requiredParam: {
-                carId: this.props.carId,
-                userId: this.props.user.userId
+                carId: carId,
+                userId: userId
             },
             optionalParam: {
                 active: 1,
                 relStatus: 1,
-                carId: this.props.carId
+                carId: carId
             }
         })
     }
 
     componentWillReceiveProps(nextProps) {
-        // if (nextProps.selectType == 1 && this.state.moveFlag) {
-        //     let { row, column, storageName, storageId, parkingId } = nextProps
-        //     console.log('nextProps', nextProps)
-        //     this.props.moveCar({
-        //         requiredParam: {
-        //             userId: this.props.user.userId,
-        //             parkingId: parkingId
-        //         },
-        //         optionalParam: {
-        //             carId: this.props.carId
-        //         }
-        //     }, this.getCarInfo)
-        //     this.setState({ moveFlag: false })
-        // }
+
     }
 
     moveCar() {
         let { storage_id, storage_name } = this.props.CarInfoReducer.getCarInfo.data.car
         let { userId } = this.props.user
-        let { carId, moveCar } = this.props
+        let { carId } = this.props
+        let { moveCar } = this.props
         Actions.SelectRow({
             storageId: storage_id,
             storageName: storage_name,
@@ -68,14 +60,35 @@ class CarInfo extends Component {
                 }, optionalParam: {
                     carId: carId
                 }
-            }, this.getCarInfo)
+            })
         })
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        let { CarInfoReducer, removeCar, resetExportCar } = nextProps
+        let { CarInfoReducer } = nextProps
+        let { removeCar, resetExportCar, resetMoveCar, resetAppendCarImage, resetGetCarInfo } = nextProps
         let { carId } = this.props
-        // console.log(CarInfoReducer)
+        /*getCarInfo 执行状态*/
+        if (CarInfoReducer.getCarInfo.isExecStatus == 0) {
+            console.log('CarInfoReducer.getCarInfo', '未执行')
+        } else if (CarInfoReducer.getCarInfo.isExecStatus == 1) {
+            console.log('CarInfoReducer.getCarInfo', '开始执行')
+        } else if (CarInfoReducer.getCarInfo.isExecStatus == 2) {
+            console.log('CarInfoReducer.getCarInfo', '执行完毕')
+            if (CarInfoReducer.getCarInfo.isResultStatus == 0) {
+                console.log('CarInfoReducer.getCarInfo', '执行成功')
+                resetGetCarInfo()
+            } else if (CarInfoReducer.getCarInfo.isResultStatus == 1) {
+                console.log('CarInfoReducer.getCarInfo', '执行错误')
+                resetGetCarInfo()
+            } else if (CarInfoReducer.getCarInfo.isResultStatus == 2) {
+                console.log('CarInfoReducer.getCarInfo', '执行失败')
+                resetGetCarInfo()
+            }
+        }
+        /************************************************************************************************/
+
+        /*exportCar 执行状态*/
         if (CarInfoReducer.exportCar.isExecStatus == 0) {
             console.log('CarInfoReducer.exportCar', '未执行')
         } else if (CarInfoReducer.exportCar.isExecStatus == 1) {
@@ -96,37 +109,55 @@ class CarInfo extends Component {
                 resetExportCar()
             }
         }
+        /************************************************************************************************/
 
+        /*appendCarImage执行状态*/
+        if (CarInfoReducer.appendCarImage.isExecStatus == 0) {
+            console.log('CarInfoReducer.appendCarImage', '未执行')
+        } else if (CarInfoReducer.appendCarImage.isExecStatus == 1) {
+            console.log('CarInfoReducer.appendCarImage', '开始执行')
+        } else if (CarInfoReducer.appendCarImage.isExecStatus == 2) {
+            console.log('CarInfoReducer.appendCarImage', '执行完毕')
+            if (CarInfoReducer.appendCarImage.isResultStatus == 0) {
+                console.log('CarInfoReducer.appendCarImage', '执行成功')
+                resetAppendCarImage()
+            } else if (CarInfoReducer.appendCarImage.isResultStatus == 1) {
+                console.log('CarInfoReducer.appendCarImage', '执行错误')
+                resetAppendCarImage()
+            } else if (CarInfoReducer.appendCarImage.isResultStatus == 2) {
+                console.log('CarInfoReducer.appendCarImage', '执行失败')
+                resetAppendCarImage()
+            }
+        }
+        /************************************************************************************************/
 
-
-
-        // if (CarInfoReducer.exportCar.isExecStatus == 0) {
-        //     console.log('CarInfoReducer.exportCar', '未执行')
-        // } else if (CarInfoReducer.exportCar.isExecStatus == 1) {
-        //     console.log('CarInfoReducer.exportCar', '开始执行')
-        // } else if (CarInfoReducer.exportCar.isExecStatus == 2) {
-        //     console.log('CarInfoReducer.exportCar', '执行完毕')
-        //     if (CarInfoReducer.exportCar.isResultStatus == 0) {
-        //         console.log('CarInfoReducer.exportCar', '执行成功')
-        //         resetExportCar()
-        //         removeCar(carId)
-
-        //     } else if (CarInfoReducer.exportCar.isResultStatus == 1) {
-        //         resetExportCar()
-        //         console.log('CarInfoReducer.exportCar执行错误', CarInfoReducer.exportCar.failedMsg)
-
-        //     } else if (CarInfoReducer.exportCar.isResultStatus == 2) {
-        //         console.log('CarInfoReducer.exportCar', '执行失败')
-        //         resetExportCar()
-        //     }
-        // }
+        /*moveCar执行状态*/
+        if (CarInfoReducer.moveCar.isExecStatus == 0) {
+            console.log('CarInfoReducer.moveCar', '未执行')
+        } else if (CarInfoReducer.moveCar.isExecStatus == 1) {
+            console.log('CarInfoReducer.moveCar', '开始执行')
+        } else if (CarInfoReducer.moveCar.isExecStatus == 2) {
+            console.log('CarInfoReducer.moveCar', '执行完毕')
+            if (CarInfoReducer.moveCar.isResultStatus == 0) {
+                console.log('CarInfoReducer.moveCar', '执行成功')
+                resetMoveCar()
+                this.getCarInfo()
+            } else if (CarInfoReducer.moveCar.isResultStatus == 1) {
+                console.log('CarInfoReducer.moveCar', '执行错误')
+                resetMoveCar()
+            } else if (CarInfoReducer.moveCar.isResultStatus == 2) {
+                console.log('CarInfoReducer.moveCar', '执行失败')
+                resetMoveCar()
+            }
+        }
+        /************************************************************************************************/
         return true
     }
 
     appendImage(param) {
         let { userId, mobile, userType } = this.props.user
         let { carId } = this.props
-        let { vin } = this.props.CarInfoReducer.getCarInfo.data
+        let { vin } = this.props.CarInfoReducer.getCarInfo.data.car
         param.requiredParam = {
             userId: userId,
             carId: carId,
@@ -184,7 +215,8 @@ class CarInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.LoginReducer.user,
-        CarInfoReducer: state.CarInfoReducer
+        CarInfoReducer: state.CarInfoReducer,
+        carId: 335
     }
 }
 
@@ -195,8 +227,8 @@ const mapDispatchToProps = (dispatch) => ({
     exportCar: (param) => {
         dispatch(CarInfoAction.exportCar(param))
     },
-    moveCar: (param, getCarInfo) => {
-        dispatch(CarInfoAction.moveCar(param, getCarInfo))
+    moveCar: (param) => {
+        dispatch(CarInfoAction.moveCar(param))
     },
     appendImage: (param) => {
         dispatch(CarInfoAction.appendImage(param))
@@ -206,6 +238,15 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetExportCar: () => {
         dispatch(CarInfoAction.resetExportCar())
+    },
+    resetAppendCarImage: () => {
+        dispatch(CarInfoAction.resetAppendCarImage())
+    },
+    resetGetCarInfo: () => {
+        dispatch(CarInfoAction.resetGetCarInfo())
+    },
+    resetMoveCar: () => {
+        dispatch(CarInfoAction.resetMoveCar())
     },
 })
 

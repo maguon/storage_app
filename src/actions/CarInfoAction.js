@@ -6,15 +6,13 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const getCarInformation = (param) => (dispatch) => {
     let urls = [`${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`,
     `${base_host}/user/${param.requiredParam.userId}/car?${ObjectToUrl(param.optionalParam)}`]
-    //  console.log(urls)
+    dispatch({ type: actionTypes.carInfoTypes.GET_CARINFO_WAITING, payload: {} })
     httpRequest
         .getAll(urls, (err, res) => {
             if (err) {
-                console.log('FAILED', err)
+                dispatch({ type: actionTypes.carInfoTypes.GET_CARINFO_ERROR, payload: { data: err } })
             } else {
                 if (res[0].success && res[1].success) {
-                    // console.log('res.success', res[1].result[0])
-                    // console.log('res.success', res[0].result)
                     dispatch({
                         type: actionTypes.carInfoTypes.GET_CARINFO_SUCCESS, payload: {
                             data: {
@@ -27,12 +25,11 @@ export const getCarInformation = (param) => (dispatch) => {
                         }
                     })
                 } else {
-                    console.log('RES_FAITLED111', `${res[0].msg}&&${res[1].msg}`)
+                    dispatch({ type: actionTypes.carInfoTypes.GET_CARINFO_FAILED, payload: { data: `${res[0].msg}&&${res[1].msg}` } })
                 }
             }
         })
 }
-
 
 export const exportCar = (param) => (dispatch) => {
     let url = `${base_host}/user/${param.requiredParam.userId}/carStorageRel/${param.requiredParam.relId}/relStatus/${param.requiredParam.relStatus}?${ObjectToUrl(param.optionalParam)}`
@@ -40,7 +37,6 @@ export const exportCar = (param) => (dispatch) => {
     httpRequest
         .put(url, {}, (err, res) => {
             if (err) {
-                console.log(err)
                 dispatch({ type: actionTypes.carInfoTypes.EXPORT_CAR_ERROR, payload: { data: err } })
             } else {
                 if (res.success) {
@@ -53,20 +49,20 @@ export const exportCar = (param) => (dispatch) => {
         })
 }
 
-
 export const appendImage = (param) => (dispatch) => {
     let url = `${file_host}user/${param.requiredParam.userId}/image?${ObjectToUrl(param.optionalParam)}`
+    dispatch({ type: actionTypes.carInfoTypes.APPEND_CAR_IMAGE_WAITING, payload: {} })
     httpRequest
         .postFile(url, param.postFileParam, (err, res) => {
             if (err) {
-                console.log('FAILED', err)
+                dispatch({ type: actionTypes.carInfoTypes.APPEND_CAR_IMAGE_ERROR, payload: { data: err } })
             } else {
                 if (res.success) {
                     url = `${record_host}/car/${param.requiredParam.carId}/vin/${param.requiredParam.vin}/storageImage`
                     param.postParam.url = res.imageId
                     httpRequest.post(url, param.postParam, (carErr, carRes) => {
                         if (carErr) {
-                            console.log('FAILED', carErr)
+                            dispatch({ type: actionTypes.carInfoTypes.APPEND_CAR_IMAGE_ERROR, payload: { data: carErr } })
                         } else {
                             if (carRes.success) {
                                 dispatch({
@@ -76,39 +72,46 @@ export const appendImage = (param) => (dispatch) => {
                                 })
                             }
                             else {
-                                console.log('RES_FAITLED', carRes.msg)
+                                dispatch({ type: actionTypes.carInfoTypes.APPEND_CAR_IMAGE_FAILED, payload: { data: carRes.msg } })
                             }
                         }
                     })
-
                 } else {
-                    console.log('RES_FAITLEDimage', res.msg)
+                    dispatch({ type: actionTypes.carInfoTypes.APPEND_CAR_IMAGE_FAILED, payload: { data: res.msg } })
                 }
             }
         })
-
 }
 
-export const moveCar = (param, getCarInfo) => (dispatch) => {
+export const moveCar = (param) => (dispatch) => {
     let url = `${base_host}/user/${param.requiredParam.userId}/storageParking/${param.requiredParam.parkingId}?${ObjectToUrl(param.optionalParam)}`
+    dispatch({ type: actionTypes.carInfoTypes.MOVE_CAR_WAITING, payload: {} })
     httpRequest
         .put(url, {}, (err, res) => {
             if (err) {
-                console.log('FAILED11111', err)
+                dispatch({ type: actionTypes.carInfoTypes.MOVE_CAR_ERROR, payload: { data: err } })
             } else {
                 if (res.success) {
                     dispatch({ type: actionTypes.carInfoTypes.MOVE_CAR_SUCCESS, payload: {} })
-                    getCarInfo()
                 } else {
-                    console.log('RES_FAITLED33333 ', res.msg)
+                    dispatch({ type: actionTypes.carInfoTypes.APPEND_CAR_IMAGE_FAILED, payload: { data: res.msg } })
                 }
             }
         })
 }
 
 export const resetExportCar = () => (dispatch) => {
-
     dispatch({ type: actionTypes.carInfoTypes.RESET_EXPORT_CAR, payload: {} })
+}
+
+export const resetAppendCarImage = () => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.RESET_APPEND_CAR_IMAGE, payload: {} })
+}
+export const resetMoveCar = () => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.RESET_MOVE_CAR, payload: {} })
+}
+export const resetGetCarInfo = () => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.RESET_GET_CARINFO, payload: {} })
 }
 
 

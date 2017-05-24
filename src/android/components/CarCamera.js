@@ -32,7 +32,7 @@ export default class CarCamera extends Component {
             else if (response.customButton) {
 
             } else {
-                console.log('Response = ', response)
+                // console.log('Response = ', response)
                 ImageResizer.createResizedImage(response.uri, 960, 960, 'JPEG', 100)
                     .then((resizedImageUri) => {
                         let param = {
@@ -43,8 +43,8 @@ export default class CarCamera extends Component {
                             }
                         }
                         this.props.postImage(param)
-                        console.log('launchCamera', param)
-                        console.log(resizedImageUri)
+                        // console.log('launchCamera', param)
+                        // console.log(resizedImageUri)
                     }).catch((err) => {
                         return console.log(err)
 

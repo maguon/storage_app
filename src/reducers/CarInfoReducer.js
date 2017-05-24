@@ -101,8 +101,6 @@ export default handleActions({
     },
     [actionTypes.carInfoTypes.GET_CARINFO_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-
-        // console.log(data)
         return {
             ...state,
             getCarInfo: {
@@ -246,16 +244,41 @@ export default handleActions({
         }
     },
     [actionTypes.carInfoTypes.RESET_EXPORT_CAR]: (state, action) => {
-        let tt={
+        return {
             ...state,
             exportCar: {
                 ...state.exportCar,
                 isExecStatus: 0
             }
         }
-        console.log(tt)
-        return tt
-    }
+    },
+    [actionTypes.carInfoTypes.RESET_APPEND_CAR_IMAGE]: (state, action) => {
+        return {
+            ...state,
+            appendCarImage: {
+                ...state.appendCarImage,
+                isExecStatus: 0
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.RESET_MOVE_CAR]: (state, action) => {
+        return {
+            ...state,
+            moveCar: {
+                ...state.moveCar,
+                isExecStatus: 0
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.RESET_GET_CARINFO]: (state, action) => {
+        return {
+            ...state,
+            getCarInfo: {
+                ...state.getCarInfo,
+                isExecStatus: 0
+            }
+        }
+    },
 }, initialState)
 
 
