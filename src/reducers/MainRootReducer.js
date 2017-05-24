@@ -1,25 +1,15 @@
 import { handleActions } from 'redux-actions'
-import  * as actionTypes from '../actions/actionTypes'
+import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    modalFlag : false,
-    username : '',
-    password: ''
+    selectedTab: 'home'
 }
 
 export default handleActions({
-    [actionTypes.loginTypes.LOGIN_SUCCESS]: (state, action) => {
+    [actionTypes.mainRootTypes.CHANGE_SELECTED_TAB]: (state, action) => {
         const { payload: { data } } = action
         return {
-            ...state,
-            username:data
-        }
-    },
-    [actionTypes.loginTypes.LOGIN_FAILED]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            password:data
+            selectedTab: data
         }
     }
 }, initialState)

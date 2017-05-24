@@ -10,20 +10,19 @@ import Home from './Home'
 import Setting from './Setting'
 import CarList from './CarList'
 import StorageList from './StorageList'
-
+import * as mainRootAction from '../../actions/MainRootAction'
 
 
 class Main extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            selectedTab: 'carList'
-        }
-        this.changeTab = this.changeTab.bind(this)
+        // this.state = {
+        //     selectedTab: 'home'
+        // }
+        // this.changeTab = this.changeTab.bind(this)
     }
     renderSelectedTab() {
-
-        switch (this.state.selectedTab) {
+        switch (this.props.mainRootReducer.selectedTab) {
             case 'home':
                 return (<Home />)
                 break
@@ -39,27 +38,28 @@ class Main extends Component {
         }
     }
 
-    changeTab(selectedTab) {
-        this.setState({ selectedTab })
-    }
+    // changeTab(selectedTab) {
+    //     this.setState({ selectedTab })
+    // }
 
     changeBtnStyle(btnTag) {
-        if (this.state.selectedTab == btnTag)
+        if (this.props.mainRootReducer.selectedTab == btnTag)
             return { backgroundColor: '#ffffff' }
         else
             return { backgroundColor: '#efefef' }
     }
 
     changeIconStyle(iconTag) {
-        if (this.state.selectedTab == iconTag)
+        if (this.props.mainRootReducer.selectedTab == iconTag)
             return { color: '#00bfd8' }
         else
             return { color: '#a8a8a8' }
     }
 
     render() {
-        const { AppInfo } = this.props
-        const { selectedTab } = this.state
+        // const { AppInfo } = this.props
+        console.log(this.props)
+        const { selectedTab } = this.props.mainRootReducer
 
         return (
             <Container style={{ flexDirection: "column", justifyContent: "flex-start" }}>
@@ -69,7 +69,7 @@ class Main extends Component {
                         <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#dedede' }}>
                             <View style={{ flex: 1, borderColor: '#dedede', borderRightWidth: 1 }}>
                                 <Button full style={this.changeBtnStyle('home')}
-                                    onPress={() => this.changeTab('home')}>
+                                    onPress={() => this.props.changeTab('home')}>
                                     <Icon name={selectedTab === 'home' ? "ios-home" : "ios-home-outline"}
                                         type="ionicons"
                                         style={this.changeIconStyle('home')} />
@@ -77,7 +77,7 @@ class Main extends Component {
                             </View>
                             <View style={{ flex: 1, borderColor: '#dedede', borderRightWidth: 1 }}>
                                 <Button full style={this.changeBtnStyle('carList')}
-                                    onPress={() => this.changeTab('carList')}>
+                                    onPress={() => this.props.changeTab('carList')}>
                                     <Icon name={selectedTab === 'carList' ? "ios-car" : "ios-car-outline"}
                                         type="ionicons"
                                         style={this.changeIconStyle('carList')} />
@@ -85,7 +85,7 @@ class Main extends Component {
                             </View>
                             <View style={{ flex: 1, borderColor: '#dedede', borderRightWidth: 1 }}>
                                 <Button full style={this.changeBtnStyle('storageList')}
-                                    onPress={() => this.changeTab('storageList')}>
+                                    onPress={() => this.props.changeTab('storageList')}>
                                     <Icon name={selectedTab === 'storageList' ? "ios-pin" : "ios-pin-outline"}
                                         type="ionicons"
                                         style={this.changeIconStyle('storageList')} />
@@ -94,7 +94,7 @@ class Main extends Component {
 
                             <View style={{ flex: 1 }}>
                                 <Button full style={this.changeBtnStyle('setting')}
-                                    onPress={() => this.changeTab('setting')}>
+                                    onPress={() => this.props.changeTab('setting')}>
                                     <Icon name={selectedTab === 'setting' ? "ios-settings" : "ios-settings-outline"}
                                         type="ionicons"
                                         style={this.changeIconStyle('setting')} />
@@ -110,12 +110,14 @@ class Main extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        AppInfo: state.AppReducer
+        mainRootReducer: state.MainRootReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    changeTab: (param) => {
+        dispatch(mainRootAction.changeSelectedTab(param))
+    }
 })
 
 

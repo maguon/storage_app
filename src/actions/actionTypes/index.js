@@ -11,6 +11,7 @@ import * as imporCarTypes from './ImporCarTypes'
 import * as passwordTypes from './PasswordTypes'
 import * as importCarCameraTypes from './ImportCarCameraTypes'
 import * as carInfoTypes from './CarInfoTypes'
+import * as mainRootTypes from './MainRootTypes'
 import * as homeTypes from './HomeTypes'
 
 
@@ -29,5 +30,6 @@ export {
     recordTypes,
     carModelTypes,
     imporCarTypes,
-    importCarCameraTypes
+    importCarCameraTypes,
+    mainRootTypes
 }
