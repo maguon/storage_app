@@ -58,7 +58,7 @@ class Main extends Component {
 
     render() {
         // const { AppInfo } = this.props
-        console.log(this.props)
+        // console.log(this.props)
         const { selectedTab } = this.props.mainRootReducer
 
         return (

@@ -12,9 +12,6 @@ import CarInfoLayout from '../layout/CarInfo'
 class CarInfo extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            moveFlag: false
-        }
         this.exportCar = this.exportCar.bind(this)
         this.getCarInfo = this.getCarInfo.bind(this)
         this.appendImage = this.appendImage.bind(this)
@@ -22,38 +19,11 @@ class CarInfo extends Component {
     }
 
     componentDidMount() {
-        this.props.getCarInformation({
-            requiredParam: {
-                userId: this.props.user.userId,
-                carId: this.props.carId
-            },
-            optionalParam: {
-                active: 1,
-                relStatus: 1,
-                carId: this.props.carId
-            }
-        })
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.selectType == 1 && this.state.moveFlag) {
-            let { row, column, storageName, storageId, parkingId } = nextProps
-            console.log('nextProps', nextProps)
-            this.props.moveCar({
-                requiredParam: {
-                    userId: this.props.user.userId,
-                    parkingId: parkingId
-                },
-                optionalParam: {
-                    carId: this.props.carId
-                }
-            }, this.getCarInfo)
-            this.setState({ moveFlag: false })
-        }
+        this.getCarInfo()
     }
 
     getCarInfo() {
-        this.props.getCarInformation({
+        this.props.getCarInfo({
             requiredParam: {
                 carId: this.props.carId,
                 userId: this.props.user.userId
@@ -66,70 +36,143 @@ class CarInfo extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        // if (nextProps.selectType == 1 && this.state.moveFlag) {
+        //     let { row, column, storageName, storageId, parkingId } = nextProps
+        //     console.log('nextProps', nextProps)
+        //     this.props.moveCar({
+        //         requiredParam: {
+        //             userId: this.props.user.userId,
+        //             parkingId: parkingId
+        //         },
+        //         optionalParam: {
+        //             carId: this.props.carId
+        //         }
+        //     }, this.getCarInfo)
+        //     this.setState({ moveFlag: false })
+        // }
+    }
+
     moveCar() {
-        this.setState({ moveFlag: true })
+        let { storage_id, storage_name } = this.props.CarInfoReducer.getCarInfo.data.car
+        let { userId } = this.props.user
+        let { carId, moveCar } = this.props
         Actions.SelectRow({
-            storageId: this.props.carInformation.car.storage_id,
-            storageName: this.props.carInformation.car.storage_name,
+            storageId: storage_id,
+            storageName: storage_name,
             _popNum: 2,
-            chageParkingId: (param) => this.props.moveCar({
+            chageParkingId: (param) => moveCar({
                 requiredParam: {
                     parkingId: param.parkingId,
-                    userId: this.props.user.userId
+                    userId: userId
                 }, optionalParam: {
-                    carId: this.props.carId
+                    carId: carId
                 }
             }, this.getCarInfo)
         })
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        let { CarInfoReducer, removeCar, resetExportCar } = nextProps
+        let { carId } = this.props
+        // console.log(CarInfoReducer)
+        if (CarInfoReducer.exportCar.isExecStatus == 0) {
+            console.log('CarInfoReducer.exportCar', '未执行')
+        } else if (CarInfoReducer.exportCar.isExecStatus == 1) {
+            console.log('CarInfoReducer.exportCar', '开始执行')
+        } else if (CarInfoReducer.exportCar.isExecStatus == 2) {
+            console.log('CarInfoReducer.exportCar', '执行完毕')
+            if (CarInfoReducer.exportCar.isResultStatus == 0) {
+                console.log('CarInfoReducer.exportCar', '执行成功')
+                resetExportCar()
+                removeCar(carId)
+
+            } else if (CarInfoReducer.exportCar.isResultStatus == 1) {
+                resetExportCar()
+                console.log('CarInfoReducer.exportCar执行错误', CarInfoReducer.exportCar.failedMsg)
+
+            } else if (CarInfoReducer.exportCar.isResultStatus == 2) {
+                console.log('CarInfoReducer.exportCar', '执行失败')
+                resetExportCar()
+            }
+        }
+
+
+
+
+        // if (CarInfoReducer.exportCar.isExecStatus == 0) {
+        //     console.log('CarInfoReducer.exportCar', '未执行')
+        // } else if (CarInfoReducer.exportCar.isExecStatus == 1) {
+        //     console.log('CarInfoReducer.exportCar', '开始执行')
+        // } else if (CarInfoReducer.exportCar.isExecStatus == 2) {
+        //     console.log('CarInfoReducer.exportCar', '执行完毕')
+        //     if (CarInfoReducer.exportCar.isResultStatus == 0) {
+        //         console.log('CarInfoReducer.exportCar', '执行成功')
+        //         resetExportCar()
+        //         removeCar(carId)
+
+        //     } else if (CarInfoReducer.exportCar.isResultStatus == 1) {
+        //         resetExportCar()
+        //         console.log('CarInfoReducer.exportCar执行错误', CarInfoReducer.exportCar.failedMsg)
+
+        //     } else if (CarInfoReducer.exportCar.isResultStatus == 2) {
+        //         console.log('CarInfoReducer.exportCar', '执行失败')
+        //         resetExportCar()
+        //     }
+        // }
+        return true
+    }
+
     appendImage(param) {
-        console.log('car', this.props.carInformation.car)
-        console.log('props', this.props)
+        let { userId, mobile, userType } = this.props.user
+        let { carId } = this.props
+        let { vin } = this.props.CarInfoReducer.getCarInfo.data
         param.requiredParam = {
-            userId: this.props.user.userId,
-            carId: this.props.carId,
-            vin: this.props.carInformation.car.vin
+            userId: userId,
+            carId: carId,
+            vin: vin
         }
         param.optionalParam = {
             imageType: 1
         }
         param.postFileParam.key = "image"
-
         param.postParam = {
-            username: this.props.user.mobile,
-            userId: this.props.user.userId,
-            userType: this.props.user.userType
+            username: mobile,
+            userId: userId,
+            userType: userType
         }
-        console.log('postImage', param)
         this.props.appendImage(param)
     }
 
     exportCar() {
+        let { userId, mobile, userType } = this.props.user
+        let { carId } = this.props
+        let { r_id, p_id, storage_id } = this.props.CarInfoReducer.getCarInfo.data.car
         this.props.exportCar(
             {
                 requiredParam: {
-                    userId: this.props.user.userId,
-                    relId: this.props.carInformation.car.r_id,
+                    userId: userId,
+                    relId: r_id,
                     relStatus: 2
                 },
-                putParam: {
-                    parkingId: this.props.carInformation.car.p_id,
-                    storageId: this.props.carInformation.car.storage_id,
-                    carId: this.props.carId
+                optionalParam: {
+                    parkingId: p_id,
+                    storageId: storage_id,
+                    carId: carId
                 }
-            }, () => this.props.removeCar(this.props.carId)
+            }
         )
     }
 
     render() {
+        let { car, recordList, imageList } = this.props.CarInfoReducer.getCarInfo.data
         return (
             <CarInfoLayout
-                car={this.props.carInformation.car}
+                car={car}
                 exportCar={this.exportCar}
                 moveCar={this.moveCar}
-                records={this.props.carInformation.recordList}
-                images={this.props.carInformation.imageList}
+                records={recordList}
+                images={imageList}
                 postImage={this.appendImage}
             />
         )
@@ -141,16 +184,16 @@ class CarInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.LoginReducer.user,
-        carInformation: state.CarInfoReducer
+        CarInfoReducer: state.CarInfoReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getCarInformation: (param) => {
+    getCarInfo: (param) => {
         dispatch(CarInfoAction.getCarInformation(param))
     },
-    exportCar: (param, removeCar) => {
-        dispatch(CarInfoAction.exportCar(param, removeCar))
+    exportCar: (param) => {
+        dispatch(CarInfoAction.exportCar(param))
     },
     moveCar: (param, getCarInfo) => {
         dispatch(CarInfoAction.moveCar(param, getCarInfo))
@@ -160,7 +203,10 @@ const mapDispatchToProps = (dispatch) => ({
     },
     removeCar: (carId) => {
         dispatch(CarAction.removeCar(carId))
-    }
+    },
+    resetExportCar: () => {
+        dispatch(CarInfoAction.resetExportCar())
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarInfo)

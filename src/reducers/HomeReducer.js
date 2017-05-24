@@ -13,7 +13,6 @@ const initialState = {
 export default handleActions({
     [actionTypes.homeTypes.GET_HOME_DATA_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-        // console.log(data)
         return {
             ...state,
             recordList: data.recordList,
