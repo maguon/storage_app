@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux'
 import NavBar from '../components/Bar/NavBar'
 import * as CarModelAction from '../../actions/CarModelAction'
 import * as ImporCarAction from '../../actions/ImporCarAction'
+import { List, ListItem } from 'native-base'
 
 
 class SelectCarModel extends Component {
@@ -28,21 +29,25 @@ class SelectCarModel extends Component {
 
     render() {
         let carModels = this.props.carModels.carModels.map(item => {
-            return (<Text key={item.id} onPress={() => this.changeModel({
+            return (<ListItem button key={item.id} onPress={() => this.changeModel({
                 makeId: this.props.makeId,
                 modelId: item.id,
                 makeName: this.props.makeName,
                 modelName: item.model_name,
             })}>
-                {item.model_name}
-            </Text>)
+                <Text>
+                    {item.model_name}
+                </Text>
+            </ListItem>)
         })
         return (
             <View style={{ flex: 1 }}>
                 <NavBar title={'选择型号'} />
                 <View>
                     <ScrollView>
-                        {carModels}
+                        <List>
+                            {carModels}
+                        </List>
                     </ScrollView>
                 </View>
             </View>

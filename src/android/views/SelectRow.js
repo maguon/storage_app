@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, TouchableHighlight } from 'react-native'
+import { View, ScrollView, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import NavBar from '../components/Bar/NavBar'
 import { Actions } from 'react-native-router-flux'
 import * as StorageParkingAction from '../../actions/StorageParkingAction'
+import { List, ListItem, Text } from 'native-base'
 
 class SelectRow extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class SelectRow extends Component {
     }
 
     render() {
-       // console.log(this.props.storageParkings.storageParkings)
+        // console.log(this.props.storageParkings.storageParkings)
         let storageParkings = this.props.storageParkings.storageParkings.reduce((acc, val) => {
             if (val.car_id == 0) {
                 let row = acc.find(item => { return item.row == val.row })
@@ -36,11 +37,11 @@ class SelectRow extends Component {
         })
 
 
-       // console.log(storageParkings)
+        // console.log(storageParkings)
 
         storageParkings = storageParkings.map(item => {
             return (
-                <TouchableHighlight key={item.row} underlayColor='rgba(0,0,0,0.1)' onPress={() =>
+                <ListItem key={item.row} button onPress={() =>
                     Actions.SelectColumn({
                         columns: item.columns,
                         row: item.row,
@@ -48,16 +49,20 @@ class SelectRow extends Component {
                         storageName: this.props.storageName,
                         _popNum: this.props._popNum,
                         chageParkingId: this.props.chageParkingId
-                    })} >
+                    })}>
                     <Text>{item.row.toString()}</Text>
-                </TouchableHighlight>)
+                </ListItem>
+            )
         })
 
         return (
             <View style={{ flex: 1 }}>
                 <NavBar title={'选择排'} />
                 <ScrollView>
-                    {storageParkings}
+                    <List>
+                        {storageParkings}
+                    </List>
+
                 </ScrollView>
             </View>
         )
