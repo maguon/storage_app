@@ -16,7 +16,7 @@ class SelectCarMake extends Component {
     }
     render() {
         let carMakes = this.props.carMakes.carMakes.map(item => {
-            return (<Text key={item.id} onPress={() => Actions.SelectCarModel({ makeId: item.id, makeName: item.make_name })}>{item.make_name}</Text>)
+            return (<Text key={item.id} onPress={() => Actions.SelectCarModel({ makeId: item.id, makeName: item.make_name, changeModel: this.props.changeModel })}>{item.make_name}</Text>)
         })
         return (
             <View style={{ flex: 1 }}>

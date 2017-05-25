@@ -16,58 +16,17 @@ class CarInfo extends Component {
         this.getCarInfo = this.getCarInfo.bind(this)
         this.appendImage = this.appendImage.bind(this)
         this.moveCar = this.moveCar.bind(this)
+        this.updateCarInfo = this.updateCarInfo.bind(this)
     }
 
     componentDidMount() {
         this.getCarInfo()
     }
-
-    getCarInfo() {
-        let { carId } = this.props
-        let { userId } = this.props.user
-
-
-        this.props.getCarInfo({
-            requiredParam: {
-                carId: carId,
-                userId: userId
-            },
-            optionalParam: {
-                active: 1,
-                relStatus: 1,
-                carId: carId
-            }
-        })
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    moveCar() {
-        let { storage_id, storage_name } = this.props.CarInfoReducer.getCarInfo.data.car
-        let { userId } = this.props.user
-        let { carId } = this.props
-        let { moveCar } = this.props
-        Actions.SelectRow({
-            storageId: storage_id,
-            storageName: storage_name,
-            _popNum: 2,
-            chageParkingId: (param) => moveCar({
-                requiredParam: {
-                    parkingId: param.parkingId,
-                    userId: userId
-                }, optionalParam: {
-                    carId: carId
-                }
-            })
-        })
-    }
-
     shouldComponentUpdate(nextProps, nextState) {
         let { CarInfoReducer } = nextProps
         let { removeCar, resetExportCar, resetMoveCar, resetAppendCarImage, resetGetCarInfo } = nextProps
         let { carId } = this.props
+         console.log(CarInfoReducer)
         /*getCarInfo 执行状态*/
         // if (CarInfoReducer.getCarInfo.isExecStatus == 0) {
         //     console.log('CarInfoReducer.getCarInfo', '未执行')
@@ -155,7 +114,93 @@ class CarInfo extends Component {
             }
         }
         /************************************************************************************************/
+
+
+
+        /*moveCar执行状态*/
+        // if (CarInfoReducer.editCarInfo.isExecStatus == 0) {
+        //     console.log('CarInfoReducer.editCarInfo', '未执行')
+        // } else 
+        if (CarInfoReducer.editCarInfo.isExecStatus == 1) {
+            console.log('CarInfoReducer.editCarInfo', '开始执行')
+        } else if (CarInfoReducer.editCarInfo.isExecStatus == 2) {
+            console.log('CarInfoReducer.editCarInfo', '执行完毕')
+            if (CarInfoReducer.editCarInfo.isResultStatus == 0) {
+                console.log('CarInfoReducer.editCarInfo', '执行成功')
+                this.changeViewType(false)
+
+            } else if (CarInfoReducer.editCarInfo.isResultStatus == 1) {
+                console.log('CarInfoReducer.editCarInfo', '执行错误')
+
+            } else if (CarInfoReducer.editCarInfo.isResultStatus == 2) {
+                console.log('CarInfoReducer.editCarInfo', '执行失败')
+
+            }
+        }
+        /************************************************************************************************/
+
+
+        /*moveCar执行状态*/
+        // if (CarInfoReducer.updatePlanOutTime.isExecStatus == 0) {
+        //     console.log('CarInfoReducer.updatePlanOutTime', '未执行')
+        // } else 
+        if (CarInfoReducer.updatePlanOutTime.isExecStatus == 1) {
+            console.log('CarInfoReducer.updatePlanOutTime', '开始执行')
+        } else if (CarInfoReducer.updatePlanOutTime.isExecStatus == 2) {
+            console.log('CarInfoReducer.updatePlanOutTime', '执行完毕')
+            if (CarInfoReducer.updatePlanOutTime.isResultStatus == 0) {
+                console.log('CarInfoReducer.updatePlanOutTime', '执行成功')
+                this.changeViewType(false)
+
+            } else if (CarInfoReducer.updatePlanOutTime.isResultStatus == 1) {
+                console.log('CarInfoReducer.updatePlanOutTime', '执行错误')
+
+            } else if (CarInfoReducer.updatePlanOutTime.isResultStatus == 2) {
+                console.log('CarInfoReducer.updatePlanOutTime', '执行失败')
+
+            }
+        }
+        /************************************************************************************************/
+
+        //console.log(CarInfoReducer.viewType.isEdit)
+
         return true
+    }
+
+    getCarInfo() {
+        let { carId } = this.props
+        let { userId } = this.props.user
+        this.props.getCarInfo({
+            requiredParam: {
+                carId: carId,
+                userId: userId
+            },
+            optionalParam: {
+                active: 1,
+                relStatus: 1,
+                carId: carId
+            }
+        })
+    }
+
+    moveCar() {
+        let { storage_id, storage_name } = this.props.CarInfoReducer.getCarInfo.data.car
+        let { userId } = this.props.user
+        let { carId } = this.props
+        let { moveCar } = this.props
+        Actions.SelectRow({
+            storageId: storage_id,
+            storageName: storage_name,
+            _popNum: 2,
+            chageParkingId: (param) => moveCar({
+                requiredParam: {
+                    parkingId: param.parkingId,
+                    userId: userId
+                }, optionalParam: {
+                    carId: carId
+                }
+            })
+        })
     }
 
     appendImage(param) {
@@ -199,16 +244,75 @@ class CarInfo extends Component {
         )
     }
 
+
+    updateCarInfo() {
+        let { userId } = this.props.user
+        let { carId } = this.props
+        let { vin, make_id, make_name, model_id, model_name, pro_date, colour, engine_num, remark, r_id, plan_out_time } = this.props.CarInfoReducer.editCarInfo.data
+        let param = {
+            requiredParam: {
+                userId: userId,
+                carId: carId
+            },
+            putParam: {
+                vin: vin,
+                makeId: make_id,
+                makeName: make_name,
+                modelId: model_id,
+                modelName: model_name,
+                proDate: pro_date,
+                colour: colour,
+                engineNum: engine_num,
+                remark: remark
+            }
+        }
+
+        let updatePlanOutTimeParam = {
+            requiredParam: {
+                userId: userId,
+                relId: r_id
+            },
+            putParam: {
+                planOutTime: plan_out_time
+            }
+        }
+        this.props.updateCarInfo(param)
+        this.props.updateCarInfoPlanOutTime(updatePlanOutTimeParam)
+    }
+
+    changeViewType(param) {
+        this.props.changeViewType(param)
+    }
+
     render() {
         let { car, recordList, imageList } = this.props.CarInfoReducer.getCarInfo.data
+        let { editCarInfo } = this.props.CarInfoReducer
+        let { isEdit } = this.props.CarInfoReducer.viewType
+        let { changeEditCarInfoModel,
+            changeEditCarInfoColor,
+            changeEditCarInfoRemark,
+            changeEditCarInfoProDate,
+            changeEditCarInfoPlanOutTime,
+            changeEditCarInfoEngineNum,
+            updateCarInfo } = this.props
         return (
             <CarInfoLayout
                 car={car}
+                editCarInfo={editCarInfo.data}
                 exportCar={this.exportCar}
                 moveCar={this.moveCar}
                 records={recordList}
                 images={imageList}
                 postImage={this.appendImage}
+                changeViewType={this.props.changeViewType}
+                isEdit={isEdit}
+                updateCarInfo={this.updateCarInfo}
+                changeEditCarInfoModel={changeEditCarInfoModel}
+                changeEditCarInfoColor={changeEditCarInfoColor}
+                changeEditCarInfoRemark={changeEditCarInfoRemark}
+                changeEditCarInfoProDate={changeEditCarInfoProDate}
+                changeEditCarInfoPlanOutTime={changeEditCarInfoPlanOutTime}
+                changeEditCarInfoEngineNum={changeEditCarInfoEngineNum}
             />
         )
     }
@@ -220,7 +324,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.LoginReducer.user,
         CarInfoReducer: state.CarInfoReducer,
-        carId: 335
+        carId: 336
     }
 }
 
@@ -252,6 +356,33 @@ const mapDispatchToProps = (dispatch) => ({
     resetMoveCar: () => {
         dispatch(CarInfoAction.resetMoveCar())
     },
+    changeViewType: (param) => {
+        dispatch(CarInfoAction.changeViewType(param))
+    },
+    updateCarInfo: (param) => {
+        dispatch(CarInfoAction.updateCarInfo(param))
+    },
+    changeEditCarInfoModel: (param) => {
+        dispatch(CarInfoAction.changeEditCarInfoModel(param))
+    },
+    changeEditCarInfoColor: (param) => {
+        dispatch(CarInfoAction.changeEditCarInfoColor(param))
+    },
+    changeEditCarInfoRemark: (param) => {
+        dispatch(CarInfoAction.changeEditCarInfoRemark(param))
+    },
+    changeEditCarInfoProDate: (param) => {
+        dispatch(CarInfoAction.changeEditCarInfoProDate(param))
+    },
+    changeEditCarInfoPlanOutTime: (param) => {
+        dispatch(CarInfoAction.changeEditCarInfoPlanOutTime(param))
+    },
+    changeEditCarInfoEngineNum: (param) => {
+        dispatch(CarInfoAction.changeEditCarInfoEngineNum(param))
+    },
+    updateCarInfoPlanOutTime: (param) => {
+        dispatch(CarInfoAction.updateCarInfoPlanOutTime(param))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarInfo)

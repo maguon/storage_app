@@ -85,7 +85,16 @@ class ImportCar extends Component {
     }
 
     render() {
-        let { vin, engineNum, proDate, planOutTime, remark, makeName, modelName, storageName, row, column } = this.props.imporCarReducer.importCar.data
+        let { vin,
+            engineNum,
+            proDate,
+            planOutTime,
+            remark,
+            makeName,
+            modelName,
+            storageName,
+            row,
+            column } = this.props.imporCarReducer.importCar.data
         return (
             <View style={{ flex: 1 }}>
                 <NavBar title={'车辆入库'} />
@@ -100,7 +109,7 @@ class ImportCar extends Component {
                                 value={vin}
                                 style={{ flex: 3, padding: 0, color: '#00cade', fontSize: 18 }} />
                         </View>
-                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={Actions.SelectCarMake}>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectCarMake({ changeModel: this.props.changeModel })}>
                             <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd', paddingVertical: 10, marginLeft: 10 }}>
                                 <Text style={{ fontSize: 14, flex: 4 }}>品牌(型号)：</Text>
                                 <Text style={{ fontSize: 14, flex: 10 }}>{makeName}{modelName}</Text>
@@ -177,7 +186,7 @@ class ImportCar extends Component {
                         </Button>
                     </View>
                 </ScrollView>
-            </View>
+            </View >
         )
     }
 }
@@ -220,6 +229,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     chageEngineNum: (param) => {
         dispatch(ImporCarAction.chageEngineNum(param))
+    },
+    changeModel: (param) => {
+        dispatch(ImporCarAction.changeModel(param))
     }
 })
 

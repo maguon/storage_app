@@ -100,6 +100,45 @@ export const moveCar = (param) => (dispatch) => {
         })
 }
 
+
+export const updateCarInfo = (param) => (dispatch) => {
+    let url = `${base_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}`
+    dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_WAITING, payload: {} })
+    httpRequest
+        .put(url, param.putParam, (err, res) => {
+            if (err) {
+                dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_ERROR, payload: { data: err } })
+            } else {
+                if (res.success) {
+                    dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_SUCCESS, payload: { data: param.putParam } })
+                } else {
+                    dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_FAILED, payload: { data: res.msg } })
+                }
+            }
+        })
+}
+
+
+export const updateCarInfoPlanOutTime = (param) => (dispatch) => {
+    // http://stg.myxxjs.com:9001/api/user/38/carStorageRel/408/planOutTime
+    let url = `${base_host}/user/${param.requiredParam.userId}/carStorageRel/${param.requiredParam.relId}/planOutTime`
+    dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_WAITING, payload: {} })
+    httpRequest
+        .put(url, param.putParam, (err, res) => {
+            if (err) {
+                dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_ERROR, payload: { data: err } })
+            } else {
+                if (res.success) {
+                    dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_SUCCESS, payload: { data: param.putParam } })
+                } else {
+                    dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_FAILED, payload: { data: res.msg } })
+                }
+            }
+        })
+}
+
+
+
 export const resetExportCar = () => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.RESET_EXPORT_CAR, payload: {} })
 }
@@ -113,6 +152,35 @@ export const resetMoveCar = () => (dispatch) => {
 export const resetGetCarInfo = () => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.RESET_GET_CARINFO, payload: {} })
 }
+export const changeViewType = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_VIEWTYPE, payload: { data: param } })
+}
+
+export const changeEditCarInfoModel = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_MODEL, payload: { data: param } })
+}
+
+export const changeEditCarInfoColor = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_COLOR, payload: { data: param } })
+}
+
+export const changeEditCarInfoRemark = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_REMARK, payload: { data: param } })
+}
+
+export const changeEditCarInfoProDate = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_PRODATE, payload: { data: param } })
+}
+
+export const changeEditCarInfoPlanOutTime = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_PLANOUTIME, payload: { data: param } })
+}
+
+export const changeEditCarInfoEngineNum = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_ENGINENUM, payload: { data: param } })
+}
+
+
 
 
 

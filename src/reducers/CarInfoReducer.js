@@ -23,7 +23,8 @@ const initialState = {
                 storage_name: '',
                 storage_id: '',
                 pro_date: '',
-                rel_status: 1
+                rel_status: 1,
+                plan_out_time: ''
             }
         }
     },
@@ -44,8 +45,33 @@ const initialState = {
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: ''
+    },
+    viewType: {
+        isEdit: false //view=false edit=true
+    },
+    editCarInfo: {
+        data: {
+            make_id: 0,
+            make_name: '',
+            model_id: 0,
+            model_name: '',
+            pro_date: '',
+            colour: '',
+            engine_num: '',
+            remark: '',
+            plan_out_time: ''
+        },
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: ''
+    },
+    updatePlanOutTime: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: ''
     }
-
 }
 
 export default handleActions({
@@ -101,6 +127,12 @@ export default handleActions({
     },
     [actionTypes.carInfoTypes.GET_CARINFO_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
+        pro_date = new Date(data.car.pro_date)
+        pro_date = `${pro_date.getFullYear()}-${pro_date.getMonth() + 1}-${pro_date.getDate()}`
+
+        plan_out_time = new Date(data.car.plan_out_time)
+        plan_out_time = `${plan_out_time.getFullYear()}-${plan_out_time.getMonth() + 1}-${plan_out_time.getDate()}`
+
         return {
             ...state,
             getCarInfo: {
@@ -109,7 +141,11 @@ export default handleActions({
                 isExecStatus: 2,
                 data: {
                     ...state.getCarInfo.data,
-                    car: data.car,
+                    car: {
+                        ...data.car,
+                        pro_date: pro_date,
+                        plan_out_time: plan_out_time
+                    },
                     recordList: data.recordList,
                     imageList: data.imageList
                 }
@@ -219,7 +255,8 @@ export default handleActions({
             exportCar: {
                 ...state.exportCar,
                 isResultStatus: 2,
-                isExecStatus: 2
+                isExecStatus: 2,
+                failedMsg: data
             }
         }
     },
@@ -239,7 +276,8 @@ export default handleActions({
             exportCar: {
                 ...state.exportCar,
                 isResultStatus: 1,
-                isExecStatus: 2
+                isExecStatus: 2,
+                failedMsg: data
             }
         }
     },
@@ -279,7 +317,228 @@ export default handleActions({
             }
         }
     },
+    [actionTypes.carInfoTypes.CHANGE_VIEWTYPE]: (state, action) => {
+        const { payload: { data } } = action
+        let editCarInfo = data ? {
+            ...state.editCarInfo,
+            data: state.getCarInfo.data.car,
+            isExecStatus: 0
+        } : {
+                ...state.editCarInfo,
+                isExecStatus: 0
+            }
+
+        return {
+            ...state,
+            viewType: {
+                ...state.viewType,
+                isEdit: data
+            },
+            editCarInfo: editCarInfo,
+            updatePlanOutTime: {
+                ...state.updatePlanOutTime,
+                isExecStatus: 0
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.UPDATE_CARINFO_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
+        const { vin, makeId, makeName, modelId, modelName, proDate, colour, engineNum, remark } = data
+        return {
+            ...state,
+            getCarInfo: {
+                ...state.getCarInfo,
+                data: {
+                    ...state.getCarInfo.data,
+                    car: {
+                        ...state.getCarInfo.data.car,
+                        vin: vin,
+                        make_id: makeId,
+                        make_name: makeName,
+                        model_id: modelId,
+                        model_name: modelName,
+                        pro_date: proDate,
+                        colour: colour,
+                        engine_num: engineNum,
+                        remark: remark
+                    }
+                }
+            },
+            editCarInfo: {
+                ...state.editCarInfo,
+                isExecStatus: 2,
+                isResultStatus: 0
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.UPDATE_CARINFO_ERROR]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                isExecStatus: 2,
+                isResultStatus: 1,
+                errorMsg: data
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.UPDATE_CARINFO_WAITING]: (state, action) => {
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                isExecStatus: 1
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.UPDATE_CARINFO_FAILED]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                isExecStatus: 2,
+                isResultStatus: 1,
+                failedMsg: data
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_MODEL]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                data: {
+                    ...state.editCarInfo.data,
+                    make_id: data.makeId,
+                    make_name: data.makeName,
+                    model_id: data.modelId,
+                    model_name: data.modelName
+                }
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_REMARK]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                data: {
+                    ...state.editCarInfo.data,
+                    remark: data
+                }
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_PRODATE]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                data: {
+                    ...state.editCarInfo.data,
+                    pro_date: data
+                }
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_PLANOUTIME]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                data: {
+                    ...state.editCarInfo.data,
+                    plan_out_time: data
+                }
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_COLOR]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                data: {
+                    ...state.editCarInfo.data,
+                    colour: data
+                }
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_ENGINENUM]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            editCarInfo: {
+                ...state.editCarInfo,
+                data: {
+                    ...state.editCarInfo.data,
+                    engine_num: data
+                }
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
+        const { planOutTime } = data
+        return {
+            ...state,
+            getCarInfo: {
+                ...state.getCarInfo,
+                data: {
+                    ...state.getCarInfo.data,
+                    car: {
+                        ...state.getCarInfo.data.car,
+                        plan_out_time: planOutTime
+                    }
+                }
+            },
+            updatePlanOutTime: {
+                ...state.updatePlanOutTime,
+                isExecStatus: 2,
+                isResultStatus: 0
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_ERROR]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updatePlanOutTime: {
+                ...state.updatePlanOutTime,
+                isExecStatus: 2,
+                isResultStatus: 1,
+                errorMsg: data
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_WAITING]: (state, action) => {
+        return {
+            ...state,
+            updatePlanOutTime: {
+                ...state.updatePlanOutTime,
+                isExecStatus: 1
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_FAILED]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updatePlanOutTime: {
+                ...state.updatePlanOutTime,
+                isExecStatus: 2,
+                isResultStatus: 1,
+                failedMsg: data
+            }
+        }
+    }
 }, initialState)
-
-
 

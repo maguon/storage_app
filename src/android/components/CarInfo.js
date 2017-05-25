@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, Dimensions, ScrollView, Image } from 'react-native'
-import { Button, Icon } from 'native-base'
+import { Text, TextInput, View, Dimensions, ScrollView, Image } from 'react-native'
+import { Button } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+
 
 const window = Dimensions.get('window')
 
-const CarInfo = ({ car, exportCar, moveCar }) => {
+const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
     let btn, carPosition
-    // console.log('car.rel_status', car.rel_status)
     if (car.rel_status == 1) {
         btn = (<View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >
             <View style={{ flex: 1, marginRight: 10 }}>
@@ -30,7 +30,6 @@ const CarInfo = ({ car, exportCar, moveCar }) => {
         carPosition = (<View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
             <Text style={{ marginLeft: 10, fontSize: 14 }}>当前位置：{car.storage_name}-{car.row.toString()}-{car.col.toString()}</Text>
         </View>)
-
     }
     else {
         btn = (<View></View>)
@@ -61,12 +60,27 @@ const CarInfo = ({ car, exportCar, moveCar }) => {
                     <Text style={{ marginLeft: 10, fontSize: 14 }}>发动机型号：{car.engine_num}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                    <Text style={{ marginLeft: 10, fontSize: 14 }}>生产日期：{new Date(car.pro_date).toLocaleDateString()}</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 14 }}>生产日期：{car.pro_date}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                    <Text style={{ marginLeft: 10, fontSize: 14 }}>生产日期：{car.plan_out_time}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+                    <Text style={{ marginLeft: 10, fontSize: 14 }}>备注：{car.remark}</Text>
                 </View>
                 {carPosition}
             </View>
+            <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
+                <View style={{ flex: 1, marginRight: 10 }}>
+                    <Button
+                        full
+                        style={{ backgroundColor: '#00cade', borderRadius: 5 }}
+                        onPress={() => changeViewType(true)}>
+                        <Text style={{ color: '#ffffff' }}>编辑</Text>
+                    </Button>
+                </View>
+            </View>
             {btn}
-
         </View>
     )
 }

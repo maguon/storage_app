@@ -62,10 +62,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     getCarModelsByMakeId: (param) => {
         dispatch(CarModelAction.getCarModelsByMakeId(param))
-    },
-    changeModel: (param) => {
-        dispatch(ImporCarAction.changeModel(param))
     }
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectCarModel)
