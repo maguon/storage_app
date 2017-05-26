@@ -26,7 +26,7 @@ class CarInfo extends Component {
         let { CarInfoReducer } = nextProps
         let { removeCar, resetExportCar, resetMoveCar, resetAppendCarImage, resetGetCarInfo } = nextProps
         let { carId } = this.props
-         console.log(CarInfoReducer)
+        //  console.log(CarInfoReducer)
         /*getCarInfo 执行状态*/
         // if (CarInfoReducer.getCarInfo.isExecStatus == 0) {
         //     console.log('CarInfoReducer.getCarInfo', '未执行')
@@ -39,7 +39,8 @@ class CarInfo extends Component {
                 console.log('CarInfoReducer.getCarInfo', '执行成功')
                 resetGetCarInfo()
             } else if (CarInfoReducer.getCarInfo.isResultStatus == 1) {
-                console.log('CarInfoReducer.getCarInfo', '执行错误')
+                console.log('CarInfoReducer.getCarInfo执行错误', CarInfoReducer.getCarInfo.errorMsg)
+                // console.log(CarInfoReducer)
                 resetGetCarInfo()
             } else if (CarInfoReducer.getCarInfo.isResultStatus == 2) {
                 console.log('CarInfoReducer.getCarInfo', '执行失败')
@@ -168,7 +169,7 @@ class CarInfo extends Component {
     }
 
     getCarInfo() {
-        let { carId } = this.props
+        let { carId, relStatus } = this.props
         let { userId } = this.props.user
         this.props.getCarInfo({
             requiredParam: {
@@ -177,7 +178,7 @@ class CarInfo extends Component {
             },
             optionalParam: {
                 active: 1,
-                relStatus: 1,
+                relStatus: relStatus,
                 carId: carId
             }
         })
@@ -324,7 +325,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.LoginReducer.user,
         CarInfoReducer: state.CarInfoReducer,
-        carId: 336
+        // carId: 337,
+        // relStatus: 1
     }
 }
 

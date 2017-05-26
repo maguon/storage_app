@@ -31,7 +31,7 @@ class Welcome extends Component {
         //     }
         // })
 
-        console.log(localStorage)
+        //  console.log(localStorage)
         //test
     }
 

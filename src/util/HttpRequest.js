@@ -135,7 +135,6 @@ function getAll(urls, callback) {
         .then(responseJson => {
             Promise.all(responseJson)
                 .then(res => {
-                    // console.log(res)
                     callback(null, res)
                 })
                 .catch((error) => {

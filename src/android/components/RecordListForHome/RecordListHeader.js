@@ -11,8 +11,7 @@ export default class RecordListHeader extends Component {
     }
 
     render() {
-        let created_on = new Date(this.props.record.created_on)
-        created_on = `${created_on.getFullYear()}年${created_on.getMonth() + 1}月${created_on.getDate() + 1}日`
+        let created_on = new Date(this.props.record.created_on).toLocaleDateString()
         let recordItem = this.props.record.data.map((item) => {
             return <RecordItem recordItem={item} key={item._id} />
         })

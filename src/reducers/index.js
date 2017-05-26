@@ -15,7 +15,6 @@ import HomeReducer from './HomeReducer'
 import CarInfoReducer from './CarInfoReducer'
 import MainRootReducer from './MainRootReducer'
 
-
 export default combineReducers({
     WelcomeReducer,
     LoginReducer,

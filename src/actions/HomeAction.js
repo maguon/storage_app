@@ -3,29 +3,48 @@ import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getHomeData = (param) => (dispatch) => {
-    // console.log('=======START======')
-    let urls = [`${record_host}/opRecord?${ObjectToUrl(param.getRecordListParam.OptionalParam)}`,
-    `${base_host}/storageDate?${ObjectToUrl(param.getStorageListParam.OptionalParam)}`]
-    console.log(urls)
+export const getRecordsForHome = (param) => (dispatch) => {
+    let url = `${record_host}/opRecord?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.homeTypes.GET_RECORDS_HOME_WAITING, payload: {} })
     httpRequest
-        .getAll(urls, (err, res) => {
+        .get(url, (err, res) => {
             if (err) {
-                console.log('FAILED', err)
+                dispatch({ type: actionTypes.homeTypes.GET_RECORDS_HOME_ERROR, payload: { data: err } })
             } else {
-                if (res[0].success && res[1].success) {
-                    dispatch({
-                        type: actionTypes.homeTypes.GET_HOME_DATA_SUCCESS, payload: {
-                            data: {
-                                recordList: res[0].result,
-                                storageList: res[1].result
-                            }
-                        }
-                    })
+                if (res.success) {
+                    dispatch({ type: actionTypes.homeTypes.GET_RECORDS_HOME_SUCCESS, payload: { data: res.result } })
                 } else {
-                    console.log('RES_FAITLED', `${res[0].msg}&&${res[1].msg}`)
+                    dispatch({ type: actionTypes.homeTypes.GET_RECORDS_HOME_FAILED, payload: { data: res.msg } })
                 }
             }
         })
-    // console.log('=======END======')
 }
+
+export const getStoragesForHome = (param) => (dispatch) => {
+    let url = `${base_host}/storageDate?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.homeTypes.GET_STORAGES_HOME_WAITING, payload: {} })
+    httpRequest
+        .get(url, (err, res) => {
+            if (err) {
+                dispatch({ type: actionTypes.homeTypes.GET_STORAGES_HOME_ERROR, payload: { data: err } })
+            } else {
+                if (res.success) {
+                    dispatch({ type: actionTypes.homeTypes.GET_STORAGES_HOME_SUCCESS, payload: { data: res.result } })
+                } else {
+                    dispatch({ type: actionTypes.homeTypes.GET_STORAGES_HOME_FAILED, payload: { data: res.msg } })
+                }
+            }
+        })
+}
+
+
+export const resetStoragesForHome = () => (dispatch) => {
+    dispatch({ type: actionTypes.homeTypes.RESET_GET_STORAGES_HOME, payload: {} })
+}
+
+export const resetRecordsForHome = () => (dispatch) => {
+    dispatch({ type: actionTypes.homeTypes.RESET_GET_RECORDS_HOME, payload: {} })
+}
+
+
+

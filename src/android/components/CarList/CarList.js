@@ -5,7 +5,8 @@ import {
     ScrollView,
     StyleSheet,
     Dimensions,
-    RefreshControl
+    RefreshControl,
+    FlatList
 } from 'react-native'
 import CarListItem from './CarListItem'
 
@@ -19,7 +20,7 @@ const CarList = ({ cars, getCarList, loadMore }) => {
     let viewStyle = { backgroundColor: '#00cade' }
     return (
         <View style={{ flex: 1 }}>
-            
+
             <View style={styles.container}>
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 12 }}><Text style={styles.title}>计划出库时间</Text></View>
@@ -27,15 +28,13 @@ const CarList = ({ cars, getCarList, loadMore }) => {
                 <View style={{ flex: 10 }}><Text style={styles.title}>品牌</Text></View>
                 <View style={{ flex: 1 }}></View>
             </View>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-            >
-                <View>
-                    {CarListItems}
-                    <Text style={styles.load} onPress={loadMore}>加载更多</Text>
-                </View>
-            </ScrollView>
+            <FlatList
+                //refreshing={true}
+                //onRefresh={()=>{ }}
+                //onEndReached={() => { console.log(111) }}
+                data={cars}
+                renderItem={({ item }) => <CarListItem car={item} key={item.r_id} />}
+            />
         </View>
     )
 }

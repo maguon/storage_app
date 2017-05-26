@@ -59,9 +59,7 @@ export default class CarEdit extends Component {
             changeEditCarInfoEngineNum,
             updateCarInfo } = this.props
         let { make_name, model_name, engine_num, pro_date, plan_out_time, remark, row, col, storage_name } = car
-        // let _pro_date = new Date(pro_date)
-        // _pro_date = `${_pro_date.getFullYear()}-${_pro_date.getMonth() + 1}-${_pro_date.getDate()}`
-        // console.log(_pro_date)
+
         let _plan_out_time = {}
         let _row = row ? row.toString() : ''
         let _col = col ? col.toString() : ''
@@ -130,7 +128,7 @@ export default class CarEdit extends Component {
                         onPress={this.showPicker.bind(this, 'planOutTime', { date: new Date(), mode: 'spinner' })}
                     >
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>出库日期：</Text>
+                            <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>计划出库：</Text>
                             <Text style={{ fontSize: 14, flex: 5 }}>{plan_out_time}</Text>
                             <Icon name='caret-down' style={{ flex: 1 }} />
                         </View>

@@ -23,7 +23,7 @@ const CarListItem = ({ car }) => {
     // plan_out_time = `${plan_out_time_month}-${plan_out_time_date}  ${plan_out_time_hour}:${plan_out_time_minute}`
 
     return (
-        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ carId: car.id }) }}>
+        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ carId: car.id, relStatus: 1 }) }}>
             <View style={styles.container}>
                 <View style={[{ flex: 1 }, styles.content]}>
                     {tag}

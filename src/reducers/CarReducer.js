@@ -41,7 +41,6 @@ export default handleActions({
     },
     [actionTypes.carTypes.REMOVE_CAR]: (state, action) => {
         const { payload: { data } } = action
-        // console.log(data)
         return {
             ...state,
             cars: state.cars.filter(item => { return item.id != data })

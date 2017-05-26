@@ -13,7 +13,7 @@ const CarList = ({ isLoading, cars, getCarList, loadMore }) => {
     let viewStyle = { backgroundColor: '#00cade' }
     return (
         <View style={{ flex: 1, width: window.width }}>
-            <Loading isLoading={isLoading} />
+            {/*<Loading isLoading={isLoading} />*/}
             <SearchBar viewStyle={viewStyle}  />
             <CarListComponent
                 cars={cars}

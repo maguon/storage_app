@@ -26,7 +26,8 @@ const Home = ({ storages, records }) => {
                     <SearchBar viewStyle={viewStyle} />
                 </View>
             </View>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false}
+                         overScrollMode='auto'>
 
                 <StorageList storages={storages} />
                 <RecordList records={records} />

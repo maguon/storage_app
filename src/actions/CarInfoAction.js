@@ -6,6 +6,7 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const getCarInformation = (param) => (dispatch) => {
     let urls = [`${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`,
     `${base_host}/user/${param.requiredParam.userId}/car?${ObjectToUrl(param.optionalParam)}`]
+    console.log(urls)
     dispatch({ type: actionTypes.carInfoTypes.GET_CARINFO_WAITING, payload: {} })
     httpRequest
         .getAll(urls, (err, res) => {
@@ -122,6 +123,7 @@ export const updateCarInfo = (param) => (dispatch) => {
 export const updateCarInfoPlanOutTime = (param) => (dispatch) => {
     // http://stg.myxxjs.com:9001/api/user/38/carStorageRel/408/planOutTime
     let url = `${base_host}/user/${param.requiredParam.userId}/carStorageRel/${param.requiredParam.relId}/planOutTime`
+
     dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_WAITING, payload: {} })
     httpRequest
         .put(url, param.putParam, (err, res) => {

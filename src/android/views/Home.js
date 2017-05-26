@@ -20,29 +20,66 @@ class Home extends Component {
         day = now.getDate()
         day = day >= 10 ? day : `0${day}`
         now = `${year}${month}${day}`
+        // console.log(now)
+        // now=now.toLocaleString()
+        // console.log(now)
+        let { getRecordsForHome, getStoragesForHome } = this.props
+        let { userId } = this.props.userReducer
+        getRecordsForHome({ OptionalParam: { start: 0, size: 10, userId: userId } })
+        getStoragesForHome({ OptionalParam: { dateStart: now, dateEnd: now } })
 
-        this.props.getHomeData({
-            getStorageListParam: {
-                OptionalParam: {
-                    dateStart: now,
-                    dateEnd: now
-                }
-            },
-            getRecordListParam: {
-                OptionalParam: {
-                    start: 0,
-                    size: 10,
-                    userId: this.props.user.userId
-                }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        let { homeReducer } = nextProps
+        let { resetStoragesForHome, resetRecordsForHome } = this.props
+        /** homeReducer.getStoragesHome */
+        if (homeReducer.getStoragesHome.isExecStatus == 1) {
+            console.log('homeReducer.getStoragesHome', '开始执行')
+        } else if (homeReducer.getStoragesHome.isExecStatus == 2) {
+            if (homeReducer.getStoragesHome.isResultStatus == 0) {
+                console.log('homeReducer.getStoragesHome执行成功', homeReducer.getStoragesHome.data)
+                resetStoragesForHome()
+            } else if (homeReducer.getStoragesHome.isResultStatus == 1) {
+                console.log('homeReducer.getStoragesHome执行错误', homeReducer.getStoragesHome.errorMsg)
+                resetStoragesForHome()
             }
-        })
+            else if (homeReducer.getStoragesHome.isResultStatus == 2) {
+                console.log('homeReducer.getStoragesHome执行失败', homeReducer.getStoragesHome.failedMsg)
+                resetStoragesForHome()
+            }
+        }
+        /*********************************************************************** */
+
+
+
+        /** homeReducer.getStoragesHome */
+        if (homeReducer.getRecordsHome.isExecStatus == 1) {
+            console.log('homeReducer.getRecordsHome', '开始执行')
+        } else if (homeReducer.getRecordsHome.isExecStatus == 2) {
+            if (homeReducer.getRecordsHome.isResultStatus == 0) {
+                console.log('homeReducer.getRecordsHome执行成功', homeReducer.getRecordsHome.data)
+                resetRecordsForHome()
+            } else if (homeReducer.getRecordsHome.isResultStatus == 1) {
+                console.log('homeReducer.getRecordsHome执行错误', homeReducer.getRecordsHome.errorMsg)
+                resetRecordsForHome()
+            }
+            else if (homeReducer.getRecordsHome.isResultStatus == 2) {
+                console.log('homeReducer.getRecordsHome执行失败', homeReducer.getRecordsHome.failedMsg)
+                resetRecordsForHome()
+            }
+        }
+        /*********************************************************************** */
+        return true
     }
 
     render() {
+        let { storageList } = this.props.homeReducer.getStoragesHome.data
+        let { recordList } = this.props.homeReducer.getRecordsHome.data
         return (
             <LayoutHome
-                storages={this.props.home.storageList}
-                records={this.props.home.recordList}
+                storages={storageList}
+                records={recordList}
             />
         )
     }
@@ -50,14 +87,23 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.LoginReducer.user,
-        home: state.HomeReducer
+        userReducer: state.LoginReducer.user,
+        homeReducer: state.HomeReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getHomeData: (param) => {
-        dispatch(HomeAction.getHomeData(param))
+    getRecordsForHome: (param) => {
+        dispatch(HomeAction.getRecordsForHome(param))
+    },
+    getStoragesForHome: (param) => {
+        dispatch(HomeAction.getStoragesForHome(param))
+    },
+    resetStoragesForHome: () => {
+        dispatch(HomeAction.resetStoragesForHome())
+    },
+    resetRecordsForHome: () => {
+        dispatch(HomeAction.resetRecordsForHome())
     }
 })
 

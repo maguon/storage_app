@@ -34,8 +34,8 @@ export default class App extends Component {
                     <Scene key="login" component={Login} hideNavBar />
                     <Scene key="main"  component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
-                    <Scene key="carInfo"  component={CarInfo} hideNavBar />
-                    <Scene key="ImportCar"   initial={true}   component={ImportCar} hideNavBar />
+                    <Scene key="carInfo" component={CarInfo} hideNavBar />
+                    <Scene key="ImportCar" component={ImportCar} hideNavBar />
                     <Scene key="VinScanner" component={VinScanner} hideNavBar />
                     <Scene key="ErrorView" component={ErrorView} hideNavBar />
                     <Scene key="SearchCarList" component={SearchCarList} hideNavBar />
@@ -45,7 +45,7 @@ export default class App extends Component {
                     <Scene key="SelectRow" component={SelectRow} hideNavBar />
                     <Scene key="SelectColumn" component={SelectColumn} hideNavBar />
                     <Scene key="ImportCarCamera" component={ImportCarCamera} hideNavBar />
-                    <Scene key="recordList" component={recordList} hideNavBar />
+                    <Scene key="recordList"  initial={true} component={recordList} hideNavBar />
                 </Scene>
             </Router>
 
