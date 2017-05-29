@@ -45,7 +45,7 @@ export default class App extends Component {
                     <Scene key="SelectRow" component={SelectRow} hideNavBar />
                     <Scene key="SelectColumn" component={SelectColumn} hideNavBar />
                     <Scene key="ImportCarCamera" component={ImportCarCamera} hideNavBar />
-                    <Scene key="recordList"  initial={true} component={recordList} hideNavBar />
+                    <Scene key="recordList"  initial={true}  component={recordList} hideNavBar />
                 </Scene>
             </Router>
 

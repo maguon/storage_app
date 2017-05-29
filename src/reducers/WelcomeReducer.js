@@ -29,18 +29,6 @@ const initialState = {
         errorMsg: '',
         failedMsg: ''
     }
-    // isWaiting: false,
-    // isSucess: false,
-    // version: app.version,
-    // lastVersion: app.version,
-    // force_update: 0,
-    // url: '',
-    // remark: '',
-    // isVersionValidating: false,
-    // isTokenValidating: false,
-    // errMsg: '',
-    // nextStep: 'login',
-    // isJump: false
 }
 
 export default handleActions({

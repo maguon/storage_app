@@ -2,6 +2,15 @@ import { handleActions } from 'redux-actions'
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
+    importCarImage: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        data: {
+            imageList: []
+        }
+    },
     isLoading: false,
     images: [],
     isError: false,

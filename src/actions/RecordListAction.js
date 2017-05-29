@@ -6,27 +6,25 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 import { Alert } from 'react-native'
 
 export const getRecordList = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.recordTypes.GET_RECORD_LIST_LOADING, payload: { data: { isLoading: true } } })
-    let urls = [`${record_host}/opRecord?${ObjectToUrl(param.optionalParam)}`,
-    `${base_host}/storage?${ObjectToUrl(param.optionalParam)}`]//`${record_host}/opRecord?${ObjectToUrl(param.optionalParam)}`
-
+    dispatch({ type: actionTypes.recordListTypes.GET_RECORD_LIST_VIEW_WAITING, payload: {} })
+    let url = `${record_host}/opRecord?${ObjectToUrl(param.optionalParam)}`
     httpRequest
         .get(url, (err, res) => {
             if (err) {
-                console.log('FAILED', err)
-            } else {
+                dispatch({ type: actionTypes.recordListTypes.GET_RECORD_LIST_VIEW_ERROR, payload: { data: err } })
+            }
+            else {
                 if (res.success) {
-                    dispatch({
-                        type: actionTypes.re.FIRST_GET_RECORD_LIST_SUCCESS, payload: {
-                            data: {
-                                records: res.result
-                            }
-                        }
-                    })
-                } else {
-                    console.log('RES_FAITLED', res.msg)
+                    dispatch({ type: actionTypes.recordListTypes.GET_RECORD_LIST_VIEW_SUCCESS, payload: { data: res.result } })
+                }
+                else {
+                    dispatch({ type: actionTypes.recordListTypes.GET_RECORD_LIST_VIEW_FAILED, payload: { data: res.msg } })
                 }
             }
         })
+}
 
+export const changeRecordListTab = (param) => (dispatch) => {
+
+    dispatch({ type: actionTypes.recordListTypes.CHANGE_RECORD_LIST_TAB, payload: { data: param } })
 }

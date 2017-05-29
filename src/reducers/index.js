@@ -14,6 +14,7 @@ import PasswordReducer from './PasswordReducer'
 import HomeReducer from './HomeReducer'
 import CarInfoReducer from './CarInfoReducer'
 import MainRootReducer from './MainRootReducer'
+import RecordListReducer from './RecordListReducer'
 
 export default combineReducers({
     WelcomeReducer,
@@ -30,5 +31,6 @@ export default combineReducers({
     RecordReducer,
     CarModelsReducer,
     ImporCarReducer,
-    ImportCarCameraReducer
+    ImportCarCameraReducer,
+    RecordListReducer
 })

@@ -13,6 +13,7 @@ import * as importCarCameraTypes from './ImportCarCameraTypes'
 import * as carInfoTypes from './CarInfoTypes'
 import * as mainRootTypes from './MainRootTypes'
 import * as homeTypes from './HomeTypes'
+import * as recordListTypes from './RecordListTypes'
 
 
 
@@ -31,5 +32,6 @@ export {
     carModelTypes,
     imporCarTypes,
     importCarCameraTypes,
-    mainRootTypes
+    mainRootTypes,
+    recordListTypes
 }

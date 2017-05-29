@@ -2,10 +2,15 @@ import { handleActions } from 'redux-actions'
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    isLoading: false,
-    carModels: [],
-    isError: false,
-    ErrorMessage: {}
+    carModels: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        data: {
+            carModelList: []
+        }
+    }
 }
 
 export default handleActions({
