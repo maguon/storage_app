@@ -45,7 +45,7 @@ export default handleActions({
         return {
             carMakes: {
                 ...state.carMakes,
-                isExecuteStatus: 1
+                isExecStatus: 1
             }
         }
     },

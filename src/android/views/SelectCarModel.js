@@ -21,14 +21,34 @@ class SelectCarModel extends Component {
         })
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        let { carModelsReducer } = nextProps
+        // console.log(carModelsReducer)
+        /** homeReducer.getStoragesHome */
+        if (carModelsReducer.carModels.isExecStatus == 1) {
+            console.log('carModelsReducer.carModels', '开始执行')
+        } else if (carModelsReducer.carModels.isExecStatus == 2) {
+            if (carModelsReducer.carModels.isResultStatus == 0) {
+                console.log('carModelsReducer.carModels执行成功')
+            } else if (carModelsReducer.carModels.isResultStatus == 1) {
+                console.log('carModelsReducer.carModels执行错误')
+            }
+            else if (carModelsReducer.carModels.isResultStatus == 2) {
+                console.log('carModelsReducer.carModels执行失败')
+            }
+        }
+        /**************************************************************************** */
+        return true
+    }
+
     changeModel(param) {
         this.props.changeModel(param)
         Actions.pop({ popNum: 2 })
     }
 
-
     render() {
-        let carModels = this.props.carModels.carModels.map(item => {
+        let { carModelList } = this.props.carModelsReducer.carModels.data
+        let carModels = carModelList.map(item => {
             return (<ListItem button key={item.id} onPress={() => this.changeModel({
                 makeId: this.props.makeId,
                 modelId: item.id,
@@ -59,7 +79,7 @@ class SelectCarModel extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        carModels: state.CarModelsReducer,
+        carModelsReducer: state.CarModelsReducer,
         user: state.UserReducer
     }
 }

@@ -70,21 +70,15 @@ class Setting extends Component {
 }
 
 
-// const styles = StyleSheet.create({
-//     viewStyle: {
-//         backgroundColor: '#00cade'
-//     }
-// })
-
 const mapStateToProps = (state) => {
     return {
         AppInfo: state.AppReducer
-    };
-};
+    }
+}
 
 const mapDispatchToProps = (dispatch) => ({
 
-});
+})
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Setting);
+export default connect(mapStateToProps, mapDispatchToProps)(Setting)

@@ -103,7 +103,7 @@ export const validateToken = () => (dispatch) => {
                             }
                             else {
                                 //判断请求是否成功，如果失败，跳转到登录页
-                                console.log('changeTokenResfailed', changeTokenRes)
+                                // console.log('changeTokenResfailed', changeTokenRes)
                                 dispatch({ type: actionTypes.welcomeActionTypes.VALIDATE_TOKEN_FAILED, payload: {} })
                             }
                         }

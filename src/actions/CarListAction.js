@@ -6,7 +6,6 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const getCarList = (param) => (dispatch) => {
     dispatch({ type: actionTypes.carListTypes.GET_CARLIST_WAITING, payload: {} })
     let url = `${base_host}/car?${ObjectToUrl(param.optionalParam)}`
-    console.log(url)
     httpRequest
         .get(url, (err, res) => {
             if (err) {
@@ -18,13 +17,13 @@ export const getCarList = (param) => (dispatch) => {
                     dispatch({ type: actionTypes.carListTypes.GET_CARLIST_FAILED, payload: { data: res.msg } })
                 }
             }
-            
+
         })
 }
 
 export const getCarListMore = (param) => (dispatch) => {
     dispatch({ type: actionTypes.carListTypes.GET_CARLIST_MORE_WAITING, payload: {} })
-    let url = `${base_host}/user/${param.requiredParam.userid}/car?${ObjectToUrl(param.optionalParam)}`
+    let url = `${base_host}/car?${ObjectToUrl(param.optionalParam)}`
     httpRequest
         .get(url, (err, res) => {
             if (err) {
@@ -39,12 +38,11 @@ export const getCarListMore = (param) => (dispatch) => {
         })
 }
 
-
-
 export const removeCar = (carId) => (dispatch) => {
     dispatch({ type: actionTypes.carListTypes.REMOVE_CAR, payload: { data: carId } })
 }
 
-
-
+export const resetGetCarList = () => (dispatch) => {
+    dispatch({ type: actionTypes.carListTypes.RESET_GET_CARLIST, payload: {} })
+}
 

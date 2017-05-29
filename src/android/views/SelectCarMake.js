@@ -15,8 +15,32 @@ class SelectCarMake extends Component {
     componentDidMount() {
         this.props.getCarMakesAll()
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        let { carMakesReducer } = nextProps
+        /** homeReducer.getStoragesHome */
+        if (carMakesReducer.carMakes.isExecStatus == 1) {
+            console.log('carMakesReducer.carMakes', '开始执行')
+        } 
+        else if (carMakesReducer.carMakes.isExecStatus == 2) {
+            if (carMakesReducer.carMakes.isResultStatus == 0) {
+                console.log('carMakesReducer.carMakes执行成功')
+            } else if (carMakesReducer.carMakes.isResultStatus == 1) {
+                console.log('carMakesReducer.carMakes执行错误')
+            }
+            else if (carMakesReducer.carMakes.isResultStatus == 2) {
+                console.log('carMakesReducer.carMakes执行失败')
+            }
+        }
+
+        /**************************************************************************** */
+        return true
+    }
+
+
     render() {
-        let carMakes = this.props.carMakes.carMakes.map(item => {
+        let { carMakeList } = this.props.carMakesReducer.carMakes.data
+        let carMakes = carMakeList.map(item => {
             return (<ListItem button key={item.id} onPress={() => Actions.SelectCarModel({ makeId: item.id, makeName: item.make_name, changeModel: this.props.changeModel })}>
                 <Text>{item.make_name}</Text>
             </ListItem>)

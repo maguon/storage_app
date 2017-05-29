@@ -7,7 +7,7 @@ import CarModelsReducer from './CarModelsReducer'
 import StorageDateReducer from './StorageDateReducer'
 import StorageReducer from './StorageReducer'
 import StorageParkingReducer from './StorageParkingReducer'
-import RecordReducer from './RecordReducer'
+//import RecordReducer from './RecordReducer'
 import ImporCarReducer from './ImporCarReducer'
 import ImportCarCameraReducer from './ImportCarCameraReducer'
 import PasswordReducer from './PasswordReducer'
@@ -28,7 +28,7 @@ export default combineReducers({
     StorageReducer,
     StorageDateReducer,
     StorageParkingReducer,
-    RecordReducer,
+   // RecordReducer,
     CarModelsReducer,
     ImporCarReducer,
     ImportCarCameraReducer,

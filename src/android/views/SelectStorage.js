@@ -25,7 +25,13 @@ class SelectStorage extends Component {
         let storages = this.props.storages.storages.map(item => {
             i++
             return (
-                <ListItem key={i} button onPress={() => Actions.SelectRow({ storageId: item.id, storageName: item.storage_name, _popNum: this.props._popNum, chageParkingId: this.props.chageParkingId })}>
+                <ListItem key={i} button onPress={() =>
+                    Actions.SelectRow({
+                        storageId: item.id,
+                        storageName: item.storage_name,
+                        _popNum: this.props._popNum,
+                        chageParkingId: this.props.chageParkingId
+                    })}>
                     <Text key={i} >{item.storage_name}</Text>
                 </ListItem>
             )

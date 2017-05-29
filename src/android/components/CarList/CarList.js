@@ -6,14 +6,15 @@ import {
     StyleSheet,
     Dimensions,
     RefreshControl,
-    FlatList
+    FlatList,
+    Button
 } from 'react-native'
 import CarListItem from './CarListItem'
 
 
 const window = Dimensions.get('window')
 
-const CarList = ({ cars, getCarList, loadMore }) => {
+const CarList = ({ cars, getCarList, getCarListMore }) => {
     let CarListItems = cars.map((item) => {
         return <CarListItem car={item} key={item.r_id} />
     })
@@ -35,6 +36,7 @@ const CarList = ({ cars, getCarList, loadMore }) => {
                 data={cars}
                 renderItem={({ item }) => <CarListItem car={item} key={item.r_id} />}
             />
+            <Button title='加载更多' onPress={getCarListMore} />
         </View>
     )
 }

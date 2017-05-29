@@ -13,6 +13,8 @@ const initialState = {
             carList: []
         }
     },
+    //isResultStatus(执行结果状态):[0(成功且没有到底)，1(错误)，2(执行失败)，3（成功且已经加载全部数据）] 
+    //isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
     getCarListMore: {
         isResultStatus: 0,
         isExecStatus: 0,
@@ -24,7 +26,7 @@ const initialState = {
 export default handleActions({
     [actionTypes.carListTypes.GET_CARLIST_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-       
+
         return {
             ...state,
             getCarList: {
@@ -46,7 +48,7 @@ export default handleActions({
                 isResultStatus: 2,
                 isExecStatus: 2,
                 failedMsg: data
-                
+
             }
         }
     },
@@ -71,19 +73,40 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.carListTypes.GET_CARLIST_MORE_SUCCESS]: (state, action) => {
-        const { payload: { data } } = action
+    [actionTypes.carListTypes.RESET_GET_CARLIST]: (state, action) => {
         return {
+            ...state,
             getCarList: {
                 ...state.getCarList,
-                data: {
-                    carList: [...state.getCarList.data.carList, ...data]
+                isExecStatus: 0
+            }
+        }
+    },
+    [actionTypes.carListTypes.GET_CARLIST_MORE_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
+        if (data.length == 0) {
+            return {
+                ...state,
+                getCarListMore: {
+                    ...state.getCarListMore,
+                    isResultStatus: 3,
+                    isExecStatus: 2
                 }
-            },
-            getCarListMore: {
-                ...state.getCarListMore,
-                isResultStatus: 0,
-                isExecStatus: 2
+            }
+        }
+        else {
+            return {
+                getCarList: {
+                    ...state.getCarList,
+                    data: {
+                        carList: [...state.getCarList.data.carList, ...data]
+                    }
+                },
+                getCarListMore: {
+                    ...state.getCarListMore,
+                    isResultStatus: 0,
+                    isExecStatus: 2
+                }
             }
         }
     },
@@ -121,7 +144,6 @@ export default handleActions({
             }
         }
     },
-
     [actionTypes.carListTypes.REMOVE_CAR]: (state, action) => {
         const { payload: { data } } = action
         return {

@@ -4,7 +4,7 @@ import LayoutHome from '../layout/Home'
 import Camera from '../components/Camera'
 import * as StorageDateAction from '../../actions/StorageDateAction'
 import * as HomeAction from '../../actions/HomeAction'
-import * as RecordAction from '../../actions/RecordAction'
+//import * as RecordAction from '../../actions/RecordAction'
 import Loading from '../components/Loading/Loading'
 
 class Home extends Component {

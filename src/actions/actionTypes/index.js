@@ -4,7 +4,7 @@ import * as storageDateTypes from './StorageDateTypes'
 import * as storageTypes from './StorageTypes'
 import * as carListTypes from './CarListTypes'
 import * as carMakeTypes from './CarMakeTypes'
-import * as recordTypes from './RecordTypes'
+//import * as recordTypes from './RecordTypes'
 import * as carModelTypes from './CarModelTypes'
 import * as storageParkingTypes from './StorageParkingTypes'
 import * as imporCarTypes from './ImporCarTypes'
@@ -28,7 +28,7 @@ export {
     passwordTypes,
     carListTypes,
     carMakeTypes,
-    recordTypes,
+    //recordTypes,
     carModelTypes,
     imporCarTypes,
     importCarCameraTypes,
