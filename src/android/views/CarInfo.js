@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
 import * as CarInfoAction from '../../actions/CarInfoAction'
-import * as CarAction from '../../actions/CarAction'
+import * as CarListAction from '../../actions/CarListAction'
 import { Actions } from 'react-native-router-flux'
 import CarInfoLayout from '../layout/CarInfo'
 
@@ -22,6 +22,7 @@ class CarInfo extends Component {
     componentDidMount() {
         this.getCarInfo()
     }
+    
     shouldComponentUpdate(nextProps, nextState) {
         let { CarInfoReducer } = nextProps
         let { removeCar, resetExportCar, resetMoveCar, resetAppendCarImage, resetGetCarInfo } = nextProps
@@ -344,7 +345,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(CarInfoAction.appendImage(param))
     },
     removeCar: (carId) => {
-        dispatch(CarAction.removeCar(carId))
+        dispatch(CarListAction.removeCar(carId))
     },
     resetExportCar: () => {
         dispatch(CarInfoAction.resetExportCar())

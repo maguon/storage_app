@@ -2,7 +2,7 @@ import * as loginTypes from './LoginTypes'
 import * as welcomeActionTypes from './WelcomeActionTypes'
 import * as storageDateTypes from './StorageDateTypes'
 import * as storageTypes from './StorageTypes'
-import * as carTypes from './CarTypes'
+import * as carListTypes from './CarListTypes'
 import * as carMakeTypes from './CarMakeTypes'
 import * as recordTypes from './RecordTypes'
 import * as carModelTypes from './CarModelTypes'
@@ -26,7 +26,7 @@ export {
     storageTypes,
     storageParkingTypes,
     passwordTypes,
-    carTypes,
+    carListTypes,
     carMakeTypes,
     recordTypes,
     carModelTypes,

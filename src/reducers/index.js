@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import WelcomeReducer from './WelcomeReducer'
 import LoginReducer from './LoginReducer'
-import CarReducer from './CarReducer'
+import CarListReducer from './CarListReducer'
 import CarMakeReducer from './CarMakeReducer'
 import CarModelsReducer from './CarModelsReducer'
 import StorageDateReducer from './StorageDateReducer'
@@ -20,7 +20,7 @@ export default combineReducers({
     WelcomeReducer,
     LoginReducer,
     MainRootReducer,
-    CarReducer,
+    CarListReducer,
     HomeReducer,
     CarInfoReducer,
     PasswordReducer,

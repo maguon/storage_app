@@ -1,29 +1,19 @@
-
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, file_host } from '../config/Host'
+import { base_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
-import { Alert } from 'react-native'
-
 
 export const getCarMakesAll = () => (dispatch) => {
+    dispatch({ type: actionTypes.carMakeTypes.GET_CARMAKES_WAITING, payload: {} })
     let url = `${base_host}/carMake`
     httpRequest
         .get(url, (err, res) => {
             if (err) {
-                console.log('FAILED', err)
+                dispatch({ type: actionTypes.carMakeTypes.GET_CARMAKES_ERROR, payload: { data: err } })
             } else {
                 if (res.success) {
-                    console.log('SECCUSS', res.result)
-                    dispatch({
-                        type: actionTypes.carMakeTypes.GET_CARMAKES_SUCCESS, payload: {
-                            data: {
-                                isLoading: false,
-                                carMakes: res.result
-                            }
-                        }
-                    })
+                    dispatch({ type: actionTypes.carMakeTypes.GET_CARMAKES_SUCCESS, payload: { data: res.result } })
                 } else {
-                    console.log('RES_FAITLED', res.msg)
+                    dispatch({ type: actionTypes.carMakeTypes.GET_CARMAKES_FAILED, payload: { data: res.msg } })
                 }
             }
         })

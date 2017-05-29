@@ -46,18 +46,3 @@ export const pushCarImage = (param) => (dispatch) => {
             }
         })
 }
-
-        // console.log(resizedImageUri)
-
-        //             let item = {
-        //                 userId: 34,
-        //                 imageType: 1,
-        //                 type: "image/jpeg",
-        //                 imageName: "image-f65db5f8-d000-4c0e-9894-c7b78b4fb6f8.jpg",
-        //                 imageUrl: resizedImageUri,
-        //                 key: "image"
-        //             }
-        //             let url = `${file_host}user/${item.userId}/image?imageType=${item.imageType}`
-        //             console.log(url)
-        //             postFile(item.imageUrl, url, item)
-        //             console.log('testUpload')

@@ -37,7 +37,7 @@ class SelectCarMake extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        carMakes: state.CarMakeReducer,
+        carMakesReducer: state.CarMakeReducer,
         user: state.UserReducer
     }
 }

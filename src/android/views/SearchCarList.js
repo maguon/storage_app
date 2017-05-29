@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as CarAction from '../../actions/CarAction'
+import * as CarListAction from '../../actions/CarListAction'
 import { Actions } from 'react-native-router-flux'
 import SearchCarListLayout from '../layout/SearchCarList'
 
