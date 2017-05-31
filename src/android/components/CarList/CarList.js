@@ -2,23 +2,24 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    ScrollView,
     StyleSheet,
     Dimensions,
     RefreshControl,
     FlatList,
-    Button
+    Button,
+    Animated
 } from 'react-native'
 import CarListItem from './CarListItem'
-
+// const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 const window = Dimensions.get('window')
 
-const CarList = ({ cars, getCarList, getCarListMore }) => {
+const CarList = ({ cars, getCarListWaiting, getCarListMore }) => {
     let CarListItems = cars.map((item) => {
         return <CarListItem car={item} key={item.r_id} />
     })
     let viewStyle = { backgroundColor: '#00cade' }
+    console.log(getCarListWaiting)
     return (
         <View style={{ flex: 1 }}>
 
@@ -31,12 +32,15 @@ const CarList = ({ cars, getCarList, getCarListMore }) => {
             </View>
             <FlatList
                 //refreshing={true}
-                //onRefresh={()=>{ }}
-                //onEndReached={() => { console.log(111) }}
+                colors={'#00cade'}
+               // onRefresh={() => { }}
+                refreshing={getCarListWaiting}
+                onEndReached={getCarListMore}
                 data={cars}
+                onEndReachedThreshold={1}
                 renderItem={({ item }) => <CarListItem car={item} key={item.r_id} />}
             />
-            <Button title='加载更多' onPress={getCarListMore} />
+            {/*<Button title='加载更多' onPress={getCarListMore} />*/}
         </View>
     )
 }

@@ -3,7 +3,7 @@ import { View, ScrollView, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import NavBar from '../components/Bar/NavBar'
 import { Actions } from 'react-native-router-flux'
-import * as StorageAction from '../../actions/StorageAction'
+import * as SelectStorageAction from '../../actions/SelectStorageAction'
 import { List, ListItem, Text, Right } from 'native-base'
 
 class SelectStorage extends Component {
@@ -12,17 +12,36 @@ class SelectStorage extends Component {
     }
 
     componentDidMount() {
-        this.props.getStorageList({
+        this.props.getSelectStorageList({
             optionalParam: {
                 storageStatus: 1
             }
         })
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        let { selectStorageReducer } = nextProps
+        /*getSelectStorageList 执行状态*/
+        if (selectStorageReducer.getSelectStorageList.isExecStatus == 1) {
+            console.log('selectStorageReducer.getSelectStorageList开始执行')
+        } else if (selectStorageReducer.getSelectStorageList.isExecStatus == 2) {
+            console.log('selectStorageReducer.getSelectStorageList执行完毕')
+            if (selectStorageReducer.getSelectStorageList.isResultStatus == 0) {
+                console.log('selectStorageReducer.getSelectStorageList执行成功')
+            } else if (selectStorageReducer.getSelectStorageList.isResultStatus == 1) {
+                console.log('selectStorageReducer.getSelectStorageList执行错误')
+            } else if (selectStorageReducer.getSelectStorageList.isResultStatus == 2) {
+                console.log('selectStorageReducer.getSelectStorageList执行失败')
+            }
+        }
+        /************************************************************************************************/
+        return true
+    }
+
     render() {
-        //console.log('this.props.chageParkingId',this.props.chageParkingId)
+        let { selectStorageList } = this.props.selectStorageReducer.getSelectStorageList.data
         let i = 0
-        let storages = this.props.storages.storages.map(item => {
+        let storages = selectStorageList.map(item => {
             i++
             return (
                 <ListItem key={i} button onPress={() =>
@@ -52,13 +71,13 @@ class SelectStorage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        storages: state.StorageReducer
+        selectStorageReducer: state.SelectStorageReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getStorageList: (param) => {
-        dispatch(StorageAction.getStorageList(param))
+    getSelectStorageList: (param) => {
+        dispatch(SelectStorageAction.getSelectStorageList(param))
     },
 })
 

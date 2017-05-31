@@ -4,33 +4,31 @@ import LoginReducer from './LoginReducer'
 import CarListReducer from './CarListReducer'
 import CarMakeReducer from './CarMakeReducer'
 import CarModelsReducer from './CarModelsReducer'
-import StorageDateReducer from './StorageDateReducer'
-import StorageReducer from './StorageReducer'
-import StorageParkingReducer from './StorageParkingReducer'
-//import RecordReducer from './RecordReducer'
+import StorageListReducer from './StorageListReducer'
+import SelectRowReducer from './SelectRowReducer'
 import ImporCarReducer from './ImporCarReducer'
 import ImportCarCameraReducer from './ImportCarCameraReducer'
 import PasswordReducer from './PasswordReducer'
 import HomeReducer from './HomeReducer'
 import CarInfoReducer from './CarInfoReducer'
 import MainRootReducer from './MainRootReducer'
+import SelectStorageReducer from './SelectStorageReducer'
 import RecordListReducer from './RecordListReducer'
 
 export default combineReducers({
     WelcomeReducer,
     LoginReducer,
     MainRootReducer,
-    CarListReducer,
     HomeReducer,
-    CarInfoReducer,
     PasswordReducer,
+    CarListReducer,
+    CarInfoReducer,
     CarMakeReducer,
-    StorageReducer,
-    StorageDateReducer,
-    StorageParkingReducer,
-   // RecordReducer,
     CarModelsReducer,
     ImporCarReducer,
     ImportCarCameraReducer,
+    StorageListReducer,
+    SelectRowReducer,
+    SelectStorageReducer,
     RecordListReducer
 })

@@ -17,7 +17,7 @@ class CarList extends Component {
             },
             optionalParam: {
                 start: 0,
-                size: 5,
+                size: 13,
                 active: 1,
                 relStatus: 1
             }
@@ -77,7 +77,7 @@ class CarList extends Component {
             },
             optionalParam: {
                 start: carList.length,
-                size: 5,
+                size: 1,
                 active: 1,
                 relStatus: 1
             }
@@ -89,7 +89,7 @@ class CarList extends Component {
         return (
             <CarListLayout
                 cars={carList}
-                getCarList={this.props.getCarList}
+                getCarListWaiting={this.props.carListReducer.getCarList.isExecStatus == 1}
                 getCarListMore={this.getCarListMore.bind(this)} />
         )
     }

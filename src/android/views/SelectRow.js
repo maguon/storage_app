@@ -3,7 +3,7 @@ import { View, ScrollView, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import NavBar from '../components/Bar/NavBar'
 import { Actions } from 'react-native-router-flux'
-import * as StorageParkingAction from '../../actions/StorageParkingAction'
+import * as SelectRowAction from '../../actions/SelectRowAction'
 import { List, ListItem, Text } from 'native-base'
 
 class SelectRow extends Component {
@@ -18,9 +18,28 @@ class SelectRow extends Component {
         })
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        let { selectRowReducer } = nextProps
+        /*getStorageParkingList 执行状态*/
+        if (selectRowReducer.getStorageParkingList.isExecStatus == 1) {
+            console.log('selectRowReducer.getStorageParkingList开始执行')
+        } else if (selectRowReducer.getStorageParkingList.isExecStatus == 2) {
+            console.log('selectRowReducer.getStorageParkingList执行完毕')
+            if (selectRowReducer.getStorageParkingList.isResultStatus == 0) {
+                console.log('selectRowReducer.getStorageParkingList执行成功')
+            } else if (selectRowReducer.getStorageParkingList.isResultStatus == 1) {
+                console.log('selectRowReducer.getStorageParkingList执行错误')
+            } else if (selectRowReducer.getStorageParkingList.isResultStatus == 2) {
+                console.log('selectRowReducer.getStorageParkingList执行失败')
+            }
+        }
+        /************************************************************************************************/
+        return true
+    }
+
     render() {
-        // console.log(this.props.storageParkings.storageParkings)
-        let storageParkings = this.props.storageParkings.storageParkings.reduce((acc, val) => {
+        let { sorageParkingList } = this.props.selectRowReducer.getStorageParkingList.data
+        let storageParkings = sorageParkingList.reduce((acc, val) => {
             if (val.car_id == 0) {
                 let row = acc.find(item => { return item.row == val.row })
                 if (!row) {
@@ -35,9 +54,6 @@ class SelectRow extends Component {
         }, []).sort((a, b) => {
             return a.row - b.row
         })
-
-
-        // console.log(storageParkings)
 
         storageParkings = storageParkings.map(item => {
             return (
@@ -73,13 +89,13 @@ class SelectRow extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        storageParkings: state.StorageParkingReducer
+        selectRowReducer: state.SelectRowReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
     getStorageParkingList: (param) => {
-        dispatch(StorageParkingAction.getStorageParkingList(param))
+        dispatch(SelectRowAction.getStorageParkingList(param))
     },
 })
 

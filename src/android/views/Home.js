@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LayoutHome from '../layout/Home'
-import Camera from '../components/Camera'
-import * as StorageDateAction from '../../actions/StorageDateAction'
 import * as HomeAction from '../../actions/HomeAction'
-//import * as RecordAction from '../../actions/RecordAction'
 import Loading from '../components/Loading/Loading'
 
 class Home extends Component {
@@ -20,9 +17,7 @@ class Home extends Component {
         day = now.getDate()
         day = day >= 10 ? day : `0${day}`
         now = `${year}${month}${day}`
-        // console.log(now)
-        // now=now.toLocaleString()
-        // console.log(now)
+
         let { getRecordsForHome, getStoragesForHome } = this.props
         let { userId } = this.props.userReducer
         getRecordsForHome({ OptionalParam: { start: 0, size: 10, userId: userId } })
@@ -79,7 +74,7 @@ class Home extends Component {
         return (
             <LayoutHome
                 storages={storageList}
-                records={recordList}
+                recordList={recordList}
             />
         )
     }

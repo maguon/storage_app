@@ -15,7 +15,6 @@ export default class SelectColumn extends Component {
         Actions.pop({ popNum: this.props._popNum })
     }
     render() {
-        //console.log(this.props.columns)
         let columns = this.props.columns.map(item => {
             return (
                 <ListItem key={item.col} button onPress={() => this.chageParkingId({

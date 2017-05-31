@@ -9,7 +9,7 @@ import Loading from '../components/Loading/Loading'
 
 const window = Dimensions.get('window')
 
-const CarList = ({ isLoading, cars, getCarList, getCarListMore }) => {
+const CarList = ({ cars, getCarListWaiting, getCarListMore }) => {
     let viewStyle = { backgroundColor: '#00cade' }
     return (
         <View style={{ flex: 1, width: window.width }}>
@@ -17,7 +17,7 @@ const CarList = ({ isLoading, cars, getCarList, getCarListMore }) => {
             <SearchBar viewStyle={viewStyle}  />
             <CarListComponent
                 cars={cars}
-                getCarList={getCarList}
+                getCarListWaiting={getCarListWaiting}
                 getCarListMore={getCarListMore} />
         </View>
     )

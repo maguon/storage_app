@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as StorageDateAction from '../../actions/StorageDateAction'
+import * as StorageListAction from '../../actions/StorageListAction'
 import StorageListLayout from '../layout/StorageList'
 
 class StorageList extends Component {
@@ -25,20 +25,41 @@ class StorageList extends Component {
         })
     }
 
+
+    shouldComponentUpdate(nextProps, nextState) {
+        let { storageListReducer } = nextProps
+        /*getStorageList 执行状态*/
+        if (storageListReducer.getStorageList.isExecStatus == 1) {
+            console.log('storageListReducer.getStorageList开始执行')
+        } else if (storageListReducer.getStorageList.isExecStatus == 2) {
+            console.log('storageListReducer.getStorageList执行完毕')
+            if (storageListReducer.getStorageList.isResultStatus == 0) {
+                console.log('storageListReducer.getStorageList执行成功')
+            } else if (storageListReducer.getStorageList.isResultStatus == 1) {
+                console.log('storageListReducer.getStorageList执行错误')
+            } else if (storageListReducer.getStorageList.isResultStatus == 2) {
+                console.log('storageListReducer.getStorageList执行失败')
+            }
+        }
+        /************************************************************************************************/
+        return true
+    }
+
     render() {
-        return <StorageListLayout {...this.props} />
+        let { storageList } = this.props.storageListReducer.getStorageList.data   
+        return <StorageListLayout storages={storageList} />
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        ...state.StorageDateReducer
+        storageListReducer: state.StorageListReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
     getStorageList: (param) => {
-        dispatch(StorageDateAction.getStorageList(param))
+        dispatch(StorageListAction.getStorageList(param))
     }
 })
 

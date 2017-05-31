@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
 
 const StorageListItem = ({ storage }) => {
+    let { storage_name, balance, col, row } = storage
     return (
         <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { }}>
             <View style={styles.container}>
@@ -13,14 +14,14 @@ const StorageListItem = ({ storage }) => {
                     </View>
                 </View>
                 <View style={[{ flex: 8 }, styles.content]}>
-                    <Text style={styles.storageName}>{storage.storage_name}</Text>
+                    <Text style={styles.storageName}>{storage_name}</Text>
                 </View>
                 <View style={[{ flex: 8 }, styles.content]}>
                     <View>
                         <Text style={styles.pCountTag}>剩余车位：</Text>
                     </View>
                     <View>
-                        <Text style={styles.pCount}>{storage.pCount.toString()}</Text>
+                        <Text style={styles.pCount}>{(col * row - balance).toString()}</Text>
                     </View>
                 </View>
                 <View style={[{ flex: 1 }, styles.content]}>
