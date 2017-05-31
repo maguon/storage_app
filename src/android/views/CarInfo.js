@@ -9,6 +9,7 @@ import * as CarListAction from '../../actions/CarListAction'
 import { Actions } from 'react-native-router-flux'
 import CarInfoLayout from '../layout/CarInfo'
 
+
 class CarInfo extends Component {
     constructor(props) {
         super(props)
@@ -17,12 +18,17 @@ class CarInfo extends Component {
         this.appendImage = this.appendImage.bind(this)
         this.moveCar = this.moveCar.bind(this)
         this.updateCarInfo = this.updateCarInfo.bind(this)
+        this.onPressOk = this.onPressOk.bind(this)
+        this.onPressCancel = this.onPressCancel.bind(this)
+        this.state = {
+            confirmModalVisible: false
+        }
     }
 
     componentDidMount() {
         this.getCarInfo()
     }
-    
+
     shouldComponentUpdate(nextProps, nextState) {
         let { CarInfoReducer } = nextProps
         let { removeCar, resetExportCar, resetMoveCar, resetAppendCarImage, resetGetCarInfo } = nextProps
@@ -169,6 +175,30 @@ class CarInfo extends Component {
         return true
     }
 
+    onPressOk() {
+        this.setState({ confirmModalVisible: false })
+        let { userId, mobile, userType } = this.props.user
+        let { carId } = this.props
+        let { r_id, p_id, storage_id } = this.props.CarInfoReducer.getCarInfo.data.car
+        this.props.exportCar(
+            {
+                requiredParam: {
+                    userId: userId,
+                    relId: r_id,
+                    relStatus: 2
+                },
+                optionalParam: {
+                    parkingId: p_id,
+                    storageId: storage_id,
+                    carId: carId
+                }
+            }
+        )
+    }
+
+    onPressCancel() {
+        this.setState({ confirmModalVisible: false })
+    }
     getCarInfo() {
         let { carId, relStatus } = this.props
         let { userId } = this.props.user
@@ -184,6 +214,7 @@ class CarInfo extends Component {
             }
         })
     }
+
 
     moveCar() {
         let { storage_id, storage_name } = this.props.CarInfoReducer.getCarInfo.data.car
@@ -227,23 +258,8 @@ class CarInfo extends Component {
     }
 
     exportCar() {
-        let { userId, mobile, userType } = this.props.user
-        let { carId } = this.props
-        let { r_id, p_id, storage_id } = this.props.CarInfoReducer.getCarInfo.data.car
-        this.props.exportCar(
-            {
-                requiredParam: {
-                    userId: userId,
-                    relId: r_id,
-                    relStatus: 2
-                },
-                optionalParam: {
-                    parkingId: p_id,
-                    storageId: storage_id,
-                    carId: carId
-                }
-            }
-        )
+
+        this.setState({ confirmModalVisible: true })
     }
 
 
@@ -308,6 +324,9 @@ class CarInfo extends Component {
                 postImage={this.appendImage}
                 changeViewType={this.props.changeViewType}
                 isEdit={isEdit}
+                onPressOk={this.onPressOk}
+                onPressCancel={this.onPressCancel}
+                confirmModalVisible={this.state.confirmModalVisible}
                 updateCarInfo={this.updateCarInfo}
                 changeEditCarInfoModel={changeEditCarInfoModel}
                 changeEditCarInfoColor={changeEditCarInfoColor}

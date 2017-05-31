@@ -5,7 +5,7 @@ import CarInfoComponent from '../components/CarInfo'
 import CarEdit from '../components/CarEdit'
 import CarCamera from '../components/CarCamera'
 import RecordList from '../components/RecordListForCarInfo/RecordList'
-import Loading from '../components/Loading/Loading'
+import ConfirmModal from '../components/ConfirmModal'
 
 const window = Dimensions.get('window')
 
@@ -24,6 +24,9 @@ const CarInfo = ({ car,
     changeEditCarInfoPlanOutTime,
     changeEditCarInfoEngineNum,
     editCarInfo,
+    confirmModalVisible,
+    onPressOk,
+    onPressCancel,
     updateCarInfo }) => {
     let _CarInfoComponent = isEdit ?
         <CarEdit
@@ -56,6 +59,11 @@ const CarInfo = ({ car,
                     records={records}
                 />
             </ScrollView>
+            <ConfirmModal
+                title='确认出库？'
+                isVisible={confirmModalVisible}
+                onPressOk={onPressOk}
+                onPressCancel={onPressCancel} />
         </View>
     )
 }

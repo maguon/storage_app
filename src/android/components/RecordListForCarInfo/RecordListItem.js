@@ -25,23 +25,25 @@ const RecordListItem = ({ record }) => {
         textStyle = styles.outText
     }
 
-    let storageName = ''
-    let row = ''
-    let col = ''
+    // let storageName = ''
+    // let row = ''
+    // let col = ''
 
-    let regxStorageName = /storage (.*) parking at row (.*) column (.*)/
-    if (regxStorageName.test(record.content)) {
-        storageName = RegExp.$1
-        row = RegExp.$2
-        col = RegExp.$3
-    }
+    // let regxStorageName = /storage (.*) parking at row (.*) column (.*)/
+    // if (regxStorageName.test(record.content)) {
+    //     storageName = RegExp.$1
+    //     row = RegExp.$2
+    //     col = RegExp.$3
+    // }
+    console.log(record)
     return (
 
         <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-            <Text style={{ flex: 7, fontSize: 12 }}>{created_on}</Text>
-            <Text style={[{ flex: 2, fontSize: 12 }, textStyle]}>{op}</Text>
-            <Text style={{ flex: 5, fontSize: 12 }}>至{storageName}{row}-{col}</Text>
-            <Text style={{ flex: 2, fontSize: 12 }}>{record.username}</Text>
+            {/*<Text style={{ flex: 2, fontSize: 12 }}></Text>*/}
+             {/*<Text style={{ flex: 2, fontSize: 12 }}></Text>*/}
+            {/*<Text style={{ flex: 2, fontSize: 12 }}>{op}</Text>*/}
+            <Text style={{ flex: 10, fontSize: 12 }}>{created_on}[{record.name}]{record.content}</Text>
+           
         </View>
     )
 }

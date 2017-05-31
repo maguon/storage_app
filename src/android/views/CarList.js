@@ -26,6 +26,7 @@ class CarList extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         let { carListReducer } = nextProps
+        console.log(carListReducer)
         /*getCarList 执行状态*/
         if (carListReducer.getCarList.isExecStatus == 1) {
             console.log('carListReducer.getCarList开始执行')

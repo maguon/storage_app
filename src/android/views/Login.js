@@ -15,21 +15,47 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.login = this.login.bind(this)
+        this.state = {
+            textUserName: '',
+            textPassword: ''
+        }
+        this.changPassword = this.changPassword.bind(this)
+        this.changUserName = this.changUserName.bind(this)
 
+    }
+    componentDidMount() {
+        localStorage.loadKey(localStorageKey.USER, (err, res) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                this.setState({ textUserName: res.mobile })
+                console.log('localStorage', res)
+            }
+        })
     }
 
     login(param) {
         this.props.login(
             {
-                postParam: param
+                postParam: {
+                    mobile: this.state.textUserName,
+                    password: this.state.textPassword
+                }
             }
         )
     }
 
+    changUserName(userName) {
+        this.setState({ textUserName: userName })
+    }
+
+    changPassword(password) {
+        this.setState({ textPassword: password })
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
         let { isJump, isLoginSuccess } = nextProps.loginInfo
-        // console.log('isJump', isJump)
-        // console.log('isLoginSuccess', isLoginSuccess)
         if (isJump) {
             if (isLoginSuccess) {
                 Actions.main()
@@ -43,17 +69,14 @@ class Login extends Component {
     }
 
     render() {
-        const { loginInfo } = this.props
-        localStorage.loadKey(localStorageKey.USER, (err, res) => {
-            if (err) {
-                console.log(err)
-            }
-            else {
-                console.log('localStorage', res)
-            }
-        })
+        // const { loginInfo } = this.props
+
         return <LoginLayout
             login={this.login}
+            textUserName={this.state.textUserName}
+            textPassword={this.state.textPassword}
+            changUserName={this.changUserName}
+            changPassword={this.changPassword}
         />
     }
 

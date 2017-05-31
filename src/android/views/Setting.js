@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import reducers from '../../reducers/index'
 import localStorageKey from '../../util/LocalStorageKey'
-import { Actions } from 'react-native-router-flux'
+import { Actions, ActionConst } from 'react-native-router-flux'
 import localStorage from '../../util/LocalStorage'
 import { Button, Container, Content, Header, Icon, Left, Body, Right, Title, List, ListItem, Thumbnail, Toast } from 'native-base'
 import SearchBar from '../components/Bar/SearchBar'
@@ -32,8 +32,10 @@ class Setting extends Component {
     }
 
     onPressOk() {
-        localStorage.removeKey(localStorageKey.USER)
-        Actions.login()
+        this.setState({ confirmModalVisible: false })
+        localStorage.saveKey(localStorageKey.USER, { mobile: this.props.userReducer.user.mobile })
+        // localStorage.removeKey(localStorageKey.USER)
+        Actions.login({ type: ActionConst.RESET })
     }
 
     onPressCancel() {
@@ -41,8 +43,10 @@ class Setting extends Component {
     }
 
     render() {
-        const { AppInfo } = this.props
+        const { getVersion } = this.props.WelcomeReducer
         let viewStyle = { backgroundColor: '#00cade' }
+        let remark = (getVersion.data.remark && getVersion.data.remark != '') ? getVersion.data.remark : '无'
+        console.log(this.props.userReducer)
         return (
 
             <Container style={{ flex: 1 }}>
@@ -70,7 +74,7 @@ class Setting extends Component {
                             </Right>
                         </ListItem>
                         <ListItem>
-                            <Text>版本信息 </Text>
+                            <Text>版本信息：{remark} </Text>
                         </ListItem>
                     </List>
                     <Button light full style={{ marginTop: 80, marginHorizontal: 15, backgroundColor: '#00cade' }} onPress={this.exitApp.bind(this)}>
@@ -94,7 +98,8 @@ class Setting extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        AppInfo: state.AppReducer
+        WelcomeReducer: state.WelcomeReducer,
+        userReducer: state.LoginReducer
     }
 }
 
