@@ -22,7 +22,6 @@ const initialState = {
 export default handleActions({
     [actionTypes.loginTypes.LOGIN_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-        // console.log('data', data)
         return {
             ...state,
             isLoginWaiting: false,
