@@ -15,15 +15,15 @@ const CarListItem = ({ car }) => {
     plan_out_time = new Date(plan_out_time)
     let today = Date.now()
     let UTC = Date.parse(plan_out_time)
-    let tag = ((UTC - today) <= 24 * 60 * 60 * 1000 * 5) ? (<View style={styles.contentTag}></View>) : (<Text></Text>)
+    let tag = ((UTC - today) <= 24 * 60 * 60 * 1000 * 5) ? (<View style={styles.contentTag}></View>) : (<View></View>)
     plan_out_time = plan_out_time.toLocaleDateString()
-    enter_time = (new Date(enter_time)).toLocaleString() //
+    enter_time = (new Date(enter_time)).toLocaleString()
     let carColor = colour ? (<View style={{ backgroundColor: `#${colour}`, width: 15, height: 15, borderWidth: 0.5, borderColor: '#cccccc' }} />) : (<View></View>)
     return (
-        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ carId: car.id, relStatus: 1 }) }}>
+        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ carId: car.id }) }}>
             <View style={{ paddingVertical: 5, paddingHorizontal: 10, flexDirection: 'row', borderBottomWidth: 1, borderColor: '#f1f1f1' }}>
                 <View style={{ flex: 1, paddingTop: 5 }}>
-                    <View style={{ backgroundColor: 'red', width: 5, height: 5, borderRadius: 2.5 }} />
+                    {tag}
                 </View>
                 <View style={{ flexDirection: 'column', flex: 14 }}>
                     <View>

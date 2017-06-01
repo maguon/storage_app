@@ -2,48 +2,57 @@
 * Created by rbyu on 2017/5/11.
 */
 import React, { Component } from 'react'
-import { Text, View, Dimensions, StyleSheet } from 'react-native'
+import { Text, View, Dimensions, StyleSheet, Image } from 'react-native'
 import { Button, Icon } from 'native-base'
 
 const RecordListItem = ({ record }) => {
 
     //console.log('record', record)
-    let created_on = (new Date(record.timez)).toLocaleString()
+    let created_on = new Date(record.timez)
+    let date = created_on.toLocaleDateString()
+    let time = created_on.toLocaleTimeString()
 
     let textStyle
     let op
+    let opImgUri = { uri: 'icon_note_in' }
+
     if (record.op == '11') {
         op = '入库'
         textStyle = styles.inText
+        opImgUri.uri = 'icon_note_in'
     }
     else if (record.op == '12') {
         op = '移位'
         textStyle = styles.moveText
+        opImgUri.uri = 'icon_note_move'
     }
     else if (record.op == '13') {
+        opImgUri.uri = 'icon_note_out'
         op = '出库'
         textStyle = styles.outText
     }
 
-    // let storageName = ''
-    // let row = ''
-    // let col = ''
-
-    // let regxStorageName = /storage (.*) parking at row (.*) column (.*)/
-    // if (regxStorageName.test(record.content)) {
-    //     storageName = RegExp.$1
-    //     row = RegExp.$2
-    //     col = RegExp.$3
-    // }
     console.log(record)
     return (
 
-        <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-            {/*<Text style={{ flex: 2, fontSize: 12 }}></Text>*/}
-             {/*<Text style={{ flex: 2, fontSize: 12 }}></Text>*/}
-            {/*<Text style={{ flex: 2, fontSize: 12 }}>{op}</Text>*/}
-            <Text style={{ flex: 10, fontSize: 12 }}>{created_on}[{record.name}]{record.content}</Text>
-           
+        <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
+                <View>
+                    <Text style={{ fontSize: 10 }}>{date}</Text>
+                </View>
+                <View>
+                    <Text style={{ fontSize: 14 }}>{time}</Text>
+                </View>
+            </View>
+            <View style={{ flex: 1, alignSelf: 'flex-start', justifyContent: 'flex-start' }}>
+                <Image source={opImgUri} style={{ width: 25, height: 65 }} />
+            </View>
+            <View style={{ flex: 5, justifyContent: 'center' }}>
+                <Text style={{ fontSize: 12 }}>
+                    <Text style={{fontStyle:'italic'}}>[{record.name}]</Text>
+                    {record.content}
+                </Text>
+            </View>
         </View>
     )
 }
