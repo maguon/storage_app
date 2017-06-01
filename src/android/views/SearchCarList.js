@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as CarListAction from '../../actions/CarListAction'
+import * as searchCarListAction from '../../actions/SearchCarListAction'
 import { Actions } from 'react-native-router-flux'
 import SearchCarListLayout from '../layout/SearchCarList'
+import { View } from 'react-native'
 
 class CarList extends Component {
     constructor(props) {
         super(props)
+        this.searchCarList = this.searchCarList.bind(this)
+        this.searchCarListMore = this.searchCarListMore.bind(this)
     }
 
     componentDidMount() {
-        this.props.getCarList({
+
+    }
+
+    searchCarList() {
+        this.props.searchCarList({
             requiredParam: {
                 userid: this.props.user.userId
             },
@@ -24,8 +31,9 @@ class CarList extends Component {
         })
     }
 
-    loadMore() {
-        this.props.getCarList({
+
+    searchCarListMore() {
+        this.props.searchCarListMore({
             requiredParam: {
                 userid: this.props.user.userId
             },
@@ -36,29 +44,42 @@ class CarList extends Component {
                 relStatus: 1,
                 vin: this.props.vin
             }
-        }, false)
+        })
     }
 
     render() {
+        let { carList } = this.props.searchCarListReducer.searchCarList.data
+
+        console.log(this.props)
         return (
-            <SearchCarListLayout {...this.props} loadMore={this.loadMore.bind(this)} />
+            <SearchCarListLayout
+                cars={carList}
+                searchCarListMore={this.searchCarListMore}
+            />
+
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        ...state.CarReducer,
+        searchCarListReducer: state.SearchCarListReducer,
         user: state.LoginReducer.user
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getCarList: (param, isFirst) => {
-        dispatch(CarAction.getCarList(param, isFirst))
+    searchCarList: (param) => {
+        dispatch(searchCarListAction.searchCarList(param))
     },
-    exportCar: (param) => {
-        dispatch(CarAction.getCarList(param))
+    searchCarListMore: (param) => {
+        dispatch(searchCarListAction.searchCarListMore(param))
+    },
+    removeSearchCar: (param) => {
+        dispatch(searchCarListAction.removeSearchCar(param))
+    },
+    resetSearchCarList: () => {
+        dispatch(searchCarListAction.resetSearchCarList())
     }
 })
 

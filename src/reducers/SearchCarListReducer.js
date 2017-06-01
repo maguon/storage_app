@@ -87,8 +87,8 @@ export default handleActions({
         if (data.length == 0) {
             return {
                 ...state,
-                getCarListMore: {
-                    ...state.getCarListMore,
+                searchCarListMore: {
+                    ...state.searchCarListMore,
                     isResultStatus: 3,
                     isExecStatus: 2
                 }
@@ -97,13 +97,13 @@ export default handleActions({
         else {
             return {
                 getCarList: {
-                    ...state.getCarList,
+                    ...state.searchCarList,
                     data: {
-                        carList: [...state.getCarList.data.carList, ...data]
+                        carList: [...state.searchCarList.data.carList, ...data]
                     }
                 },
-                getCarListMore: {
-                    ...state.getCarListMore,
+                searchCarListMore: {
+                    ...state.searchCarListMore,
                     isResultStatus: 0,
                     isExecStatus: 2
                 }
@@ -114,8 +114,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getCarListMore: {
-                ...state.getCarListMore,
+            searchCarListMore: {
+                ...state.searchCarListMore,
                 isResultStatus: 2,
                 isExecStatus: 2,
                 failedMsg: data
