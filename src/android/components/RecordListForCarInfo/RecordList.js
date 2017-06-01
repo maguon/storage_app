@@ -16,7 +16,6 @@ const RecordList = ({ records }) => {
         i++
         return <RecordListItem record={item} key={i} />
     })
-    // console.log('records',records)
     return (
 
         <View style={{ marginVertical: 10, marginHorizontal: 20 }}>

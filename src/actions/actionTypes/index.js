@@ -14,6 +14,7 @@ import * as homeTypes from './HomeTypes'
 import * as selectStorageTypes from './SelectStorageTypes'
 import * as recordListTypes from './RecordListTypes'
 import * as selectStorageForCarListTypes from './SelectStorageForCarListTypes'
+import * as searchCarListTypes from './SearchCarListTypes'
 
 
 export {
@@ -32,5 +33,6 @@ export {
     selectStorageForCarListTypes,
     importCarCameraTypes,
     mainRootTypes,
+    searchCarListTypes,
     recordListTypes
 }

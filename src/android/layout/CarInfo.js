@@ -3,7 +3,7 @@ import { Text, View, Dimensions, ScrollView, Image } from 'react-native'
 import NavBar from '../components/Bar/NavBar'
 import CarInfoComponent from '../components/CarInfo'
 import CarEdit from '../components/CarEdit'
-import CarCamera from '../components/CarCamera'
+import CarCamera from '../components/CarCamera/CarCamera'
 import RecordList from '../components/RecordListForCarInfo/RecordList'
 import ConfirmModal from '../components/ConfirmModal'
 
@@ -50,7 +50,6 @@ const CarInfo = ({ car,
 
     return (
         <View style={{ flex: 1 }}>
-            {/*<Loading isLoading={records.isLoading}/>*/}
             <NavBar title={'车辆详情'} />
             <ScrollView>
                 {_CarInfoComponent}

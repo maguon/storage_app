@@ -7,7 +7,8 @@ import { Actions } from 'react-native-router-flux'
 const window = Dimensions.get('window')
 
 const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
-    let btn, carPosition
+    console.log(car)
+    let btn, carPosition, relExportTime, importAgainBtn
     if (car.rel_status == 1) {
         btn = (<View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >
             <View style={{ flex: 1, marginRight: 10 }}>
@@ -30,10 +31,26 @@ const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
         carPosition = (<View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
             <Text style={{ marginLeft: 10, fontSize: 14 }}>当前位置：{car.storage_name}-{car.row.toString()}-{car.col.toString()}</Text>
         </View>)
+        relExportTime = (<View></View>)
+        importAgainBtn = (<View></View>)
     }
     else {
         btn = (<View></View>)
         carPosition = (<View></View>)
+        relExportTime = (new Date(car.real_out_time)).toLocaleString()
+        relExportTime = (<View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+            <Text style={{ marginLeft: 10, fontSize: 14 }}>出库时间：{relExportTime}</Text>
+        </View>)
+        importAgainBtn = (<View style={{ marginVertical: 10, marginHorizontal: 20 }}>
+            <View style={{ flex: 1, marginRight: 10 }}>
+                <Button
+                    full
+                    style={{ backgroundColor: '#00cade', borderRadius: 5 }}
+                    onPress={() => changeViewType(true)}>
+                    <Text style={{ color: '#ffffff' }}>重新入库</Text>
+                </Button>
+            </View>
+        </View>)
     }
     return (
         <View>
@@ -65,11 +82,13 @@ const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
                 <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                     <Text style={{ marginLeft: 10, fontSize: 14 }}>计划出库：{car.plan_out_time}</Text>
                 </View>
+                {relExportTime}
                 <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                     <Text style={{ marginLeft: 10, fontSize: 14 }}>备注：{car.remark}</Text>
                 </View>
                 {carPosition}
             </View>
+
             <View style={{ marginVertical: 10, marginHorizontal: 20 }}>
                 <View style={{ flex: 1, marginRight: 10 }}>
                     <Button
@@ -80,6 +99,7 @@ const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
                     </Button>
                 </View>
             </View>
+            {importAgainBtn}
             {btn}
         </View>
     )

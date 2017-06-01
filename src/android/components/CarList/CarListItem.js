@@ -34,13 +34,13 @@ const CarListItem = ({ car }) => {
                             <Image source={{ uri: 'import_car' }} style={{ width: 12, height: 12 }} />
                         </View>
                         <View style={{ flex: 7 }}>
-                            <Text style={{ textAlign: 'left' }}>{enter_time}</Text>
+                            <Text style={{ textAlign: 'left' ,fontSize:12}}>{enter_time}</Text>
                         </View>
                         <View style={{ flex: 1 }}>
                             <Image source={{ uri: 'planexport_car' }} style={{ width: 12, height: 12 }} />
                         </View>
                         <View style={{ flex: 4 }}>
-                            <Text style={{ textAlign: 'left' }}>{plan_out_time}</Text>
+                            <Text style={{ textAlign: 'left',fontSize:12 }}>{plan_out_time}</Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', paddingVertical: 5, alignItems: 'center' }}>

@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Text, View, Button, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import TopBar from '../components/Bar/TopBar'
-import CarCamera from '../components/CarCamera'
+import CarCamera from '../components/CarCamera/CarCamera'
 import { Actions } from 'react-native-router-flux'
 import * as ImportCarCameraAction from '../../actions/ImportCarCameraAction'
+
 
 class ImportCarCamera extends Component {
     constructor(props) {
@@ -28,7 +29,6 @@ class ImportCarCamera extends Component {
             userId: this.props.user.userId,
             userType: this.props.user.userType,
         }
-        // console.log('postImage', param)
         this.props.pushCarImage(param)
     }
 

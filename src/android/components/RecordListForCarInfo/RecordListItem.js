@@ -7,7 +7,6 @@ import { Button, Icon } from 'native-base'
 
 const RecordListItem = ({ record }) => {
 
-    //console.log('record', record)
     let created_on = new Date(record.timez)
     let date = created_on.toLocaleDateString()
     let time = created_on.toLocaleTimeString()
@@ -32,7 +31,6 @@ const RecordListItem = ({ record }) => {
         textStyle = styles.outText
     }
 
-    console.log(record)
     return (
 
         <View style={{ flexDirection: 'row' }}>

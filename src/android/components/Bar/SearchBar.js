@@ -26,9 +26,7 @@ export default class SearchBar extends Component {
     }
 
     search() {
-        // console.log(111)
         Actions.SearchCarList({vin:this.state.barcode}) 
-        //this.props.changeTab('carList', true, this.state.barcode)
     }
 
     render() {

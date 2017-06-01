@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     Alert
 } from 'react-native';
-import ImagePicker from 'react-native-image-picker'; //第三方相机
+import ImagePicker from 'react-native-image-picker' //第三方相机
 var photoOptions = {
     //底部弹出框选项
     title: '请选择',
@@ -54,9 +54,9 @@ export default class Camera extends Component {
                     style={styles.cameraImage}
                     source={{ uri: 'http://stg.myxxjs.com:9002/api/user/34/image/5900067ee187d33973181ec0' }} />*/}
             </View>
-        );
+        )
     }
-
+ 
 
     openMycamera = () => {
         ImagePicker.showImagePicker(photoOptions, (image) => {

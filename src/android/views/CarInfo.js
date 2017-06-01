@@ -125,7 +125,7 @@ class CarInfo extends Component {
 
 
 
-        /*moveCar执行状态*/
+        /*editCarInfo执行状态*/
         // if (CarInfoReducer.editCarInfo.isExecStatus == 0) {
         //     console.log('CarInfoReducer.editCarInfo', '未执行')
         // } else 
@@ -148,7 +148,7 @@ class CarInfo extends Component {
         /************************************************************************************************/
 
 
-        /*moveCar执行状态*/
+        /*updatePlanOutTime执行状态*/
         // if (CarInfoReducer.updatePlanOutTime.isExecStatus == 0) {
         //     console.log('CarInfoReducer.updatePlanOutTime', '未执行')
         // } else 
@@ -170,9 +170,35 @@ class CarInfo extends Component {
         }
         /************************************************************************************************/
 
-        //console.log(CarInfoReducer.viewType.isEdit)
+
+
+        /*importCarAgain执行状态*/
+        // if (CarInfoReducer.updatePlanOutTime.isExecStatus == 1) {
+        //     console.log('CarInfoReducer.updatePlanOutTime', '开始执行')
+        // } else if (CarInfoReducer.updatePlanOutTime.isExecStatus == 2) {
+        //     console.log('CarInfoReducer.updatePlanOutTime', '执行完毕')
+        //     if (CarInfoReducer.updatePlanOutTime.isResultStatus == 0) {
+        //         console.log('CarInfoReducer.updatePlanOutTime', '执行成功')
+        //         this.changeViewType(false)
+
+        //     } else if (CarInfoReducer.updatePlanOutTime.isResultStatus == 1) {
+        //         console.log('CarInfoReducer.updatePlanOutTime', '执行错误')
+
+        //     } else if (CarInfoReducer.updatePlanOutTime.isResultStatus == 2) {
+        //         console.log('CarInfoReducer.updatePlanOutTime', '执行失败')
+
+        //     }
+        // }
+        /************************************************************************************************/
+
 
         return true
+    }
+
+
+
+    importCarAgain(){
+
     }
 
     onPressOk() {
@@ -199,9 +225,9 @@ class CarInfo extends Component {
     onPressCancel() {
         this.setState({ confirmModalVisible: false })
     }
+
     getCarInfo() {
         let { carId, relStatus } = this.props
-        console.log(relStatus)
         let { userId } = this.props.user
         let param = {
             requiredParam: {
@@ -217,7 +243,6 @@ class CarInfo extends Component {
             param.optionalParam.relStatus = relStatus
         this.props.getCarInfo(param)
     }
-
 
     moveCar() {
         let { storage_id, storage_name } = this.props.CarInfoReducer.getCarInfo.data.car
@@ -261,10 +286,8 @@ class CarInfo extends Component {
     }
 
     exportCar() {
-
         this.setState({ confirmModalVisible: true })
     }
-
 
     updateCarInfo() {
         let { userId } = this.props.user
