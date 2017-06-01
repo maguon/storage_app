@@ -13,6 +13,8 @@ import * as mainRootTypes from './MainRootTypes'
 import * as homeTypes from './HomeTypes'
 import * as selectStorageTypes from './SelectStorageTypes'
 import * as recordListTypes from './RecordListTypes'
+import * as selectStorageForCarListTypes from './SelectStorageForCarListTypes'
+
 
 export {
     loginTypes,
@@ -27,6 +29,7 @@ export {
     carMakeTypes,
     carModelTypes,
     imporCarTypes,
+    selectStorageForCarListTypes,
     importCarCameraTypes,
     mainRootTypes,
     recordListTypes

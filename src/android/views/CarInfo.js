@@ -201,18 +201,21 @@ class CarInfo extends Component {
     }
     getCarInfo() {
         let { carId, relStatus } = this.props
+        console.log(relStatus)
         let { userId } = this.props.user
-        this.props.getCarInfo({
+        let param = {
             requiredParam: {
                 carId: carId,
                 userId: userId
             },
             optionalParam: {
                 active: 1,
-                relStatus: relStatus,
                 carId: carId
             }
-        })
+        }
+        if (relStatus)
+            param.optionalParam.relStatus = relStatus
+        this.props.getCarInfo(param)
     }
 
 

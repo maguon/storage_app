@@ -14,6 +14,7 @@ import CarInfoReducer from './CarInfoReducer'
 import MainRootReducer from './MainRootReducer'
 import SelectStorageReducer from './SelectStorageReducer'
 import RecordListReducer from './RecordListReducer'
+import SelectStorageForCarListReducer from './SelectStorageForCarListReducer'
 
 export default combineReducers({
     WelcomeReducer,
@@ -30,5 +31,6 @@ export default combineReducers({
     StorageListReducer,
     SelectRowReducer,
     SelectStorageReducer,
-    RecordListReducer
+    RecordListReducer,
+    SelectStorageForCarListReducer
 })

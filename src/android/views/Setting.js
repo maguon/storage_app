@@ -13,6 +13,7 @@ import localStorage from '../../util/LocalStorage'
 import { Button, Container, Content, Header, Icon, Left, Body, Right, Title, List, ListItem, Thumbnail, Toast } from 'native-base'
 import SearchBar from '../components/Bar/SearchBar'
 import ConfirmModal from '../components/ConfirmModal'
+import * as app from '../../android_app.json'
 
 
 class Setting extends Component {
@@ -34,7 +35,6 @@ class Setting extends Component {
     onPressOk() {
         this.setState({ confirmModalVisible: false })
         localStorage.saveKey(localStorageKey.USER, { mobile: this.props.userReducer.user.mobile })
-        // localStorage.removeKey(localStorageKey.USER)
         Actions.login({ type: ActionConst.RESET })
     }
 
@@ -43,10 +43,8 @@ class Setting extends Component {
     }
 
     render() {
-        const { getVersion } = this.props.WelcomeReducer
+        let { getVersion } = this.props.WelcomeReducer
         let viewStyle = { backgroundColor: '#00cade' }
-        let remark = (getVersion.data.remark && getVersion.data.remark != '') ? getVersion.data.remark : '无'
-        console.log(this.props.userReducer)
         return (
 
             <Container style={{ flex: 1 }}>
@@ -74,7 +72,7 @@ class Setting extends Component {
                             </Right>
                         </ListItem>
                         <ListItem>
-                            <Text>版本信息：{remark} </Text>
+                            <Text>版本信息：v{app.version} </Text>
                         </ListItem>
                     </List>
                     <Button light full style={{ marginTop: 80, marginHorizontal: 15, backgroundColor: '#00cade' }} onPress={this.exitApp.bind(this)}>

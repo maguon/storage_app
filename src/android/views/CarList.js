@@ -7,11 +7,18 @@ import CarListLayout from '../layout/CarList'
 class CarList extends Component {
     constructor(props) {
         super(props)
+        this.getCarList = this.getCarList.bind(this)
+        this.getCarListMore = this.getCarListMore.bind(this)
     }
 
     componentDidMount() {
+        this.getCarList()
+    }
+
+    getCarList(storageId = 0) {
         let { userId } = this.props.user
-        this.props.getCarList({
+        let { selectStorageListForCarList } = this.props.selectStorageForCarListReducer
+        let param = {
             requiredParam: {
                 userid: userId
             },
@@ -21,12 +28,17 @@ class CarList extends Component {
                 active: 1,
                 relStatus: 1
             }
-        })
+        }
+        if (storageId != 0)
+            param.optionalParam.storageId = storageId
+        console.log(param)
+        this.props.getCarList(param)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         let { carListReducer } = nextProps
-        console.log(carListReducer)
+        let { selectStorageForCarListReducer } = nextProps
+        // console.log(carListReducer)
         /*getCarList 执行状态*/
         if (carListReducer.getCarList.isExecStatus == 1) {
             console.log('carListReducer.getCarList开始执行')
@@ -65,14 +77,22 @@ class CarList extends Component {
 
         /************************************************************************************************/
 
+        if (selectStorageForCarListReducer.selectStorageListForCarList.id != this.props.selectStorageForCarListReducer.selectStorageListForCarList.id) {
 
+            console.log('刷新', selectStorageForCarListReducer.selectStorageListForCarList.id)
+            this.getCarList(selectStorageForCarListReducer.selectStorageListForCarList.id)
+        }
+        else {
+            console.log('不刷新', selectStorageForCarListReducer.selectStorageListForCarList.id)
+        }
         return true
     }
 
     getCarListMore() {
         let { userId } = this.props.user
         let { carList } = this.props.carListReducer.getCarList.data
-        this.props.getCarListMore({
+        let { selectStorageListForCarList } = this.props.selectStorageForCarListReducer
+        let param = {
             requiredParam: {
                 userid: userId
             },
@@ -82,17 +102,23 @@ class CarList extends Component {
                 active: 1,
                 relStatus: 1
             }
-        })
+        }
+        if (selectStorageListForCarList.id != 0)
+            param.optionalParam.storageId = selectStorageListForCarList.id
+        console.log(param)
+        this.props.getCarListMore(param)
     }
 
     render() {
         let { carList } = this.props.carListReducer.getCarList.data
-        console.log(carList)
+        let { selectStorageListForCarList } = this.props.selectStorageForCarListReducer
+        // console.log(carList)
         return (
             <CarListLayout
                 cars={carList}
                 getCarListWaiting={this.props.carListReducer.getCarList.isExecStatus == 1}
-                getCarListMore={this.getCarListMore.bind(this)} />
+                getCarListMore={this.getCarListMore}
+                storageName={selectStorageListForCarList.storage_name} />
         )
     }
 }
@@ -100,7 +126,8 @@ class CarList extends Component {
 const mapStateToProps = (state) => {
     return {
         carListReducer: state.CarListReducer,
-        user: state.LoginReducer.user
+        user: state.LoginReducer.user,
+        selectStorageForCarListReducer: state.SelectStorageForCarListReducer
     }
 }
 
