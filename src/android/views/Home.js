@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LayoutHome from '../layout/Home'
 import * as HomeAction from '../../actions/HomeAction'
+import * as searchCarListAction from '../../actions/SearchCarListAction'
 import Loading from '../components/Loading/Loading'
 
 class Home extends Component {
@@ -75,6 +76,7 @@ class Home extends Component {
             <LayoutHome
                 storages={storageList}
                 recordList={recordList}
+                changeSearchVin={this.props.changeSearchVin}
             />
         )
     }
@@ -99,6 +101,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetRecordsForHome: () => {
         dispatch(HomeAction.resetRecordsForHome())
+    },
+    changeSearchVin: (param) => {
+        dispatch(searchCarListAction.changeSearchVin(param))
     }
 })
 

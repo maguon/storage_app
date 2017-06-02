@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as CarListAction from '../../actions/CarListAction'
+import * as searchCarListAction from '../../actions/SearchCarListAction'
 import { Actions } from 'react-native-router-flux'
 import CarListLayout from '../layout/CarList'
 
@@ -24,7 +25,7 @@ class CarList extends Component {
             },
             optionalParam: {
                 start: 0,
-                size: 13,
+                size: 20,
                 active: 1,
                 relStatus: 1
             }
@@ -65,7 +66,7 @@ class CarList extends Component {
         } else if (carListReducer.getCarListMore.isExecStatus == 2) {
             console.log('carListReducer.getCarListMore执行完毕')
             if (carListReducer.getCarListMore.isResultStatus == 0) {
-                console.log('carListReducer.getCarListMore执行成功没有到底', carListReducer.getCarList.data)
+                console.log('carListReducer.getCarListMore执行成功没有到底')
             } else if (carListReducer.getCarListMore.isResultStatus == 1) {
                 console.log('carListReducer.getCarListMore执行错误')
             } else if (carListReducer.getCarListMore.isResultStatus == 2) {
@@ -79,11 +80,11 @@ class CarList extends Component {
 
         if (selectStorageForCarListReducer.selectStorageListForCarList.id != this.props.selectStorageForCarListReducer.selectStorageListForCarList.id) {
 
-            console.log('刷新', selectStorageForCarListReducer.selectStorageListForCarList.id)
+            // console.log('刷新', selectStorageForCarListReducer.selectStorageListForCarList.id)
             this.getCarList(selectStorageForCarListReducer.selectStorageListForCarList.id)
         }
         else {
-            console.log('不刷新', selectStorageForCarListReducer.selectStorageListForCarList.id)
+            // console.log('不刷新', selectStorageForCarListReducer.selectStorageListForCarList.id)
         }
         return true
     }
@@ -98,7 +99,7 @@ class CarList extends Component {
             },
             optionalParam: {
                 start: carList.length,
-                size: 1,
+                size: 20,
                 active: 1,
                 relStatus: 1
             }
@@ -117,7 +118,8 @@ class CarList extends Component {
                 cars={carList}
                 getCarListWaiting={this.props.carListReducer.getCarList.isExecStatus == 1}
                 getCarListMore={this.getCarListMore}
-                storageName={selectStorageListForCarList.storage_name} />
+                storageName={selectStorageListForCarList.storage_name}
+                changeSearchVin={this.props.changeSearchVin} />
         )
     }
 }
@@ -139,6 +141,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetGetCarList: () => {
         dispatch(CarListAction.resetGetCarList())
+    }, 
+    changeSearchVin: (param) => {
+        dispatch(searchCarListAction.changeSearchVin(param))
     }
 })
 

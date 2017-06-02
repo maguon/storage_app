@@ -20,6 +20,9 @@ const initialState = {
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: ''
+    },
+    searchVin: {
+        vin: ''
     }
 }
 
@@ -152,6 +155,15 @@ export default handleActions({
                 data: {
                     carList: state.searchCarList.data.carList.filter(item => { return item.id != data })
                 }
+            }
+        }
+    },
+    [actionTypes.searchCarListTypes.CHANGE_SEARCHVIN]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            searchVin: {
+                vin: data
             }
         }
     }

@@ -5,20 +5,21 @@ import Car from '../components/CarList/CarListItem'
 import { Actions } from 'react-native-router-flux'
 import SearchBar from '../components/Bar/SearchBar'
 import CarListComponent from '../components/CarList/CarList'
-import Loading from '../components/Loading/Loading'
-import NavBar from '../components/Bar/NavBar'
+import NavSearchBar from '../components/Bar/NavSearchBar'
 
 const window = Dimensions.get('window')
 
-const CarList = ({ isLoading, cars, getCarList, loadMore, changeTab }) => {
+const CarList = ({ cars, searchCarListMore, searchVin, changeSearchVin, searchCarList }) => {
     return (
         <View style={{ flex: 1, width: window.width }}>
-            <Loading isLoading={isLoading} />
-            <NavBar title={'查询结果'} />
+            <NavSearchBar
+                searchVin={searchVin}
+                changeSearchVin={changeSearchVin}
+                searchCarList={searchCarList}
+            />
             <CarListComponent
                 cars={cars}
-                getCarList={getCarList}
-                loadMore={loadMore} />
+                searchCarListMore={searchCarListMore} />
         </View>
     )
 }

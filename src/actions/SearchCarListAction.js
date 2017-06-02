@@ -20,6 +20,7 @@ export const REMOVE_SEARCH_CAR = 'REMOVE_SEARCH_CAR'
 export const searchCarList = (param) => (dispatch) => {
     dispatch({ type: actionTypes.searchCarListTypes.SEARCH_CARLIST_WAITING, payload: {} })
     let url = `${base_host}/user/${param.requiredParam.userid}/car?${ObjectToUrl(param.optionalParam)}`
+    console.log(url)
     httpRequest
         .get(url, (err, res) => {
             if (err) {
@@ -59,4 +60,9 @@ export const removeSearchCar = (carId) => (dispatch) => {
 export const resetSearchCarList = () => (dispatch) => {
     dispatch({ type: actionTypes.searchCarListTypes.RESET_SEARCH_CARLIST, payload: {} })
 }
+
+export const changeSearchVin = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.searchCarListTypes.CHANGE_SEARCHVIN, payload: { data: param } })
+}
+
 

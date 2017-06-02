@@ -26,13 +26,13 @@ export default class SearchBar extends Component {
     }
 
     search() {
-        Actions.SearchCarList({vin:this.state.barcode}) 
+        this.props.changeSearchVin(this.state.barcode)
+        Actions.SearchCarList()
     }
 
     render() {
         let { viewStyle } = this.props
         return (
-
             <Header searchBar style={viewStyle}>
                 <Left style={{ flex: 1 }}>
                     <Button transparent onPress={() => { this.setState({ barcodeModalVisible: true }) }}>

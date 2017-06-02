@@ -6,6 +6,7 @@ import { Alert } from 'react-native'
 import { connect } from 'react-redux'
 import * as CarInfoAction from '../../actions/CarInfoAction'
 import * as CarListAction from '../../actions/CarListAction'
+import * as SearchCarListAction from '../../actions/SearchCarListAction'
 import { Actions } from 'react-native-router-flux'
 import CarInfoLayout from '../layout/CarInfo'
 
@@ -31,7 +32,7 @@ class CarInfo extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         let { CarInfoReducer } = nextProps
-        let { removeCar, resetExportCar, resetMoveCar, resetAppendCarImage, resetGetCarInfo } = nextProps
+        let { removeCar, resetExportCar, resetMoveCar, resetAppendCarImage, resetGetCarInfo, removeSearchCar } = nextProps
         let { carId } = this.props
         //  console.log(CarInfoReducer)
         /*getCarInfo 执行状态*/
@@ -68,6 +69,7 @@ class CarInfo extends Component {
                 console.log('CarInfoReducer.exportCar', '执行成功')
                 resetExportCar()
                 removeCar(carId)
+                removeSearchCar(carId)
 
             } else if (CarInfoReducer.exportCar.isResultStatus == 1) {
                 resetExportCar()
@@ -197,7 +199,7 @@ class CarInfo extends Component {
 
 
 
-    importCarAgain(){
+    importCarAgain() {
 
     }
 
@@ -371,8 +373,6 @@ const mapStateToProps = (state) => {
     return {
         user: state.LoginReducer.user,
         CarInfoReducer: state.CarInfoReducer,
-        // carId: 337,
-        // relStatus: 1
     }
 }
 
@@ -391,6 +391,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     removeCar: (carId) => {
         dispatch(CarListAction.removeCar(carId))
+    },
+    removeSearchCar: (carId) => {
+        dispatch(SearchCarListAction.removeSearchCar(carId))
     },
     resetExportCar: () => {
         dispatch(CarInfoAction.resetExportCar())

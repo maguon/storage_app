@@ -13,50 +13,102 @@ class CarList extends Component {
     }
 
     componentDidMount() {
+        this.searchCarList()
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        let { searchCarListReducer } = nextProps
+        // console.log(carListReducer)
+        /*getCarList 执行状态*/
+        if (searchCarListReducer.searchCarList.isExecStatus == 1) {
+            console.log('searchCarListReducer.searchCarList开始执行')
+        } else if (searchCarListReducer.searchCarList.isExecStatus == 2) {
+            console.log('searchCarListReducer.searchCarList执行完毕')
+            if (searchCarListReducer.searchCarList.isResultStatus == 0) {
+                console.log('searchCarListReducer.searchCarList执行成功')
+                this.props.resetSearchCarList()
+            } else if (searchCarListReducer.searchCarList.isResultStatus == 1) {
+                console.log('searchCarListReducer.searchCarList执行错误',searchCarListReducer.searchCarList.errorMsg)
+                this.props.resetSearchCarList()
+            } else if (searchCarListReducer.searchCarList.isResultStatus == 2) {
+                console.log('searchCarListReducer.searchCarList执行失败')
+                this.props.resetSearchCarList()
+            }
+        }
+
+
+        /************************************************************************************************/
+
+        /*getCarListMore 执行状态*/
+        if (searchCarListReducer.searchCarListMore.isExecStatus == 1) {
+            console.log('searchCarListReducer.searchCarListMore开始执行')
+        } else if (searchCarListReducer.searchCarListMore.isExecStatus == 2) {
+            console.log('searchCarListReducer.searchCarListMore执行完毕')
+            if (searchCarListReducer.searchCarListMore.isResultStatus == 0) {
+                console.log('searchCarListReducer.searchCarListMore执行成功没有到底')
+            } else if (searchCarListReducer.searchCarListMore.isResultStatus == 1) {
+                console.log('searchCarListReducer.searchCarListMore执行错误')
+            } else if (searchCarListReducer.searchCarListMore.isResultStatus == 2) {
+                console.log('searchCarListReducer.searchCarListMore执行失败')
+            } else if (searchCarListReducer.searchCarListMore.isResultStatus == 3) {
+                console.log('searchCarListReducer.searchCarListMore已经到底')
+            }
+        }
+
+        /************************************************************************************************/
+
+        return true
 
     }
 
     searchCarList() {
-        this.props.searchCarList({
+        let { user } = this.props
+        let { vin } = this.props.searchCarListReducer.searchVin
+        let param = {
             requiredParam: {
-                userid: this.props.user.userId
+                userid: user.userId
             },
             optionalParam: {
                 start: 0,
                 size: 20,
                 active: 1,
                 relStatus: 1,
-                vin: this.props.vin
+                vin: vin
             }
-        })
+        }
+        this.props.searchCarList(param)
     }
 
-
     searchCarListMore() {
+        let { user } = this.props
+        let { vin } = this.props.searchCarListReducer.searchVin
+        let { carList } = this.props.searchCarListReducer.searchCarList.data
         this.props.searchCarListMore({
             requiredParam: {
-                userid: this.props.user.userId
+                userid: user.userId
             },
             optionalParam: {
-                start: this.props.cars.length,
+                start: carList.length,
                 size: 20,
                 active: 1,
                 relStatus: 1,
-                vin: this.props.vin
+                vin: vin
             }
         })
     }
 
     render() {
         let { carList } = this.props.searchCarListReducer.searchCarList.data
-
-        console.log(this.props)
+        let { vin } = this.props.searchCarListReducer.searchVin
+        let { changeSearchVin } = this.props
         return (
             <SearchCarListLayout
                 cars={carList}
                 searchCarListMore={this.searchCarListMore}
+                searchVin={vin}
+                searchCarList={this.searchCarList}
+                changeSearchVin={changeSearchVin}
             />
-
         )
     }
 }
@@ -80,6 +132,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetSearchCarList: () => {
         dispatch(searchCarListAction.resetSearchCarList())
+    },
+    changeSearchVin: (param) => {
+        dispatch(searchCarListAction.changeSearchVin(param))
     }
 })
 

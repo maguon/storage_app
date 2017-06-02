@@ -14,18 +14,18 @@ import SearchBar from '../components/Bar/SearchBar'
 
 const window = Dimensions.get('window')
 
-const Home = ({ storages, recordList }) => {
+const Home = ({ storages, recordList, changeSearchVin }) => {
     let viewStyle = { backgroundColor: 'rgba(0,0,0,0.16)' }
     return (
         <View style={{ flex: 1 }}>
             <View>
                 <Image source={{ uri: 'banner_back' }} style={styles.image} />
                 <View style={styles.search}>
-                    <SearchBar viewStyle={viewStyle} />
+                    <SearchBar viewStyle={viewStyle} changeSearchVin={changeSearchVin} />
                 </View>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}
-                         overScrollMode='auto'>
+                overScrollMode='auto'>
 
                 <StorageList storages={storages} />
                 <RecordList recordList={recordList} />
