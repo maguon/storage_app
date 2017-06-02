@@ -120,7 +120,6 @@ export const updateCarInfo = (param) => (dispatch) => {
 
 
 export const updateCarInfoPlanOutTime = (param) => (dispatch) => {
-    // http://stg.myxxjs.com:9001/api/user/38/carStorageRel/408/planOutTime
     let url = `${base_host}/user/${param.requiredParam.userId}/carStorageRel/${param.requiredParam.relId}/planOutTime`
 
     dispatch({ type: actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_WAITING, payload: {} })
@@ -181,8 +180,31 @@ export const changeEditCarInfoEngineNum = (param) => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_ENGINENUM, payload: { data: param } })
 }
 
+export const changeImportAgainPlanOutTime = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_IMPORTAGAIN_PLANOUTIME, payload: { data: param } })
+}
+
+export const changeImportAgainParking = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_IMPORTAGAIN_PARKING, payload: { data: param } })
+}
 
 
-
-
-
+export const importAgain = (param) => (dispatch) => {
+    let url = `${base_host}/user/${param.requiredParam.userId}/againCarStorageRel?carId=${param.requiredParam.carId}&vin=${param.requiredParam.vin}`
+    dispatch({ type: actionTypes.carInfoTypes.IMPORT_AGAIN_WAITING, payload: {} })
+    httpRequest
+        .post(url, param.postParam, (err, res) => {
+            if (err) {
+                dispatch({ type: actionTypes.carInfoTypes.IMPORT_AGAIN_ERROR, payload: { data: err } })
+            } else {
+                if (res.success) {
+                    dispatch({ type: actionTypes.carInfoTypes.IMPORT_AGAIN_SUCCESS, payload: { data: param.updateParam } })
+                } else {
+                    dispatch({ type: actionTypes.carInfoTypes.IMPORT_AGAIN_FAILED, payload: { data: res.msg } })
+                }
+            }
+        })
+}
+export const resetImportAgain = () => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.RESET_IMPORT_AGAIN, payload: {} })
+}

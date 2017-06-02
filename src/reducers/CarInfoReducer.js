@@ -47,7 +47,7 @@ const initialState = {
         failedMsg: ''
     },
     viewType: {
-        isEdit: false //view=false edit=true
+        type: 0 //view=0 edit=1 importAgain=2
     },
     editCarInfo: {
         data: {
@@ -67,6 +67,28 @@ const initialState = {
         failedMsg: ''
     },
     updatePlanOutTime: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: ''
+    },
+    carImportAgain: {
+        data: {
+            vin: '',
+            make_name: '',
+            model_name: '',
+            pro_date: '',
+            colour: '',
+            engine_num: '',
+            remark: '',
+            parkingId: 0,
+            storageId: 0,
+            storageName: '',
+            planOutTime: '',
+            row: '',
+            col: '',
+            carId: 0
+        },
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
@@ -319,26 +341,50 @@ export default handleActions({
     },
     [actionTypes.carInfoTypes.CHANGE_VIEWTYPE]: (state, action) => {
         const { payload: { data } } = action
-        let editCarInfo = data ? {
-            ...state.editCarInfo,
-            data: state.getCarInfo.data.car,
-            isExecStatus: 0
-        } : {
+        let editCarInfo, carImportAgain
+        let { vin, make_name, model_name, pro_date, colour, engine_num, remark, id } = state.getCarInfo.data.car
+        // console.log(state.getCarInfo.data.car)
+        if (data == 0) {
+            editCarInfo = { ...state.editCarInfo, isExecStatus: 0 }
+            carImportAgain = { ...state.carImportAgain, isExecStatus: 0 }
+        } else if (data == 1) {
+            editCarInfo = {
                 ...state.editCarInfo,
+                data: state.getCarInfo.data.car,
                 isExecStatus: 0
             }
 
+            carImportAgain = { ...state.carImportAgain, isExecStatus: 0 }
+        } else if (data == 2) {
+            editCarInfo = { ...state.editCarInfo, isExecStatus: 0 }
+            carImportAgain = {
+                ...state.carImportAgain,
+                data: {
+                    ...state.carImportAgain.data,
+                    vin: vin,
+                    make_name: make_name,
+                    model_name: model_name,
+                    pro_date: pro_date,
+                    colour: colour,
+                    engine_num: engine_num,
+                    remark: remark,
+                    carId: id
+                },
+                isExecStatus: 0
+            }
+        }
         return {
             ...state,
             viewType: {
                 ...state.viewType,
-                isEdit: data
+                type: data
             },
             editCarInfo: editCarInfo,
             updatePlanOutTime: {
                 ...state.updatePlanOutTime,
                 isExecStatus: 0
-            }
+            },
+            carImportAgain: carImportAgain
         }
     },
     [actionTypes.carInfoTypes.UPDATE_CARINFO_SUCCESS]: (state, action) => {
@@ -535,10 +581,101 @@ export default handleActions({
             updatePlanOutTime: {
                 ...state.updatePlanOutTime,
                 isExecStatus: 2,
-                isResultStatus: 1,
+                isResultStatus: 2,
                 failedMsg: data
             }
         }
-    }
+    },
+    [actionTypes.carInfoTypes.CHANGE_IMPORTAGAIN_PARKING]: (state, action) => {
+        const { payload: { data } } = action
+        let { row, column, storageName, storageId, parkingId } = data
+        return {
+            ...state,
+            carImportAgain: {
+                ...state.carImportAgain,
+                data: {
+                    ...state.carImportAgain.data,
+                    parkingId: parkingId,
+                    storageId: storageId,
+                    storageName: storageName,
+                    row: row,
+                    col: column
+                }
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.CHANGE_IMPORTAGAIN_PLANOUTIME]: (state, action) => {
+        const { payload: { data } } = action
+
+        return {
+            ...state,
+            carImportAgain: {
+                ...state.carImportAgain,
+                data: {
+                    ...state.carImportAgain.data,
+                    planOutTime: data
+                }
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.IMPORT_AGAIN_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
+        const { storage_name, plan_out_time, row,col } = data
+        return {
+            ...state,
+            getCarInfo: {
+                ...state.getCarInfo,
+                data: {
+                    ...state.getCarInfo.data,
+                    car: {
+                        ...state.getCarInfo.data.car,
+                        storage_name: storage_name,
+                        plan_out_time: plan_out_time,
+                        row: row,
+                        col: col,
+                        rel_status: 1
+                    }
+                }
+            },
+            carImportAgain: {
+                ...state.carImportAgain,
+                isExecStatus: 2,
+                isResultStatus: 0
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.IMPORT_AGAIN_ERROR]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            carImportAgain: {
+                ...state.carImportAgain,
+                isExecStatus: 2,
+                isResultStatus: 1,
+                errorMsg: data
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.IMPORT_AGAIN_WAITING]: (state, action) => {
+        return {
+            ...state,
+            carImportAgain: {
+                ...state.carImportAgain,
+                isExecStatus: 1
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.IMPORT_AGAIN_FAILED]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            carImportAgain: {
+                ...state.carImportAgain,
+                isExecStatus: 2,
+                isResultStatus: 2,
+                failedMsg: data
+            }
+        }
+    },
 }, initialState)
 

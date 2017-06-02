@@ -155,7 +155,7 @@ export default class CarEdit extends Component {
                         <Button
                             full
                             style={{ backgroundColor: '#00cade', borderRadius: 5 }}
-                            onPress={() => changeViewType(false)}>
+                            onPress={() => changeViewType(0)}>
                             <Text style={{ color: '#ffffff' }}>取消编辑</Text>
                         </Button>
                     </View>

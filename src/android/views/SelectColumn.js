@@ -17,6 +17,7 @@ export default class SelectColumn extends Component {
     render() {
         let columns = this.props.columns.map(item => {
             return (
+                
                 <ListItem key={item.col} button onPress={() => this.chageParkingId({
                     row: this.props.row,
                     column: item.col,

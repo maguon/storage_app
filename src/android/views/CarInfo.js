@@ -21,11 +21,14 @@ class CarInfo extends Component {
         this.updateCarInfo = this.updateCarInfo.bind(this)
         this.onPressOk = this.onPressOk.bind(this)
         this.onPressCancel = this.onPressCancel.bind(this)
+        this.importAgain = this.importAgain.bind(this)
         this.state = {
             confirmModalVisible: false
         }
     }
-
+    componentWillUnmount() {
+        this.props.changeViewType(0)
+    }
     componentDidMount() {
         this.getCarInfo()
     }
@@ -137,7 +140,7 @@ class CarInfo extends Component {
             console.log('CarInfoReducer.editCarInfo', '执行完毕')
             if (CarInfoReducer.editCarInfo.isResultStatus == 0) {
                 console.log('CarInfoReducer.editCarInfo', '执行成功')
-                this.changeViewType(false)
+                this.changeViewType(0)
 
             } else if (CarInfoReducer.editCarInfo.isResultStatus == 1) {
                 console.log('CarInfoReducer.editCarInfo', '执行错误')
@@ -160,7 +163,7 @@ class CarInfo extends Component {
             console.log('CarInfoReducer.updatePlanOutTime', '执行完毕')
             if (CarInfoReducer.updatePlanOutTime.isResultStatus == 0) {
                 console.log('CarInfoReducer.updatePlanOutTime', '执行成功')
-                this.changeViewType(false)
+                this.changeViewType(0)
 
             } else if (CarInfoReducer.updatePlanOutTime.isResultStatus == 1) {
                 console.log('CarInfoReducer.updatePlanOutTime', '执行错误')
@@ -174,33 +177,56 @@ class CarInfo extends Component {
 
 
 
-        /*importCarAgain执行状态*/
-        // if (CarInfoReducer.updatePlanOutTime.isExecStatus == 1) {
-        //     console.log('CarInfoReducer.updatePlanOutTime', '开始执行')
-        // } else if (CarInfoReducer.updatePlanOutTime.isExecStatus == 2) {
-        //     console.log('CarInfoReducer.updatePlanOutTime', '执行完毕')
-        //     if (CarInfoReducer.updatePlanOutTime.isResultStatus == 0) {
-        //         console.log('CarInfoReducer.updatePlanOutTime', '执行成功')
-        //         this.changeViewType(false)
-
-        //     } else if (CarInfoReducer.updatePlanOutTime.isResultStatus == 1) {
-        //         console.log('CarInfoReducer.updatePlanOutTime', '执行错误')
-
-        //     } else if (CarInfoReducer.updatePlanOutTime.isResultStatus == 2) {
-        //         console.log('CarInfoReducer.updatePlanOutTime', '执行失败')
-
-        //     }
-        // }
+        /*importAgain执行状态*/
+        if (CarInfoReducer.carImportAgain.isExecStatus == 1) {
+            console.log('CarInfoReducer.carImportAgain', '开始执行')
+        } else if (CarInfoReducer.carImportAgain.isExecStatus == 2) {
+            console.log('CarInfoReducer.carImportAgain', '执行完毕')
+            if (CarInfoReducer.carImportAgain.isResultStatus == 0) {
+                console.log('CarInfoReducer.carImportAgain', '执行成功')
+                this.changeViewType(0)
+                this.props.resetImportAgain()
+            } else if (CarInfoReducer.carImportAgain.isResultStatus == 1) {
+                console.log('CarInfoReducer.carImportAgain执行错误', CarInfoReducer.carImportAgain)
+                this.props.resetImportAgain()
+            } else if (CarInfoReducer.carImportAgain.isResultStatus == 2) {
+                console.log('CarInfoReducer.carImportAgain', '执行失败')
+                Alert.alert('入库失败', CarInfoReducer.carImportAgain.failedMsg)
+                this.props.resetImportAgain()
+            }
+        }
         /************************************************************************************************/
 
 
         return true
     }
 
+    importAgain() {
+        let { userId } = this.props.user
+        let { id, vin } = this.props.CarInfoReducer.getCarInfo.data.car
+        let { parkingId, storageId, storageName, planOutTime, row, col } = this.props.CarInfoReducer.carImportAgain.data
 
-
-    importCarAgain() {
-
+        let param = {
+            requiredParam: {
+                userId: userId,
+                carId: id,
+                vin: vin
+            },
+            postParam: {
+                parkingId: parkingId,
+                storageId: storageId,
+                storageName: storageName,
+                planOutTime: planOutTime
+            },
+            updateParam: {
+                storage_name: storageName,
+                plan_out_time: planOutTime,
+                row: row,
+                col: col,
+            }
+        }
+        this.props.importAgain(param)
+        // console.log('importAgain', param)
     }
 
     onPressOk() {
@@ -332,18 +358,22 @@ class CarInfo extends Component {
 
     render() {
         let { car, recordList, imageList } = this.props.CarInfoReducer.getCarInfo.data
+        let importAgainCar = this.props.CarInfoReducer.carImportAgain.data
         let { editCarInfo } = this.props.CarInfoReducer
-        let { isEdit } = this.props.CarInfoReducer.viewType
+        let { type } = this.props.CarInfoReducer.viewType
         let { changeEditCarInfoModel,
             changeEditCarInfoColor,
             changeEditCarInfoRemark,
             changeEditCarInfoProDate,
             changeEditCarInfoPlanOutTime,
             changeEditCarInfoEngineNum,
-            updateCarInfo } = this.props
+            updateCarInfo,
+            changeParkingForImportAgain,
+            changePlanOutTimeForImportAgain } = this.props
         return (
             <CarInfoLayout
                 car={car}
+                importAgainCar={importAgainCar}
                 editCarInfo={editCarInfo.data}
                 exportCar={this.exportCar}
                 moveCar={this.moveCar}
@@ -351,7 +381,7 @@ class CarInfo extends Component {
                 images={imageList}
                 postImage={this.appendImage}
                 changeViewType={this.props.changeViewType}
-                isEdit={isEdit}
+                viewType={type}
                 onPressOk={this.onPressOk}
                 onPressCancel={this.onPressCancel}
                 confirmModalVisible={this.state.confirmModalVisible}
@@ -362,6 +392,9 @@ class CarInfo extends Component {
                 changeEditCarInfoProDate={changeEditCarInfoProDate}
                 changeEditCarInfoPlanOutTime={changeEditCarInfoPlanOutTime}
                 changeEditCarInfoEngineNum={changeEditCarInfoEngineNum}
+                importAgain={this.importAgain}
+                changeParkingForImportAgain={changeParkingForImportAgain}
+                changePlanOutTimeForImportAgain={changePlanOutTimeForImportAgain}
             />
         )
     }
@@ -433,6 +466,18 @@ const mapDispatchToProps = (dispatch) => ({
     },
     updateCarInfoPlanOutTime: (param) => {
         dispatch(CarInfoAction.updateCarInfoPlanOutTime(param))
+    },
+    changeParkingForImportAgain: (param) => {
+        dispatch(CarInfoAction.changeImportAgainParking(param))
+    },
+    changePlanOutTimeForImportAgain: (param) => {
+        dispatch(CarInfoAction.changeImportAgainPlanOutTime(param))
+    },
+    importAgain: (param) => {
+        dispatch(CarInfoAction.importAgain(param))
+    },
+    resetImportAgain: () => {
+        dispatch(CarInfoAction.resetImportAgain())
     }
 })
 

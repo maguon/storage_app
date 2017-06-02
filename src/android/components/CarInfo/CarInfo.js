@@ -7,7 +7,7 @@ import { Actions } from 'react-native-router-flux'
 const window = Dimensions.get('window')
 
 const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
-    console.log(car)
+
     let btn, carPosition, relExportTime, importAgainBtn
     if (car.rel_status == 1) {
         btn = (<View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >
@@ -46,7 +46,7 @@ const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
                 <Button
                     full
                     style={{ backgroundColor: '#00cade', borderRadius: 5 }}
-                    onPress={() => changeViewType(true)}>
+                    onPress={() => changeViewType(2)}>
                     <Text style={{ color: '#ffffff' }}>重新入库</Text>
                 </Button>
             </View>
@@ -59,10 +59,7 @@ const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
                     <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18 }}>VIN：{car.vin}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                    <View style={{
-                        flex: 1, paddingVertical: 10,
-                        marginLeft: 10
-                    }}>
+                    <View style={{ flex: 1, paddingVertical: 10, marginLeft: 10 }}>
                         <Text style={{ fontSize: 14 }}>品牌：{car.make_name}</Text>
                     </View>
                     <View style={{ flex: 1, paddingVertical: 10, marginLeft: 10 }}>
@@ -94,7 +91,7 @@ const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
                     <Button
                         full
                         style={{ backgroundColor: '#00cade', borderRadius: 5 }}
-                        onPress={() => changeViewType(true)}>
+                        onPress={() => changeViewType(1)}>
                         <Text style={{ color: '#ffffff' }}>编辑</Text>
                     </Button>
                 </View>
