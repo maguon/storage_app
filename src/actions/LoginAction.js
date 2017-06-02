@@ -39,6 +39,7 @@ export const login = (params) => (dispatch) => {
                                 }
                                 localStorage.saveKey(localStorageKey.USER, user)
                                 requestHeaders.set('user-name', getUserInfoRes.result[0].mobile)
+                                requestHeaders.set('user-type', res.result.type)
                                 dispatch({ type: actionTypes.loginTypes.LOGIN_SUCCESS, payload: { data: user } })
                             }
                             else {
