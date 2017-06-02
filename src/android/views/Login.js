@@ -55,21 +55,28 @@ class Login extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        let { isJump, isLoginSuccess } = nextProps.loginInfo
-        if (isJump) {
-            if (isLoginSuccess) {
+        let { loginInfo } = nextProps
+        /*loginInfo执行状态*/
+        if (loginInfo.isExecStatus == 1) {
+            console.log('loginInfo开始执行')
+        } else if (loginInfo.isExecStatus == 2) {
+            console.log('loginInfo执行完毕')
+            if (loginInfo.isResultStatus == 0) {
+                this.props.resetLogin()
                 Actions.main()
+            } else if (loginInfo.isResultStatus == 1) {
+                this.props.resetLogin()
+                Alert.alert('登录错误', '请输入正确的账号与密码')
+            } else if (loginInfo.isResultStatus == 2) {
+                this.props.resetLogin()
+                Alert.alert('登录错误', '请输入正确的账号与密码')
             }
-            else {
-                Alert.alert('账号密码错误请重新登录')
-            }
-            return false
         }
+
         return true
     }
 
     render() {
-        // const { loginInfo } = this.props
 
         return <LoginLayout
             login={this.login}
@@ -91,6 +98,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     login: (param) => {
         dispatch(LoginAction.login(param))
+    },
+    resetLogin: () => {
+        dispatch(LoginAction.resetLogin())
     }
 })
 

@@ -31,7 +31,9 @@ const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
         carPosition = (<View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
             <Text style={{ marginLeft: 10, fontSize: 14 }}>当前位置：{car.storage_name}-{car.row.toString()}-{car.col.toString()}</Text>
         </View>)
-        relExportTime = (<View></View>)
+        relExportTime = (<View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
+            <Text style={{ marginLeft: 10, fontSize: 14 }}>计划出库：{car.plan_out_time}</Text>
+        </View>)
         importAgainBtn = (<View></View>)
     }
     else {
@@ -76,9 +78,7 @@ const CarInfo = ({ car, exportCar, moveCar, changeViewType }) => {
                 <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                     <Text style={{ marginLeft: 10, fontSize: 14 }}>生产日期：{car.pro_date}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
-                    <Text style={{ marginLeft: 10, fontSize: 14 }}>计划出库：{car.plan_out_time}</Text>
-                </View>
+
                 {relExportTime}
                 <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                     <Text style={{ marginLeft: 10, fontSize: 14 }}>备注：{car.remark}</Text>
