@@ -3,7 +3,7 @@ import { Text, TextInput, View, Dimensions, ScrollView, Image, TouchableHighligh
 import { Button } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import * as colorList from '../../config/ColorList.json'
+import * as colorList from '../../../config/ColorList.json'
 
 const window = Dimensions.get('window')
 
