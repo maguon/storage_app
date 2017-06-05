@@ -620,7 +620,7 @@ export default handleActions({
     },
     [actionTypes.carInfoTypes.IMPORT_AGAIN_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-        const { storage_name, plan_out_time, row,col } = data
+        const { storage_name, plan_out_time, row, col } = data
         return {
             ...state,
             getCarInfo: {
@@ -677,5 +677,15 @@ export default handleActions({
             }
         }
     },
+    [actionTypes.carInfoTypes.RESET_IMPORT_AGAIN]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            carImportAgain: {
+                ...state.carImportAgain,
+                isExecStatus: 0
+            }
+        }
+    }
 }, initialState)
 
