@@ -207,7 +207,6 @@ class CarInfo extends Component {
             }
         }
         this.props.importAgain(param)
-        // console.log('importAgain', param)
     }
 
     onPressOk() {

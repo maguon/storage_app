@@ -41,7 +41,7 @@ class SelectCarMake extends Component {
     render() {
         let { carMakeList } = this.props.carMakesReducer.carMakes.data
         let carMakes = carMakeList.map(item => {
-            return (<ListItem button key={item.id} onPress={() => Actions.SelectCarModel({ makeId: item.id, makeName: item.make_name, changeModel: this.props.changeModel })}>
+            return (<ListItem button key={item.id} onPress={() => Actions.SelectCarModel({ makeId: item.id, makeName: item.make_name, onSelectModel: this.props.onSelectModel })}>
                 <Text>{item.make_name}</Text>
             </ListItem>)
         })

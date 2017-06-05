@@ -24,19 +24,8 @@ const window = Dimensions.get('window')
 class ImportCar extends Component {
     constructor(props) {
         super(props)
-    }
 
-    importCar() {
-        let param = {
-            requiredParam: {
-                userid: this.props.user.userId
-            },
-            postParam: {
-                ...this.props.imporCarReducer.importCar.data,
-                colour: this.props.imporCarReducer.importCar.data.color
-            }
-        }
-        this.props.importCar(param)
+        this.showPicker = this.showPicker.bind(this)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -63,11 +52,25 @@ class ImportCar extends Component {
         return true
     }
 
+
+    importCar() {
+        let param = {
+            requiredParam: {
+                userid: this.props.user.userId
+            },
+            postParam: {
+                ...this.props.imporCarReducer.importCar.data,
+                colour: this.props.imporCarReducer.importCar.data.color
+            }
+        }
+        this.props.importCar(param)
+    }
+
     colorPanelRender() {
         let { color } = this.props.imporCarReducer.importCar.data
         let colorPanel = colorList.list.map(item => {
             if (color != item.colorId)
-                return (<TouchableHighlight key={item.colorName} underlayColor='rgba(0,0,0,0.1)' onPress={() => this.props.changeColor(item.colorId)}>
+                return (<TouchableHighlight key={item.colorName} underlayColor='rgba(0,0,0,0.1)' onPress={() => this.props.changeImportCarField({ color: item.colorId })}>
                     <View key={item.colorName} style={{ width: 20, height: 20, borderColor: `#dddddd`, borderWidth: 1, alignSelf: 'center', backgroundColor: `#${item.colorId}`, marginVertical: 2, marginHorizontal: 2 }}></View></TouchableHighlight>
                 )
             else
@@ -81,13 +84,9 @@ class ImportCar extends Component {
         try {
             const { action, year, month, day } = await DatePickerAndroid.open(options)
             if (action !== DatePickerAndroid.dismissedAction) {
-                // let date = new Date(year, month, day)
-                if (stateKey == 'planOutTime') {
-                    // console.log(date.toDateString())
-                    this.props.changePlanOutTime(`${year}-${month + 1}-${day}`)
-                } else if (stateKey == 'proDate') {
-                    this.props.changeProDate(`${year}-${month + 1}-${day}`)
-                }
+                let param = {}
+                param[stateKey] = `${year}-${month + 1}-${day}`
+                this.props.changeImportCarField(param)
             }
         } catch ({ code, message }) {
             console.warn(`Error in example '${stateKey}': `, message)
@@ -105,7 +104,9 @@ class ImportCar extends Component {
             storageName,
             row,
             column } = this.props.imporCarReducer.importCar.data
+        console.log(this.props.imporCarReducer.importCar.data)
         return (
+
             <View style={{ flex: 1 }}>
                 <NavBar title={'车辆入库'} />
                 <ScrollView>
@@ -115,11 +116,11 @@ class ImportCar extends Component {
                             <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18, flex: 1 }}>VIN：</Text>
 
                             <TextInput underlineColorAndroid="transparent"
-                                onChangeText={(text) => this.props.changeVin(text)}
+                                onChangeText={(text) => this.props.changeImportCarField({ vin: text })}
                                 value={vin}
                                 style={{ flex: 3, padding: 0, color: '#00cade', fontSize: 18 }} />
                         </View>
-                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectCarMake({ changeModel: this.props.changeModel })}>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectCarMake({ onSelectModel: this.props.changeImportCarField })}>
                             <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd', paddingVertical: 10, marginLeft: 10 }}>
                                 <Text style={{ fontSize: 14, flex: 4 }}>品牌(型号)：</Text>
                                 <Text style={{ fontSize: 14, flex: 10 }}>{makeName}{modelName}</Text>
@@ -133,18 +134,18 @@ class ImportCar extends Component {
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
                             <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>发动机号：</Text>
                             <TextInput underlineColorAndroid="transparent"
-                                onChangeText={(text) => this.props.chageEngineNum(text)}
+                                onChangeText={(text) => this.props.changeImportCarField({ engineNum: text })}
                                 value={engineNum}
                                 style={{ flex: 3, padding: 0, fontSize: 14 }} />
                         </View>
-                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={this.showPicker.bind(this, 'proDate', { date: new Date(), mode: 'spinner' })}>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => this.showPicker('proDate', { date: new Date(), mode: 'spinner' })}>
                             <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                                 <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
                                 <Text style={{ fontSize: 14, flex: 5 }}>{proDate}</Text>
                                 <Icon name='caret-down' style={{ flex: 1 }} />
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={this.showPicker.bind(this, 'planOutTime', { date: new Date(), mode: 'spinner' })}>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => this.showPicker('planOutTime', { date: new Date(), mode: 'spinner' })}>
                             <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                                 <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>出库日期：</Text>
                                 <Text style={{ fontSize: 14, flex: 5 }}>{planOutTime}</Text>
@@ -154,14 +155,14 @@ class ImportCar extends Component {
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
                             <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>备注：</Text>
                             <TextInput underlineColorAndroid="transparent"
-                                onChangeText={(text) => this.props.chageRemark(text)}
+                                onChangeText={(text) => this.props.changeImportCarField({ remark: text })}
                                 value={remark}
                                 style={{ flex: 3, padding: 0, fontSize: 14 }} />
                         </View>
                     </View>
 
                     <View style={{ marginHorizontal: 20, marginTop: 20 }}>
-                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectStorage({ _popNum: 3, chageParkingId: this.props.chageParkingId })}>
+                        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectStorage({ _popNum: 3, chageParkingId: this.props.changeImportCarField })}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, borderColor: '#00cade', borderBottomWidth: 2 }}>
                                 <Text style={{ color: 'red', flex: 1 }}>*</Text>
                                 <Text style={{ color: '#00cade', fontSize: 16, flex: 4 }}>选择仓库</Text>
@@ -183,12 +184,6 @@ class ImportCar extends Component {
                                 <Text style={{ fontSize: 16, flex: 1, color: '#00cade' }}>道位</Text>
                             </View>
                         </View>
-                        {/*<View>
-                            <Button full style={{ backgroundColor: '#00cade' }} onPress={() => { }}>
-                                <Text style={{ color: '#ffffff', fontSize: 16, position: 'absolute', left: 20 }}>通过分布图选择车位</Text>
-                                <Icon name='angle-right' color='#fff' size={16} style={{ position: 'absolute', right: 20 }} />
-                            </Button>
-                        </View>*/}
                     </View>
                     <View style={{ marginHorizontal: 20, marginTop: 40 }}>
                         <Button full style={{ backgroundColor: '#00cade' }} onPress={this.importCar.bind(this)}>
@@ -219,29 +214,8 @@ const mapDispatchToProps = (dispatch) => ({
     resetImportCar: () => {
         dispatch(ImporCarAction.resetImportCar())
     },
-    changeVin: (param) => {
-        dispatch(ImporCarAction.changeVin(param))
-    },
-    changeColor: (param) => {
-        dispatch(ImporCarAction.changeColor(param))
-    },
-    changeProDate: (param) => {
-        dispatch(ImporCarAction.changeProDate(param))
-    },
-    changePlanOutTime: (param) => {
-        dispatch(ImporCarAction.changePlanOutTime(param))
-    },
-    chageParkingId: (param) => {
-        dispatch(ImporCarAction.chageParkingId(param))
-    },
-    chageRemark: (param) => {
-        dispatch(ImporCarAction.chageRemark(param))
-    },
-    chageEngineNum: (param) => {
-        dispatch(ImporCarAction.chageEngineNum(param))
-    },
-    changeModel: (param) => {
-        dispatch(ImporCarAction.changeModel(param))
+    changeImportCarField: (param) => {
+        dispatch(ImporCarAction.changeImportCarField(param))
     }
 })
 

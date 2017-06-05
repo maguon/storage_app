@@ -518,8 +518,6 @@ export default handleActions({
             }
         }
     },
-
-
     [actionTypes.carInfoTypes.CHANGE_EDITCARINFO_FIELD]: (state, action) => {
         const { payload: { data } } = action
         let param = { ...state }

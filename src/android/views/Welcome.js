@@ -11,30 +11,7 @@ class Welcome extends Component {
         super(props)
         this.linkDownload = this.linkDownload.bind(this)
         this.validateToken = this.validateToken.bind(this)
-
-
-        //test
-
-        // localStorage.saveKey(localStorageKey.USER, {
-        //     userId: 38,
-        //     token: '5hWW3WukLUjXf76za5WYmT8GEho=T3h88KJse50d872096784c5f040dd013826d4ba61dfac68bc54fb4f2aa7a48f01173c16692912c1bf6083951f08f85bd0faa9355',
-
-        // })
-        // localStorage.removeKey(localStorageKey.USER)
-
-        // localStorage.loadKey(localStorageKey.USER, (err, res) => {
-        //     if (err) {
-        //         console.log(err)
-        //     }
-        //     else {
-        //         console.log('localStorage', res)
-        //     }
-        // })
-
-        //  console.log(localStorage)
-        //test
     }
-
 
     componentDidMount() {
         this.props.getAppLastVersion({
@@ -74,7 +51,6 @@ class Welcome extends Component {
             }
         }
 
-
         if (welcomeReducer.valdateToken.isExecStatus == 1) {
             console.log('welcome.valdateToken', '开始执行')
         } else if (welcomeReducer.valdateToken.isExecStatus == 2) {
@@ -92,9 +68,7 @@ class Welcome extends Component {
         }
         return true
 
-
     }
-
 
     render() {
         const { version, lastVersion, force_update, url, isJump } = this.props.welcomeReducer.getVersion.data

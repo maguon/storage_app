@@ -41,15 +41,15 @@ class SelectCarModel extends Component {
         return true
     }
 
-    changeModel(param) {
-        this.props.changeModel(param)
+    onSelectModel(param) {      
+        this.props.onSelectModel(param)
         Actions.pop({ popNum: 2 })
     }
 
     render() {
         let { carModelList } = this.props.carModelsReducer.carModels.data
         let carModels = carModelList.map(item => {
-            return (<ListItem button key={item.id} onPress={() => this.changeModel({
+            return (<ListItem button key={item.id} onPress={() => this.onSelectModel({
                 makeId: this.props.makeId,
                 modelId: item.id,
                 makeName: this.props.makeName,

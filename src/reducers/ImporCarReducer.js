@@ -100,116 +100,13 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.imporCarTypes.IMPORT_CAR_CHANGE_VIN]: (state, action) => {
+    [actionTypes.imporCarTypes.CHANGE_IMPORTCAR_FIELD]: (state, action) => {
         const { payload: { data } } = action
-        return {
-            ...state,
-            importCar: {
-                ...state.importCar,
-                data: {
-                    ...state.importCar.data,
-                    vin: data
-                }
-            }
+        let param = { ...state }
+        for (key in data) {
+            param.importCar.data[key] = data[key]
         }
-    },
-    [actionTypes.imporCarTypes.IMPORT_CAR_CHANGE_COLOR]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            importCar: {
-                ...state.importCar,
-                data: {
-                    ...state.importCar.data,
-                    color: data
-                }
-            }
-        }
-    },
-    [actionTypes.imporCarTypes.IMPORT_CAR_CHANGE_MODEL]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            importCar: {
-                ...state.importCar,
-                data: {
-                    ...state.importCar.data,
-                    makeId: data.makeId,
-                    makeName: data.makeName,
-                    modelId: data.modelId,
-                    modelName: data.modelName
-                }
-            }
-        }
-    },
-    [actionTypes.imporCarTypes.IMPORT_CAR_CHANGE_PRODATE]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            importCar: {
-                ...state.importCar,
-                data: {
-                    ...state.importCar.data,
-                    proDate: data
-                }
-            }
-        }
-    },
-    [actionTypes.imporCarTypes.IMPORT_CAR_CHANGE_PLANOUTTIME]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            importCar: {
-                ...state.importCar,
-                data: {
-                    ...state.importCar.data,
-                    planOutTime: data
-                }
-            }
-        }
-    },
-    [actionTypes.imporCarTypes.IMPORT_CAR_CHANGE_REMARK]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            importCar: {
-                ...state.importCar,
-                data: {
-                    ...state.importCar.data,
-                    remark: data
-                }
-            }
-        }
-    },
-    [actionTypes.imporCarTypes.IMPORT_CAR_CHANGE_PARKINGID]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            importCar: {
-                ...state.importCar,
-                data: {
-                    ...state.importCar.data,
-                    row: data.row,
-                    column: data.column,
-                    storageName: data.storageName,
-                    storageId: data.storageId,
-                    parkingId: data.parkingId
-                }
-            }
-        }
-    },
-    [actionTypes.imporCarTypes.IMPORT_CAR_CHANGE_ENGINENUM]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            importCar: {
-                ...state.importCar,
-                data: {
-                    ...state.importCar.data,
-                    engineNum: data
-                }
-            }
-        }
+        return param
     }
 }, initialState)
 

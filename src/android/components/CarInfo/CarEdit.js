@@ -102,7 +102,7 @@ export default class CarEdit extends Component {
                     <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                         <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18 }}>VIN：{car.vin}</Text>
                     </View>
-                    <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectCarMake({ changeModel: this.changeModel })}>
+                    <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectCarMake({ onSelectModel: this.changeModel })}>
                         <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd', paddingVertical: 10, marginLeft: 10 }}>
                             <Text style={{ fontSize: 14, flex: 4 }}>品牌(型号)：</Text>
                             <Text style={{ fontSize: 14, flex: 10 }}>{make_name}{model_name}</Text>
