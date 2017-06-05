@@ -18,12 +18,6 @@ const CarInfo = ({ car,
     postImage,
     changeViewType,
     viewType,
-    changeEditCarInfoModel,
-    changeEditCarInfoColor,
-    changeEditCarInfoRemark,
-    changeEditCarInfoProDate,
-    changeEditCarInfoPlanOutTime,
-    changeEditCarInfoEngineNum,
     editCarInfo,
     confirmModalVisible,
     onPressOk,
@@ -32,7 +26,8 @@ const CarInfo = ({ car,
     changeParkingForImportAgain,
     changePlanOutTimeForImportAgain,
     importAgain,
-    importAgainCar }) => {
+    importAgainCar,
+    changeEditCarInfoField }) => {
     let _CarInfoComponent
     if (viewType == 0) {
         _CarInfoComponent = <CarInfoComponent
@@ -47,12 +42,7 @@ const CarInfo = ({ car,
             moveCar={moveCar}
             changeViewType={changeViewType}
             updateCarInfo={updateCarInfo}
-            changeEditCarInfoModel={changeEditCarInfoModel}
-            changeEditCarInfoColor={changeEditCarInfoColor}
-            changeEditCarInfoRemark={changeEditCarInfoRemark}
-            changeEditCarInfoProDate={changeEditCarInfoProDate}
-            changeEditCarInfoPlanOutTime={changeEditCarInfoPlanOutTime}
-            changeEditCarInfoEngineNum={changeEditCarInfoEngineNum}
+            changeEditCarInfoField={changeEditCarInfoField}
         />
     } else if (viewType == 2) {
         _CarInfoComponent = <CarImportAgain

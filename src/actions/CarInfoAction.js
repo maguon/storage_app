@@ -118,7 +118,6 @@ export const updateCarInfo = (param) => (dispatch) => {
         })
 }
 
-
 export const updateCarInfoPlanOutTime = (param) => (dispatch) => {
     let url = `${base_host}/user/${param.requiredParam.userId}/carStorageRel/${param.requiredParam.relId}/planOutTime`
 
@@ -137,8 +136,6 @@ export const updateCarInfoPlanOutTime = (param) => (dispatch) => {
         })
 }
 
-
-
 export const resetExportCar = () => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.RESET_EXPORT_CAR, payload: {} })
 }
@@ -156,30 +153,6 @@ export const changeViewType = (param) => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.CHANGE_VIEWTYPE, payload: { data: param } })
 }
 
-export const changeEditCarInfoModel = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_MODEL, payload: { data: param } })
-}
-
-export const changeEditCarInfoColor = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_COLOR, payload: { data: param } })
-}
-
-export const changeEditCarInfoRemark = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_REMARK, payload: { data: param } })
-}
-
-export const changeEditCarInfoProDate = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_PRODATE, payload: { data: param } })
-}
-
-export const changeEditCarInfoPlanOutTime = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_PLANOUTIME, payload: { data: param } })
-}
-
-export const changeEditCarInfoEngineNum = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_ENGINENUM, payload: { data: param } })
-}
-
 export const changeImportAgainPlanOutTime = (param) => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.CHANGE_IMPORTAGAIN_PLANOUTIME, payload: { data: param } })
 }
@@ -187,7 +160,6 @@ export const changeImportAgainPlanOutTime = (param) => (dispatch) => {
 export const changeImportAgainParking = (param) => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.CHANGE_IMPORTAGAIN_PARKING, payload: { data: param } })
 }
-
 
 export const importAgain = (param) => (dispatch) => {
     let url = `${base_host}/user/${param.requiredParam.userId}/againCarStorageRel?carId=${param.requiredParam.carId}&vin=${param.requiredParam.vin}`
@@ -205,6 +177,11 @@ export const importAgain = (param) => (dispatch) => {
             }
         })
 }
+
 export const resetImportAgain = () => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.RESET_IMPORT_AGAIN, payload: {} })
+}
+
+export const changeEditCarInfoField = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFO_FIELD, payload: { data: param } })
 }

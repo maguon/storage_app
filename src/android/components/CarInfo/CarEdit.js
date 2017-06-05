@@ -13,31 +13,41 @@ export default class CarEdit extends Component {
     constructor(props) {
         super(props)
         this.colorPanelRender = this.colorPanelRender.bind(this)
+        this.showPicker = this.showPicker.bind(this)
+        this.changeModel = this.changeModel.bind(this)
     }
 
     async showPicker(stateKey, options) {
-        let { changeEditCarInfoProDate, changeEditCarInfoPlanOutTime } = this.props
+        let { changeEditCarInfoField } = this.props
         try {
             const { action, year, month, day } = await DatePickerAndroid.open(options)
             if (action !== DatePickerAndroid.dismissedAction) {
-                // let date = new Date(year, month, day)
-                if (stateKey == 'planOutTime') {
-                    changeEditCarInfoPlanOutTime(`${year}-${month + 1}-${day}`)
-                } else if (stateKey == 'proDate') {
-                    changeEditCarInfoProDate(`${year}-${month + 1}-${day}`)
-                }
+                let param = {}
+                param[stateKey] = `${year}-${month + 1}-${day}`
+                changeEditCarInfoField(param)
             }
         } catch ({ code, message }) {
             console.warn(`Error in example '${stateKey}': `, message)
         }
     }
 
+    changeModel(param) {
+        let { changeEditCarInfoField } = this.props
+        let newParam = {
+            make_id: param.makeId,
+            make_name: param.makeName,
+            model_id: param.modelId,
+            model_name: param.modelName
+        }
+        changeEditCarInfoField(newParam)
+    }
+
     colorPanelRender() {
         let { colour } = this.props.car
-        let { changeEditCarInfoColor } = this.props
+        let { changeEditCarInfoField } = this.props
         let colorPanel = colorList.list.map(item => {
             if (colour != item.colorId)
-                return (<TouchableHighlight key={item.colorName} underlayColor='rgba(0,0,0,0.1)' onPress={() => changeEditCarInfoColor(item.colorId)}>
+                return (<TouchableHighlight key={item.colorName} underlayColor='rgba(0,0,0,0.1)' onPress={() => changeEditCarInfoField({ colour: item.colorId })}>
                     <View key={item.colorName} style={{ width: 20, height: 20, borderColor: `#dddddd`, borderWidth: 1, alignSelf: 'center', backgroundColor: `#${item.colorId}`, marginVertical: 2, marginHorizontal: 2 }}></View></TouchableHighlight>
                 )
             else
@@ -51,15 +61,10 @@ export default class CarEdit extends Component {
             exportCar,
             moveCar,
             changeViewType,
-            changeEditCarInfoModel,
-            changeEditCarInfoColor,
-            changeEditCarInfoRemark,
-            changeEditCarInfoProDate,
-            changeEditCarInfoPlanOutTime,
-            changeEditCarInfoEngineNum,
+            changeEditCarInfoField,
             updateCarInfo } = this.props
         let { make_name, model_name, engine_num, pro_date, plan_out_time, remark, row, col, storage_name } = car
-
+        console.log(car)
         let _plan_out_time = {}
         let _row = row ? row.toString() : ''
         let _col = col ? col.toString() : ''
@@ -97,7 +102,7 @@ export default class CarEdit extends Component {
                     <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                         <Text style={{ color: '#00cade', marginLeft: 10, fontSize: 18 }}>VIN：{car.vin}</Text>
                     </View>
-                    <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectCarMake({ changeModel: changeEditCarInfoModel })}>
+                    <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => Actions.SelectCarMake({ changeModel: this.changeModel })}>
                         <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: '#dddddd', paddingVertical: 10, marginLeft: 10 }}>
                             <Text style={{ fontSize: 14, flex: 4 }}>品牌(型号)：</Text>
                             <Text style={{ fontSize: 14, flex: 10 }}>{make_name}{model_name}</Text>
@@ -111,12 +116,12 @@ export default class CarEdit extends Component {
                     <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
                         <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>发动机号：</Text>
                         <TextInput underlineColorAndroid="transparent"
-                            onChangeText={(text) => changeEditCarInfoEngineNum(text)}
+                            onChangeText={(text) => changeEditCarInfoField({ engine_num: text })}
                             value={engine_num}
                             style={{ flex: 3, padding: 0, fontSize: 14 }} />
                     </View>
                     <TouchableHighlight underlayColor='rgba(0,0,0,0.1)'
-                        onPress={this.showPicker.bind(this, 'proDate', { date: new Date(), mode: 'spinner' })}
+                        onPress={() => this.showPicker('pro_date', { date: new Date(), mode: 'spinner' })}
                     >
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                             <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>生产日期：</Text>
@@ -125,7 +130,7 @@ export default class CarEdit extends Component {
                         </View>
                     </TouchableHighlight>
                     <TouchableHighlight underlayColor='rgba(0,0,0,0.1)'
-                        onPress={this.showPicker.bind(this, 'planOutTime', { date: new Date(), mode: 'spinner' })}
+                        onPress={() => this.showPicker('plan_out_time', { date: new Date(), mode: 'spinner' })}
                     >
                         <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                             <Text style={{ marginLeft: 10, fontSize: 14, flex: 2 }}>计划出库：</Text>
@@ -136,7 +141,7 @@ export default class CarEdit extends Component {
                     <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd', alignItems: 'center' }}>
                         <Text style={{ marginLeft: 10, fontSize: 14, flex: 1 }}>备注：</Text>
                         <TextInput underlineColorAndroid="transparent"
-                            onChangeText={(text) => changeEditCarInfoRemark(text)}
+                            onChangeText={(text) => changeEditCarInfoField({ remark: text })}
                             value={remark}
                             style={{ flex: 3, padding: 0, fontSize: 14 }} />
                     </View>

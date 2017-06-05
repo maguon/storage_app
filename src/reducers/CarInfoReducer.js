@@ -518,18 +518,16 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.carInfoTypes.CHANGE_EDITCARINFRO_ENGINENUM]: (state, action) => {
+
+
+    [actionTypes.carInfoTypes.CHANGE_EDITCARINFO_FIELD]: (state, action) => {
         const { payload: { data } } = action
-        return {
-            ...state,
-            editCarInfo: {
-                ...state.editCarInfo,
-                data: {
-                    ...state.editCarInfo.data,
-                    engine_num: data
-                }
-            }
+        let param = { ...state }
+        for (key in data)
+        { 
+            param.editCarInfo.data[key] = data[key] 
         }
+        return param
     },
     [actionTypes.carInfoTypes.UPDATE_CARINFO_PLANOUTTIME_SUCCESS]: (state, action) => {
         const { payload: { data } } = action

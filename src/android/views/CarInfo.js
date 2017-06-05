@@ -139,7 +139,7 @@ class CarInfo extends Component {
         /************************************************************************************************/
 
 
-        /*updatePlanOutTime执行状态*/ 
+        /*updatePlanOutTime执行状态*/
         if (CarInfoReducer.updatePlanOutTime.isExecStatus == 1) {
             console.log('CarInfoReducer.updatePlanOutTime', '开始执行')
         } else if (CarInfoReducer.updatePlanOutTime.isExecStatus == 2) {
@@ -342,15 +342,11 @@ class CarInfo extends Component {
         let importAgainCar = this.props.CarInfoReducer.carImportAgain.data
         let { editCarInfo } = this.props.CarInfoReducer
         let { type } = this.props.CarInfoReducer.viewType
-        let { changeEditCarInfoModel,
-            changeEditCarInfoColor,
-            changeEditCarInfoRemark,
-            changeEditCarInfoProDate,
-            changeEditCarInfoPlanOutTime,
-            changeEditCarInfoEngineNum,
+        let {
             updateCarInfo,
             changeParkingForImportAgain,
-            changePlanOutTimeForImportAgain } = this.props
+            changePlanOutTimeForImportAgain,
+            changeEditCarInfoField } = this.props
         return (
             <CarInfoLayout
                 car={car}
@@ -367,12 +363,7 @@ class CarInfo extends Component {
                 onPressCancel={this.onPressCancel}
                 confirmModalVisible={this.state.confirmModalVisible}
                 updateCarInfo={this.updateCarInfo}
-                changeEditCarInfoModel={changeEditCarInfoModel}
-                changeEditCarInfoColor={changeEditCarInfoColor}
-                changeEditCarInfoRemark={changeEditCarInfoRemark}
-                changeEditCarInfoProDate={changeEditCarInfoProDate}
-                changeEditCarInfoPlanOutTime={changeEditCarInfoPlanOutTime}
-                changeEditCarInfoEngineNum={changeEditCarInfoEngineNum}
+                changeEditCarInfoField={changeEditCarInfoField}
                 importAgain={this.importAgain}
                 changeParkingForImportAgain={changeParkingForImportAgain}
                 changePlanOutTimeForImportAgain={changePlanOutTimeForImportAgain}
@@ -427,24 +418,6 @@ const mapDispatchToProps = (dispatch) => ({
     updateCarInfo: (param) => {
         dispatch(CarInfoAction.updateCarInfo(param))
     },
-    changeEditCarInfoModel: (param) => {
-        dispatch(CarInfoAction.changeEditCarInfoModel(param))
-    },
-    changeEditCarInfoColor: (param) => {
-        dispatch(CarInfoAction.changeEditCarInfoColor(param))
-    },
-    changeEditCarInfoRemark: (param) => {
-        dispatch(CarInfoAction.changeEditCarInfoRemark(param))
-    },
-    changeEditCarInfoProDate: (param) => {
-        dispatch(CarInfoAction.changeEditCarInfoProDate(param))
-    },
-    changeEditCarInfoPlanOutTime: (param) => {
-        dispatch(CarInfoAction.changeEditCarInfoPlanOutTime(param))
-    },
-    changeEditCarInfoEngineNum: (param) => {
-        dispatch(CarInfoAction.changeEditCarInfoEngineNum(param))
-    },
     updateCarInfoPlanOutTime: (param) => {
         dispatch(CarInfoAction.updateCarInfoPlanOutTime(param))
     },
@@ -459,6 +432,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetImportAgain: () => {
         dispatch(CarInfoAction.resetImportAgain())
+    },
+    changeEditCarInfoField: (param) => {
+        dispatch(CarInfoAction.changeEditCarInfoField(param))
     }
 })
 

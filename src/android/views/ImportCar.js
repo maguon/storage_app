@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, TextInput, DrawerLayoutAndroid, Dimensions, DatePickerAndroid, TouchableHighlight, Alert } from 'react-native'
+import {
+    Text,
+    View,
+    ScrollView,
+    TextInput,
+    DrawerLayoutAndroid,
+    Dimensions,
+    DatePickerAndroid,
+    TouchableHighlight,
+    Alert
+} from 'react-native'
 import { connect } from 'react-redux'
 import NavBar from '../components/Bar/NavBar'
 import { Button } from 'native-base'

@@ -17,7 +17,6 @@ export default class CarImportAgain extends Component {
         try {
             const { action, year, month, day } = await DatePickerAndroid.open(options)
             if (action !== DatePickerAndroid.dismissedAction) {
-                // let date = new Date(year, month, day)
                 changePlanOutTimeForImportAgain(`${year}-${month + 1}-${day}`)
             }
         } catch ({ code, message }) {
