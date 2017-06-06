@@ -18,6 +18,7 @@ import SelectRow from './views/SelectRow'
 import SelectColumn from './views/SelectColumn'
 import ImportCarCamera from './views/ImportCarCamera'
 import recordList from './views/RecordList'
+import parkingView from './views/ParkingView'
 import selectStorageForCarList from './views/SelectStorageForCarList'
 
 
@@ -31,7 +32,7 @@ export default class App extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="welcome" initial={true} component={Welcome} hideNavBar />
+                    <Scene key="welcome"  initial={true} component={Welcome} hideNavBar />
                     <Scene key="login" component={Login} hideNavBar />
                     <Scene key="main" component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
@@ -47,7 +48,8 @@ export default class App extends Component {
                     <Scene key="SelectColumn" component={SelectColumn} hideNavBar />
                     <Scene key="ImportCarCamera" component={ImportCarCamera} hideNavBar />
                     <Scene key="recordList" component={recordList} hideNavBar />
-                    <Scene key="selectStorageForCarList" component={selectStorageForCarList} hideNavBar />                   
+                    <Scene key="parkingView" component={parkingView} hideNavBar />
+                    <Scene key="selectStorageForCarList" component={selectStorageForCarList} hideNavBar />
                 </Scene>
             </Router>
 

@@ -521,9 +521,8 @@ export default handleActions({
     [actionTypes.carInfoTypes.CHANGE_EDITCARINFO_FIELD]: (state, action) => {
         const { payload: { data } } = action
         let param = { ...state }
-        for (key in data)
-        { 
-            param.editCarInfo.data[key] = data[key] 
+        for (key in data) {
+            param.editCarInfo.data[key] = data[key]
         }
         return param
     },
@@ -678,8 +677,19 @@ export default handleActions({
         return {
             ...state,
             carImportAgain: {
-                ...state.carImportAgain,
-                isExecStatus: 0
+                data: {
+                    ...state.carImportAgain.data,
+                    parkingId: 0,
+                    storageId: 0,
+                    storageName: '',
+                    planOutTime: '',
+                    row: '',
+                    col: ''
+                },
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: ''
             }
         }
     }

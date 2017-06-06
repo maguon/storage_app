@@ -5,9 +5,10 @@ import Icon from 'react-native-vector-icons/Entypo'
 import { Actions } from 'react-native-router-flux'
 
 
-const NavBar = ({ title ,pop=Actions.pop}) => {
+const NavBar = ({ title, pop = Actions.pop }) => {
+    //
     return (
-        <Header style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#00cade' }}>
+        <Header androidStatusBarColor='#00cade' style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#00cade' }}>
             <Title>{title}</Title>
             <View style={{ position: 'absolute', left: 0 }}>
                 <Button transparent onPress={pop}>

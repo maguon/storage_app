@@ -28,6 +28,7 @@ class CarInfo extends Component {
     }
     componentWillUnmount() {
         this.props.changeViewType(0)
+        this.props.resetImportAgain()
     }
     componentDidMount() {
         this.getCarInfo()
@@ -68,6 +69,7 @@ class CarInfo extends Component {
                 resetExportCar()
                 removeCar(carId)
                 removeSearchCar(carId)
+                this.getCarInfo()
 
             } else if (CarInfoReducer.exportCar.isResultStatus == 1) {
                 resetExportCar()
@@ -147,6 +149,7 @@ class CarInfo extends Component {
             if (CarInfoReducer.updatePlanOutTime.isResultStatus == 0) {
                 console.log('CarInfoReducer.updatePlanOutTime', '执行成功')
                 this.changeViewType(0)
+                this.getCarInfo()
 
             } else if (CarInfoReducer.updatePlanOutTime.isResultStatus == 1) {
                 console.log('CarInfoReducer.updatePlanOutTime', '执行错误')
@@ -169,6 +172,7 @@ class CarInfo extends Component {
                 console.log('CarInfoReducer.carImportAgain', '执行成功')
                 this.changeViewType(0)
                 this.props.resetImportAgain()
+                this.getCarInfo()
             } else if (CarInfoReducer.carImportAgain.isResultStatus == 1) {
                 console.log('CarInfoReducer.carImportAgain执行错误', CarInfoReducer.carImportAgain)
                 this.props.resetImportAgain()
