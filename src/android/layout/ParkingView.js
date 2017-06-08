@@ -10,15 +10,15 @@ export default class ParkingView extends Component {
     }
 
     render() {
-        let { parkingList } = this.props
-        //console.log(parkingList)
+        let { parkingList, row, col } = this.props
+
         return (
             <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
-                <NavBar title='选择道位' />
-                <ParkingViewComponent
-                    parkingList={parkingList}
-                    row={this.props.row}
-                    col={this.props.col} />
+                <NavBar title={`${this.props.storage_name}(${parkingList.length-this.props.balance}/${parkingList.length})`}/>
+                    <ParkingViewComponent
+                        parkingList={parkingList}
+                        row={row}
+                        col={col} />
             </View>
         )
     }

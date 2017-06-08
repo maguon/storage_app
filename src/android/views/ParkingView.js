@@ -30,7 +30,10 @@ class ParkingView extends Component {
         return <LayoutParkingView
             parkingList={parkingList}
             row={this.props.row}
-            col={this.props.col} />
+            col={this.props.col}
+            storage_name={this.props.storage_name}
+            balance={this.props.balance}
+             />
 
     }
 }
