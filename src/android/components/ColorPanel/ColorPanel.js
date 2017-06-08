@@ -1,4 +1,4 @@
-(import React, { Component } from 'react'
+import React, { Component } from 'react'
 import { View, TouchableHighlight } from 'react-native'
 import * as colorList from '../../config/ColorList.json'
 import ColorChooser from './ColorChooser'

@@ -15,6 +15,7 @@ import MainRootReducer from './MainRootReducer'
 import SelectStorageReducer from './SelectStorageReducer'
 import RecordListReducer from './RecordListReducer'
 import SearchCarListReducer from './SearchCarListReducer'
+import ParkingViewReducer from './ParkingViewReducer'
 import SelectStorageForCarListReducer from './SelectStorageForCarListReducer'
 
 export default combineReducers({
@@ -34,5 +35,6 @@ export default combineReducers({
     SelectStorageReducer,
     RecordListReducer,
     SearchCarListReducer,
-    SelectStorageForCarListReducer
+    SelectStorageForCarListReducer,
+    ParkingViewReducer
 })

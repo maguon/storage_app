@@ -4,9 +4,10 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
 
 const StorageListItem = ({ storage }) => {
-    let { storage_name, balance, col, row } = storage
+    let { storage_name, balance, col, row, storage_id } = storage
+    // console.log(storage)
     return (
-        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { }}>
+        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.parkingView({ storage_id,row,col }) }}>
             <View style={styles.container}>
                 <View style={[{ flex: 3 }, styles.content]}>
                     <View style={styles.contentIcon}>
