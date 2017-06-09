@@ -30,7 +30,6 @@ export default class ColorPanel extends Component {
             {colorChoosers}
         </View>
     }
-
 }
 
-)
+
