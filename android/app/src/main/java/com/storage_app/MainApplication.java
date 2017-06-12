@@ -3,6 +3,7 @@ package com.storage_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.eguma.barcodescanner.BarcodeScannerPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new PickerPackage(),
             new PhotoViewPackage(),
             new BarcodeScannerPackage(),
             new ImageResizerPackage(),

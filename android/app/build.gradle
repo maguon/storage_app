@@ -135,6 +135,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-photo-view')
     compile project(':react-native-barcodescanner')
     compile project(':react-native-image-resizer')

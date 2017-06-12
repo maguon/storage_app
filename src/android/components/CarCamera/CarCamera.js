@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Text, View, Dimensions, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { Text, View, Dimensions, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
 import { Button, Icon, Spinner } from 'native-base'
 import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
+import ImageCropPicker from 'react-native-image-crop-picker'
 import CarCameraItem from './CarCameraItem'
 
 
@@ -16,7 +17,8 @@ var photoOptions = {
     title: '请选择',
     cancelButtonTitle: '取消',
     takePhotoButtonTitle: '拍照',
-    chooseFromLibraryButtonTitle: '选择相册',
+    chooseFromLibraryButtonTitle: null,
+    customButtons: [{ title: '选择照片（一次最多5张）', name: 'choosePhoto' }],
     quality: 0.75,
     allowsEditing: true,
     noData: false,
@@ -42,6 +44,9 @@ export default class CarCamera extends Component {
                 console.log('ImagePicker Error: ', response.error)
             }
             else if (response.customButton) {
+                if (response.customButton == 'choosePhoto') {
+                    this.openPicker()
+                }
             } else {
                 ImageResizer.createResizedImage(response.uri, 960, 960, 'JPEG', 100)
                     .then((resizedImageUri) => {
@@ -52,19 +57,53 @@ export default class CarCamera extends Component {
                                 imageName: response.fileName
                             }
                         }
-                        this.props.postImage(param)
+                        console.log(resizedImageUri)
+
+                        // this.props.postImage(param)
                     }).catch((err) => {
                         return console.log(err)
-
                     })
             }
         })
     }
+
+    openPicker() {
+        ImageCropPicker.openPicker({
+            multiple: true
+        }).then(images => {
+            if (images.length > 5) {
+                Alert.alert(
+                    '提示',
+                    '您选择的照片数量超过5张，请重新选择！',
+                    [{ text: '确定', onPress: () => { } }],
+                    { cancelable: false }
+                )
+            }
+            else {
+                images.forEach((item) => {
+                    let pos = item.path.lastIndexOf('/')
+                    let param = {
+                        postFileParam: {
+                            imageUrl: item.path,
+                            imageType: item.mime,
+                            imageName: item.path.substring(pos + 1)
+                        }
+                    }
+                    this.props.postImage(param)
+                })
+            }
+
+        }).catch(err => {
+            console.log('err')
+        })
+    }
+
+
     render() {
         let i = 1
         let images = this.props.images.map(item => {
             let image = (
-                <CarCameraItem key={i} imgIndex={i} uri={item} showImagePage={this.props.showImagePage}/>
+                <CarCameraItem key={i} imgIndex={i} uri={item} showImagePage={this.props.showImagePage} />
             )
             i = i + 1
             return image
