@@ -106,7 +106,7 @@ class CarList extends Component {
         }
         if (selectStorageListForCarList.id != 0)
             param.optionalParam.storageId = selectStorageListForCarList.id
-        console.log(param)
+        // console.log(param)
         this.props.getCarListMore(param)
     }
 

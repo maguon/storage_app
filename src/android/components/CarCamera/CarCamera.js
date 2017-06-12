@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, Dimensions, StyleSheet, Image } from 'react-native'
+import { Text, View, Dimensions, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { Button, Icon, Spinner } from 'native-base'
 import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import CarCameraItem from './CarCameraItem'
+
 
 
 const window = Dimensions.get('window')
@@ -62,7 +63,9 @@ export default class CarCamera extends Component {
     render() {
         let i = 1
         let images = this.props.images.map(item => {
-            let image = <CarCameraItem key={i} imgIndex={i} uri={item} />
+            let image = (
+                <CarCameraItem key={i} imgIndex={i} uri={item} showImagePage={this.props.showImagePage}/>
+            )
             i = i + 1
             return image
         })

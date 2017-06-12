@@ -48,11 +48,11 @@ function put(url, params, callback) {
         });
 }
 
-function del() {
+function del(url,callback) {
     fetch(url, {
         method: 'DELETE',
         headers: requestHeaders.headers,
-        body: JSON.stringify(params)
+        //body: JSON.stringify(params)
     }).then((response) => response.json())
         .then((responseJson) => {
             callback(null, responseJson)

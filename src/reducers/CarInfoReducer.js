@@ -12,6 +12,7 @@ const initialState = {
         data: {
             recordList: [],
             imageList: [],
+            recordId: '',
             car: {
                 make_name: '',
                 model_name: '',
@@ -93,6 +94,12 @@ const initialState = {
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: ''
+    },
+    delImage: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: ''
     }
 }
 
@@ -169,7 +176,8 @@ export default handleActions({
                         plan_out_time: plan_out_time
                     },
                     recordList: data.recordList,
-                    imageList: data.imageList
+                    imageList: data.imageList,
+                    recordId: data.recordId
                 }
             }
         }
@@ -692,6 +700,62 @@ export default handleActions({
                 failedMsg: ''
             }
         }
-    }
+    },
+    [actionTypes.carInfoTypes.DELETE_IMAGE_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            delImage: {
+                ...state.delImage,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.RESET_DELETE_IMAGE]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            delImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: ''
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.DELETE_IMAGE_FAILED]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            delImage: {
+                ...state.delImage,
+                isResultStatus: 2,
+                isExecStatus: 2,
+                failedMsg: data
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.DELETE_IMAGE_WAITING]: (state, action) => {
+        return {
+            ...state,
+            delImage: {
+                ...state.delImage,
+                isExecStatus: 1
+            }
+        }
+    },
+    [actionTypes.carInfoTypes.DELETE_IMAGE_ERROR]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            delImage: {
+                ...state.delImage,
+                isResultStatus: 1,
+                isExecStatus: 2,
+                errorMsg: data
+            }
+        }
+    },
 }, initialState)
 

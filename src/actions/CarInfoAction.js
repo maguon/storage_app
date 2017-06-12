@@ -6,7 +6,6 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const getCarInformation = (param) => (dispatch) => {
     let urls = [`${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`,
     `${base_host}/user/${param.requiredParam.userId}/car?${ObjectToUrl(param.optionalParam)}`]
-    console.log(urls)
     dispatch({ type: actionTypes.carInfoTypes.GET_CARINFO_WAITING, payload: {} })
     httpRequest
         .getAll(urls, (err, res) => {
@@ -21,6 +20,7 @@ export const getCarInformation = (param) => (dispatch) => {
                                 imageList: res[0].result[0].storage_image.map(item => {
                                     return `${file_host}image/${item.url}`
                                 }),
+                                recordId: res[0].result[0]._id,
                                 car: res[1].result[0]
                             }
                         }
@@ -186,3 +186,26 @@ export const resetImportAgain = () => (dispatch) => {
 export const changeEditCarInfoField = (param) => (dispatch) => {
     dispatch({ type: actionTypes.carInfoTypes.CHANGE_EDITCARINFO_FIELD, payload: { data: param } })
 }
+
+
+export const delImage = (param) => (dispatch) => {
+    let url = `${record_host}/user/${param.requiredParam.userId}/record/${param.requiredParam.recordId}/image/${param.requiredParam.url}`
+    dispatch({ type: actionTypes.carInfoTypes.DELETE_IMAGE_WAITING, payload: {} })
+    httpRequest
+        .del(url, (err, res) => {
+            if (err) {
+                dispatch({ type: actionTypes.carInfoTypes.DELETE_IMAGE_ERROR, payload: { data: err } })
+            } else {
+                if (res.success) {
+                    dispatch({ type: actionTypes.carInfoTypes.DELETE_IMAGE_SUCCESS, payload: {} })
+                } else {
+                    dispatch({ type: actionTypes.carInfoTypes.DELETE_IMAGE_FAILED, payload: { data: res.msg } })
+                }
+            }
+        })
+}
+
+export const resetDelImage = () => (dispatch) => {
+    dispatch({ type: actionTypes.carInfoTypes.RESET_DELETE_IMAGE, payload: {} })
+}
+

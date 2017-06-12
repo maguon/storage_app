@@ -5,8 +5,6 @@ import Login from './views/Login'
 import MainRoot from './views/MainRoot'
 import Password from './views/Password'
 import CarInfo from './views/CarInfo'
-// import ParkingView from './views/ParkingView'
-// import ErrView from './views/ErrView'
 import ImportCar from './views/ImportCar'
 import VinScanner from './components/VinScanner'
 import ErrorView from './views/ErrorView'
@@ -19,7 +17,8 @@ import SelectColumn from './views/SelectColumn'
 import ImportCarCamera from './views/ImportCarCamera'
 import recordList from './views/RecordList'
 import parkingView from './views/ParkingView'
-import imagePage from './views/ImagePage'
+import ImagePageForCarInfo from './views/ImagePageForCarInfo'
+import ImagePageForImportCar from './views/ImagePageForImportCar'
 import selectStorageForCarList from './views/SelectStorageForCarList'
 
 
@@ -35,7 +34,7 @@ export default class App extends Component {
                 <Scene key="root">
                     <Scene key="welcome" component={Welcome} hideNavBar />
                     <Scene key="login" component={Login} hideNavBar />
-                    <Scene key="main"component={MainRoot} hideNavBar />
+                    <Scene key="main" initial={true} component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
                     <Scene key="carInfo" component={CarInfo} hideNavBar />
                     <Scene key="ImportCar" component={ImportCar} hideNavBar />
@@ -50,8 +49,9 @@ export default class App extends Component {
                     <Scene key="ImportCarCamera" component={ImportCarCamera} hideNavBar />
                     <Scene key="recordList" component={recordList} hideNavBar />
                     <Scene key="parkingView" component={parkingView} hideNavBar />
-                    <Scene key="imagePage"  initial={true}   component={imagePage} hideNavBar />
-                    <Scene key="selectStorageForCarList"  component={selectStorageForCarList} hideNavBar />
+                    <Scene key="ImagePageForCarInfo" component={ImagePageForCarInfo} hideNavBar />
+                    <Scene key="ImagePageForImportCar" component={ImagePageForImportCar} hideNavBar />
+                    <Scene key="selectStorageForCarList" component={selectStorageForCarList} hideNavBar />
                 </Scene>
             </Router>
 

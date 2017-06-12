@@ -183,6 +183,27 @@ class CarInfo extends Component {
             }
         }
         /************************************************************************************************/
+
+        /*delImage执行状态*/
+        if (CarInfoReducer.delImage.isExecStatus == 1) {
+            console.log('CarInfoReducer.delImage', '开始执行')
+        } else if (CarInfoReducer.delImage.isExecStatus == 2) {
+            console.log('CarInfoReducer.delImage', '执行完毕')
+            if (CarInfoReducer.delImage.isResultStatus == 0) {
+                console.log('CarInfoReducer.delImage执行成功')
+
+                this.props.resetDelImage()
+                this.getCarInfo()
+            } else if (CarInfoReducer.delImage.isResultStatus == 1) {
+                console.log('CarInfoReducer.delImage执行错误')
+                this.props.resetDelImage()
+
+            } else if (CarInfoReducer.delImage.isResultStatus == 2) {
+                console.log('CarInfoReducer.delImage执行失败', CarInfoReducer.delImage.failedMsg)
+                this.props.resetDelImage()
+            }
+        }
+        /************************************************************************************************/
         return true
     }
 
@@ -341,7 +362,7 @@ class CarInfo extends Component {
     }
 
     render() {
-        let { car, recordList, imageList } = this.props.CarInfoReducer.getCarInfo.data
+        let { car, recordList, imageList, recordId } = this.props.CarInfoReducer.getCarInfo.data
         let importAgainCar = this.props.CarInfoReducer.carImportAgain.data
         let { editCarInfo } = this.props.CarInfoReducer
         let { type } = this.props.CarInfoReducer.viewType
@@ -370,6 +391,7 @@ class CarInfo extends Component {
                 importAgain={this.importAgain}
                 changeParkingForImportAgain={changeParkingForImportAgain}
                 changePlanOutTimeForImportAgain={changePlanOutTimeForImportAgain}
+
             />
         )
     }
@@ -438,6 +460,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     changeEditCarInfoField: (param) => {
         dispatch(CarInfoAction.changeEditCarInfoField(param))
+    },
+    delImage: (param) => {
+        dispatch(CarInfoAction.delImage(param))
+    },
+    resetDelImage: () => {
+        dispatch(CarInfoAction.resetDelImage())
     }
 })
 

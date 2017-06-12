@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions'
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    selectedTab: 'storageList' //carList,storageList,setting,home
+    selectedTab: 'carList' //carList,storageList,setting,home
 }
 
 export default handleActions({

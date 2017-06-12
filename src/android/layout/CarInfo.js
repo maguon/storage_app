@@ -7,6 +7,7 @@ import CarImportAgain from '../components/CarInfo/CarImportAgain'
 import CarCamera from '../components/CarCamera/CarCamera'
 import RecordList from '../components/RecordListForCarInfo/RecordList'
 import ConfirmModal from '../components/ConfirmModal'
+import { Actions } from 'react-native-router-flux'
 
 const window = Dimensions.get('window')
 
@@ -27,7 +28,8 @@ const CarInfo = ({ car,
     changePlanOutTimeForImportAgain,
     importAgain,
     importAgainCar,
-    changeEditCarInfoField }) => {
+    changeEditCarInfoField
+ }) => {
     let _CarInfoComponent
     if (viewType == 0) {
         _CarInfoComponent = <CarInfoComponent
@@ -59,7 +61,7 @@ const CarInfo = ({ car,
             <NavBar title={'车辆详情'} />
             <ScrollView>
                 {_CarInfoComponent}
-                <CarCamera images={images} postImage={postImage} />
+                <CarCamera images={images} postImage={postImage} showImagePage={Actions.ImagePageForCarInfo}/>
                 <RecordList
                     records={records}
                 />

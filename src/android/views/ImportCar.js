@@ -28,6 +28,11 @@ class ImportCar extends Component {
         this.showPicker = this.showPicker.bind(this)
     }
 
+
+    componentWillUnmount(){
+        
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
         let { imporCarReducer } = nextProps
         let { carId, vin } = imporCarReducer.importCar.data
