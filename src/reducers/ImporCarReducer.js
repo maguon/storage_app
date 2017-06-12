@@ -94,9 +94,28 @@ export default handleActions({
         return {
             ...state,
             importCar: {
-                ...state.importCar,
+                isResultStatus: 0,
                 isExecStatus: 0,
-                data: initialState.importCar.data
+                errorMsg: '',
+                failedMsg: '',
+                data: {
+                    carId: -1,
+                    vin: '',
+                    makeId: -1,
+                    makeName: '',
+                    modelId: -1,
+                    modelName: '',
+                    proDate: '',
+                    color: 'FFFFFF',
+                    engineNum: '',
+                    remark: '',
+                    parkingId: '',
+                    storageId: 0,
+                    storageName: '',
+                    planOutTime: '',
+                    row: '',
+                    column: ''
+                }
             }
         }
     },

@@ -29,9 +29,6 @@ class ImportCar extends Component {
     }
 
 
-    componentWillUnmount(){
-        
-    }
 
     shouldComponentUpdate(nextProps, nextState) {
         let { imporCarReducer } = nextProps
@@ -109,7 +106,6 @@ class ImportCar extends Component {
             storageName,
             row,
             column } = this.props.imporCarReducer.importCar.data
-        console.log(this.props.imporCarReducer.importCar.data)
         return (
 
             <View style={{ flex: 1 }}>

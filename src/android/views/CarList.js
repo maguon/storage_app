@@ -32,14 +32,12 @@ class CarList extends Component {
         }
         if (storageId != 0)
             param.optionalParam.storageId = storageId
-        console.log(param)
         this.props.getCarList(param)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         let { carListReducer } = nextProps
         let { selectStorageForCarListReducer } = nextProps
-        // console.log(carListReducer)
         /*getCarList 执行状态*/
         if (carListReducer.getCarList.isExecStatus == 1) {
             console.log('carListReducer.getCarList开始执行')

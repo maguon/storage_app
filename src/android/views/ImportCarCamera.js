@@ -15,8 +15,6 @@ class ImportCarCamera extends Component {
         this.postImage = this.postImage.bind(this)
     }
 
-    
-
     postImage(param) {
         let { userId, mobile, userType } = this.props.user
         let { carId, vin } = this.props
@@ -87,7 +85,7 @@ class ImportCarCamera extends Component {
                 <TopBar title='上传图片' />
                 <ScrollView>
                     <CarCamera images={imageList} postImage={(param) => this.postImage(param)} showImagePage={Actions.ImagePageForImportCar} />
-                    <Button block onPress={Actions.main} style={{ marginHorizontal: 30, marginVertical: 30, backgroundColor: '#00cade' }} >
+                    <Button block onPress={() => Actions.pop({ popNum: 2 })} style={{ marginHorizontal: 30, marginVertical: 30, backgroundColor: '#00cade' }} >
                         <Text style={{ color: '#ffffff' }}>返回</Text>
                     </Button>
                 </ScrollView>

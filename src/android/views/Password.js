@@ -45,15 +45,15 @@ class Password extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         let { isResult, isSuccess } = nextProps.password
-        console.log('nextProps.password', nextProps.password)
-        console.log('nextState', nextState)
+        // console.log('nextProps.password', nextProps.password)
+        // console.log('nextState', nextState)
         if (isResult) {
             if (isSuccess) {
-                console.log('修改成功')
+                // console.log('修改成功')
                 this.props.resetPassword()
             }
             else {
-                console.log('修改失败')
+                // console.log('修改失败')
                 this.props.resetPassword()
             }
             return false

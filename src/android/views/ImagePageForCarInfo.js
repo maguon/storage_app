@@ -15,6 +15,7 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { file_host } from '../../config/Host'
 import * as CarInfoAction from '../../actions/CarInfoAction'
+import ConfirmModal from '../components/ConfirmModal'
 
 const { width, height } = Dimensions.get('window')
 
@@ -23,7 +24,12 @@ class ImagePage extends Component {
     super(props)
     this.renderPagination = this.renderPagination.bind(this)
     this.renderPhoteView = this.renderPhoteView.bind(this)
+    this.onPressOk = this.onPressOk.bind(this)
+    this.onPressCancel = this.onPressCancel.bind(this)
     this.delImage = this.delImage.bind(this)
+    this.state = {
+      confirmModalVisible: false
+    }
   }
 
   renderPagination(index, total, context) {
@@ -68,8 +74,8 @@ class ImagePage extends Component {
     })
   }
 
-  delImage() {
-
+  onPressOk() {
+    this.setState({ confirmModalVisible: false })
     let { userId } = this.props.user
     let { recordId, imageList } = this.props.CarInfoReducer.getCarInfo.data
     let str = file_host + 'image/'
@@ -82,6 +88,15 @@ class ImagePage extends Component {
       }
     }
     this.props.delImage(param)
+  }
+
+  onPressCancel() {
+    this.setState({ confirmModalVisible: false })
+  }
+
+  delImage() {
+    this.setState({ confirmModalVisible: true })
+
   }
 
   render() {
@@ -112,6 +127,11 @@ class ImagePage extends Component {
             <Text style={{ color: '#888888' }}>删除</Text>
           </Button>
         </View>
+        <ConfirmModal
+          title='确认删除图片？'
+          isVisible={this.state.confirmModalVisible}
+          onPressOk={this.onPressOk}
+          onPressCancel={this.onPressCancel} />
       </View>
     )
   }
