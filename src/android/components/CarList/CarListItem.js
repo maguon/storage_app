@@ -64,7 +64,7 @@ const CarListItem = ({ car }) => {
                     </View>
                 </View>
                 <View style={{ flex: 1, alignSelf: 'center', }}>
-                    <Icon name='ios-arrow-forward' style={{ fontSize: 30, color: '#888888', textAlign: 'center', }} type="ionicons" />
+                    <Icon name='ios-arrow-forward' style={{ fontSize: 20, color: '#888888', textAlign: 'center', }} type="ionicons" />
                 </View>
             </View>
         </TouchableHighlight>

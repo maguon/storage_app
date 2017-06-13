@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, Dimensions, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
+import { Text, View, Dimensions, TouchableOpacity, StyleSheet, Image, Alert, Modal, TouchableHighlight } from 'react-native'
 import { Button, Icon, Spinner } from 'native-base'
 import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import CarCameraItem from './CarCameraItem'
-
-
 
 const window = Dimensions.get('window')
 let ImageWidth = (window.width - 50) / 2
@@ -33,6 +31,9 @@ var photoOptions = {
 export default class CarCamera extends Component {
     constructor(props) {
         super(props)
+        this.openPicker = this.openPicker.bind(this)
+        this.launchCamera = this.launchCamera.bind(this)
+        this.state = { modalVisible: false }
     }
 
     launchCamera = () => {
@@ -67,17 +68,15 @@ export default class CarCamera extends Component {
         })
     }
 
+
+
     openPicker() {
+
         ImageCropPicker.openPicker({
             multiple: true
         }).then(images => {
             if (images.length > 5) {
-                Alert.alert(
-                    '提示',
-                    '您选择的照片数量超过5张，请重新选择！',
-                    [{ text: '确定', onPress: () => { } }],
-                    { cancelable: false }
-                )
+                this.setState({ modalVisible: true })
             }
             else {
                 images.forEach((item) => {
@@ -166,10 +165,29 @@ export default class CarCamera extends Component {
         }
         return (
             <View style={styles.container}>
+
                 {images}
 
                 {btn}
-            </View>
+                <View>
+                    <Modal
+                        animationType={"fade"}
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                    >
+                        <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: 'center', alignItems: 'center' }} >
+                            <View style={{ width: window.width - 60, height: 200, backgroundColor: '#fff', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <View style={{ flex: 1 }}><Text style={{ fontSize: 20, color: '#00cade' }}>提示</Text></View>
+                                <View style={{ flex: 2 }}><Text style={{ fontSize: 20 }}>        您选择的图片数量已经超过5张，请重新选择!</Text></View>
+                                <View style={{ flex: 1 }}>
+                                    <Text style={{ textAlign: 'center', fontSize: 20, color: '#00cade' }} onPress={() => { this.setState({ modalVisible: false }) }}>确认</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+
+                </View>
+            </View >
         )
     }
 }
