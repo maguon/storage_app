@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, Text, StyleSheet,TouchableHighlight } from 'react-native'
+import { View, Image, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
 export default class RecordListItem extends Component {
@@ -8,7 +8,7 @@ export default class RecordListItem extends Component {
     }
 
     render() {
-        let { created_on, op, comment, vin, id,_id } = this.props.recordItem
+        let { created_on, op, comment, vin, id, _id } = this.props.recordItem
         created_on = (new Date(created_on)).toLocaleTimeString()
 
         let opImgUri = { uri: 'icon_note_in' }
@@ -30,7 +30,10 @@ export default class RecordListItem extends Component {
         }
 
         return (
-            <TouchableHighlight key={_id} underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ carId: id }) }}>
+            <TouchableHighlight key={_id} underlayColor='rgba(0,0,0,0.1)' onPress={() => {
+                
+                Actions.carInfo({ carId: id })
+            }}>
                 <View style={{ flexDirection: "row" }}>
                     <View style={{ flex: 2, marginRight: 5, justifyContent: 'center' }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>

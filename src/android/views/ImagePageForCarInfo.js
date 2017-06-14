@@ -52,7 +52,7 @@ class ImagePage extends Component {
           <Text style={{
             color: '#fff',
             fontSize: 14
-          }}>{index + 1} / {total}</Text>
+          }}>{(index + 1).toString()} / {total.toString()}</Text>
         </View>
       </View>
     )

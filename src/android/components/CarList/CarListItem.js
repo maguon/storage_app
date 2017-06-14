@@ -20,7 +20,9 @@ const CarListItem = ({ car }) => {
     enter_time = (new Date(enter_time)).toLocaleString()
     let carColor = colour ? (<View style={{ backgroundColor: `#${colour}`, width: 15, height: 15, borderWidth: 0.5, borderColor: '#cccccc' }} />) : (<View></View>)
     return (
-        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { Actions.carInfo({ carId: car.id }) }}>
+        <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' onPress={() => { 
+            console.log(car.id)
+            Actions.carInfo({ carId: car.id }) }}>
             <View style={{ paddingVertical: 5, paddingHorizontal: 10, flexDirection: 'row', borderBottomWidth: 1, borderColor: '#f1f1f1' }}>
                 <View style={{ flex: 1, paddingTop: 5 }}>
                     {tag}

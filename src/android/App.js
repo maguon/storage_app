@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Scene, Router } from 'react-native-router-flux'
+import { Scene,TabBar, Router} from 'react-native-router-flux'
 import Welcome from './views/Welcome'
 import Login from './views/Login'
 import MainRoot from './views/MainRoot'
@@ -30,13 +30,13 @@ export default class App extends Component {
     render() {
         console.disableYellowBox = true
         return (
-            <Router>
+            <Router >
                 <Scene key="root">
-                    <Scene key="welcome" component={Welcome} hideNavBar />
+                    <Scene key="welcome"  initial={true} component={Welcome} hideNavBar />
                     <Scene key="login" component={Login} hideNavBar />
-                    <Scene key="main" initial={true} component={MainRoot} hideNavBar />
+                    <Scene key="main" component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
-                    <Scene key="carInfo" component={CarInfo} hideNavBar />
+                    <Scene key="carInfo"  component={CarInfo} hideNavBar />
                     <Scene key="ImportCar" component={ImportCar} hideNavBar />
                     <Scene key="VinScanner" component={VinScanner} hideNavBar />
                     <Scene key="ErrorView" component={ErrorView} hideNavBar />

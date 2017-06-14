@@ -58,9 +58,9 @@ export default class CarCamera extends Component {
                                 imageName: response.fileName
                             }
                         }
-                        console.log(resizedImageUri)
+                        // console.log(resizedImageUri)
 
-                        // this.props.postImage(param)
+                        this.props.postImage(param)
                     }).catch((err) => {
                         return console.log(err)
                     })
@@ -81,17 +81,22 @@ export default class CarCamera extends Component {
             else {
                 images.forEach((item) => {
                     let pos = item.path.lastIndexOf('/')
-                    let param = {
-                        postFileParam: {
-                            imageUrl: item.path,
-                            imageType: item.mime,
-                            imageName: item.path.substring(pos + 1)
-                        }
-                    }
-                    this.props.postImage(param)
+                    ImageResizer.createResizedImage(item.path, 960, 960, 'JPEG', 100)
+                        .then((resizedImageUri) => {
+                            let param = {
+                                postFileParam: {
+                                    imageUrl: resizedImageUri,
+                                    imageType: item.mime,
+                                    imageName: item.path.substring(pos + 1)
+                                }
+                            }
+                            console.log(param)
+                            this.props.postImage(param)
+                        }).catch((err) => {
+                            return console.log(err)
+                        })
                 })
             }
-
         }).catch(err => {
             console.log('err')
         })
@@ -174,7 +179,7 @@ export default class CarCamera extends Component {
                         animationType={"fade"}
                         transparent={true}
                         visible={this.state.modalVisible}
-                    >
+                        onRequestClose={() => { }}>
                         <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: 'center', alignItems: 'center' }} >
                             <View style={{ width: window.width - 60, height: 200, backgroundColor: '#fff', paddingHorizontal: 10, paddingVertical: 10 }}>
                                 <View style={{ flex: 1 }}><Text style={{ fontSize: 20, color: '#00cade' }}>提示</Text></View>
@@ -187,7 +192,7 @@ export default class CarCamera extends Component {
                     </Modal>
 
                 </View>
-            </View >
+            </View>
         )
     }
 }
