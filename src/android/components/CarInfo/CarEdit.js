@@ -58,8 +58,6 @@ export default class CarEdit extends Component {
     }
     render() {
         let { car,
-            exportCar,
-            moveCar,
             changeViewType,
             changeEditCarInfoField,
             updateCarInfo } = this.props
@@ -70,30 +68,13 @@ export default class CarEdit extends Component {
         let _col = col ? col.toString() : ''
         let btn, carPosition
         if (car.rel_status == 1) {
-            btn = (<View style={{ flexDirection: 'row', marginTop: 20, marginHorizontal: 20 }} >
-                <View style={{ flex: 1, marginRight: 10 }}>
-                    <Button
-                        full
-                        style={{ backgroundColor: '#00cade', borderRadius: 5 }}
-                        onPress={moveCar}>
-                        <Text style={{ color: '#ffffff' }}>移位</Text>
-                    </Button>
-                </View >
-                <View style={{ flex: 1, marginLeft: 10 }}>
-                    <Button
-                        full
-                        style={{ backgroundColor: '#00cade', borderRadius: 5 }}
-                        onPress={exportCar}>
-                        <Text style={{ color: '#ffffff' }}>出库</Text>
-                    </Button>
-                </View>
-            </View>)
+
             carPosition = (<View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: '#dddddd' }}>
                 <Text style={{ marginLeft: 10, fontSize: 14 }}>当前位置：{storage_name}-{_row}-{_col}</Text>
             </View>)
         }
         else {
-            btn = (<View></View>)
+
             carPosition = (<View></View>)
         }
         return (
@@ -165,7 +146,6 @@ export default class CarEdit extends Component {
                         </Button>
                     </View>
                 </View>
-                {btn}
             </View>
         )
     }

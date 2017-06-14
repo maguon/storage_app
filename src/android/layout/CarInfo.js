@@ -40,8 +40,6 @@ const CarInfo = ({ car,
     } else if (viewType == 1) {
         _CarInfoComponent = <CarEdit
             car={editCarInfo}
-            exportCar={exportCar}
-            moveCar={moveCar}
             changeViewType={changeViewType}
             updateCarInfo={updateCarInfo}
             changeEditCarInfoField={changeEditCarInfoField}
