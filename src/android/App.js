@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Scene,TabBar, Router} from 'react-native-router-flux'
+import { Scene, TabBar, Router } from 'react-native-router-flux'
 import Welcome from './views/Welcome'
 import Login from './views/Login'
 import MainRoot from './views/MainRoot'
@@ -20,6 +20,8 @@ import parkingView from './views/ParkingView'
 import ImagePageForCarInfo from './views/ImagePageForCarInfo'
 import ImagePageForImportCar from './views/ImagePageForImportCar'
 import selectStorageForCarList from './views/SelectStorageForCarList'
+import { BackAndroid } from 'react-native'
+import Orientation from 'react-native-orientation'
 
 
 export default class App extends Component {
@@ -27,16 +29,24 @@ export default class App extends Component {
         super(props)
     }
 
+    componentWillMount() {
+        Orientation.lockToPortrait()
+    }
+
+    componentDidMount() {
+        BackAndroid.addEventListener('hardwareBackPress', () => true)
+    }
+
     render() {
         console.disableYellowBox = true
         return (
             <Router >
                 <Scene key="root">
-                    <Scene key="welcome"  initial={true} component={Welcome} hideNavBar />
+                    <Scene key="welcome" initial={true} component={Welcome} hideNavBar />
                     <Scene key="login" component={Login} hideNavBar />
                     <Scene key="main" component={MainRoot} hideNavBar />
                     <Scene key="password" component={Password} hideNavBar />
-                    <Scene key="carInfo"  component={CarInfo} hideNavBar />
+                    <Scene key="carInfo" component={CarInfo} hideNavBar />
                     <Scene key="ImportCar" component={ImportCar} hideNavBar />
                     <Scene key="VinScanner" component={VinScanner} hideNavBar />
                     <Scene key="ErrorView" component={ErrorView} hideNavBar />

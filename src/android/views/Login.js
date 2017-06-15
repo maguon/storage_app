@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Image, Dimensions, Alert } from 'react-native'
+import { View, Image, Dimensions, Alert} from 'react-native'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
@@ -24,6 +24,7 @@ class Login extends Component {
 
     }
     componentDidMount() {
+        // BackAndroid.addEventListener('hardwareBackPress', () => true)
         localStorage.loadKey(localStorageKey.USER, (err, res) => {
             if (err) {
                 console.log(err)

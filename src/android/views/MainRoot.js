@@ -21,6 +21,10 @@ class Main extends Component {
         // }
         // this.changeTab = this.changeTab.bind(this)
     }
+
+    // componentDidMount() {
+    //     BackAndroid.addEventListener('hardwareBackPress', () => true)
+    // }
     renderSelectedTab() {
         switch (this.props.mainRootReducer.selectedTab) {
             case 'home':

@@ -3,6 +3,7 @@ package com.storage_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.yamill.orientation.OrientationPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.eguma.barcodescanner.BarcodeScannerPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new OrientationPackage(),
             new PickerPackage(),
             new PhotoViewPackage(),
             new BarcodeScannerPackage(),

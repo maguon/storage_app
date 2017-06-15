@@ -5,6 +5,8 @@ import { Actions } from 'react-native-router-flux'
 import WelcomeLayout from '../layout/Welcome'
 import localStorageKey from '../../util/LocalStorageKey'
 import localStorage from '../../util/LocalStorage'
+// import { BackAndroid } from 'react-native'
+
 
 class Welcome extends Component {
     constructor(props) {
@@ -14,6 +16,7 @@ class Welcome extends Component {
     }
 
     componentDidMount() {
+        // BackAndroid.addEventListener('hardwareBackPress', () => true)
         this.props.getAppLastVersion({
             optionalParam: {
                 app: 1,
