@@ -24,7 +24,7 @@ export default class StorageListItem extends Component {
                     <View style={styles.infoViewRow}>
                         <View style={styles.infoViewCol}>
                             <Text style={styles.exportCount}>{storage.exports.toString()}</Text>
-                            <Text style={styles.smallLabel}>临近出库</Text>
+                            <Text style={styles.smallLabel}>今日出库</Text>
                         </View>
                         <View style={styles.infoViewCol}>
                             <Text style={styles.emptyCount}>{(count - storage.balance).toString()}</Text>

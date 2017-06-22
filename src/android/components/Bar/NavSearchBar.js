@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { Header, Title, Button, Item, Input, Icon, Left, Right } from 'native-base'
-//import Icon from 'react-native-vector-icons/Entypo'
 import { Actions } from 'react-native-router-flux'
 
 
