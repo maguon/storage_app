@@ -3,13 +3,13 @@ package com.storage_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.github.yamill.orientation.OrientationPackage;
-import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnative.photoview.PhotoViewPackage;
-import com.eguma.barcodescanner.BarcodeScannerPackage;
+import com.github.yamill.orientation.OrientationPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.imagepicker.ImagePickerPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import com.eguma.barcodescanner.BarcodeScannerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,13 +30,13 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new OrientationPackage(),
-            new PickerPackage(),
+            new VectorIconsPackage(),
             new PhotoViewPackage(),
-            new BarcodeScannerPackage(),
+            new OrientationPackage(),
             new ImageResizerPackage(),
             new ImagePickerPackage(),
-            new VectorIconsPackage()
+            new PickerPackage(),
+            new BarcodeScannerPackage()
       );
     }
   };

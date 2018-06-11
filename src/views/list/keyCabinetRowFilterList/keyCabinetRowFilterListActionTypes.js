@@ -1,0 +1,4 @@
+export const get_carKeyPositionList_success = 'get_carKeyPositionList_success'
+export const get_carKeyPositionList_failed = 'get_carKeyPositionList_failed'
+export const get_carKeyPositionList_error = 'get_carKeyPositionList_error'
+export const get_carKeyPositionList_waiting = 'get_carKeyPositionList_waiting'

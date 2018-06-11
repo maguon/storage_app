@@ -1,0 +1,42 @@
+[
+    {
+        "id": "11",
+        "value": "车辆入库",
+        "url": "icon_note_in"
+    },
+    {
+        "id": "12",
+        "value": "车辆移位",
+        "url": "icon_note_in"
+    },
+    {
+        "id": "13",
+        "value": "车辆出库",
+        "url": "icon_note_in"
+    },
+    {
+        "id": "21",
+        "value": "钥匙存放",
+        "url": "icon_note_in"
+    },
+    {
+        "id": "31",
+        "value": "海运创建",
+        "url": "icon_note_in"
+    },
+    {
+        "id": "32",
+        "value": "海运出发",
+        "url": "icon_note_in"
+    },
+    {
+        "id": "33",
+        "value": "海运到达",
+        "url": "icon_note_in"
+    },
+    {
+        "id": "34",
+        "value": "海运取消",
+        "url": "icon_note_in"
+    }
+]

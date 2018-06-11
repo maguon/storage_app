@@ -1,0 +1,4 @@
+export const get_storageListForHome_success = 'get_storageListForHome_success'
+export const get_storageListForHome_failed = 'get_storageListForHome_failed'
+export const get_storageListForHome_error = 'get_storageListForHome_error'
+export const get_storageListForHome_waiting = 'get_storageListForHome_waiting'

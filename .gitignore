@@ -1,8 +1,7 @@
 # OSX
 #
 .DS_Store
-*.ttf
-*.otf
+
 # Xcode
 #
 build/
@@ -30,7 +29,6 @@ build/
 .gradle
 local.properties
 *.iml
-.metadata/
 
 # node.js
 #

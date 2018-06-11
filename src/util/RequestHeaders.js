@@ -4,7 +4,8 @@ class RequestHeaders {
         this.headers.set('Content-Type', 'application/json')
         this.headers.set('charset', 'utf-8')
         this.formHeaders = new Headers()
-        this.formHeaders.set('Content-Type', 'multipart/form-data')
+        // this.formHeaders.set('charset', 'utf-8')
+        this.formHeaders.set('Content-Type', 'multipart/form-data;charset=utf-8')
     }
 
     set(key, value) {
@@ -14,4 +15,3 @@ class RequestHeaders {
 }
 
 export default new RequestHeaders()
-

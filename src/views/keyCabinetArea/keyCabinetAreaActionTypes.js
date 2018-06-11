@@ -1,0 +1,4 @@
+export const get_keyCabinetAreaList_success = 'get_keyCabinetAreaList_success'
+export const get_keyCabinetAreaList_failed = 'get_keyCabinetAreaList_failed'
+export const get_keyCabinetAreaList_error = 'get_keyCabinetAreaList_error'
+export const get_keyCabinetAreaList_waiting = 'get_keyCabinetAreaList_waiting'

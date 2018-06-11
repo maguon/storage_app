@@ -1,0 +1,4 @@
+export const get_parkingListForSelect_success = 'get_parkingListForSelect_success'
+export const get_parkingListForSelect_failed = 'get_parkingListForSelect_failed'
+export const get_parkingListForSelect_error = 'get_parkingListForSelect_error'
+export const get_parkingListForSelect_waiting = 'get_parkingListForSelect_waiting'

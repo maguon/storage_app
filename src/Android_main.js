@@ -3,24 +3,18 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import reducers from './reducers'
-import App from './android/App'
+import App from './App'
 
 const store = compose(
     applyMiddleware(ReduxThunk)
 )(createStore)(reducers)
 
-class Android_main extends Component {
-    constructor(props) {
-        super(props)
-    }  
-
+export default class Android_main extends Component {
     render() {
         return (
-           <Provider store={store}>
+            <Provider store={store}>
                 <App />
-          </Provider>
+            </Provider>
         )
     }
 }
-
-export default Android_main

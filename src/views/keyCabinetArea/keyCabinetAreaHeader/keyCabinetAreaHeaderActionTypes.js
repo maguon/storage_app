@@ -1,0 +1,4 @@
+export const get_carKeyPositionCountForArea_success = 'get_carKeyPositionCountForArea_success'
+export const get_carKeyPositionCountForArea_failed = 'get_carKeyPositionCountForArea_failed'
+export const get_carKeyPositionCountForArea_error = 'get_carKeyPositionCountForArea_error'
+export const get_carKeyPositionCountForArea_waiting = 'get_carKeyPositionCountForArea_waiting'

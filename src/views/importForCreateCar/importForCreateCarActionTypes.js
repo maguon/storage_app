@@ -1,0 +1,21 @@
+export const get_carInfoForCreateCar_success = 'get_carInfoForCreateCar_success'
+export const get_carInfoForCreateCar_failed = 'get_carInfoForCreateCar_failed'
+export const get_carInfoForCreateCar_error = 'get_carInfoForCreateCar_error'
+export const get_carInfoForCreateCar_waiting = 'get_carInfoForCreateCar_waiting'
+
+export const update_keyPositionForCreateCar_success = 'update_keyPositionForCreateCar_success'
+export const update_keyPositionForCreateCar_failed = 'update_keyPositionForCreateCar_failed'
+export const update_keyPositionForCreateCar_waiting = 'update_keyPositionForCreateCar_waiting'
+export const update_keyPositionForCreateCar_error = 'update_keyPositionForCreateCar_error'
+
+export const import_carForCreateCar_success = 'import_carForCreateCar_success'
+export const import_carForCreateCar_failed = 'import_carForCreateCar_failed'
+export const import_carForCreateCar_error = 'import_carForCreateCar_error'
+export const import_carForCreateCar_waiting = 'import_carForCreateCar_waiting'
+
+export const update_planOutTimeForCreateCar_success = 'update_planOutTimeForCreateCar_success'
+export const update_planOutTimeForCreateCar_failed = 'update_planOutTimeForCreateCar_failed'
+export const update_planOutTimeForCreateCar_error = 'update_planOutTimeForCreateCar_error'
+export const update_planOutTimeForCreateCar_waiting = 'update_planOutTimeForCreateCar_waiting'
+
+export const clean_importForCreateCar = 'clean_importForCreateCar'
