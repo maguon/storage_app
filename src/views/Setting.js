@@ -16,7 +16,7 @@ import { file_host } from '../config/Host'
 import ConfirmModal from '../components/share/ConfirmModal'
 import * as routerDirection from '../util/RouterDirection'
 import * as android_app from '../android_app.json'
-
+import * as actions from '../actions'
 class Setting extends Component {
     constructor(props) {
         super(props)
@@ -166,7 +166,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     cleanLogin: () => {
-        // dispatch(loginAction.cleanLogin())
+        dispatch(actions.login.cleanLogin())
     }
 })
 

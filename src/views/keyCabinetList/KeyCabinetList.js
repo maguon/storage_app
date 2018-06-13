@@ -33,7 +33,7 @@ const renderListItem = props => {
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
                     <Text style={[globalStyles.midText, globalStyles.styleColor]}>{key_cabinet_name}</Text>
-                    <Text style={[globalStyles.midText, globalStyles.styleBackgroundColor, { paddingHorizontal: 15, borderRadius: 15, color: "#fff" }]}>总：{position_count}</Text>
+                    <Text style={[globalStyles.midText, globalStyles.styleBackgroundColor, { paddingHorizontal: 15, borderRadius: 15, color: "#fff" }]}>总：{position_count ? `${position_count}` : '0'}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
                     <Text style={[globalStyles.smallText]}>扇区  <Text style={[globalStyles.midText, globalStyles.styleColor]}>{area_count}</Text></Text>

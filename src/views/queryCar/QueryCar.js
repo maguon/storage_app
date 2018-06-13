@@ -90,6 +90,7 @@ const QueryCar = props => {
                             onSelect: (param) => {
                                 const { id, storage_name } = param
                                 onChange({ id, value: storage_name, item: param })
+                                Actions.pop()
                             }
                         })
                         InteractionManager.runAfterInteractions(getStorageList)

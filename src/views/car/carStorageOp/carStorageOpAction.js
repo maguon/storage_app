@@ -17,8 +17,10 @@ export const updateCarPosition = param => async (dispatch, getState) => {
             dispatch({ type: actionTypes.carStorageOp.update_carPosition_success, payload: {} })
             dispatch(actions.carOpRecord.getRecordListForCarWaiting())
             dispatch(actions.carOpRecord.getRecordListForCar({ carId }))
+            dispatch(actions.carList.queryCarWaiting())
+            dispatch(actions.carList.queryCar())
             dispatch(change('carStorageOpForm', 'position', { id, value: `${row}排 ${col}列 ${lot}单元格` }))
-            dispatch({ type: actionTypes.carList.set_carInfoForCarList, payload: { carInfo: { id: carId, row, col, lot, p_id: id, area_id, area_name } } })
+            // dispatch({ type: actionTypes.carList.set_carInfoForCarList, payload: { carInfo: { id: carId, row, col, lot, p_id: id, area_id, area_name } } })
         } else {
             dispatch({ type: actionTypes.carStorageOp.update_carPosition_failed, payload: { failedMsg: res.msg } })
         }
@@ -54,15 +56,17 @@ export const exportCar = param => async (dispatch, getState) => {
         const { relId, parkingId, storageId, carId } = param
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${uid}/carStorageRel/${relId}/relStatus/2${ObjectToUrl({ parkingId, storageId, carId })}`
-        console.log('url', url)
+       // console.log('url', url)
         const res = await httpRequest.put(url, {})
-        console.log('res', res)
+       // console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.carStorageOp.export_car_success, payload: {} })
+            dispatch(actions.carList.queryCarWaiting())
+            dispatch(actions.carList.queryCar())
             dispatch({
-                type: actionTypes.carList.set_carInfoForCarList, payload: {
+                type: actionTypes.carInfoEditor.set_carInfoForCarInfoEditor, payload: {
                     carInfo: {
-                        id: carId,
+                        //id: carId,
                         area_name: null,
                         area_id: null,
                         car_key_cabinet_area: null,
@@ -87,7 +91,7 @@ export const exportCar = param => async (dispatch, getState) => {
             dispatch({ type: actionTypes.carStorageOp.export_car_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        //console.log('err', err)
         dispatch({ type: actionTypes.carStorageOp.export_car_error, payload: { errorMsg: err } })
     }
 }
@@ -105,10 +109,12 @@ export const importCar = param => async (dispatch, getState) => {
             dispatch({ type: actionTypes.carStorageOp.import_car_success, payload: {} })
             dispatch(actions.carOpRecord.getRecordListForCarWaiting())
             dispatch(actions.carOpRecord.getRecordListForCar({ carId }))
+            dispatch(actions.carList.queryCarWaiting())
+            dispatch(actions.carList.queryCar())
             dispatch({
-                type: actionTypes.carList.set_carInfoForCarList, payload: {
+                type: actionTypes.carInfoEditor.set_carInfoForCarInfoEditor, payload: {
                     carInfo: {
-                        id: carId,
+                        //id: carId,
                         rel_status: 1,
                         row,
                         col,
@@ -129,6 +135,7 @@ export const importCar = param => async (dispatch, getState) => {
             dispatch({ type: actionTypes.carStorageOp.import_car_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
+       // console.log('err', err)
         dispatch({ type: actionTypes.carStorageOp.import_car_error, payload: { errorMsg: err } })
     }
 }
@@ -146,6 +153,14 @@ export const updatePlanOutTime = param => async (dispatch, getState) => {
             dispatch({ type: actionTypes.carStorageOp.update_planOutTime_success, payload: {} })
             dispatch({
                 type: actionTypes.carList.set_carInfoForCarList, payload: {
+                    carInfo: {
+                        id: param.carId,
+                        plan_out_time: param.planOutTime
+                    }
+                }
+            })
+            dispatch({
+                type: actionTypes.carInfoEditor.set_carInfoForCarInfoEditor, payload: {
                     carInfo: {
                         id: param.carId,
                         plan_out_time: param.planOutTime

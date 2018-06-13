@@ -3,13 +3,14 @@ import { Text, View, StatusBar, StyleSheet, Dimensions } from 'react-native'
 import { Header, Title, Button, Icon, Right, Left, Body, Label } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import globalStyles, { styleColor } from '../../util/GlobalStyles'
+import Orientation from 'react-native-orientation'
 
 const { width } = Dimensions.get('window')
 
 const NavBar = props => {
-    const { title, RightButton, LeftButton, parent, initParam } = props
+    const { title, RightButton, LeftButton, parent, initParam, layout: { initWidth } } = props
     return (
-        <View style={[styles.container, { width: width }]}>
+        <View style={[styles.container, { width: initWidth }]}>
             <StatusBar hidden={false} />
             <Header
                 androidStatusBarColor={styleColor}

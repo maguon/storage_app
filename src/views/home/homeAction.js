@@ -6,15 +6,23 @@ import moment from 'moment'
 
 export const getStorageList = param => async (dispatch) => {
     try {
-        const url = `${base_host}/storageDate${ObjectToUrl({
-            dateStart: moment().format('YYYYMMDD'),
-            dateEnd: moment().format('YYYYMMDD'),
-        })}`
-        const res = await httpRequest.get(url)
-        if (res.success) {
-            dispatch({ type: actionTypes.home.get_storageListForHome_success, payload: { storageList: res.result } })
+        const urls = [`${base_host}/storageDate${ObjectToUrl({ dateStart: moment().format('YYYYMMDD'), dateEnd: moment().format('YYYYMMDD') })}`,
+        `${base_host}/storageParkingBalanceCount`]
+        const storageDateRes = await httpRequest.get(urls[0])
+        if (storageDateRes.success) {
+            const storageCountRes = await httpRequest.get(urls[1])
+            if (storageCountRes.success) {
+                const storageList = storageDateRes.result.map(item => {
+                    const count = storageCountRes.result.find(countItem => countItem.storage_id == item.id)
+                    const storage = { ...item, ...count }
+                    return storage
+                })
+                dispatch({ type: actionTypes.home.get_storageListForHome_success, payload: { storageList } })
+            } else {
+                dispatch({ type: actionTypes.home.get_storageListForHome_failed, payload: { failedMsg: res.msg } })
+            }
         } else {
-            dispatch({ type: actionTypes.home.get_storageListForHome_failed, payload: { failedMsg: res.msg } })
+            dispatch({ type: actionTypes.home.get_storageListForHome_failed, payload: { failedMsg: storageDateRes.msg } })
         }
     } catch (err) {
         dispatch({ type: actionTypes.home.get_storageListForHome_error, payload: { errorMsg: err } })

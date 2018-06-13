@@ -7,8 +7,8 @@ import {
     Image
 } from 'react-native'
 import { connect } from 'react-redux'
-import { Container, Icon } from 'native-base'
-import globalStyles from '../../../util/GlobalStyles'
+import { Container, Icon, Spinner } from 'native-base'
+import globalStyles, { styleColor } from '../../../util/GlobalStyles'
 import CarOpRecordList from '../../../util/CarOpRecordList.json'
 import moment from 'moment'
 
@@ -32,16 +32,24 @@ const renderListItem = props => {
 }
 
 const CarOpRecord = props => {
-    const { carOpRecordReducer: { data: { recordList } } } = props
-    return (
-        <Container>
-            <FlatList
-                keyExtractor={(item, index) => index}
-                data={recordList}
-                renderItem={renderListItem}
-            />
-        </Container>
-    )
+    const { carOpRecordReducer: { data: { recordList }, getRecordListForCar } } = props
+    if (getRecordListForCar.isResultStatus == 1) {
+        return (
+            <Container>
+                <Spinner color={styleColor} />
+            </Container>
+        )
+    } else {
+        return (
+            <Container>
+                <FlatList
+                    keyExtractor={(item, index) => index}
+                    data={recordList}
+                    renderItem={renderListItem}
+                />
+            </Container>
+        )
+    }
 }
 
 const mapStateToProps = (state) => ({

@@ -46,6 +46,7 @@ import LotList from './views/list/LotList'
 import KeyOfCarList from './views/KeyOfCarList'
 import CarList from './views/carList/CarList'
 import Car from './views/car/Car'
+import VinScanner from './views/VinScanner'
 import ImportForCreateCar from './views/importForCreateCar/ImportForCreateCar'
 import CarImagePhotoView from './views/car/carImagePhotoView/CarImagePhotoView'
 import AddImageForCreateCarPhotoView from './views/addImageForCreateCarPhotoView/AddImageForCreateCarPhotoView'
@@ -149,6 +150,12 @@ export default class App extends Component {
                                     hideTabBar
                                     LeftButton={AddInfoForCreateCarLeftButton}
                                     RightButton={AddInfoForCreateCarOp} />
+                                <Scene key='vinScanner'
+                                    title='扫描条码'
+                                    component={VinScanner}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
                                 <Scene key='addImageForCreateCar'
                                     title='添加照片'
                                     component={AddImageForCreateCar}

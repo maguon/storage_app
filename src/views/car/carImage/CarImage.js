@@ -9,12 +9,12 @@ import {
     Modal,
     ActivityIndicator
 } from 'react-native'
-import { Container } from 'native-base'
+import { Container, Spinner } from 'native-base'
 import { file_host } from '../../../config/Host'
 import CameraButton from '../../../components/share/CameraButton'
 import ImageItem from '../../../components/share/ImageItem'
 import { connect } from 'react-redux'
-import globalStyles from '../../../util/GlobalStyles'
+import globalStyles, { styleColor } from '../../../util/GlobalStyles'
 import * as actions from '../../../actions'
 import * as routerDirection from '../../../util/RouterDirection'
 
@@ -80,33 +80,41 @@ const CarImage = props => {
         carImageReducer: { data: { imageList }, getImageListForCarInfo, updateCarImage },
         initParam: { carId, vin }
     } = props
-    return (
-        <Container >
-            <FlatList
-                keyExtractor={(item, index) => index}
-                style={styles.flatList}
-                data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
-                numColumns={2}
-                ListEmptyComponent={() => renderListEmpty({ uploadCarImageWaiting, uploadCarImage, carId, vin })}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadCarImageWaiting, uploadCarImage, carId, vin, setIndexForCarInfoImage })} />
-            <Modal
-                animationType={"fade"}
-                transparent={true}
-                visible={updateCarImage.isResultStatus == 1}
-                onRequestClose={() => { }}>
-                <View style={styles.modalContainer} >
-                    <View style={styles.modalItem}>
-                        <ActivityIndicator
-                            animating={updateCarImage.isResultStatus == 1}
-                            style={styles.modalActivityIndicator}
-                            size="large"
-                        />
-                        <Text style={styles.modalText}>正在上传图片...</Text>
+    if (getImageListForCarInfo.isResultStatus == 1) {
+        return (
+            <Container>
+                <Spinner color={styleColor} />
+            </Container>
+        )
+    } else {
+        return (
+            <Container >
+                <FlatList
+                    keyExtractor={(item, index) => index}
+                    style={styles.flatList}
+                    data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
+                    numColumns={2}
+                    ListEmptyComponent={() => renderListEmpty({ uploadCarImageWaiting, uploadCarImage, carId, vin })}
+                    renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadCarImageWaiting, uploadCarImage, carId, vin, setIndexForCarInfoImage })} />
+                <Modal
+                    animationType={"fade"}
+                    transparent={true}
+                    visible={updateCarImage.isResultStatus == 1}
+                    onRequestClose={() => { }}>
+                    <View style={styles.modalContainer} >
+                        <View style={styles.modalItem}>
+                            <ActivityIndicator
+                                animating={updateCarImage.isResultStatus == 1}
+                                style={styles.modalActivityIndicator}
+                                size="large"
+                            />
+                            <Text style={styles.modalText}>正在上传图片...</Text>
+                        </View>
                     </View>
-                </View>
-            </Modal>
-        </Container>
-    )
+                </Modal>
+            </Container>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

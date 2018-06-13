@@ -5,7 +5,7 @@ import {
     View,
     InteractionManager
 } from 'react-native'
-import { Container, Content, Button, ListItem } from 'native-base'
+import { Container, Content, Button, ListItem, Spinner } from 'native-base'
 import globalStyles, { styleColor } from '../../../util/GlobalStyles'
 import moment from 'moment'
 import Select from '../../../components/share/form/Select'
@@ -20,185 +20,193 @@ const CarStorageOp = props => {
     const { carInfo: { rel_status, r_id, enter_time, p_id, plan_out_time, real_out_time, storage_id, storage_name, id, vin }, carInfo, parent, updateCarKeyPosition,
         getAreaList, getAreaListWaiting, getRowListWaiting, getRowList, formValue, updateCarPosition, getKeyCabinetListWaiting,
         getKeyCabinetList, getKeyCabinetAreaListWaiting, getKeyCabinetAreaList, getCarKeyPositionList, getCarKeyPositionListWaiting,
-        getStorageListWaiting, getStorageList, importCar, exportCar, updatePlanOutTime } = props
-    console.log('carInfo', carInfo)
-    if (rel_status == 1) {
+        getStorageListWaiting, getStorageList, importCar, exportCar, updatePlanOutTime, carInfoEditorReducer } = props
+    // console.log('carInfo', carInfo)
+    if (carInfoEditorReducer.getCarInfo.isResultStatus == 1) {
         return (
             <Container>
-                <Content>
-                    <View style={{ alignItems: 'flex-end', padding: 15, backgroundColor: '#f1f2f3', borderBottomWidth: 0.5, borderBottomColor: '#ddd' }}>
-                        <Text style={[globalStyles.midText, globalStyles.styleColor]}>在库</Text>
-                    </View>
-                    <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={globalStyles.midText}>入库时间</Text>
-                        <Text style={globalStyles.midText}>{enter_time ? moment(enter_time).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
-                    </ListItem>
-                    <Field
-                        label='计划出库日期'
-                        name='planOutTime'
-                        component={DatePicker}
-                        onChange={(event, newValue, previousValue, name) => {
-                            if (newValue != previousValue) {
-                                updatePlanOutTime({ relId: r_id, planOutTime: newValue, carId: id })
-                            }
-                        }}
-                    />
-                    <Field
-                        name='area'
-                        label='存放仓库'
-                        component={Select}
-                        onPress={({ onChange }) => {
-                            getAreaListWaiting()
-                            routerDirection.areaList(parent)({
-                                onSelect: (param) => {
-                                    const { id, area_name } = param
-                                    onChange({ id, value: `${storage_name} ${area_name}`, item: param })
-                                }
-                            })
-                            InteractionManager.runAfterInteractions(() => getAreaList({ storageId: storage_id }))
-                        }}
-                    />
-                    <Field
-                        name='position'
-                        label='存放位置'
-                        component={Select}
-                        onPress={({ onChange }) => {
-                            getRowListWaiting()
-                            routerDirection.rowList(parent)({
-                                onSelect: (row) => {
-                                    routerDirection.colList(parent)({
-                                        row: row.id,
-                                        onSelect: (col) => {
-                                            routerDirection.lotList(parent)({
-                                                row: row.id,
-                                                col: col.id,
-                                                onSelect: (parking) => {
-                                                    Actions.pop({ popNum: 3 })
-                                                    InteractionManager.runAfterInteractions(() => updateCarPosition({ parking: { ...parking, area_name: formValue.area.value }, carId: id }))
-                                                }
-                                            })
-                                        }
-                                    })
-                                }
-                            })
-                            InteractionManager.runAfterInteractions(() => getRowList({ storageId: storage_id, areaId: formValue.area.id }))
-                        }}
-                    />
-                    <Field
-                        name='keyCabinet'
-                        label='钥匙柜'
-                        component={Select}
-                        onPress={({ onChange }) => {
-                            getKeyCabinetListWaiting()
-                            routerDirection.keyCabinetListForSelect(parent)({
-                                onSelect: (param) => {
-                                    const { id, key_cabinet_name } = param
-                                    onChange({ id, value: key_cabinet_name, item: param })
-                                }
-                            })
-                            InteractionManager.runAfterInteractions(getKeyCabinetList)
-                        }}
-                    />
-                    <Field
-                        name='keyCabinetPosition'
-                        label='要是存放位置'
-                        component={Select}
-                        onPress={({ onChange }) => {
-                            getKeyCabinetAreaListWaiting()
-                            routerDirection.keyCabinetAreaList(parent)({
-                                onSelect: area => {
-                                    getCarKeyPositionListWaiting()
-                                    routerDirection.keyCabinetRowFilterList(parent)({
-                                        onSelect: row => {
-                                            routerDirection.keyCabinetColFilterList(parent)({
-                                                row: row.id,
-                                                onSelect: carPosition => {
-                                                    Actions.pop({ popNum: 3 })
-                                                    InteractionManager.runAfterInteractions(() => updateCarKeyPosition({ carPosition, carId: id }))
-                                                }
-                                            })
-                                        }
-                                    })
-                                    InteractionManager.runAfterInteractions(() => getCarKeyPositionList({ carKeyCabinetId: formValue.keyCabinet.id, areaId: area.id }))
-                                }
-                            })
-                            InteractionManager.runAfterInteractions(() => getKeyCabinetAreaList({ carKeyCabinetId: formValue.keyCabinet.id }))
-                        }}
-                    />
-                    <Button block onPress={() => exportCar({ relId: r_id, parkingId: p_id, storageId: storage_id, carId: id })} style={[globalStyles.styleBackgroundColor, { margin: 15 }]}>
-                        <Text style={[globalStyles.midText, { color: '#fff' }]}>出库</Text>
-                    </Button>
-                </Content>
-            </Container>)
-    } else {
-        return (
-            <Container>
-                <Content>
-                    <View style={{ alignItems: 'flex-end', padding: 15, backgroundColor: '#f1f2f3', borderBottomWidth: 0.5, borderBottomColor: '#ddd' }}>
-                        <Text style={[globalStyles.midText]}>已出库</Text>
-                    </View>
-                    <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={globalStyles.midText}>入库时间</Text>
-                        <Text style={globalStyles.midText}>{enter_time ? moment(enter_time).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
-                    </ListItem>
-                    <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={globalStyles.midText}>计划出库日期</Text>
-                        <Text style={globalStyles.midText}>{plan_out_time ? moment(`${plan_out_time}`).format('YYYY-MM-DD') : ''}</Text>
-                    </ListItem>
-                    <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={globalStyles.midText}>出库时间</Text>
-                        <Text style={globalStyles.midText}>{real_out_time ? moment(`${real_out_time}`).format('YYYY-MM-DD') : ''}</Text>
-                    </ListItem>
-                    <Button block style={[globalStyles.styleBackgroundColor, { margin: 15 }]}
-                        onPress={() => {
-                            getStorageListWaiting()
-                            routerDirection.storageList(parent)({
-                                onSelect: storage => {
-                                    getAreaListWaiting()
-                                    routerDirection.areaList(parent)({
-                                        onSelect: area => {
-                                            getRowListWaiting()
-                                            routerDirection.rowList(parent)({
-                                                onSelect: row => {
-                                                    routerDirection.colList(parent)({
-                                                        row: row.id,
-                                                        onSelect: col => {
-                                                            routerDirection.lotList(parent)({
-                                                                row: row.id,
-                                                                col: col.id,
-                                                                onSelect: (parking) => {
-                                                                    Actions.pop({ popNum: 5 })
-                                                                    importCar({
-                                                                        carId: id,
-                                                                        vin,
-                                                                        parkingId: parking.id,
-                                                                        storageId: parking.storage_id,
-                                                                        storageName: parking.storage_name,
-                                                                        areaId: area.id,
-                                                                        areaName: area.area_name,
-                                                                        row: row.id,
-                                                                        col: col.id,
-                                                                        lot: parking.lot
-                                                                    })
-                                                                }
-                                                            })
-                                                        }
-                                                    })
-                                                }
-                                            })
-                                            InteractionManager.runAfterInteractions(() => getRowList({ storageId: storage.id, areaId: area.id }))
-                                        }
-                                    })
-                                    InteractionManager.runAfterInteractions(() => getAreaList({ storageId: storage.id }))
-                                }
-                            })
-                            InteractionManager.runAfterInteractions(getStorageList)
-                        }}>
-                        <Text style={[globalStyles.midText, { color: '#fff' }]}>入库</Text>
-                    </Button>
-                </Content>
+                <Spinner color={styleColor} />
             </Container>
         )
+    } else {
+        if (rel_status == 1) {
+            return (
+                <Container>
+                    <Content>
+                        <View style={{ alignItems: 'flex-end', padding: 15, backgroundColor: '#f1f2f3', borderBottomWidth: 0.5, borderBottomColor: '#ddd' }}>
+                            <Text style={[globalStyles.midText, globalStyles.styleColor]}>在库</Text>
+                        </View>
+                        <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Text style={globalStyles.midText}>入库时间</Text>
+                            <Text style={globalStyles.midText}>{enter_time ? moment(enter_time).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
+                        </ListItem>
+                        <Field
+                            label='计划出库日期'
+                            name='planOutTime'
+                            component={DatePicker}
+                            onChange={(event, newValue, previousValue, name) => {
+                                if (newValue != previousValue) {
+                                    updatePlanOutTime({ relId: r_id, planOutTime: newValue, carId: id })
+                                }
+                            }}
+                        />
+                        <Field
+                            name='area'
+                            label='存放仓库'
+                            component={Select}
+                            onPress={({ onChange }) => {
+                                getAreaListWaiting()
+                                routerDirection.areaList(parent)({
+                                    onSelect: (param) => {
+                                        const { id, area_name } = param
+                                        onChange({ id, value: `${storage_name} ${area_name}`, item: param })
+                                    }
+                                })
+                                InteractionManager.runAfterInteractions(() => getAreaList({ storageId: storage_id }))
+                            }}
+                        />
+                        <Field
+                            name='position'
+                            label='存放位置'
+                            component={Select}
+                            onPress={({ onChange }) => {
+                                getRowListWaiting()
+                                routerDirection.rowList(parent)({
+                                    onSelect: (row) => {
+                                        routerDirection.colList(parent)({
+                                            row: row.id,
+                                            onSelect: (col) => {
+                                                routerDirection.lotList(parent)({
+                                                    row: row.id,
+                                                    col: col.id,
+                                                    onSelect: (parking) => {
+                                                        Actions.pop({ popNum: 3 })
+                                                        InteractionManager.runAfterInteractions(() => updateCarPosition({ parking: { ...parking, area_name: formValue.area.value }, carId: id }))
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                                InteractionManager.runAfterInteractions(() => getRowList({ storageId: storage_id, areaId: formValue.area.id }))
+                            }}
+                        />
+                        <Field
+                            name='keyCabinet'
+                            label='钥匙柜'
+                            component={Select}
+                            onPress={({ onChange }) => {
+                                getKeyCabinetListWaiting()
+                                routerDirection.keyCabinetListForSelect(parent)({
+                                    onSelect: (param) => {
+                                        const { id, key_cabinet_name } = param
+                                        onChange({ id, value: key_cabinet_name, item: param })
+                                    }
+                                })
+                                InteractionManager.runAfterInteractions(getKeyCabinetList)
+                            }}
+                        />
+                        <Field
+                            name='keyCabinetPosition'
+                            label='要是存放位置'
+                            component={Select}
+                            onPress={({ onChange }) => {
+                                getKeyCabinetAreaListWaiting()
+                                routerDirection.keyCabinetAreaList(parent)({
+                                    onSelect: area => {
+                                        getCarKeyPositionListWaiting()
+                                        routerDirection.keyCabinetRowFilterList(parent)({
+                                            onSelect: row => {
+                                                routerDirection.keyCabinetColFilterList(parent)({
+                                                    row: row.id,
+                                                    onSelect: carPosition => {
+                                                        Actions.pop({ popNum: 3 })
+                                                        InteractionManager.runAfterInteractions(() => updateCarKeyPosition({ carPosition, carId: id }))
+                                                    }
+                                                })
+                                            }
+                                        })
+                                        InteractionManager.runAfterInteractions(() => getCarKeyPositionList({ carKeyCabinetId: formValue.keyCabinet.id, areaId: area.id }))
+                                    }
+                                })
+                                InteractionManager.runAfterInteractions(() => getKeyCabinetAreaList({ carKeyCabinetId: formValue.keyCabinet.id }))
+                            }}
+                        />
+                        <Button block onPress={() => exportCar({ relId: r_id, parkingId: p_id, storageId: storage_id, carId: id })} style={[globalStyles.styleBackgroundColor, { margin: 15 }]}>
+                            <Text style={[globalStyles.midText, { color: '#fff' }]}>出库</Text>
+                        </Button>
+                    </Content>
+                </Container>)
+        } else {
+            return (
+                <Container>
+                    <Content>
+                        <View style={{ alignItems: 'flex-end', padding: 15, backgroundColor: '#f1f2f3', borderBottomWidth: 0.5, borderBottomColor: '#ddd' }}>
+                            <Text style={[globalStyles.midText]}>{rel_status == 2 ? '已出库' : '未入库'}</Text>
+                        </View>
+                        {rel_status == 2 && <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Text style={globalStyles.midText}>入库时间</Text>
+                            <Text style={globalStyles.midText}>{enter_time ? moment(enter_time).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
+                        </ListItem>}
+                        {rel_status == 2 && <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Text style={globalStyles.midText}>计划出库日期</Text>
+                            <Text style={globalStyles.midText}>{plan_out_time ? moment(`${plan_out_time}`).format('YYYY-MM-DD') : ''}</Text>
+                        </ListItem>}
+                        {rel_status == 2 && <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Text style={globalStyles.midText}>出库时间</Text>
+                            <Text style={globalStyles.midText}>{real_out_time ? moment(`${real_out_time}`).format('YYYY-MM-DD') : ''}</Text>
+                        </ListItem>}
+                        <Button block style={[globalStyles.styleBackgroundColor, { margin: 15 }]}
+                            onPress={() => {
+                                getStorageListWaiting()
+                                routerDirection.storageList(parent)({
+                                    onSelect: storage => {
+                                        getAreaListWaiting()
+                                        routerDirection.areaList(parent)({
+                                            onSelect: area => {
+                                                getRowListWaiting()
+                                                routerDirection.rowList(parent)({
+                                                    onSelect: row => {
+                                                        routerDirection.colList(parent)({
+                                                            row: row.id,
+                                                            onSelect: col => {
+                                                                routerDirection.lotList(parent)({
+                                                                    row: row.id,
+                                                                    col: col.id,
+                                                                    onSelect: (parking) => {
+                                                                        Actions.pop({ popNum: 5 })
+                                                                        importCar({
+                                                                            carId: id,
+                                                                            vin,
+                                                                            parkingId: parking.id,
+                                                                            storageId: parking.storage_id,
+                                                                            storageName: parking.storage_name,
+                                                                            areaId: area.id,
+                                                                            areaName: area.area_name,
+                                                                            row: row.id,
+                                                                            col: col.id,
+                                                                            lot: parking.lot
+                                                                        })
+                                                                    }
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                                InteractionManager.runAfterInteractions(() => getRowList({ storageId: storage.id, areaId: area.id }))
+                                            }
+                                        })
+                                        InteractionManager.runAfterInteractions(() => getAreaList({ storageId: storage.id }))
+                                    }
+                                })
+                                InteractionManager.runAfterInteractions(getStorageList)
+                            }}>
+                            <Text style={[globalStyles.midText, { color: '#fff' }]}>入库</Text>
+                        </Button>
+                    </Content>
+                </Container>
+            )
+        }
     }
 }
 
@@ -210,7 +218,8 @@ const mapStateToProps = (state, ownProps) => {
     keyPosition += car_key_position_row ? ` ${car_key_position_row}排` : ''
     keyPosition += car_key_position_col ? ` ${car_key_position_col}号` : ''
     return {
-        carImageReducer: state.carImageReducer,
+        // carImageReducer: state.carImageReducer,
+        carInfoEditorReducer: state.carInfoEditorReducer,
         formValue: getFormValues('carStorageOpForm')(state),
         initialValues: {
             area: { id: area_id, value: `${storage_name} ${area_name}` },

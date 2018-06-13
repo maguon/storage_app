@@ -65,9 +65,9 @@ const Login = props => {
                         onPress={handleSubmit}>
                         <Text style={[globalStyles.midText, styles.buttonTittle]}>登录</Text>
                     </Button>
-                    <TouchableOpacity style={styles.linkButton} onPress={() => Actions.retrievePassword()}>
+                    {/* <TouchableOpacity style={styles.linkButton} onPress={() => Actions.retrievePassword()}>
                         <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码？</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>}
             </ImageBackground>
         </Container>

@@ -5,7 +5,10 @@ import {
     View,
     Image,
     FlatList,
-    InteractionManager
+    InteractionManager,
+    ProgressBarAndroid,
+    TransformsStyle,
+
 } from 'react-native'
 import { Container, Spinner } from 'native-base'
 import PercentageCircle from 'react-native-percentage-circle'
@@ -13,8 +16,8 @@ import globalStyles, { styleColor } from '../../util/GlobalStyles'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 
-const renderItem = props => { 
-    const { item: { total_seats = 0, storage_name, balance = 0 }, item } = props
+const renderItem = props => {
+    const { item: { total_seats = 0, storage_name, balance = 0, parking_balance_count = 0 }, item } = props
     return (
         <View style={styles.container}>
             <View style={styles.infoView}>
@@ -29,18 +32,18 @@ const renderItem = props => {
                         <Text style={[globalStyles.ssText]}>今日出库</Text>
                     </View>
                     <View style={styles.infoViewCol}>
-                        <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{`${total_seats - balance}`}</Text>
+                        <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{`${parking_balance_count}`}</Text>
                         <Text style={[globalStyles.ssText]}>剩余车位</Text>
                     </View>
                 </View>
             </View>
-            <View style={styles.percentView}>
-                <PercentageCircle radius={35} borderWidth={6} percent={60} bgcolor={'#e3e3e3'} color={styleColor} >
+            <View style={[styles.percentView]}>
+                <PercentageCircle radius={35} borderWidth={6} percent={total_seats ? `${Math.round((total_seats - parking_balance_count) / total_seats * 100)}` : 0} bgcolor={'#e3e3e3'} color={styleColor}  >
                     <View>
                         <Text style={[globalStyles.ssText]}>使用率</Text>
                     </View>
                     <View style={styles.percentCenterView}>
-                        <Text style={[globalStyles.midText, globalStyles.styleColor]}>{total_seats ? `${Math.round(balance / total_seats * 100)}` : '0'}</Text>
+                        <Text style={[globalStyles.midText, globalStyles.styleColor]}>{total_seats ? `${Math.round((total_seats - parking_balance_count) / total_seats * 100)}` : '0'}</Text>
                         <Text style={[globalStyles.smallText, globalStyles.styleColor, styles.percentSign]}>%</Text>
                     </View>
                 </PercentageCircle>

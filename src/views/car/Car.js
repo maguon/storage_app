@@ -54,7 +54,8 @@ const Car = props => {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    carInfo: state.carListReducer.data.carList.find(item => item.id == ownProps.initParam.carId)
+    carInfo: state.carInfoEditorReducer.data.carInfo
+    //carInfo: state.carListReducer.data.carList.find(item => item.id == ownProps.initParam.carId)
 })
 
 export default connect(mapStateToProps)(Car) 
