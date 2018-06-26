@@ -3,6 +3,9 @@ package com.storage_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.shahenlibrary.RNVideoProcessingPackage;
+import com.brentvatne.react.ReactVideoPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.github.yamill.orientation.OrientationPackage;
@@ -18,7 +21,9 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+import android.support.multidex.MultiDexApplication;
+
+public class MainApplication extends MultiDexApplication implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -30,6 +35,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNVideoProcessingPackage(),
+            new ReactVideoPackage(),
+            new RNCameraPackage(),
             new VectorIconsPackage(),
             new PhotoViewPackage(),
             new OrientationPackage(),

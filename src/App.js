@@ -23,6 +23,8 @@ import NavSearchCarForCreateCarBar from './components/share/NavSearchCarForCreat
 //views
 import Init from './views/init/Init'
 import Login from './views/login/Login'
+import PictureRecording from './views/PictureRecording'
+import VideoView from './views/VideoView'
 import Home from './views/home/Home'
 import AddInfoForCreateCar from './views/addInfoForCreateCar/AddInfoForCreateCar'
 import AddImageForCreateCar from './views/addImageForCreateCar/AddImageForCreateCar'
@@ -153,6 +155,18 @@ export default class App extends Component {
                                 <Scene key='vinScanner'
                                     title='扫描条码'
                                     component={VinScanner}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key='pictureRecording'
+                                    title='录像'
+                                    component={PictureRecording}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key='videoView'
+                                    title='播放'
+                                    component={VideoView}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
