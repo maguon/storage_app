@@ -59,7 +59,6 @@ export const uploadCarImage = param => async (dispatch, getState) => {
         }
     }
     catch (err) {
-        
         //ToastAndroid.showWithGravity(`提交全部失败！${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         dispatch({ type: actionTypes.addImageForCreateCar.upload_imageForCreateCar_error, payload: { errorMsg: err } })
     }
@@ -84,15 +83,49 @@ export const getImageForCreateCar = param => async (dispatch, getState) => {
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${record_host}/user/${uid}/car/${param.carId}/record`
         const res = await httpRequest.get(url)
-        const imageList = res.result[0].storage_image.map(item => item.url)
-        const recordId = res.result[0]._id
         if (res.success) {
-            dispatch({ type: actionTypes.addImageForCreateCar.get_imageForCreateCar_success, payload: { imageList: res.result[0].storage_image.map(item => item.url), recordId: res.result[0]._id } })
+            dispatch({
+                type: actionTypes.addImageForCreateCar.get_imageForCreateCar_success, payload: {
+                    imageList: res.result[0] ? res.result[0].storage_image.map(item => item.url) : [],
+                    recordId: res.result[0] ? res.result[0]._id : null,
+                    videoUrl: res.result[0] && res.result[0].video[0] ? res.result[0].video[0].url : null
+                }
+            })
         } else {
             dispatch({ type: actionTypes.addImageForCreateCar.get_imageForCreateCar_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
         dispatch({ type: actionTypes.addImageForCreateCar.get_imageForCreateCar_error, payload: { errorMsg: err } })
+    }
+}
 
+
+export const uploadCarVideo = param => async (dispatch, getState) => {
+    try {
+        const { loginReducer: { data: { user: { uid, type, real_name }, user } }, addInfoForCreateCarReducer: { data: { carId, vin } } } = getState()
+        dispatch({ type: actionTypes.addImageForCreateCar.upload_videoForCreateCar_waiting, payload: {} })
+        const uploadVideoUrl = `${file_host}/user/${uid}/video${ObjectToUrl({ videoType: 1, userType: type })}`
+        const uploadVideoRes = await httpRequest.postFile(uploadVideoUrl, {
+            key: 'file',
+            imageUrl: param.source,
+            imageType: 'video/mp4',
+            imageName: 'video.mp4'
+        })
+        if (uploadVideoRes.success) {
+            const uploadVideoRecordUrl = `${record_host}/car/${carId}/vin/${vin}/video`
+            const uploadVideoRecordRes = await httpRequest.post(uploadVideoRecordUrl, {
+                username: real_name,
+                userId: uid,
+                userType: type,
+                url: uploadVideoRes.result.id
+            })
+            if (uploadVideoRecordRes.success) {
+                dispatch({ type: actionTypes.addImageForCreateCar.upload_videoForCreateCar_success, payload: { videoUrl: uploadVideoRes.result.id } })
+            } else {
+                dispatch({ type: actionTypes.addImageForCreateCar.upload_videoForCreateCar_failed, payload: { failedMsg: res.msg } })
+            }
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.addImageForCreateCar.upload_videoForCreateCar_error, payload: { errorMsg: err } })
     }
 }

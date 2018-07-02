@@ -10,24 +10,25 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
-import { Container, Content, Input, Label, Icon } from 'native-base'
+import { Container } from 'native-base'
 import CameraButton from '../../components/share/CameraButton'
 import globalStyles from '../../util/GlobalStyles'
 import * as actions from '../../actions'
 import ImageItem from '../../components/share/ImageItem'
-import { base_host, file_host, record_host } from '../../config/Host'
-import * as routerDirection from '../../util/RouterDirection'
+import { file_host } from '../../config/Host'
 import { Actions } from 'react-native-router-flux'
-
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 
 const window = Dimensions.get('window')
 const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadCarImageWaiting, uploadCarImage, imageList, parent, setIndexForUploadImageForCreateCar } = props
+    const { item, index, uploadCarImageWaiting, videoUrl, uploadCarImage, setIndexForUploadImageForCreateCar, uploadCarVideo } = props
     if (item == 'isCameraButton') {
-        return renderItemCameraButton({ index, uploadCarImageWaiting, uploadCarImage })
+        return renderItemCameraButton({ index, uploadCarImageWaiting, uploadCarImage, uploadCarVideo })
+    } else if (item == 'isVideo') {
+        return renderVideo({ videoUrl, uploadCarVideo })
     } else {
         return (
             <TouchableOpacity
@@ -43,28 +44,48 @@ const renderItem = props => {
 }
 
 const renderItemCameraButton = props => {
-    const { index, uploadCarImageWaiting, uploadCarImage } = props
+    const { index, uploadCarImageWaiting, uploadCarImage, uploadCarVideo } = props
     return (
         <View key={index} style={styles.itemCameraButton}>
             <CameraButton
                 getImage={param => uploadCarImage({ cameraReses: param })}
+                getVideo={uploadCarVideo}
                 _cameraStart={uploadCarImageWaiting}
             />
         </View>
     )
 }
 
+const renderVideo = props => {
+    const { videoUrl, uploadCarVideo } = props
+    if (videoUrl) {
+        return (
+            <TouchableOpacity style={styles.itemCameraButton} onPress={Actions.addImageForCreateCarVideoView}>
+                <FontAwesomeIcon name='film' style={{ fontSize: 50 }} />
+            </TouchableOpacity>
+        )
+    } else {
+        return (
+            <TouchableOpacity style={styles.itemCameraButton} onPress={() => Actions.pictureRecording({ uploadCarVideo })}>
+                <FontAwesomeIcon name='video-camera' style={{ fontSize: 50 }} />
+            </TouchableOpacity>
+        )
+    }
+
+}
+
 const renderListEmpty = props => {
-    const { uploadCarImageWaiting, uploadCarImage } = props
+    const { uploadCarImageWaiting, uploadCarImage, uploadCarVideo } = props
     return (
         <View>
             <View style={styles.cameraButtonContainer}>
                 <CameraButton
                     getImage={param => uploadCarImage({ cameraReses: param })}
+                    getVideo={uploadCarVideo}
                     _cameraStart={uploadCarImageWaiting} />
             </View>
             <View style={styles.titleContainer}>
-                <Text style={[globalStyles.largeText, globalStyles.styleColor]}>点击按钮上传质损图片</Text>
+                <Text style={[globalStyles.largeText, globalStyles.styleColor]}>点击按钮上传车辆视频或照片</Text>
             </View>
             <View style={styles.subtitleContainer}>
                 <Text style={[globalStyles.smallText, globalStyles.styleColor]}>若不进行此选项操作可直接点击“<Text style={styles.tagText}>完成</Text>”</Text>
@@ -74,17 +95,17 @@ const renderListEmpty = props => {
 }
 
 const AddImageForCreateCar = props => {
-    const { parent, uploadCarImageWaiting, uploadCarImage, setIndexForUploadImageForCreateCar,
-        addImageForCreateCarReducer: { data: { imageList }, uploadCarImage: { isResultStatus } } } = props
+    const { parent, uploadCarImageWaiting, uploadCarImage, setIndexForUploadImageForCreateCar, uploadCarVideo,
+        addImageForCreateCarReducer: { data: { imageList, videoUrl }, uploadCarImage: { isResultStatus } } } = props
     return (
         <Container >
             <FlatList
                 style={styles.flatList}
                 keyExtractor={(item, index) => index}
-                data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
+                data={imageList.length > 0 ? ['isCameraButton', 'isVideo', ...imageList] : imageList}
                 numColumns={2}
-                ListEmptyComponent={() => renderListEmpty({ uploadCarImageWaiting, uploadCarImage })}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadCarImageWaiting, uploadCarImage, setIndexForUploadImageForCreateCar })} />
+                ListEmptyComponent={() => renderListEmpty({ uploadCarImageWaiting, uploadCarImage, uploadCarVideo })}
+                renderItem={({ item, index }) => renderItem({ parent, item, index, videoUrl, imageList, uploadCarImageWaiting, uploadCarVideo, uploadCarImage, setIndexForUploadImageForCreateCar })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}
@@ -174,6 +195,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setIndexForUploadImageForCreateCar: param => {
         dispatch(actions.addImageForCreateCar.setIndexForUploadImageForCreateCar(param))
+    },
+    uploadCarVideo: (param) => {
+        dispatch(actions.addImageForCreateCar.uploadCarVideo(param))
     }
 })
 

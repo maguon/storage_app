@@ -80,6 +80,6 @@ export const modifyCar = param => async (dispatch, getState) => {
 
 export const setCreateCarStatusModify = param => (dispatch) => {
     dispatch({ type: actionTypes.addInfoForCreateCar.change_createCarStatus, payload: { carId: param.carId, status: 1, vin: param.vin } })
-    dispatch(actions.addImageForCreateCar.getImageForCreateCar({ carId: param.carId }))
+    //dispatch(actions.addImageForCreateCar.getImageForCreateCar({ carId: param.carId }))
     dispatch(actions.importForCreateCar.getCarInfoForCreateCar({ carId: param.carId, vin: param.vin }))
 }

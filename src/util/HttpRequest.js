@@ -33,10 +33,12 @@ export const del = (url) => {
 export const postFile = (url, params) => {
     let formData = new FormData()
     let file = { uri: params.imageUrl, type: params.imageType, name: params.imageName }
+    // formData.append(params.key, file)
     formData.append(params.key, file)
+
     return fetch(url, {
         method: 'POST',
-        headers: requestHeaders.formHeaders,
+        // headers: requestHeaders.formHeaders,
         body: formData,
     }).then((response) => response.json())
 }

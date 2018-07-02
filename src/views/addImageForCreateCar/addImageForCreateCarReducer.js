@@ -4,6 +4,7 @@ import * as actionTypes from '../../actionTypes'
 const initialState = {
     data: {
         imageList: [],
+        videoUrl: null,
         recordId: 0,
         index: 0
     },
@@ -21,6 +22,11 @@ const initialState = {
         errorMsg: '',
         failedMsg: '',
         isResultStatus: 0
+    },
+    uploadCarVideo:{
+        errorMsg: '',
+        failedMsg: '',
+        isResultStatus: 0
     }
 }
 
@@ -28,6 +34,7 @@ const initialState = {
 export default handleActions({
     [actionTypes.addImageForCreateCar.upload_imageForCreateCar_success]: (state, action) => {
         const { payload: { imageList, recordId } } = action
+
         return {
             ...state,
             data: {
@@ -135,13 +142,14 @@ export default handleActions({
     },
 
     [actionTypes.addImageForCreateCar.get_imageForCreateCar_success]: (state, action) => {
-        const { payload: { imageList, recordId } } = action
+        const { payload: { imageList, recordId, videoUrl } } = action
         return {
             ...state,
             data: {
                 ...state.data,
                 imageList,
-                recordId
+                recordId,
+                videoUrl
             },
             getImageForCreateCar: {
                 ...initialState.getImageForCreateCar,
@@ -175,6 +183,52 @@ export default handleActions({
             ...state,
             getImageForCreateCar: {
                 ...initialState.getImageForCreateCar,
+                isResultStatus: 3,
+                errorMsg
+            }
+        }
+    },
+
+    [actionTypes.addImageForCreateCar.upload_videoForCreateCar_success]: (state, action) => {
+        const { payload: { videoUrl } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                videoUrl
+            },
+            uploadCarVideo: {
+                ...initialState.uploadCarVideo,
+                isResultStatus: 2
+            }
+        }
+    },
+    [actionTypes.addImageForCreateCar.upload_videoForCreateCar_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
+        return {
+            ...state,
+            uploadCarVideo: {
+                ...initialState.uploadCarVideo,
+                isResultStatus: 4,
+                failedMsg
+            }
+        }
+    },
+    [actionTypes.addImageForCreateCar.upload_videoForCreateCar_waiting]: (state, action) => {
+        return {
+            ...state,
+            uploadCarVideo: {
+                ...initialState.uploadCarVideo,
+                isResultStatus: 1
+            }
+        }
+    },
+    [actionTypes.addImageForCreateCar.upload_videoForCreateCar_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            uploadCarVideo: {
+                ...initialState.uploadCarVideo,
                 isResultStatus: 3,
                 errorMsg
             }

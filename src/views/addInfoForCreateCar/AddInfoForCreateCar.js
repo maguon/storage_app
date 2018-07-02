@@ -13,7 +13,6 @@ import * as routerDirection from '../../util/RouterDirection'
 import TextBox from '../../components/share/form/TextBox'
 import Select from '../../components/share/form/Select'
 import RichTextBox from '../../components/share/form/RichTextBox'
-import DatePicker from '../../components/share/form/DatePicker'
 import CheckBox from '../../components/share/form/CheckBox'
 import { required, requiredObj } from '../../util/Validator'
 import { Actions } from 'react-native-router-flux'
@@ -26,7 +25,6 @@ const requiredObjValidator = requiredObj('必选')
 const AddInfoForCreateCar = props => {
     const { parent, formValues, getEntrustList, getEntrustListWaiting, getMakeList, getMakeListWaiting, getModelListWaiting,
         getModelList, changeForm, getCarListWaiting, getCarList, changeSearchForm } = props
-    console.log('props', props)
     return (
         <Container>
             <Content>
@@ -164,7 +162,6 @@ const AddInfoForCreateCar = props => {
 
 const mapStateToProps = (state) => ({
     formValues: getFormValues('addInfoForCreateCarForm')(state),
-    //state
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -196,7 +193,6 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(change('searchCarForCreateCarForm', 'vinCode', param))
     },
     changeForm: param => {
-        console.log('param', param)
         const { id, vin, make_id, make_name, model_id, model_name, colour, pro_date, entrust_id, short_name, valuation, remark, mso_status } = param
         dispatch(change('addInfoForCreateCarForm', 'vinCode', { id: vin, value: vin }))
         dispatch(change('addInfoForCreateCarForm', 'make', { id: make_id, value: make_name }))

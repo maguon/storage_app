@@ -1,13 +1,15 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, InteractionManager } from 'react-native'
 import { Button, Icon, Spinner } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import { submit } from 'redux-form'
 import { connect } from 'react-redux'
 import globalStyles, { styleColor } from '../../util/GlobalStyles'
+import * as actions from '../../actions'
 
 const AddInfoForCreateCarOp = props => {
-    const { onSubmit, addInfoForCreateCarReducer: { data: { status }, modifyCar, createCar }, parent } = props
+    const { onSubmit, addInfoForCreateCarReducer: { data: { status, carId }, modifyCar, createCar },
+        addInfoForCreateCarReducer, getImageForCreateCar, parent } = props
     if (createCar.isResultStatus == 1) {
         return (
             <Spinner color='#fff' size={'small'} />
@@ -23,7 +25,10 @@ const AddInfoForCreateCarOp = props => {
                     <Text style={[globalStyles.midText, styles.text]}>修改</Text>
                 </Button>}
                 {status == 1 && modifyCar.isResultStatus == 1 && <Spinner color='#fff' size={'small'} />}
-                {status == 1 && <Button transparent onPress={Actions.addImageForCreateCar}>
+                {status == 1 && <Button transparent onPress={() => {
+                    Actions.addImageForCreateCar()
+                    InteractionManager.runAfterInteractions(() => getImageForCreateCar({ carId }))
+                }}>
                     <Text style={[globalStyles.midText, styles.text]}>下一步</Text>
                 </Button>}
             </View>
@@ -46,6 +51,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     onSubmit: () => {
         dispatch(submit('addInfoForCreateCarForm'))
+    },
+    getImageForCreateCar: param => {
+        dispatch(actions.addImageForCreateCar.getImageForCreateCar(param))
     }
 })
 

@@ -11,7 +11,8 @@ import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import globalStyles, { styleColor } from '../../util/GlobalStyles'
-
+import { Actions } from 'react-native-router-flux'
+import { ProcessingManager } from 'react-native-video-processing'
 /***********************  临时解决方案，待改善：1，执行状态是否成功，成功数量。2，执行进度*/
 //     //底部弹出框选项
 //     title: '请选择',
@@ -84,6 +85,7 @@ export default class CameraButton extends Component {
         this.launchCamera = this.launchCamera.bind(this)
         this.openPicker = this.openPicker.bind(this)
         this.createResizedImage = this.createResizedImage.bind(this)
+        this.openCameraPicker = this.openCameraPicker.bind(this)
     }
 
     static defaultProps = {
@@ -138,8 +140,8 @@ export default class CameraButton extends Component {
                     })
                 })
                 .catch((err) => {
-             console.log('err', err)
-             
+                    console.log('err', err)
+
                     reject({
                         success: false,
                         errMsg: err
@@ -150,14 +152,36 @@ export default class CameraButton extends Component {
 
     async openPicker() {//在相册选择照片并压缩
         try {
-            const images = await ImageCropPicker.openPicker({ multiple: true })
+            const images = await ImageCropPicker.openPicker({ multiple: true, mediaType: 'photo' })
             await this.props._cameraStart()
             const newImages = await Promise.all(images.map(item => {
                 return this.createResizedImage(item)
             }))
             this.props.getImage(newImages)
         } catch (err) {
-             console.log('err', err)
+            console.log('err', err)
+        }
+    }
+
+
+    async openCameraPicker() {//在相册选择视频并压缩
+        try {
+            const video = await ImageCropPicker.openPicker({ multiple: true, mediaType: 'video' })
+            if (video.length > 0) {
+                const options = {
+                    width: 270,
+                    height: 480,
+                    bitrateMultiplier: 12,
+                    minimumBitrate: 300000,
+                    removeAudio: false
+                };
+                ProcessingManager.compress(video[0].path, options) // like VideoPlayer compress options
+                    .then((data) => {
+                        this.props.getVideo(data)
+                    })
+            }
+        } catch (err) {
+            console.log('err', err)
         }
     }
 
@@ -191,6 +215,18 @@ export default class CameraButton extends Component {
                                 onPress={() => this.setState({ operationModalVisible: false }, this.launchCamera)}>
                                 <View>
                                     <Text style={[styles.modalListItemTitle, globalStyles.midText]}>拍照</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.setState({ operationModalVisible: false }, this.openCameraPicker)}>
+                                <View style={styles.listItemCutLine}>
+                                    <Text style={[styles.modalListItemTitle, globalStyles.midText]}>选择视频</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.setState({ operationModalVisible: false }, () => Actions.pictureRecording({ uploadCarVideo: this.props.getVideo }))}>
+                                <View>
+                                    <Text style={[styles.modalListItemTitle, globalStyles.midText]}>摄像</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

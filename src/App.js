@@ -24,7 +24,7 @@ import NavSearchCarForCreateCarBar from './components/share/NavSearchCarForCreat
 import Init from './views/init/Init'
 import Login from './views/login/Login'
 import PictureRecording from './views/PictureRecording'
-import VideoView from './views/VideoView'
+import AddImageForCreateCarVideoView from './views/AddImageForCreateCarVideoView'
 import Home from './views/home/Home'
 import AddInfoForCreateCar from './views/addInfoForCreateCar/AddInfoForCreateCar'
 import AddImageForCreateCar from './views/addImageForCreateCar/AddImageForCreateCar'
@@ -161,13 +161,13 @@ export default class App extends Component {
                                 <Scene key='pictureRecording'
                                     title='录像'
                                     component={PictureRecording}
-                                    navBar={NavBar}
+                                    navBar={PhotoViewNavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
-                                <Scene key='videoView'
+                                <Scene key='addImageForCreateCarVideoView'
                                     title='播放'
-                                    component={VideoView}
-                                    navBar={NavBar}
+                                    component={AddImageForCreateCarVideoView}
+                                    navBar={PhotoViewNavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
                                 <Scene key='addImageForCreateCar'

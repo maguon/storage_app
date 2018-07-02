@@ -16,3 +16,8 @@ export const get_imageForCreateCar_success = 'get_imageForCreateCar_success'
 export const get_imageForCreateCar_failed = 'get_imageForCreateCar_failed'
 export const get_imageForCreateCar_error = 'get_imageForCreateCar_error'
 export const get_imageForCreateCar_waiting = 'get_imageForCreateCar_waiting'
+
+export const upload_videoForCreateCar_success = 'upload_videoForCreateCar_success'
+export const upload_videoForCreateCar_failed = 'upload_videoForCreateCar_failed'
+export const upload_videoForCreateCar_error = 'upload_videoForCreateCar_error'
+export const upload_videoForCreateCar_waiting = 'upload_videoForCreateCar_waiting'

@@ -6,9 +6,9 @@ import { Actions } from 'react-native-router-flux'
 const HomeOP = () => {
     return (
         <View style={{ flexDirection: 'row' }}>
-            {/* <Button transparent onPress={Actions.queryCar}> */}
+            <Button transparent onPress={Actions.queryCar}>
             {/* <Button transparent onPress={Actions.pictureRecording}> */}
-            <Button transparent onPress={Actions.videoView}>
+            {/* <Button transparent onPress={Actions.videoView}> */}
                 <Icon name='ios-search' />
             </Button>
             <Button transparent onPress={Actions.addInfoForCreateCar}>

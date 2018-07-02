@@ -118,7 +118,6 @@ export default handleActions({
 
     [actionTypes.addInfoForCreateCar.change_createCarStatus]: (state, action) => {
         const { payload: { carId, status, vin } } = action
-        console.log('action', action)
         return {
             ...initialState,
             data: {
