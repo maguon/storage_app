@@ -90,7 +90,9 @@ export default class CameraButton extends Component {
 
     static defaultProps = {
         getImage: (param) => console.log('选择的图片信息', param), //回调图片信息
-        _cameraStart: () => console.log('开始压缩选择的图片')//开始压缩选择的图片
+        getVideo: (param) => console.log('选择的视频信息', param),
+        _cameraStart: () => console.log('开始压缩选择的图片'),//开始压缩选择的图片
+        _videoStart: () => console.log('开始压缩选择的视频')
     }
 
     launchCamera() {//打开照相机进行拍照
@@ -141,7 +143,6 @@ export default class CameraButton extends Component {
                 })
                 .catch((err) => {
                     console.log('err', err)
-
                     reject({
                         success: false,
                         errMsg: err
@@ -167,6 +168,7 @@ export default class CameraButton extends Component {
     async openCameraPicker() {//在相册选择视频并压缩
         try {
             const video = await ImageCropPicker.openPicker({ multiple: true, mediaType: 'video' })
+            this.props._videoStart()
             if (video.length > 0) {
                 const options = {
                     width: 270,

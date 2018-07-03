@@ -16,9 +16,7 @@ import { ProcessingManager } from 'react-native-video-processing'
 export default class CameraComponent extends Component {
     constructor(props) {
         super(props);
-
         this.camera = null
-
         this.state = {
             camera: {
                 aspect: Camera.constants.Aspect.fill,
@@ -51,7 +49,6 @@ export default class CameraComponent extends Component {
         };
         ProcessingManager.compress(this.state.videoPatch, options) // like VideoPlayer compress options
             .then((data) => {
-                console.log(data)
                 this.props.uploadCarVideo(data)
                 this.setState({ isCompressing: false })
             })
@@ -85,7 +82,7 @@ export default class CameraComponent extends Component {
                 isRecording: true,
                 isRecordingSuccess: false,
                 currentSec: 0
-            });
+            })
         }
     }
 
@@ -94,12 +91,11 @@ export default class CameraComponent extends Component {
             this.camera.stopCapture()
             this.setState({
                 isRecording: false
-            });
+            })
         }
     }
 
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -155,7 +151,7 @@ export default class CameraComponent extends Component {
                                 style={styles.modalActivityIndicator}
                                 size="large"
                             />
-                            <Text style={styles.modalText}>正在压缩视频...</Text>
+                            <Text style={styles.modalText}>正在上传视频...</Text>
                         </View>
                     </View>
                 </Modal>

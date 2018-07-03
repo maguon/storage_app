@@ -8,8 +8,7 @@ import globalStyles, { styleColor } from '../../util/GlobalStyles'
 import * as actions from '../../actions'
 
 const AddInfoForCreateCarOp = props => {
-    const { onSubmit, addInfoForCreateCarReducer: { data: { status, carId }, modifyCar, createCar },
-        addInfoForCreateCarReducer, getImageForCreateCar, parent } = props
+    const { onSubmit, addInfoForCreateCarReducer: { data: { status, carId }, modifyCar, createCar }, getImageForCreateCar, getImageForCreateCarWaiting, parent } = props
     if (createCar.isResultStatus == 1) {
         return (
             <Spinner color='#fff' size={'small'} />
@@ -26,6 +25,7 @@ const AddInfoForCreateCarOp = props => {
                 </Button>}
                 {status == 1 && modifyCar.isResultStatus == 1 && <Spinner color='#fff' size={'small'} />}
                 {status == 1 && <Button transparent onPress={() => {
+                    getImageForCreateCarWaiting()
                     Actions.addImageForCreateCar()
                     InteractionManager.runAfterInteractions(() => getImageForCreateCar({ carId }))
                 }}>
@@ -54,6 +54,10 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getImageForCreateCar: param => {
         dispatch(actions.addImageForCreateCar.getImageForCreateCar(param))
+    },
+    getImageForCreateCarWaiting: () => {
+        dispatch(actions.addImageForCreateCar.getImageForCreateCarWaiting())
+
     }
 })
 

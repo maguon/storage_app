@@ -1,5 +1,5 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
+import { file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes'
 import { ObjectToUrl } from '../../../util/util'
 
@@ -53,4 +53,38 @@ export const uploadCarImage = param => async (dispatch, getState) => {
 export const setIndexForCarInfoImage = param => (dispatch) => {
     const { index } = param
     dispatch({ type: actionTypes.carImage.set_indexForCarInfoImage, payload: { index } })
+}
+
+export const uploadCarVideo = param => async (dispatch, getState) => {
+    try {
+        const { source, carId, vin } = param
+        const { loginReducer: { data: { user: { uid, type, real_name } } } } = getState()
+        const uploadVideoUrl = `${file_host}/user/${uid}/video${ObjectToUrl({ videoType: 1, userType: type })}`
+        const uploadVideoRes = await httpRequest.postFile(uploadVideoUrl, {
+            key: 'file',
+            imageUrl: source,
+            imageType: 'video/mp4',
+            imageName: 'video.mp4'
+        })
+        if (uploadVideoRes.success) {
+            const uploadVideoRecordUrl = `${record_host}/car/${carId}/vin/${vin}/video`
+            const uploadVideoRecordRes = await httpRequest.post(uploadVideoRecordUrl, {
+                username: real_name,
+                userId: uid,
+                userType: type,
+                url: uploadVideoRes.result.id
+            })
+            if (uploadVideoRecordRes.success) {
+                dispatch({ type: actionTypes.carImage.upload_videoForCarInfo_success, payload: { videoUrl: uploadVideoRes.result.id } })
+            } else {
+                dispatch({ type: actionTypes.carImage.upload_videoForCarInfo_failed, payload: { failedMsg: res.msg } })
+            }
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.carImage.upload_videoForCarInfo_error, payload: { errorMsg: err } })
+    }
+}
+
+export const uploadCarVideoWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.carImage.upload_videoForCarInfo_waiting, payload: {} })
 }

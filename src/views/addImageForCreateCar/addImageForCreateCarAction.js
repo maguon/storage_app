@@ -76,10 +76,9 @@ export const cleanCreateCar = () => (dispatch) => {
     dispatch({ type: actionTypes.importForCreateCar.clean_importForCreateCar, payload: {} })
 }
 
-
 export const getImageForCreateCar = param => async (dispatch, getState) => {
     try {
-        dispatch({ type: actionTypes.addImageForCreateCar.get_imageForCreateCar_waiting, payload: {} })
+
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${record_host}/user/${uid}/car/${param.carId}/record`
         const res = await httpRequest.get(url)
@@ -99,11 +98,13 @@ export const getImageForCreateCar = param => async (dispatch, getState) => {
     }
 }
 
+export const getImageForCreateCarWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.addImageForCreateCar.get_imageForCreateCar_waiting, payload: {} })
+}
 
 export const uploadCarVideo = param => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { uid, type, real_name }, user } }, addInfoForCreateCarReducer: { data: { carId, vin } } } = getState()
-        dispatch({ type: actionTypes.addImageForCreateCar.upload_videoForCreateCar_waiting, payload: {} })
+        const { loginReducer: { data: { user: { uid, type, real_name } } }, addInfoForCreateCarReducer: { data: { carId, vin } } } = getState()
         const uploadVideoUrl = `${file_host}/user/${uid}/video${ObjectToUrl({ videoType: 1, userType: type })}`
         const uploadVideoRes = await httpRequest.postFile(uploadVideoUrl, {
             key: 'file',
@@ -128,4 +129,8 @@ export const uploadCarVideo = param => async (dispatch, getState) => {
     } catch (err) {
         dispatch({ type: actionTypes.addImageForCreateCar.upload_videoForCreateCar_error, payload: { errorMsg: err } })
     }
+}
+
+export const uploadCarVideoWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.addImageForCreateCar.upload_videoForCreateCar_waiting, payload: {} })
 }

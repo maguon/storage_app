@@ -9,4 +9,9 @@ export const get_imageListForCarInfo_failed = 'get_imageListForCarInfo_failed'
 export const get_imageListForCarInfo_error = 'get_imageListForCarInfo_error'
 export const get_imageListForCarInfo_waiting = 'get_imageListForCarInfo_waiting'
 
+export const upload_videoForCarInfo_success = 'upload_videoForCarInfo_success'
+export const upload_videoForCarInfo_failed = 'upload_videoForCarInfo_failed'
+export const upload_videoForCarInfo_error = 'upload_videoForCarInfo_error'
+export const upload_videoForCarInfo_waiting = 'upload_videoForCarInfo_waiting'
+
 export const set_indexForCarInfoImage = 'set_indexForCarInfoImage'

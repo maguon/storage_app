@@ -52,6 +52,7 @@ import VinScanner from './views/VinScanner'
 import ImportForCreateCar from './views/importForCreateCar/ImportForCreateCar'
 import CarImagePhotoView from './views/car/carImagePhotoView/CarImagePhotoView'
 import AddImageForCreateCarPhotoView from './views/addImageForCreateCarPhotoView/AddImageForCreateCarPhotoView'
+import CarImageVideoView from './views/car/CarImageVideoView'
 
 import ColorList from './views/list/ColorList'
 import Setting from './views/Setting'
@@ -167,6 +168,12 @@ export default class App extends Component {
                                 <Scene key='addImageForCreateCarVideoView'
                                     title='播放'
                                     component={AddImageForCreateCarVideoView}
+                                    navBar={PhotoViewNavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key='carImageVideoView'
+                                    title='播放'
+                                    component={CarImageVideoView}
                                     navBar={PhotoViewNavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
