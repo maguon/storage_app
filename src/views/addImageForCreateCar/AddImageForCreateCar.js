@@ -62,13 +62,13 @@ const renderVideo = props => {
     if (videoUrl) {
         return (
             <TouchableOpacity style={styles.itemCameraButton} onPress={Actions.addImageForCreateCarVideoView}>
-                <FontAwesomeIcon name='film' style={{ fontSize: 50 }} />
+                <FontAwesomeIcon name='film' style={{ fontSize: 50, color: styleColor }} />
             </TouchableOpacity>
         )
     } else {
         return (
             <TouchableOpacity style={styles.itemCameraButton} onPress={() => Actions.pictureRecording({ uploadCarVideo })}>
-                <FontAwesomeIcon name='video-camera' style={{ fontSize: 50 }} />
+                <FontAwesomeIcon name='video-camera' style={{ fontSize: 50, color: styleColor }} />
             </TouchableOpacity>
         )
     }

@@ -2,6 +2,7 @@ import * as httpRequest from '../../../util/HttpRequest'
 import { file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes'
 import { ObjectToUrl } from '../../../util/util'
+import * as Toast from '../../../components/share/Toast'
 
 export const uploadCarImageWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.carImage.update_carImage_waiting, payload: {} })
@@ -32,20 +33,26 @@ export const uploadCarImage = param => async (dispatch, getState) => {
                     .filter(item => item.success)
                     .map(item => { return { url: item.imageId } })
                 if (cameraReses.length === bindCarSuccessReses.length) {
+                    Toast.show('照片上传成功！', 10)
                     dispatch({ type: actionTypes.carImage.update_carImage_success, payload: { imageList: bindCarSuccessReses } })
                 } else if (bindCarSuccessReses.length > 0) {
+                    Toast.show(`照片上传部分成功：${bindCarSuccessReses.length}/${cameraReses.length}！`, 10)
                     dispatch({ type: actionTypes.carImage.update_carImage_partSuccess, payload: { imageList: bindCarSuccessReses, failedMsg: '部分失败' } })
                 } else {
+                    Toast.show('照片上传全部失败！', 10)
                     dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '全部失败' } })
                 }
             } else {
+                Toast.show('照片上传全部失败！', 10)
                 dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '全部失败' } })
             }
         } else {
+            Toast.show('照片上传全部失败！', 10)
             dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '拍照全部失败' } })
         }
 
     } catch (err) {
+        Toast.show(`照片上传全部失败:${err}！`, 10)
         dispatch({ type: actionTypes.carImage.update_carImage_error, payload: { errorMsg: err } })
     }
 }
@@ -76,12 +83,15 @@ export const uploadCarVideo = param => async (dispatch, getState) => {
             })
             if (uploadVideoRecordRes.success) {
                 dispatch({ type: actionTypes.carImage.upload_videoForCarInfo_success, payload: { videoUrl: uploadVideoRes.result.id } })
+                Toast.show('视频上传成功！', 10)
             } else {
                 dispatch({ type: actionTypes.carImage.upload_videoForCarInfo_failed, payload: { failedMsg: res.msg } })
+                Toast.show(`视频上传失败，${failedMsg}！`, 10)
             }
         }
     } catch (err) {
         dispatch({ type: actionTypes.carImage.upload_videoForCarInfo_error, payload: { errorMsg: err } })
+        Toast.show(`视频上传失败，${err}！`, 10)
     }
 }
 
