@@ -117,6 +117,7 @@ export default class App extends Component {
                         type={ActionConst.RESET}
                         selector={props => {
                             const { user } = props.loginReducer.data
+                            // console.log('user', user)
                             if (user.mobile
                                 && user.token
                                 && user.uid
