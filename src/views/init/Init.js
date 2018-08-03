@@ -42,7 +42,8 @@ class Init extends Component {
     }
 
     render() {
-        // const { initializationReducer: { data, initAPP, loadLocalStorage, validateToken, validateVersion } } = this.props
+        const { initReducer: { data, initAPP, loadLocalStorage, validateToken, validateVersion } } = this.props
+        console.log('this.props', this.props)
         return (
             <View style={styles.container}>
                 <StatusBar hidden={true} />
@@ -51,7 +52,7 @@ class Init extends Component {
                         color='rgba(255,255,255,0.5)'
                         size={70}
                         style={{ marginBottom: 50, alignSelf: 'center' }}
-                        isVisible={initAPP.isResultStatus == 1} />}
+                        isVisible={initAPP.isResultStatus == 1} />} */}
                     {(initAPP.isResultStatus == 2 && initAPP.step == 0 && validateVersion.isResultStatus == 3 || validateVersion.isResultStatus == 4) &&
                         <Button block onPress={this.props.validateVersion} style={styles.button}>
                             <Text style={styles.buttonTiltle}>重新获取版本号</Text>
@@ -60,10 +61,6 @@ class Init extends Component {
                         <Button block onPress={() => this.linkDownload(data.version.url)} style={styles.button}>
                             <Text style={styles.buttonTiltle}>立即更新</Text>
                         </Button>}
-                    {(initAPP.isResultStatus == 2 && initAPP.step == 1) &&
-                        <Button block onPress={this.props.initPush} style={styles.button}>
-                            <Text style={styles.buttonTiltle}>重新获取deviceToken</Text>
-                        </Button>} */}
                 </ImageBackground>
             </View>
         )
@@ -97,18 +94,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        initializationReducer: state.initializationReducer
+        initReducer: state.initReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    // initPush: () => {
-    //     dispatch(initializationAction.initPush())
-    // },
     validateVersion: () => {
         dispatch(actions.init.validateVersion())
     }
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Init)
