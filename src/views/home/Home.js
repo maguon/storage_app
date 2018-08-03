@@ -38,7 +38,7 @@ const renderItem = props => {
                 </View>
             </View>
             <View style={[styles.percentView]}>
-                <PercentageCircle radius={35} borderWidth={6} percent={total_seats ? `${Math.round((total_seats - parking_balance_count) / total_seats * 100)}` : 0} bgcolor={'#e3e3e3'} color={styleColor}  >
+                {/* <PercentageCircle radius={35} borderWidth={6} percent={total_seats ? `${Math.round((total_seats - parking_balance_count) / total_seats * 100)}` : 0} bgcolor={'#e3e3e3'} color={styleColor}  >
                     <View>
                         <Text style={[globalStyles.ssText]}>使用率</Text>
                     </View>
@@ -46,7 +46,7 @@ const renderItem = props => {
                         <Text style={[globalStyles.midText, globalStyles.styleColor]}>{total_seats ? `${Math.round((total_seats - parking_balance_count) / total_seats * 100)}` : '0'}</Text>
                         <Text style={[globalStyles.smallText, globalStyles.styleColor, styles.percentSign]}>%</Text>
                     </View>
-                </PercentageCircle>
+                </PercentageCircle> */}
             </View>
         </View>
 
