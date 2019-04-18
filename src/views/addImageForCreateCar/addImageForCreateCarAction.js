@@ -21,7 +21,7 @@ export const uploadCarImage = param => async (dispatch, getState) => {
             })))
             const imageUploadSuccessReses = imageUploadReses.filter(item => item.success)
             if (imageUploadSuccessReses.length > 0) {
-                const bindCarUrl = url = `${record_host}/car/${carId}/vin/${vin}/storageImage`
+                const bindCarUrl = url = `${record_host}/car/${carId}/vin/${vin}/carImage`
                 const bindCarReses = await Promise.all(imageUploadSuccessReses.map(item => httpRequest.post(bindCarUrl, {
                     username: user.real_name,
                     userId: user.uid,

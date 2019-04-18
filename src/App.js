@@ -63,6 +63,12 @@ import KeyCabinetArea from './views/keyCabinetArea/KeyCabinetArea'
 import KeyCabinetInfo from './views/keyCabinetInfo/KeyCabinetInfo'
 import KeyInfo from './views/keyInfo/KeyInfo'
 import SearchKey from './views/searchKey/SearchKey'
+import CarImageStorage from './views/car/carImageStorage/CarImageStorage'
+import StorageImageStorage from './views/car/storageImageStorage/StorageImageStorage'
+import TransImageStorage from './views/car/transImageStorage/TransImageStorage'
+import TransImagePhotoView from './views/car/transImagePhotoView/TransImagePhotoView'
+import StorageImagePhotoView from './views/car/storageImagePhotoView/StorageImagePhotoView'
+
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -211,6 +217,24 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
+                                <Scene key='carImageStorage'
+                                    title='车辆相册'
+                                    component={CarImageStorage}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key='transImageStorage'
+                                    title='航运相册'
+                                    component={TransImageStorage}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key='storageImageStorage'
+                                    title='航运相册'
+                                    component={StorageImageStorage}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
                                 <Scene key='queryCar'
                                     title='查询车辆'
                                     component={QueryCar}
@@ -278,8 +302,20 @@ export default class App extends Component {
                                     hideTabBar
                                     LeftButton={LeftButton} />
                                 <Scene key='carImagePhotoViewAtHome'
-                                    title='照片'
+                                    title='车辆照片'
                                     component={CarImagePhotoView}
+                                    navBar={PhotoViewNavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key='storageImagePhotoView'
+                                    title='仓储照片'
+                                    component={StorageImagePhotoView}
+                                    navBar={PhotoViewNavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key='transImagePhotoView'
+                                    title='航运照片'
+                                    component={TransImagePhotoView}
                                     navBar={PhotoViewNavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />

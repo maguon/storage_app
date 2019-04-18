@@ -17,7 +17,7 @@ const AddInfoForCreateCarLeftButton = props => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    cleanCreateCar: param => {
+    cleanCreateCar: () => {
         dispatch(actions.addImageForCreateCar.cleanCreateCar())
     }
 })

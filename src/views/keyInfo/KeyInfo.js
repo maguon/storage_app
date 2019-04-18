@@ -50,7 +50,7 @@ const KeyInfo = props => {
                     </ListItem>
                     <ListItem style={{ justifyContent: 'space-between' }}>
                         <Text style={globalStyles.midText}>颜色</Text>
-                        {!!colour && <View style={{ width: 15, height: 15, borderColor: '#ddd', borderWidth: 0.5, backgroundColor: `#${colour}` }} />}
+                        {!!colour && <View style={{ width: 15, height: 15, borderColor: '#ddd', borderWidth: 0.5, backgroundColor: `#${colour.replace(/\s+/g,"")}` }} />}
                     </ListItem>
                     <ListItem style={{ justifyContent: 'space-between' }}>
                         <Text style={globalStyles.midText}>发动机号</Text>

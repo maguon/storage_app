@@ -5,6 +5,7 @@ import {
     View,
     Dimensions,
     FlatList,
+    Image,
     TouchableOpacity,
     Modal,
     ActivityIndicator
@@ -24,75 +25,75 @@ const window = Dimensions.get('window')
 const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
-const renderItem = props => {
-    const { item, index, uploadCarImageWaiting, uploadCarImage, imageList, parent, carId, vin, setIndexForCarInfoImage, videoUrl, uploadCarVideo, uploadCarVideoWaiting } = props
-    if (item == 'isCameraButton') {
-        return renderItemCameraButton({ index, uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideo, uploadCarVideoWaiting })
-    } else if (item == 'isVideo') {
-        return renderVideo({ videoUrl, uploadCarVideo, carId, vin })
-    } else {
-        return (
-            <TouchableOpacity
-                key={index}
-                style={styles.itemContainer}
-                onPress={() => {
-                    setIndexForCarInfoImage({ index })
-                    routerDirection.carImagePhotoView(parent)({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url.url}`), index } })
-                }} >
-                <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
-            </TouchableOpacity>
-        )
-    }
-}
+// const renderItem = props => {
+//     const { item, index, uploadCarImageWaiting, uploadCarImage, imageList, parent, carId, vin, setIndexForCarInfoImage, videoUrl, uploadCarVideo, uploadCarVideoWaiting } = props
+//     if (item == 'isCameraButton') {
+//         return renderItemCameraButton({ index, uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideo, uploadCarVideoWaiting })
+//     } else if (item == 'isVideo') {
+//         return renderVideo({ videoUrl, uploadCarVideo, carId, vin })
+//     } else {
+//         return (
+//             <TouchableOpacity
+//                 key={index}
+//                 style={styles.itemContainer}
+//                 onPress={() => {
+//                     setIndexForCarInfoImage({ index })
+//                     routerDirection.carImagePhotoView(parent)({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url.url}`), index } })
+//                 }} >
+//                 <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
+//             </TouchableOpacity>
+//         )
+//     }
+// }
 
 const renderVideo = props => {
     const { videoUrl, uploadCarVideo, carId, vin } = props
     if (videoUrl) {
         return (
             <TouchableOpacity style={styles.itemCameraButton} onPress={Actions.carImageVideoView}>
-                <FontAwesomeIcon name='film' style={{ fontSize: 50, color: styleColor  }} />
+                <FontAwesomeIcon name='film' style={{ fontSize: 50, color: styleColor }} />
             </TouchableOpacity>
         )
     } else {
         return (
             <TouchableOpacity style={styles.itemCameraButton} onPress={() => Actions.pictureRecording({ uploadCarVideo: param => uploadCarVideo({ ...param, carId, vin }) })}>
-                <FontAwesomeIcon name='video-camera' style={{ fontSize: 50, color: styleColor  }} />
+                <FontAwesomeIcon name='video-camera' style={{ fontSize: 50, color: styleColor }} />
             </TouchableOpacity>
         )
     }
 }
 
-const renderItemCameraButton = props => {
-    const { index, uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideoWaiting, uploadCarVideo } = props
-    return (
-        <View key={index} style={styles.itemCameraButton}>
-            <CameraButton
-                getImage={(cameraReses) => uploadCarImage({ cameraReses, carId, vin })}
-                getVideo={param => uploadCarVideo({ ...param, carId, vin })}
-                _cameraStart={uploadCarImageWaiting}
-                _videoStart={uploadCarVideoWaiting}
-            />
-        </View>
-    )
-}
+// const renderItemCameraButton = props => {
+//     const { index, uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideoWaiting, uploadCarVideo } = props
+//     return (
+//         <View key={index} style={styles.itemCameraButton}>
+//             <CameraButton
+//                 getImage={(cameraReses) => uploadCarImage({ cameraReses, carId, vin })}
+//                 getVideo={param => uploadCarVideo({ ...param, carId, vin })}
+//                 _cameraStart={uploadCarImageWaiting}
+//                 _videoStart={uploadCarVideoWaiting}
+//             />
+//         </View>
+//     )
+// }
 
-const renderListEmpty = props => {
-    const { uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideo, uploadCarVideoWaiting } = props
-    return (
-        <View>
-            <View style={styles.cameraButtonContainer}>
-                <CameraButton
-                    getImage={(cameraReses) => uploadCarImage({ cameraReses, carId, vin })}
-                    getVideo={param => uploadCarVideo({ ...param, carId, vin })}
-                    _cameraStart={uploadCarImageWaiting}
-                    _videoStart={uploadCarVideoWaiting} />
-            </View>
-            <View style={styles.titleContainer}>
-                <Text style={[globalStyles.midText, globalStyles.styleColor]}>点击按钮上传车辆图片或视频</Text>
-            </View>
-        </View>
-    )
-}
+// const renderListEmpty = props => {
+//     const { uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideo, uploadCarVideoWaiting } = props
+//     return (
+//         <View>
+//             <View style={styles.cameraButtonContainer}>
+//                 <CameraButton
+//                     getImage={(cameraReses) => uploadCarImage({ cameraReses, carId, vin })}
+//                     getVideo={param => uploadCarVideo({ ...param, carId, vin })}
+//                     _cameraStart={uploadCarImageWaiting}
+//                     _videoStart={uploadCarVideoWaiting} />
+//             </View>
+//             <View style={styles.titleContainer}>
+//                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>点击按钮上传车辆图片或视频</Text>
+//             </View>
+//         </View>
+//     )
+// }
 
 const CarImage = props => {
     const { parent,
@@ -100,8 +101,9 @@ const CarImage = props => {
         uploadCarImage,
         uploadCarVideo,
         uploadCarVideoWaiting,
-        setIndexForCarInfoImage,
-        carImageReducer: { data: { imageList, videoUrl }, getImageListForCarInfo, updateCarImage },
+        carImageReducer: { data: { imageList, videoUrl, carImageList,
+            storageImageList,
+            transImageList, }, getImageListForCarInfo, updateCarImage },
         carImageReducer,
         initParam: { carId, vin }
     } = props
@@ -114,29 +116,48 @@ const CarImage = props => {
     } else {
         return (
             <Container >
-                <FlatList
-                    keyExtractor={(item, index) => index}
-                    style={styles.flatList}
-                    data={imageList.length > 0 || videoUrl ? ['isCameraButton', 'isVideo', ...imageList] : imageList}
-                    numColumns={2}
-                    ListEmptyComponent={() => renderListEmpty({ uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideo, uploadCarVideoWaiting })}
-                    renderItem={({ item, index }) => renderItem({ parent, item, index, uploadCarVideo, uploadCarVideoWaiting, imageList, uploadCarImageWaiting, uploadCarImage, carId, vin, setIndexForCarInfoImage, videoUrl })} />
-                <Modal
-                    animationType={"fade"}
-                    transparent={true}
-                    visible={updateCarImage.isResultStatus == 1}
-                    onRequestClose={() => { }}>
-                    <View style={styles.modalContainer} >
-                        <View style={styles.modalItem}>
-                            <ActivityIndicator
-                                animating={updateCarImage.isResultStatus == 1}
-                                style={styles.modalActivityIndicator}
-                                size="large"
-                            />
-                            <Text style={styles.modalText}>正在上传图片...</Text>
-                        </View>
+                <View style={{ margin: 5 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity
+                            style={{ margin: 5, width: containerWidth - 15, height: (containerWidth - 15) / 16 * 9 }}
+                            onPress={() => { Actions.carImageStorage({ initParam: { carId, vin } }) }}>
+                            <View>
+                                {carImageList.length > 0 && <ImageItem imageUrl={`${file_host}/image/${carImageList[0].url}`} />}
+                            </View>
+                            <View style={{ position: 'absolute', bottom: 0 }}>
+                                <Text style={[globalStyles.midText, { backgroundColor: 'rgba(0, 0, 0, 0.1)', width: containerWidth - 15, textAlign: 'center' }]}>车辆相册({`${carImageList.length}`})</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => { Actions.storageImageStorage({ initParam: { carId, vin } }) }}
+                            style={{ margin: 5, width: containerWidth - 15, height: (containerWidth - 15) / 16 * 9 }}>
+                            <View>
+                                {storageImageList.length > 0 && <ImageItem imageUrl={`${file_host}/image/${storageImageList[0].url}`} />}
+                            </View>
+                            <View style={{ position: 'absolute', bottom: 0 }}>
+                                <Text style={[globalStyles.midText, { backgroundColor: 'rgba(0, 0, 0, 0.1)', width: containerWidth - 15, textAlign: 'center' }]}>仓储相册({`${storageImageList.length}`})</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
-                </Modal>
+                    <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity
+                            onPress={() => { Actions.transImageStorage({ initParam: { carId, vin } }) }}
+                            style={{ margin: 5, width: containerWidth - 15, height: (containerWidth - 15) / 16 * 9 }}>
+                            <View>
+                                {transImageList.length > 0 && <ImageItem imageUrl={`${file_host}/image/${transImageList[0].url}`} />}
+                            </View>
+                            <View style={{ position: 'absolute', bottom: 0 }}>
+                                <Text style={[globalStyles.midText, { backgroundColor: 'rgba(0, 0, 0, 0.1)', width: containerWidth - 15, textAlign: 'center' }]}>航运相册({`${transImageList.length}`})</Text>
+                            </View>
+                        </TouchableOpacity>
+                        {videoUrl && <TouchableOpacity style={styles.itemCameraButton} onPress={Actions.carImageVideoView}>
+                            <FontAwesomeIcon name='film' style={{ fontSize: 50, color: styleColor }} />
+                        </TouchableOpacity>}
+                        {!videoUrl && <TouchableOpacity style={styles.itemCameraButton} onPress={() => Actions.pictureRecording({ uploadCarVideo: param => uploadCarVideo({ ...param, carId, vin }) })}>
+                            <FontAwesomeIcon name='video-camera' style={{ fontSize: 50, color: styleColor }} />
+                        </TouchableOpacity>}
+                    </View>
+                </View>
                 <Modal
                     animationType={"fade"}
                     transparent={true}
@@ -224,9 +245,6 @@ const mapDispatchToProps = (dispatch) => ({
     },
     uploadCarImage: param => {
         dispatch(actions.carImage.uploadCarImage(param))
-    },
-    setIndexForCarInfoImage: param => {
-        dispatch(actions.carImage.setIndexForCarInfoImage(param))
     },
     uploadCarVideoWaiting: () => {
         dispatch(actions.carImage.uploadCarVideoWaiting())

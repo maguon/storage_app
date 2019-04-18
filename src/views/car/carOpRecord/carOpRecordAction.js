@@ -15,7 +15,9 @@ export const getRecordListForCar = param => async (dispatch, getState) => {
             dispatch({ type: actionTypes.carOpRecord.get_recordListForCar_success, payload: { recordList: res.result.length > 0 ? res.result[0].comment : [] } })
             dispatch({
                 type: actionTypes.carImage.get_imageListForCarInfo_success, payload: {
-                    imageList: res.result.length > 0 ? res.result[0].storage_image : [],
+                    carImageList:res.result.length > 0 ? res.result[0].car_image : [],
+                    storageImageList:res.result.length > 0 ? res.result[0].storage_image : [],
+                    transImageList:res.result.length > 0 ? res.result[0].trans_image : [],
                     videoUrl: res.result.length > 0 && res.result[0].video[0] ? res.result[0].video[0].url : null
                 }
             })

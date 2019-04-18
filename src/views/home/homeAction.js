@@ -13,11 +13,12 @@ export const getStorageList = param => async (dispatch) => {
             const storageCountRes = await httpRequest.get(urls[1])
             if (storageCountRes.success) {
                 const storageList = storageDateRes.result.map(item => {
-                    const count = storageCountRes.result.find(countItem => countItem.storage_id == item.id)
+                    const count = undefined//storageCountRes.result.find(countItem => countItem.storage_id == item.id)
                     const storage = { ...item, ...count }
                     return storage
                 })
-                dispatch({ type: actionTypes.home.get_storageListForHome_success, payload: { storageList } })
+                dispatch({ type: actionTypes.home.get_storageListForHome_failed, payload: { failedMsg: 'res.msg' } })
+               // dispatch({ type: actionTypes.home.get_storageListForHome_success, payload: { storageList } })
             } else {
                 dispatch({ type: actionTypes.home.get_storageListForHome_failed, payload: { failedMsg: res.msg } })
             }
@@ -25,6 +26,7 @@ export const getStorageList = param => async (dispatch) => {
             dispatch({ type: actionTypes.home.get_storageListForHome_failed, payload: { failedMsg: storageDateRes.msg } })
         }
     } catch (err) {
+        console.log('err',err)
         dispatch({ type: actionTypes.home.get_storageListForHome_error, payload: { errorMsg: err } })
     }
 }

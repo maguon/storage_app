@@ -13,6 +13,7 @@ import ImageCropPicker from 'react-native-image-crop-picker'
 import globalStyles, { styleColor } from '../../util/GlobalStyles'
 import { Actions } from 'react-native-router-flux'
 import { ProcessingManager } from 'react-native-video-processing'
+
 /***********************  临时解决方案，待改善：1，执行状态是否成功，成功数量。2，执行进度*/
 //     //底部弹出框选项
 //     title: '请选择',
@@ -22,6 +23,7 @@ import { ProcessingManager } from 'react-native-video-processing'
 //     customButtons: [{ title: '选择照片（一次最多5张）', name: 'choosePhoto' }],
 //     allowsEditing: true,
 //     noData: false,
+
 const photoOptions = {
     quality: 1,//拍照之后得到的照片的质量
     maxWidth: 960, //拍照之后得到的照片的最大宽度
@@ -219,7 +221,7 @@ export default class CameraButton extends Component {
                                     <Text style={[styles.modalListItemTitle, globalStyles.midText]}>拍照</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 onPress={() => this.setState({ operationModalVisible: false }, this.openCameraPicker)}>
                                 <View style={styles.listItemCutLine}>
                                     <Text style={[styles.modalListItemTitle, globalStyles.midText]}>选择视频</Text>
@@ -230,7 +232,7 @@ export default class CameraButton extends Component {
                                 <View>
                                     <Text style={[styles.modalListItemTitle, globalStyles.midText]}>摄像</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     </View>
                 </Modal>

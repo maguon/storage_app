@@ -12,12 +12,12 @@ import { file_host } from '../../../config/Host'
 import SharePhotoView from '../../../components/share/SharePhotoView'
 import * as actions from '../../../actions'
 
-const CarImagePhotoView = props => {
-    const { carImageReducer: { data: { carImageList, carImageIndex } }, setCarImageIndexForCarInfoImage } = props
+const TransImagePhotoView = props => {
+    const { carImageReducer: { data: { transImageList, transImageIndex } }, setTransImageIndexForCarInfoImage } = props
     return (
         <SharePhotoView
-            initParam={{ imageUrlList: carImageList.map(item => `${file_host}/image/${item.url}`), index:carImageIndex }}
-            onIndexChanged={(index) => setCarImageIndexForCarInfoImage({ index })} />
+            initParam={{ imageUrlList: transImageList.map(item => `${file_host}/image/${item.url}`), index: transImageIndex }}
+            onIndexChanged={(index) => setTransImageIndexForCarInfoImage({ index })} />
     )
 }
 
@@ -26,9 +26,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setCarImageIndexForCarInfoImage: param => {
-        dispatch(actions.carImage.setCarImageIndexForCarInfoImage(param))
+    setTransImageIndexForCarInfoImage: param => {
+        dispatch(actions.carImage.setTransImageIndexForCarInfoImage(param))
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarImagePhotoView)
+export default connect(mapStateToProps, mapDispatchToProps)(TransImagePhotoView)

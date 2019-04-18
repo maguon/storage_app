@@ -142,6 +142,8 @@ const CarInfoEditor = props => {
 const mapStateToProps = (state, ownProps) => {
     const { make_name, make_id, model_id, model_name, vin, entrust_name, entrust_id, mso_status, remark, valuation, pro_date, colour
     } = ownProps.carInfo
+    // console.log('colour',colorName)
+    //colour.replace(/\s+/g,"")
     return {
         formValue: getFormValues('carInfoEditorForm')(state),
         carInfoEditorReducer: state.carInfoEditorReducer,
@@ -152,7 +154,7 @@ const mapStateToProps = (state, ownProps) => {
             msoStatus: { id: mso_status, value: mso_status == 2 ? '是' : '否' },
             remark,
             vin,
-            colour: { id: colour, value: colour ? colorList.find(item => item.colorId == colour).colorName : null },
+            colour: { id: colour ? colour.replace(/\s+/g, "") : null, value: colour ? colorList.find(item => item.colorId == colour.replace(/\s+/g, "")).colorName : null },
             valuation: valuation ? `${valuation}` : '0',
             proDate: { id: pro_date, value: pro_date }
         }

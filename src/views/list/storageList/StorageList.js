@@ -28,7 +28,6 @@ const StorageList = props => {
                     ListEmptyComponent={ListEmptyComponent}
                     renderItem={({ item, index }) => <TouchableOpacity style={styles.item} key={index} onPress={() => {
                         onSelect(item)
-                        //Actions.pop()
                     }}>
                         <Text style={globalStyles.midText}>{item.storage_name}</Text>
                     </TouchableOpacity>}

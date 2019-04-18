@@ -215,4 +215,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(
             dispatch(actions.addInfoForCreateCar.submit({ values }))
         }
     })(AddInfoForCreateCar))
-

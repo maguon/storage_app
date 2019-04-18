@@ -18,24 +18,6 @@ import * as actions from '../../actions'
 const renderExported = props => {
     const { item: { vin = '', make_name = '', model_name = '', model_id, make_id, entrust_type, entrust_name = '', real_out_time, enter_time, colour, id },
         item, getCarInfoWaiting, getCarInfo, getRecordListForCarWaiting, getRecordListForCar } = props
-    // moment.lang('en', {
-    //     relativeTime: {
-    //         future: "%s 后",
-    //         past: "%s 前",
-    //         s: "1 秒",
-    //         ss: "%d 秒",
-    //         m: "1 分",
-    //         mm: "%d 分",
-    //         h: "1 小时",
-    //         hh: "%d 小时",
-    //         d: "1 天",
-    //         dd: "%d 天",
-    //         M: "1 月",
-    //         MM: "%d 月",
-    //         y: "a 年",
-    //         yy: "%d 年"
-    //     }
-    // });
     return (
         <TouchableOpacity onPress={() => {
             getRecordListForCarWaiting()
@@ -67,7 +49,7 @@ const renderExported = props => {
                         <Icon name='ios-log-out' style={{ fontSize: 16, paddingRight: 5, color: '#777' }} />
                         <Text style={globalStyles.midText}>{real_out_time ? moment(real_out_time).format('YYYY-MM-DD') : ''}</Text>
                     </View>
-                    {!!colour && <View style={{ width: 15, height: 15, borderColor: '#ddd', borderWidth: 0.5, backgroundColor: `#${colour}` }} />}
+                    {!!colour && <View style={{ width: 15, height: 15, borderColor: '#ddd', borderWidth: 0.5, backgroundColor: `#${colour.replace(/\s+/g,"")}` }} />}
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 7.5 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -108,7 +90,7 @@ const renderNeverImport = props => {
                     <Icon name='ios-person' style={{ fontSize: 16, paddingRight: 5, color: '#777' }} />
                     <Text style={globalStyles.midText}>{entrust_name}</Text>
                 </View>
-                {!!colour && <View style={{ width: 15, height: 15, borderColor: '#ddd', borderWidth: 0.5, backgroundColor: `#${colour}` }} />}
+                {!!colour && <View style={{ width: 15, height: 15, borderColor: '#ddd', borderWidth: 0.5, backgroundColor: `#${colour.replace(/\s+/g,"")}` }} />}
                 {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Icon name='ios-clock' style={{ fontSize: 16, paddingRight: 5, color: '#777' }} />
                     <Text style={globalStyles.midText}>3 天</Text>
@@ -164,7 +146,7 @@ const renderImported = props => {
                         {entrust_type == 2 && <FontAwesome name='building' style={{ fontSize: 12, color: '#999', paddingRight: 3 }} />}
                         <Text style={globalStyles.midText}>{entrust_name}</Text>
                     </View>
-                    {!!colour && <View style={{ width: 15, height: 15, borderColor: '#ddd', borderWidth: 0.5, backgroundColor: `#${colour}` }} />}
+                    {!!colour && <View style={{ width: 15, height: 15, borderColor: '#ddd', borderWidth: 0.5, backgroundColor: `#${colour.replace(/\s+/g,"")}` }} />}
                 </View>
             </View>
         </TouchableOpacity>

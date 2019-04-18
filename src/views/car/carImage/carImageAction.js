@@ -8,7 +8,115 @@ export const uploadCarImageWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.carImage.update_carImage_waiting, payload: {} })
 }
 
+export const uploadStorageImageWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.carImage.update_storageImage_waiting, payload: {} })
+}
+
+export const uploadTransImageWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.carImage.update_transImage_waiting, payload: {} })
+}
+
 export const uploadCarImage = param => async (dispatch, getState) => {
+    try {
+        const { cameraReses, carId, vin } = param
+        const cameraSuccessReses = cameraReses.filter(item => item.success)
+        if (cameraSuccessReses.length > 0) {
+            const { loginReducer: { data: { user } } } = getState()
+            const imageUploadUrl = `${file_host}/user/${user.uid}/image${ObjectToUrl({ imageType: 1 })}`
+            const imageUploadReses = await Promise.all(cameraSuccessReses.map(item => httpRequest.postFile(imageUploadUrl, {
+                key: 'image',
+                ...item.res
+            })))
+            const imageUploadSuccessReses = imageUploadReses.filter(item => item.success)
+            if (imageUploadSuccessReses.length > 0) {
+                const bindCarUrl = `${record_host}/car/${carId}/vin/${vin}/carImage`
+                const bindCarReses = await Promise.all(imageUploadSuccessReses.map(item => httpRequest.post(bindCarUrl, {
+                    username: user.real_name,
+                    userId: user.uid,
+                    userType: user.type,
+                    url: item.imageId
+                })))
+                const bindCarSuccessReses = bindCarReses
+                    .map((item, index) => { return { imageId: imageUploadSuccessReses[index].imageId, success: item.success } })
+                    .filter(item => item.success)
+                    .map(item => { return { url: item.imageId } })
+                if (cameraReses.length === bindCarSuccessReses.length) {
+                    dispatch({ type: actionTypes.carImage.update_carImage_success, payload: { carImageList: bindCarSuccessReses } })
+                    Toast.show('照片上传成功！', 10)
+                } else if (bindCarSuccessReses.length > 0) {
+                    dispatch({ type: actionTypes.carImage.update_carImage_partSuccess, payload: { carImageList: bindCarSuccessReses, failedMsg: '部分失败' } })
+                    Toast.show(`照片上传部分成功：${bindCarSuccessReses.length}/${cameraReses.length}！`, 10)
+                } else {
+                    dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '全部失败' } })
+                    Toast.show('照片上传全部失败！', 10)
+                }
+            } else {
+                dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '全部失败' } })
+                Toast.show('照片上传全部失败！', 10)
+            }
+        } else {
+            dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '拍照全部失败' } })
+            Toast.show('照片上传全部失败！', 10)
+        }
+
+    } catch (err) {
+        dispatch({ type: actionTypes.carImage.update_carImage_error, payload: { errorMsg: err } })
+        Toast.show(`照片上传全部失败:${err}！`, 10)
+    }
+}
+
+
+export const uploadTransImage = param => async (dispatch, getState) => {
+    try {
+        const { cameraReses, carId, vin } = param
+        const cameraSuccessReses = cameraReses.filter(item => item.success)
+        if (cameraSuccessReses.length > 0) {
+            const { loginReducer: { data: { user } } } = getState()
+            const imageUploadUrl = `${file_host}/user/${user.uid}/image${ObjectToUrl({ imageType: 1 })}`
+            const imageUploadReses = await Promise.all(cameraSuccessReses.map(item => httpRequest.postFile(imageUploadUrl, {
+                key: 'image',
+                ...item.res
+            })))
+            const imageUploadSuccessReses = imageUploadReses.filter(item => item.success)
+            if (imageUploadSuccessReses.length > 0) {
+                const bindCarUrl = `${record_host}/car/${carId}/vin/${vin}/transImage`
+                const bindCarReses = await Promise.all(imageUploadSuccessReses.map(item => httpRequest.post(bindCarUrl, {
+                    username: user.real_name,
+                    userId: user.uid,
+                    userType: user.type,
+                    url: item.imageId
+                })))
+                const bindCarSuccessReses = bindCarReses
+                    .map((item, index) => { return { imageId: imageUploadSuccessReses[index].imageId, success: item.success } })
+                    .filter(item => item.success)
+                    .map(item => { return { url: item.imageId } })
+                if (cameraReses.length === bindCarSuccessReses.length) {
+                    Toast.show('照片上传成功！', 10)
+                    dispatch({ type: actionTypes.carImage.update_transImage_success, payload: { transImageList: bindCarSuccessReses } })
+                } else if (bindCarSuccessReses.length > 0) {
+                    Toast.show(`照片上传部分成功：${bindCarSuccessReses.length}/${cameraReses.length}！`, 10)
+                    dispatch({ type: actionTypes.carImage.update_transImage_partSuccess, payload: { transImageList: bindCarSuccessReses, failedMsg: '部分失败' } })
+                } else {
+                    Toast.show('照片上传全部失败！', 10)
+                    dispatch({ type: actionTypes.carImage.update_transImage_failed, payload: { failedMsg: '全部失败' } })
+                }
+            } else {
+                Toast.show('照片上传全部失败！', 10)
+                dispatch({ type: actionTypes.carImage.update_transImage_failed, payload: { failedMsg: '全部失败' } })
+            }
+        } else {
+            Toast.show('照片上传全部失败！', 10)
+            dispatch({ type: actionTypes.carImage.update_transImage_failed, payload: { failedMsg: '拍照全部失败' } })
+        }
+
+    } catch (err) {
+        Toast.show(`照片上传全部失败:${err}！`, 10)
+        dispatch({ type: actionTypes.carImage.update_transImage_error, payload: { errorMsg: err } })
+    }
+}
+
+
+export const uploadStorageImage = param => async (dispatch, getState) => {
     try {
         const { cameraReses, carId, vin } = param
         const cameraSuccessReses = cameraReses.filter(item => item.success)
@@ -34,32 +142,44 @@ export const uploadCarImage = param => async (dispatch, getState) => {
                     .map(item => { return { url: item.imageId } })
                 if (cameraReses.length === bindCarSuccessReses.length) {
                     Toast.show('照片上传成功！', 10)
-                    dispatch({ type: actionTypes.carImage.update_carImage_success, payload: { imageList: bindCarSuccessReses } })
+                    dispatch({ type: actionTypes.carImage.update_storageImage_success, payload: { storageImageList: bindCarSuccessReses } })
                 } else if (bindCarSuccessReses.length > 0) {
                     Toast.show(`照片上传部分成功：${bindCarSuccessReses.length}/${cameraReses.length}！`, 10)
-                    dispatch({ type: actionTypes.carImage.update_carImage_partSuccess, payload: { imageList: bindCarSuccessReses, failedMsg: '部分失败' } })
+                    dispatch({ type: actionTypes.carImage.update_storageImage_partSuccess, payload: { storageImageList: bindCarSuccessReses, failedMsg: '部分失败' } })
                 } else {
                     Toast.show('照片上传全部失败！', 10)
-                    dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '全部失败' } })
+                    dispatch({ type: actionTypes.carImage.update_storageImage_failed, payload: { failedMsg: '全部失败' } })
                 }
             } else {
                 Toast.show('照片上传全部失败！', 10)
-                dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '全部失败' } })
+                dispatch({ type: actionTypes.carImage.update_storageImage_failed, payload: { failedMsg: '全部失败' } })
             }
         } else {
             Toast.show('照片上传全部失败！', 10)
-            dispatch({ type: actionTypes.carImage.update_carImage_failed, payload: { failedMsg: '拍照全部失败' } })
+            dispatch({ type: actionTypes.carImage.update_storageImage_failed, payload: { failedMsg: '拍照全部失败' } })
         }
 
     } catch (err) {
         Toast.show(`照片上传全部失败:${err}！`, 10)
-        dispatch({ type: actionTypes.carImage.update_carImage_error, payload: { errorMsg: err } })
+        dispatch({ type: actionTypes.carImage.update_storageImage_error, payload: { errorMsg: err } })
     }
 }
 
-export const setIndexForCarInfoImage = param => (dispatch) => {
+export const setCarImageIndexForCarInfoImage = param => (dispatch) => {
     const { index } = param
-    dispatch({ type: actionTypes.carImage.set_indexForCarInfoImage, payload: { index } })
+    dispatch({ type: actionTypes.carImage.set_carImageIndexForCarInfoImage, payload: { carImageIndex: index } })
+}
+
+
+export const setTransImageIndexForCarInfoImage = param => (dispatch) => {
+    const { index } = param
+    dispatch({ type: actionTypes.carImage.set_transImageIndexForCarInfoImage, payload: { transImageIndex: index } })
+}
+
+
+export const setStorageImageIndexForCarInfoImage = param => (dispatch) => {
+    const { index } = param
+    dispatch({ type: actionTypes.carImage.set_storageImageIndexForCarInfoImage, payload: { storageImageIndex: index } })
 }
 
 export const uploadCarVideo = param => async (dispatch, getState) => {

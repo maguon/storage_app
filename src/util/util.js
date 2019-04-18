@@ -21,7 +21,6 @@ export const ObjectToUrl = (obj) => {
     return url
 }
 
-
 export const objectExceptNull = (param) => {
     let obj = { ...param }
     for (key in obj) {
