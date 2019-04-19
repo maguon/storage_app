@@ -147,6 +147,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-html-to-pdf')
     compile project(':react-native-video-processing')
     compile project(':react-native-video')
     compile project(':react-native-camera')

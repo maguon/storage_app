@@ -33,6 +33,7 @@ import carOpRecordReducer from './views/car/carOpRecord/carOpRecordReducer'
 import carImageReducer from './views/car/carImage/carImageReducer'
 import carInfoEditorReducer from './views/car/carInfoEditor/carInfoEditorReducer'
 import carStorageOpReducer from './views/car/carStorageOp/carStorageOpReducer'
+import makePDFReducer from './views/makePDF/makePDFReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -65,5 +66,6 @@ export default combineReducers({
     carOpRecordReducer,
     carImageReducer,
     carInfoEditorReducer,
-    carStorageOpReducer
+    carStorageOpReducer,
+    makePDFReducer
 })

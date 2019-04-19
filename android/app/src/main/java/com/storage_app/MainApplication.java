@@ -3,6 +3,7 @@ package com.storage_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
 import com.shahenlibrary.RNVideoProcessingPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import org.reactnative.camera.RNCameraPackage;
@@ -35,6 +36,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNHTMLtoPDFPackage(),
             new RNVideoProcessingPackage(),
             new ReactVideoPackage(),
             new RNCameraPackage(),

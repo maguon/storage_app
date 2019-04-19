@@ -13,6 +13,7 @@ import TabIcon from './components/share/TabIcon'
 import HomeLeft from './components/home/HomeLeft'
 import AddInfoForCreateCarLeftButton from './components/share/AddInfoForCreateCarLeftButton'
 import HomeOP from './components/home/HomeOP'
+import CarImageToolButton from './components/share/CarImageToolButton'
 import AddInfoForCreateCarOp from './components/op/AddInfoForCreateCarOp'
 import AddImageForCreateCarOp from './components/op/AddImageForCreateCarOp'
 import ImportForCreateCarOp from './components/op/ImportForCreateCarOp'
@@ -68,6 +69,7 @@ import StorageImageStorage from './views/car/storageImageStorage/StorageImageSto
 import TransImageStorage from './views/car/transImageStorage/TransImageStorage'
 import TransImagePhotoView from './views/car/transImagePhotoView/TransImagePhotoView'
 import StorageImagePhotoView from './views/car/storageImagePhotoView/StorageImagePhotoView'
+import MakePDF from './views/makePDF/MakePDF'
 
 
 const styles = StyleSheet.create({
@@ -216,7 +218,8 @@ export default class App extends Component {
                                     component={Car}
                                     navBar={NavBar}
                                     hideTabBar
-                                    LeftButton={LeftButton} />
+                                    LeftButton={LeftButton} 
+                                    RightButton={CarImageToolButton}/>
                                 <Scene key='carImageStorage'
                                     title='车辆相册'
                                     component={CarImageStorage}
@@ -226,6 +229,12 @@ export default class App extends Component {
                                 <Scene key='transImageStorage'
                                     title='航运相册'
                                     component={TransImageStorage}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key='makePDF'
+                                    title='生成pdf'
+                                    component={MakePDF}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />

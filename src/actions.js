@@ -29,6 +29,7 @@ import * as carImage from './views/car/carImage/carImageAction'
 import * as carOpRecord from './views/car/carOpRecord/carOpRecordAction'
 import * as carInfoEditor from './views/car/carInfoEditor/carInfoEditorAction'
 import * as carStorageOp from './views/car/carStorageOp/carStorageOpAction'
+import * as makePDF from './views/makePDF/makePDFAction'
 
 
 export {
@@ -61,5 +62,6 @@ export {
     carOpRecord,
     carImage,
     carInfoEditor,
-    carStorageOp
+    carStorageOp,
+    makePDF
 }
