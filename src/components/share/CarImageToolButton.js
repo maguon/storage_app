@@ -4,6 +4,7 @@ import globalStyles from '../../util/GlobalStyles'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const CarImageToolButton = props => {
     // console.log('props', props)
@@ -14,7 +15,8 @@ const CarImageToolButton = props => {
             Actions.makePDF()
             InteractionManager.runAfterInteractions(() => { getCarInfo({ carId }) })
         }}>
-            <Text style={[globalStyles.midText, { color: '#fff' }]}>生成pdf</Text>
+            {/* <Text style={[globalStyles.midText, { color: '#fff' }]}>生成pdf</Text> */}
+            <MaterialCommunityIcons name='file-pdf' style={{fontSize:25,color:'#fff'}}/>
         </TouchableOpacity>
     )
 }
