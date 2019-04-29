@@ -3,9 +3,15 @@ import * as actionTypes from '../../actionTypes'
 
 const initialState = {
     data: {
-        carInfo: {}
+        carInfo: {},
+        filePath:''
     },
     getCarInfo: {
+        isResultStatus: 0,
+        errorMsg: '',
+        failedMsg: ''
+    },
+    createPDF: {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: ''
@@ -18,7 +24,7 @@ export default handleActions({
         const { payload: { carInfo } } = action
         return {
             ...state,
-            data:{
+            data: {
                 carInfo
             },
             getCarInfo: {
@@ -58,4 +64,46 @@ export default handleActions({
             }
         }
     },
+
+
+    [(actionTypes.makePDF.create_PDF_success)]: (state, action) => {
+        return {
+            ...state,
+            createPDF: {
+                ...state.createPDF,
+                isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.makePDF.create_PDF_failed)]: (state, action) => {
+        const { payload: { failedMsg } } = action
+        return {
+            ...state,
+            createPDF: {
+                ...state.createPDF,
+                isResultStatus: 4,
+                failedMsg
+            }
+        }
+    },
+    [(actionTypes.makePDF.create_PDF_error)]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            createPDF: {
+                ...state.createPDF,
+                isResultStatus: 3,
+                errorMsg
+            }
+        }
+    },
+    [(actionTypes.makePDF.create_PDF_waiting)]: (state, action) => {
+        return {
+            ...initialState,
+            createPDF: {
+                ...initialState.createPDF,
+                isResultStatus: 1
+            }
+        }
+    }
 }, initialState)
