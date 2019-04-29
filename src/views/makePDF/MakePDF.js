@@ -251,7 +251,7 @@ const getHtmlText = param => {
         html += `<div class="content"><div class="content-title">仓储信息</div><ul class="clearfix">`
         html += carInfo.enter_time ? `<li>入库时间：${moment(carInfo.enter_time).format('YYYYMMDD HH:mm:ss')}</li>` : '<li>入库时间：</li>'
         html += carInfo.plan_out_time ? `<li>计划出库日期：${moment(carInfo.plan_out_time).format('YYYYMMDD')}</li>` : '计划出库日期：</li>'
-        html += carInfo.tab ? `<li>实际出库日期：${carInfo.tab}</li>` : `<li>实际出库日期：</li>`
+        html += carInfo.real_out_time ? `<li>实际出库日期：${moment(carInfo.real_out_time).format('YYYYMMDD')}</li>` : `<li>实际出库日期：</li>`
         html += `</ul><div class="line"></div><ul class="clearfix">`
         html += carInfo.p_id ? `<li>车辆存放位置：${carInfo.storage_name} ${carInfo.row}排 ${carInfo.lot}列</li>` : '<li>车辆存放位置：</li>'
         html += carInfo.car_key_position_id && carInfo.key_cabinet_id ? `<li>钥匙存放位置：${carInfo.key_cabinet_name}${carInfo.area_name}扇区${carInfo.car_key_position_row}排${carInfo.car_key_position_col}列</li>` : '<li>钥匙存放位置：</li>'
