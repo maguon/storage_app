@@ -25,26 +25,6 @@ const window = Dimensions.get('window')
 const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
-// const renderItem = props => {
-//     const { item, index, uploadCarImageWaiting, uploadCarImage, imageList, parent, carId, vin, setIndexForCarInfoImage, videoUrl, uploadCarVideo, uploadCarVideoWaiting } = props
-//     if (item == 'isCameraButton') {
-//         return renderItemCameraButton({ index, uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideo, uploadCarVideoWaiting })
-//     } else if (item == 'isVideo') {
-//         return renderVideo({ videoUrl, uploadCarVideo, carId, vin })
-//     } else {
-//         return (
-//             <TouchableOpacity
-//                 key={index}
-//                 style={styles.itemContainer}
-//                 onPress={() => {
-//                     setIndexForCarInfoImage({ index })
-//                     routerDirection.carImagePhotoView(parent)({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url.url}`), index } })
-//                 }} >
-//                 <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
-//             </TouchableOpacity>
-//         )
-//     }
-// }
 
 const renderVideo = props => {
     const { videoUrl, uploadCarVideo, carId, vin } = props
@@ -63,37 +43,6 @@ const renderVideo = props => {
     }
 }
 
-// const renderItemCameraButton = props => {
-//     const { index, uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideoWaiting, uploadCarVideo } = props
-//     return (
-//         <View key={index} style={styles.itemCameraButton}>
-//             <CameraButton
-//                 getImage={(cameraReses) => uploadCarImage({ cameraReses, carId, vin })}
-//                 getVideo={param => uploadCarVideo({ ...param, carId, vin })}
-//                 _cameraStart={uploadCarImageWaiting}
-//                 _videoStart={uploadCarVideoWaiting}
-//             />
-//         </View>
-//     )
-// }
-
-// const renderListEmpty = props => {
-//     const { uploadCarImageWaiting, uploadCarImage, carId, vin, uploadCarVideo, uploadCarVideoWaiting } = props
-//     return (
-//         <View>
-//             <View style={styles.cameraButtonContainer}>
-//                 <CameraButton
-//                     getImage={(cameraReses) => uploadCarImage({ cameraReses, carId, vin })}
-//                     getVideo={param => uploadCarVideo({ ...param, carId, vin })}
-//                     _cameraStart={uploadCarImageWaiting}
-//                     _videoStart={uploadCarVideoWaiting} />
-//             </View>
-//             <View style={styles.titleContainer}>
-//                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>点击按钮上传车辆图片或视频</Text>
-//             </View>
-//         </View>
-//     )
-// }
 
 const CarImage = props => {
     const { parent,
@@ -123,6 +72,7 @@ const CarImage = props => {
                             onPress={() => { Actions.carImageStorage({ initParam: { carId, vin } }) }}>
                             <View>
                                 {carImageList.length > 0 && <ImageItem imageUrl={`${file_host}/image/${carImageList[0].url}`} />}
+                                {carImageList.length == 0 && <View style={{ width: containerWidth - 15, height: (containerWidth - 15) / 16 * 9, borderColor: '#ccc', borderWidth: 0.5 }} />}
                             </View>
                             <View style={{ position: 'absolute', bottom: 0 }}>
                                 <Text style={[globalStyles.midText, { backgroundColor: 'rgba(0, 0, 0, 0.1)', width: containerWidth - 15, textAlign: 'center' }]}>车辆相册({`${carImageList.length}`})</Text>
@@ -133,6 +83,7 @@ const CarImage = props => {
                             style={{ margin: 5, width: containerWidth - 15, height: (containerWidth - 15) / 16 * 9 }}>
                             <View>
                                 {storageImageList.length > 0 && <ImageItem imageUrl={`${file_host}/image/${storageImageList[0].url}`} />}
+                                {storageImageList.length == 0 && <View style={{ width: containerWidth - 15, height: (containerWidth - 15) / 16 * 9, borderColor: '#ccc', borderWidth: 0.5 }} />}
                             </View>
                             <View style={{ position: 'absolute', bottom: 0 }}>
                                 <Text style={[globalStyles.midText, { backgroundColor: 'rgba(0, 0, 0, 0.1)', width: containerWidth - 15, textAlign: 'center' }]}>仓储相册({`${storageImageList.length}`})</Text>
@@ -145,6 +96,7 @@ const CarImage = props => {
                             style={{ margin: 5, width: containerWidth - 15, height: (containerWidth - 15) / 16 * 9 }}>
                             <View>
                                 {transImageList.length > 0 && <ImageItem imageUrl={`${file_host}/image/${transImageList[0].url}`} />}
+                                {transImageList.length == 0 && <View style={{ width: containerWidth - 15, height: (containerWidth - 15) / 16 * 9, borderColor: '#ccc', borderWidth: 0.5 }} />}
                             </View>
                             <View style={{ position: 'absolute', bottom: 0 }}>
                                 <Text style={[globalStyles.midText, { backgroundColor: 'rgba(0, 0, 0, 0.1)', width: containerWidth - 15, textAlign: 'center' }]}>航运相册({`${transImageList.length}`})</Text>
