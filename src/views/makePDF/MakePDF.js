@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Linking } from 'react-native'
-import globalStyles from '../../util/GlobalStyles'
-import { Container, Content, Button } from 'native-base'
+import globalStyles, { styleColor } from '../../util/GlobalStyles'
+import { Container, Content, Button, Spinner } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import CheckBox from '../../components/share/CheckBox'
 import { connect } from 'react-redux'
@@ -15,41 +15,49 @@ class MakePDF extends Component {
     }
 
     render() {
-        const { handleSubmit, makePDFReducer: { createPDF: { isResultStatus } } } = this.props
+        const { handleSubmit, makePDFReducer: { createPDF: { isResultStatus }, getCarInfo } } = this.props
         // console.log('props', this.props)
-        return (
-            <Container>
-                <Content>
-                    <View style={[styles.listItemPadding, styles.listItemBorderBottom]}>
-                        <Field
-                            name='carInfo'
-                            label='车辆基本信息'
-                            component={CheckBox}
-                        />
-                    </View>
-                    <View style={[styles.listItemPadding, styles.listItemBorderBottom]}>
-                        <Field
-                            name='storageInfo'
-                            label='仓储信息'
-                            component={CheckBox}
-                        />
-                    </View>
-                    <View style={[styles.listItemPadding, styles.listItemBorderBottom]}>
-                        <Field
-                            name='transInfo'
-                            label='航运信息'
-                            component={CheckBox}
-                        />
-                    </View>
-                    <View style={{ margin: 15 }}>
-                        <Button full style={globalStyles.styleBackgroundColor} onPress={handleSubmit}>
-                            <Text style={[globalStyles.midText, { color: '#fff' }]}>生成PDF</Text>
-                        </Button>
-                    </View>
-                    <ModalWaiting visible={isResultStatus == 1} title={'pdf生成中...'} />
-                </Content>
-            </Container>
-        )
+        if (getCarInfo.isResultStatus == 1) {
+            return (
+                <Container style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Spinner color={styleColor} />
+                </Container>
+            )
+        } else {
+            return (
+                <Container>
+                    <Content>
+                        <View style={[styles.listItemPadding, styles.listItemBorderBottom]}>
+                            <Field
+                                name='carInfo'
+                                label='车辆基本信息'
+                                component={CheckBox}
+                            />
+                        </View>
+                        <View style={[styles.listItemPadding, styles.listItemBorderBottom]}>
+                            <Field
+                                name='storageInfo'
+                                label='仓储信息'
+                                component={CheckBox}
+                            />
+                        </View>
+                        <View style={[styles.listItemPadding, styles.listItemBorderBottom]}>
+                            <Field
+                                name='transInfo'
+                                label='航运信息'
+                                component={CheckBox}
+                            />
+                        </View>
+                        <View style={{ margin: 15 }}>
+                            <Button full style={globalStyles.styleBackgroundColor} onPress={handleSubmit}>
+                                <Text style={[globalStyles.midText, { color: '#fff' }]}>生成PDF</Text>
+                            </Button>
+                        </View>
+                        <ModalWaiting visible={isResultStatus == 1} title={'pdf生成中...'} />
+                    </Content>
+                </Container>
+            )
+        }
     }
 }
 
